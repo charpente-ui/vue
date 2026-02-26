@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
+        "release": "changeset publish",
         "prepare": "husky && npm run build"
     },
     "engines": {
