@@ -32,3 +32,4 @@ import { CButton } from '@charpente-ui/vue';
 | Input    | `CInput`    | Ready  |
 | Label    | `CLabel`    | Ready  |
 | Textarea | `CTextarea` | Ready  |
+| Checkbox | `CCheckbox` | Ready  |
