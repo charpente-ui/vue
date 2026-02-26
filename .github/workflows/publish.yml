@@ -2,36 +2,37 @@ name: Release
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "beta" ]
+  pull_request:
+    branches: [ "main", "develop", "beta" ]
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+permissions:
+  contents: read
+  actions: read
+  checks: write
 
 jobs:
-  release:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    name: Release
+  publish:
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta' }}
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'npm'
+          registry-url: https://registry.npmjs.org
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci --ignore-scripts --no-audit
 
-      - name: Create Release Pull Request or Publish to NPM
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: npm run release
+      - name: Release
+        run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
