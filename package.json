@@ -14,10 +14,10 @@
     },
     "main": "./dist/charpente.umd.cjs",
     "module": "./dist/charpente.js",
-    "types": "./dist/charpente.d.ts",
+    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/charpente.d.ts",
+            "types": "./dist/index.d.ts",
             "import": "./dist/charpente.js",
             "require": "./dist/charpente.umd.cjs"
         }
