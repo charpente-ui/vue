@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-beta.2](https://github.com/charpente-ui/vue/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-02-26)
+
+### Features
+
+* **checkbox:** add headless component ([120503b](https://github.com/charpente-ui/vue/commit/120503b3527077dd7e173e75aecfff86cbc26afc))
+
 ## 1.0.0-beta.1 (2026-02-26)
 
 ### Features
