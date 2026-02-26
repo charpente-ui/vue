@@ -7,4 +7,5 @@
 /.DS_Store
 /.fleet
 /.idea
+/dist
 /node_modules
