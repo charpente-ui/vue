@@ -6,7 +6,17 @@
 
 ## Introduction
 
-Charpente UI is a headless CSS Vue component library.
+**Charpent UI** is a headless component library for Vue. It provides the logical foundations and accessibility of your
+interface elements, without imposing any style.
+
+Why reinvent the complex logic of checkboxes, radio buttons, or selects for every project? **Charpente UI** handles
+the "heavy lifting":
+
+* Data logic _(v-model, array management, reports)_
+* HTML semantics _(using native tags)_
+
+You retain complete control over the "finishing touches" _(CSS)_. Whether you use Tailwind, classic CSS, or Sass,
+**Charpente UI** adapts seamlessly without ever hindering your workflow.
 
 ## Installing
 
@@ -16,7 +26,7 @@ npm install @charpente-ui/vue
 
 ## Usage
 
-```vue
+```js
 import { CButton } from '@charpente-ui/vue';
 
 <template>
@@ -29,9 +39,9 @@ import { CButton } from '@charpente-ui/vue';
 | Name     | Status | Tag         |
 |----------|--------|-------------|
 | Button   | Ready  | `CButton`   |
+| Checkbox | Ready  | `CCheckbox` |
 | Input    | Ready  | `CInput`    |
 | Label    | Ready  | `CLabel`    |
-| Textarea | Ready  | `CTextarea` |
-| Checkbox | Ready  | `CCheckbox` |
 | Radio    | Ready  | `CRadio`    |
 | Select   | Ready  | `CSelect`   |
+| Textarea | Ready  | `CTextarea` |
