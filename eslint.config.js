@@ -35,6 +35,12 @@ export default defineConfig([
             'vue': vuePlugin
         },
         rules: {
+            '@stylistic/object-curly-newline': [
+                'error',
+                {
+                    'ImportDeclaration': 'never'
+                }
+            ],
             'vue/first-attribute-linebreak': [
                 'error',
                 {
