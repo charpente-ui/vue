@@ -26,10 +26,12 @@ import { CButton } from '@charpente-ui/vue';
 
 ## Components
 
-| Name     | Tag         | Status |
-|----------|-------------|--------|
-| Button   | `CButton`   | Ready  |
-| Input    | `CInput`    | Ready  |
-| Label    | `CLabel`    | Ready  |
-| Textarea | `CTextarea` | Ready  |
-| Checkbox | `CCheckbox` | Ready  |
+| Name     | Status | Tag         |
+|----------|--------|-------------|
+| Button   | Ready  | `CButton`   |
+| Input    | Ready  | `CInput`    |
+| Label    | Ready  | `CLabel`    |
+| Textarea | Ready  | `CTextarea` |
+| Checkbox | Ready  | `CCheckbox` |
+| Radio    | Ready  | `CRadio`    |
+| Select   | Ready  | `CSelect`   |
