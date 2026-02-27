@@ -14,5 +14,5 @@ const textareaId = computed(() => {
 </script>
 
 <template>
-    <textarea :id="textareaId" v-model="model" v-bind="$attrs"/>
+    <textarea v-bind="$attrs" v-model="model" :id="textareaId"/>
 </template>
