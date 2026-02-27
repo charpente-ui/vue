@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-beta.4](https://github.com/charpente-ui/vue/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2026-02-27)
+
+### Bug Fixes
+
+* **label:** missing identifier ([81f5ad2](https://github.com/charpente-ui/vue/commit/81f5ad24a6b2194298c16d4e9a1d68e7284e29fd))
+
 ## [1.0.0-beta.3](https://github.com/charpente-ui/vue/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-02-27)
 
 ### Features
