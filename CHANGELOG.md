@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-beta.3](https://github.com/charpente-ui/vue/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-02-27)
+
+### Features
+
+* **checkbox, radio:** use `defineModel` ([f0891f7](https://github.com/charpente-ui/vue/commit/f0891f7ab1a14bc512ffeb5da8d9eb3928f5ac60))
+* **label:** add `for` in props ([2a2ce38](https://github.com/charpente-ui/vue/commit/2a2ce387ca5bf5db005df541e87380b172b6036c))
+* **radio:** add headless component ([af06ce1](https://github.com/charpente-ui/vue/commit/af06ce1d41c7e37ea2b698bdfe4aeddc9ebac434))
+* **select:** add headless component ([95b5a2f](https://github.com/charpente-ui/vue/commit/95b5a2f51c3949df5b95c15b025fa6a6dbb6df4c))
+
 ## [1.0.0-beta.2](https://github.com/charpente-ui/vue/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-02-26)
 
 ### Features
