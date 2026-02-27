@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId, useAttrs } from 'vue';
+import { computed, useId, useAttrs } from 'vue';
 
 defineOptions({
     inheritAttrs: false
@@ -7,7 +7,7 @@ defineOptions({
 
 const model = defineModel<string>();
 const attrs = useAttrs();
-const textareaId = (attrs.id as string) || useId();
+const textareaId = computed(() => (attrs.id as string) || useId());
 </script>
 
 <template>
