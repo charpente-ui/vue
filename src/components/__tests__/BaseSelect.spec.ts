@@ -7,7 +7,9 @@ describe('BaseSelect', () => {
         const wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'foo',
-                'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                    modelValue: e
+                })
             },
             slots: {
                 default: `
