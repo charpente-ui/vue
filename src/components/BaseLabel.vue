@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { useId, useAttrs } from 'vue';
-
 defineOptions({
     inheritAttrs: false
 });
 
-const attrs = useAttrs();
-const labelId = (attrs.id as string) || useId();
+defineProps<{
+    for?: string
+}>();
 </script>
 
 <template>
-    <label :id="labelId" v-bind="$attrs">
+    <label v-bind="$attrs" :for="for">
         <slot/>
     </label>
 </template>
