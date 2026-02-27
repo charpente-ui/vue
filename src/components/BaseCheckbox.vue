@@ -6,7 +6,7 @@ defineOptions({
 });
 
 defineProps<{
-    value?: any;
+    value?: any
 }>();
 
 const model = defineModel<boolean | any[]>();
