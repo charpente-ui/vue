@@ -13,7 +13,3 @@ const textareaId = (attrs.id as string) || useId();
 <template>
     <textarea :id="textareaId" v-model="model" v-bind="$attrs"/>
 </template>
-
-<style scoped>
-
-</style>
