@@ -6,10 +6,10 @@ defineOptions({
 });
 
 defineProps<{
-    value: any
+    value: unknown
 }>();
 
-const model = defineModel<any>();
+const model = defineModel<unknown>();
 const attrs = useAttrs();
 
 const radioId = computed(() => {

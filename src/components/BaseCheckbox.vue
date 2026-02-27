@@ -6,10 +6,10 @@ defineOptions({
 });
 
 defineProps<{
-    value?: any
+    value?: unknown
 }>();
 
-const model = defineModel<boolean | any[]>();
+const model = defineModel<boolean | unknown[]>();
 const attrs = useAttrs();
 
 const checkboxId = computed(() => {

@@ -5,7 +5,7 @@ defineOptions({
     inheritAttrs: false
 });
 
-const model = defineModel<any>();
+const model = defineModel<unknown>();
 const attrs = useAttrs();
 
 const selectId = computed(() => {
