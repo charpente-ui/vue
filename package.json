@@ -4,6 +4,8 @@
     "description": "Charpente UI is a headless CSS Vue component library.",
     "type": "module",
     "scripts": {
+        "lint:js": "eslint --fix .",
+        "lint": "npm-run-all --parallel lint:*",
         "build": "vite build",
         "prepare": "husky && npm run build",
         "release": "semantic-release"
@@ -24,13 +26,18 @@
     "devDependencies": {
         "@commitlint/cli": "^20.4.2",
         "@commitlint/config-conventional": "^20.4.2",
+        "@front-factory/eslint-config": "^1.3.1",
         "@semantic-release/changelog": "^6.0.3",
         "@semantic-release/git": "^10.0.1",
         "@semantic-release/github": "^12.0.6",
         "@vitejs/plugin-vue": "^6.0.4",
         "conventional-changelog-conventionalcommits": "^9.1.0",
+        "eslint": "^10.0.2",
+        "eslint-plugin-vue": "^10.8.0",
         "husky": "^9.1.7",
+        "npm-run-all2": "^8.0.4",
         "semantic-release": "^25.0.3",
+        "typescript-eslint": "^8.56.1",
         "vite": "^7.3.1",
         "vite-plugin-dts": "^4.5.4",
         "vue": "^3.5.29"
