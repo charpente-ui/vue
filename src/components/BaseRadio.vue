@@ -1,31 +1,19 @@
 <script setup lang="ts">
-import { computed, useAttrs, useId } from 'vue';
+import { computed, useId, useAttrs } from 'vue';
 
 defineOptions({
     inheritAttrs: false
 });
 
-const props = defineProps<{
-    modelValue?: string | number | boolean | null;
-    value: string | number | boolean;
+defineProps<{
+    value: any;
 }>();
 
+const model = defineModel<any>();
 const attrs = useAttrs();
-const radioId = (attrs.id as string) || useId();
-
-const isChecked = computed(() => {
-    return props.modelValue === props.value;
-});
-
-const emit = defineEmits<{
-    (e: 'update:modelValue', value: typeof props.value): void
-}>();
-
-const handleChange = () => {
-    emit('update:modelValue', props.value);
-};
+const radioId = computed(() => (attrs.id as string) || useId());
 </script>
 
 <template>
-    <input :id="radioId" type="radio" v-bind="$attrs" :value="value" :checked="isChecked" @change="handleChange">
+    <input type="radio" v-bind="$attrs" v-model="model" :id="radioId" :value="value">
 </template>
