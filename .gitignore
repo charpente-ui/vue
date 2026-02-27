@@ -7,5 +7,6 @@
 /.DS_Store
 /.fleet
 /.idea
+/coverage
 /dist
 /node_modules
