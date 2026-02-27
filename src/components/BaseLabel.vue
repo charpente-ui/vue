@@ -3,13 +3,13 @@ defineOptions({
     inheritAttrs: false
 });
 
-defineProps<{
+const props = defineProps<{
     for?: string
 }>();
 </script>
 
 <template>
-    <label v-bind="$attrs" :for="for">
+    <label v-bind="$attrs" :for="props.for">
         <slot/>
     </label>
 </template>
