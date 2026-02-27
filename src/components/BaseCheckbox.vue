@@ -18,5 +18,5 @@ const checkboxId = computed(() => {
 </script>
 
 <template>
-    <input type="checkbox" v-bind="$attrs" v-model="model" :id="checkboxId" :value="value">
+    <input type="checkbox" v-bind="$attrs" v-model="model" :id="checkboxId" :value="value"/>
 </template>

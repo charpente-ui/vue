@@ -18,5 +18,5 @@ const radioId = computed(() => {
 </script>
 
 <template>
-    <input type="radio" v-bind="$attrs" v-model="model" :id="radioId" :value="value">
+    <input type="radio" v-bind="$attrs" v-model="model" :id="radioId" :value="value"/>
 </template>
