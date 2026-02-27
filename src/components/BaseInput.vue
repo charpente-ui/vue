@@ -7,7 +7,10 @@ defineOptions({
 
 const model = defineModel<string | number>();
 const attrs = useAttrs();
-const inputId = computed(() => (attrs.id as string) || useId());
+
+const inputId = computed(() => {
+    return (attrs.id as string) || useId();
+});
 </script>
 
 <template>

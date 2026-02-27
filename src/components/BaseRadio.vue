@@ -11,7 +11,10 @@ defineProps<{
 
 const model = defineModel<any>();
 const attrs = useAttrs();
-const radioId = computed(() => (attrs.id as string) || useId());
+
+const radioId = computed(() => {
+    return (attrs.id as string) || useId();
+});
 </script>
 
 <template>

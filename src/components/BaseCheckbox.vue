@@ -11,7 +11,10 @@ defineProps<{
 
 const model = defineModel<boolean | any[]>();
 const attrs = useAttrs();
-const checkboxId = computed(() => (attrs.id as string) || useId());
+
+const checkboxId = computed(() => {
+    return (attrs.id as string) || useId();
+});
 </script>
 
 <template>
