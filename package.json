@@ -49,6 +49,23 @@
         "vitest": "^4.0.18",
         "vue": "^3.5.29"
     },
+    "keywords": [
+        "vue",
+        "components",
+        "framework",
+        "charpente",
+        "ui",
+        "headless"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/charpente-ui/vue",
+    "bugs": {
+        "url": "https://github.com/charpente-ui/vue/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/charpente-ui/vue.git"
+    },
     "files": [
         "dist"
     ],
