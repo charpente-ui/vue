@@ -6,17 +6,23 @@
 
 ## Introduction
 
-**Charpent UI** is a headless component library for Vue. It provides the logical foundations and accessibility of your
-interface elements, without imposing any style.
+A logic-first, headless UI library for Vue 3. The accessibility and logic you need, without the CSS you don't.
 
-Why reinvent the complex logic of checkboxes, radio buttons, or selects for every project? **Charpente UI** handles
-the "heavy lifting":
+## Philosophy: Don't Reinvent the Wheel
 
-* Data logic _(v-model, array management, reports)_
-* HTML semantics _(using native tags)_
+**Charpente UI** is built on a simple promise: We handle the boring stuff, you handle the design.
 
-You retain complete control over the "finishing touches" _(CSS)_. Whether you use Tailwind, classic CSS, or Sass,
-**Charpente UI** adapts seamlessly without ever hindering your workflow.
+Most UI libraries are bloated because they try to impose a visual style. **Charpente UI** is headless. We provide the
+"chassis" _(HTML structure and complex input logic)_ and you bring the "paint" _(Tailwind, CSS Modules, or
+Styled Components)_.
+
+### Core Principles:
+
+* **Zero Style:** No CSS included. Total freedom for your UI.
+* **Transparent Wrapper:** We don't hide native HTML. Attributes like type, placeholder, or required work exactly like
+  standard HTML via attribute inheritance.
+* **Smart Logic:** Complex components like `CCheckbox` or `CRadio` handle array management and state internally so you
+  don't have to "take the lead" on complex boilerplate.
 
 ## Installing
 
@@ -26,12 +32,51 @@ npm install @charpente-ui/vue
 
 ## Usage
 
-```js
-import { CButton } from '@charpente-ui/vue';
+```vue
+<script setup>
+    import { ref } from 'vue';
+    import { CInput, CButton, CLabel } from '@charpente-ui/vue';
+
+    const email = ref('');
+</script>
 
 <template>
-    <CButton>Click me</CButton>
+    <div class="form-group">
+        <CLabel for="email-field">Email Address</CLabel>
+
+        <CInput id="email-field" v-model="email" type="email" placeholder="hello@world.com"
+                class="my-custom-input-style"/>
+
+        <CButton @click="submit" class="btn-primary">
+            Subscribe
+        </CButton>
+    </div>
 </template>
+```
+
+## Component Reference
+
+1. **Form Inputs** **(CInput, CTextarea, CSelect)**
+
+These components are thin wrappers around native elements. They use `v-model` and automatically link with labels via
+`useId()`. Full attribute inheritance.
+
+2. **Selection Logic** _(CCheckbox, CRadio)_
+
+Managing checkbox arrays in Vue can be repetitive. **Charpente UI** simplifies this:
+
+```vue
+<CCheckbox v-model="tags" value="foo"/>
+<CCheckbox v-model="tags" value="bar"/>
+```
+
+3. **Polymorphic Elements** _(CButton)_
+
+The button can change its HTML tag while keeping its behavior.
+
+```vue
+<CButton as="a" href="/login">Login Link</CButton>
+<CButton as="RouterLink" to="/dashboard">Dashboard</CButton>
 ```
 
 ## Components
