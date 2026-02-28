@@ -4,10 +4,12 @@ import BaseInput from '../BaseInput.vue';
 
 describe('BaseInput', () => {
     it('link value to v-model', async () => {
-        const wrapper = mount(BaseInput, {
+        let wrapper: ReturnType<typeof mount>;
+
+        wrapper = mount(BaseInput, {
             props: {
                 modelValue: 'foo',
-                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
                     modelValue: e
                 })
             }

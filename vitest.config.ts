@@ -5,6 +5,7 @@ export default defineConfig({
     plugins: [vue()],
     test: {
         globals: true,
+        watch: false,
         environment: 'jsdom',
         coverage: {
             provider: 'v8',

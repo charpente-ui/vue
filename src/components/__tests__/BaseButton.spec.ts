@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import BaseButton from '../BaseButton.vue';
 
 describe('BaseButton', () => {
-    it('doit rendre le bouton avec son contenu', () => {
+    it('need to render button with this content', () => {
         const wrapper = mount(BaseButton, {
             slots: {
                 default: 'Envoyer'
@@ -14,7 +14,7 @@ describe('BaseButton', () => {
         expect(wrapper.element.tagName).toBe('BUTTON');
     });
 
-    it('doit changer de balise avec la prop "as"', () => {
+    it('need change this balise with "as" prop', () => {
         const wrapper = mount(BaseButton, {
             props: {
                 as: 'a',

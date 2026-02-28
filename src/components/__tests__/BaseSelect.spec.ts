@@ -4,10 +4,12 @@ import BaseSelect from '../BaseSelect.vue';
 
 describe('BaseSelect', () => {
     it('link value to v-model', async () => {
-        const wrapper = mount(BaseSelect, {
+        let wrapper: ReturnType<typeof mount>;
+
+        wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'foo',
-                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                'onUpdate:modelValue': (e: unknown) => wrapper.setProps({
                     modelValue: e
                 })
             },

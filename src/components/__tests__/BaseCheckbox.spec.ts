@@ -4,10 +4,12 @@ import BaseCheckbox from '../BaseCheckbox.vue';
 
 describe('BaseCheckbox', () => {
     it('link value to v-model', async () => {
-        const wrapper = mount(BaseCheckbox, {
+        let wrapper: ReturnType<typeof mount>;
+
+        wrapper = mount(BaseCheckbox, {
             props: {
-                modelValue: 'foo',
-                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                modelValue: false,
+                'onUpdate:modelValue': (e: boolean | unknown[]) => wrapper.setProps({
                     modelValue: e
                 })
             }
@@ -38,7 +40,7 @@ describe('BaseCheckbox', () => {
 
         const element = wrapper.find('input');
 
-        await element.setChecked();
+        await element.setValue(true);
 
         expect(wrapper.emitted('update:modelValue')?.[0][0]).toContain('bar');
     });
