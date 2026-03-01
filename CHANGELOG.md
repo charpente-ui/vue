@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0 (2026-03-01)
+
+### Features
+
+* **button:** add component ([52f660a](https://github.com/charpente-ui/vue/commit/52f660a7b8d24f47aaeccdcaea0f42c08dd7a59e))
+* **checkbox, radio:** use `defineModel` ([f0891f7](https://github.com/charpente-ui/vue/commit/f0891f7ab1a14bc512ffeb5da8d9eb3928f5ac60))
+* **checkbox:** add headless component ([120503b](https://github.com/charpente-ui/vue/commit/120503b3527077dd7e173e75aecfff86cbc26afc))
+* **input:** add component ([98cde2f](https://github.com/charpente-ui/vue/commit/98cde2f0d8f12918ba0f2a9eddab9517786f6e47))
+* **label:** add `for` in props ([2a2ce38](https://github.com/charpente-ui/vue/commit/2a2ce387ca5bf5db005df541e87380b172b6036c))
+* **label:** add component ([8f56d3b](https://github.com/charpente-ui/vue/commit/8f56d3bb6586d5fc2780eb8134a6b2a29ad63b6d))
+* **radio:** add headless component ([af06ce1](https://github.com/charpente-ui/vue/commit/af06ce1d41c7e37ea2b698bdfe4aeddc9ebac434))
+* **select:** add headless component ([95b5a2f](https://github.com/charpente-ui/vue/commit/95b5a2f51c3949df5b95c15b025fa6a6dbb6df4c))
+* **textarea:** add component ([7d3afed](https://github.com/charpente-ui/vue/commit/7d3afeda6570a375a7aa2328d8ba3955db01c722))
+
+### Bug Fixes
+
+* **checkbox, radio, select:** replace the `any` type ([f04f571](https://github.com/charpente-ui/vue/commit/f04f571799b8171b2947d4b3885bbb6bf1ca4f9c))
+* **checkbox, radio:** missing html self closing ([95f7a5e](https://github.com/charpente-ui/vue/commit/95f7a5e58832fab2a2180c3757e4dc81b677571f))
+* **label:** missing identifier ([81f5ad2](https://github.com/charpente-ui/vue/commit/81f5ad24a6b2194298c16d4e9a1d68e7284e29fd))
+
 ## [1.0.0-beta.4](https://github.com/charpente-ui/vue/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2026-02-27)
 
 ### Bug Fixes
