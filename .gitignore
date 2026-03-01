@@ -2,6 +2,7 @@
 *.log
 *.map
 *.orig
+junit.xml
 
 ## Folders
 /.DS_Store

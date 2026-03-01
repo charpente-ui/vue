@@ -7,6 +7,13 @@ export default defineConfig({
         globals: true,
         watch: false,
         environment: 'jsdom',
+        reporters: [
+            'default',
+            'junit'
+        ],
+        outputFile: {
+            junit: 'junit.xml'
+        },
         coverage: {
             provider: 'v8',
             reporter: [
