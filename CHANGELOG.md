@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/charpente-ui/vue/compare/v1.1.0...v1.1.1) (2026-03-01)
+
+### Bug Fixes
+
+* **form:** missing export ([16cf8a0](https://github.com/charpente-ui/vue/commit/16cf8a09de4fc3e9ed26b152f452365f6df114c3))
+
 ## [1.1.0](https://github.com/charpente-ui/vue/compare/v1.0.0...v1.1.0) (2026-03-01)
 
 ### Features
