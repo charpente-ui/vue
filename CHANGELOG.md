@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/charpente-ui/vue/compare/v1.0.0...v1.1.0) (2026-03-01)
+
+### Features
+
+* **form:** add headless component ([40774cf](https://github.com/charpente-ui/vue/commit/40774cf42d786853a942878a0ed1e994a2f36f3c))
+
 ## 1.0.0 (2026-03-01)
 
 ### Features
