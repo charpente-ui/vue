@@ -85,6 +85,7 @@ The button can change its HTML tag while keeping its behavior.
 |----------|--------|-------------|
 | Button   | Ready  | `CButton`   |
 | Checkbox | Ready  | `CCheckbox` |
+| Form     | Ready  | `CForm`     |
 | Input    | Ready  | `CInput`    |
 | Label    | Ready  | `CLabel`    |
 | Radio    | Ready  | `CRadio`    |
