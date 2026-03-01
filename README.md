@@ -81,13 +81,13 @@ The button can change its HTML tag while keeping its behavior.
 
 ## Components
 
-| Name     | Status | Tag         |
-|----------|--------|-------------|
-| Button   | Ready  | `CButton`   |
-| Checkbox | Ready  | `CCheckbox` |
-| Form     | Ready  | `CForm`     |
-| Input    | Ready  | `CInput`    |
-| Label    | Ready  | `CLabel`    |
-| Radio    | Ready  | `CRadio`    |
-| Select   | Ready  | `CSelect`   |
-| Textarea | Ready  | `CTextarea` |
+| Name     | Core Logic                                                                       | Tag         | Status |
+|----------|----------------------------------------------------------------------------------|-------------|--------|
+| Button   | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`   | Ready  |
+| Checkbox | **Smart Toggle:** Handles array state and booleans natively.                     | `CCheckbox` | Ready  |
+| Form     | **Auto-Submit:** Integrated `preventDefault` and event handling.                 | `CForm`     | Ready  |
+| Input    | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`    | Ready  |
+| Label    | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`    | Ready  |
+| Radio    | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`    | Ready  |
+| Select   | **Native Wrapper:** Easy option management without the boilerplate.              | `CSelect`   | Ready  |
+| Textarea | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea` | Ready  |
