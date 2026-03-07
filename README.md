@@ -6,7 +6,7 @@
 
 ## Introduction
 
-A logic-first, headless UI library for Vue 3. The accessibility and logic you need, without the CSS you don't.
+A logic-first, headless UI library for Vue 3. The logic you need, without the CSS you don't.
 
 ## Philosophy: Don't Reinvent the Wheel
 

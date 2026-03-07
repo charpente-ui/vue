@@ -26,7 +26,7 @@ npm run lint
 
 ## Architecture
 
-This is `@charpente-ui/vue`, a headless Vue 3 component library. It provides logic and accessibility without any CSS.
+This is `@charpente-ui/vue`, a headless Vue 3 component library. It provides logic without any CSS.
 
 **Build output:** `vite build` produces `dist/charpente.js` (ESM) and `dist/charpente.umd.cjs` (UMD), with TypeScript declarations via `vite-plugin-dts`. Vue is externalized (not bundled).
 
