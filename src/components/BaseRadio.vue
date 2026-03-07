@@ -9,7 +9,7 @@ defineProps<{
     value: unknown
 }>();
 
-const model = defineModel<unknown>();
+const model = defineModel<string | number>();
 const attrs = useAttrs();
 const generatedId = useId();
 

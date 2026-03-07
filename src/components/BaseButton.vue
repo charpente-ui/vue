@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
+
 defineOptions({
     inheritAttrs: false
 });
 
 withDefaults(defineProps<{
-    as?: string | object
+    as?: Component
 }>(), {
     as: 'button'
 });
