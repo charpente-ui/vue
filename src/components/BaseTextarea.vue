@@ -7,9 +7,10 @@ defineOptions({
 
 const model = defineModel<string>();
 const attrs = useAttrs();
+const generatedId = useId();
 
 const textareaId = computed(() => {
-    return (attrs.id as string) || useId();
+    return (attrs.id as string) || generatedId;
 });
 </script>
 

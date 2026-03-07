@@ -6,6 +6,7 @@ defineOptions({
 });
 
 const attrs = useAttrs();
+const generatedId = useId();
 
 const emit = defineEmits<{
     (e: 'submit', event: Event): void
@@ -16,7 +17,7 @@ const handleSubmit = (event: Event) => {
 };
 
 const formId = computed(() => {
-    return (attrs.id as string) || useId();
+    return (attrs.id as string) || generatedId;
 });
 </script>
 
