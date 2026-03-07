@@ -1,0 +1,9 @@
+{
+    "autoMemoryEnabled": true,
+    "permissions": {
+        "allow": [
+            "Write",
+            "Edit"
+        ]
+    }
+}
