@@ -6,7 +6,7 @@ defineOptions({
 });
 
 defineProps<{
-    value: unknown
+    value: string | number
 }>();
 
 const model = defineModel<string | number>();

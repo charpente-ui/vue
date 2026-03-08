@@ -6,10 +6,10 @@ defineOptions({
 });
 
 defineProps<{
-    value?: unknown
+    value?: string | number
 }>();
 
-const model = defineModel<boolean | unknown[]>();
+const model = defineModel<boolean | (string | number)[]>();
 const attrs = useAttrs();
 const generatedId = useId();
 
