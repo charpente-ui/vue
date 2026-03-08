@@ -9,7 +9,7 @@ describe('BaseCheckbox', () => {
         wrapper = mount(BaseCheckbox, {
             props: {
                 modelValue: false,
-                'onUpdate:modelValue': (e: boolean | unknown[]) => wrapper.setProps({
+                'onUpdate:modelValue': (e: boolean | (string | number)[]) => wrapper.setProps({
                     modelValue: e
                 })
             }
