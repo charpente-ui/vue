@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/charpente-ui/vue/compare/v1.1.1...v1.1.2) (2026-03-08)
+
+### Bug Fixes
+
+* **checkbox, radio:** align types ([121c2d0](https://github.com/charpente-ui/vue/commit/121c2d0c13f8930abfb070b2d85806149a9682f3))
+* **components:** call useId() at setup level instead of inside computed ([9507f99](https://github.com/charpente-ui/vue/commit/9507f99c1a39a29365f819ec5bef80d37f62fa94))
+* **components:** improve prop and model typings ([d62b668](https://github.com/charpente-ui/vue/commit/d62b668010be4d74878d6f6be8889fcb5be0b98f))
+
 ## [1.1.1](https://github.com/charpente-ui/vue/compare/v1.1.0...v1.1.1) (2026-03-01)
 
 ### Bug Fixes
