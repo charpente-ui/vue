@@ -33,4 +33,16 @@ describe('BaseSelect', () => {
 
         expect(wrapper.find('select').attributes('id')).toBeDefined();
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseSelect, {
+            attrs: {
+                disabled: true,
+                class: 'my-select'
+            }
+        });
+
+        expect(wrapper.find('select').attributes('disabled')).toBeDefined();
+        expect(wrapper.find('select').classes()).toContain('my-select');
+    });
 });

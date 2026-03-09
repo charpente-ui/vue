@@ -27,4 +27,16 @@ describe('BaseButton', () => {
 
         expect(wrapper.element.tagName).toBe('A');
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseButton, {
+            attrs: {
+                disabled: true,
+                class: 'my-button'
+            }
+        });
+
+        expect(wrapper.attributes('disabled')).toBeDefined();
+        expect(wrapper.classes()).toContain('my-button');
+    });
 });

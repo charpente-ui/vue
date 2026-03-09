@@ -25,4 +25,16 @@ describe('BaseTextarea', () => {
 
         expect(wrapper.find('textarea').attributes('id')).toBeDefined();
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseTextarea, {
+            attrs: {
+                disabled: true,
+                class: 'my-textarea'
+            }
+        });
+
+        expect(wrapper.find('textarea').attributes('disabled')).toBeDefined();
+        expect(wrapper.find('textarea').classes()).toContain('my-textarea');
+    });
 });

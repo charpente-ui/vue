@@ -22,4 +22,12 @@ describe('BaseLabel', () => {
 
         expect(wrapper.attributes('for')).toBe('foo');
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseLabel, {
+            attrs: { class: 'my-label' }
+        });
+
+        expect(wrapper.classes()).toContain('my-label');
+    });
 });

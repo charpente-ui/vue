@@ -38,4 +38,17 @@ describe('BaseRadio', () => {
 
         expect(wrapper.find('input').attributes('value')).toBe('foo');
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseRadio, {
+            props: { value: 'foo' },
+            attrs: {
+                disabled: true,
+                class: 'my-radio'
+            }
+        });
+
+        expect(wrapper.find('input').attributes('disabled')).toBeDefined();
+        expect(wrapper.find('input').classes()).toContain('my-radio');
+    });
 });

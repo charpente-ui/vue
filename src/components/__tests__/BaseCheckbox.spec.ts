@@ -44,4 +44,16 @@ describe('BaseCheckbox', () => {
 
         expect(wrapper.emitted('update:modelValue')?.[0][0]).toContain('bar');
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseCheckbox, {
+            attrs: {
+                disabled: true,
+                class: 'my-checkbox'
+            }
+        });
+
+        expect(wrapper.find('input').attributes('disabled')).toBeDefined();
+        expect(wrapper.find('input').classes()).toContain('my-checkbox');
+    });
 });

@@ -27,4 +27,16 @@ describe('BaseInput', () => {
 
         expect(wrapper.find('input').attributes('id')).toBeDefined();
     });
+
+    it('passes native attributes through', () => {
+        const wrapper = mount(BaseInput, {
+            attrs: {
+                disabled: true,
+                class: 'my-input'
+            }
+        });
+
+        expect(wrapper.find('input').attributes('disabled')).toBeDefined();
+        expect(wrapper.find('input').classes()).toContain('my-input');
+    });
 });
