@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
+import { nextTick } from 'vue';
 import BaseCheckbox from '../BaseCheckbox.vue';
 
 describe('BaseCheckbox', () => {
@@ -43,6 +44,38 @@ describe('BaseCheckbox', () => {
         await element.setValue(true);
 
         expect(wrapper.emitted('update:modelValue')?.[0][0]).toContain('bar');
+    });
+
+    it('sets indeterminate state on the input element', async () => {
+        const wrapper = mount(BaseCheckbox, {
+            props: {
+                indeterminate: true
+            }
+        });
+
+        await nextTick();
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+
+        expect(input.indeterminate).toBe(true);
+    });
+
+    it('reacts to indeterminate prop changes', async () => {
+        const wrapper = mount(BaseCheckbox, {
+            props: {
+                indeterminate: false
+            }
+        });
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+
+        expect(input.indeterminate).toBe(false);
+
+        await wrapper.setProps({
+            indeterminate: true
+        });
+
+        expect(input.indeterminate).toBe(true);
     });
 
     it('passes native attributes through', () => {
