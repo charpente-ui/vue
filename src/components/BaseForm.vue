@@ -9,12 +9,8 @@ const attrs = useAttrs();
 const generatedId = useId();
 
 const emit = defineEmits<{
-    (e: 'submit', event: Event): void
+    submit: [event: Event]
 }>();
-
-const handleSubmit = (event: Event) => {
-    emit('submit', event);
-};
 
 const formId = computed(() => {
     return (attrs.id as string) || generatedId;
@@ -22,7 +18,7 @@ const formId = computed(() => {
 </script>
 
 <template>
-    <form v-bind="$attrs" :id="formId" @submit.prevent="handleSubmit">
+    <form v-bind="$attrs" :id="formId" @submit.prevent="emit('submit', $event)">
         <slot/>
     </form>
 </template>
