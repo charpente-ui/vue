@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/charpente-ui/vue/compare/v1.1.2...v1.2.0) (2026-03-09)
+
+### Features
+
+* **checkbox:** add indeterminate state support ([1e404a9](https://github.com/charpente-ui/vue/commit/1e404a9696abeae5004055b7fc51d5bb3232fc9e))
+* **file:** add headless component ([2e5a464](https://github.com/charpente-ui/vue/commit/2e5a4647c75c2644312b8636f0812cf4517f258a))
+* **select:** add multiple selection support ([87a717d](https://github.com/charpente-ui/vue/commit/87a717dc8a8888f6e15ddf85961271dc46f8dbca))
+
 ## [1.1.2](https://github.com/charpente-ui/vue/compare/v1.1.1...v1.1.2) (2026-03-08)
 
 ### Bug Fixes
