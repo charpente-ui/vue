@@ -1,63 +1,45 @@
 # Project Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Headless Vue 3 component library (`@charpente-ui/vue`). Logic only, zero CSS.
 
 ## Commands
 
 ```bash
-# Build the library
-npm run build
-
-# Run tests (watch mode)
-npm test
-
-# Run tests once (no watch)
-npx vitest run
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run a single test file
-npx vitest run src/components/__tests__/BaseButton.spec.ts
-
-# Lint and auto-fix
-npm run lint
+npm run build            # Vite build (ESM + UMD)
+npm run test             # Run tests once
+npm run test:coverage    # Coverage (threshold: 90%)
+npm run lint             # ESLint auto-fix
 ```
 
 ## Architecture
 
-This is `@charpente-ui/vue`, a headless Vue 3 component library. It provides logic without any CSS.
+- **Entry point:** `src/index.ts` re-exports components as `C`-prefixed names (`BaseButton.vue` → `CButton`).
+- **Build:** ESM + UMD, Vue externalized, TypeScript declarations via `vite-plugin-dts`.
+- **TypeScript:** Strict mode. Path alias `@/*` → `src/*`.
 
-**Build output:** `vite build` produces `dist/charpente.js` (ESM) and `dist/charpente.umd.cjs` (UMD), with TypeScript
-declarations via `vite-plugin-dts`. Vue is externalized (not bundled).
+## Component Conventions
 
-**Entry point:** `src/index.ts` re-exports all components as `C`-prefixed names (e.g. `BaseButton.vue` → `CButton`).
+- `defineOptions({ inheritAttrs: false })` + `v-bind="$attrs"` on every component.
+- `useId()` + `computed()` for auto-generated IDs that can be overridden via `attrs.id`.
+- `defineModel()` for all `v-model` bindings.
+- Native HTML attributes (`type`, `placeholder`, `multiple`, `disabled`, etc.) pass through `$attrs` — never
+  redeclare them as props unless the component needs to react to them in the script (e.g. `indeterminate` on checkbox
+  is a DOM property, not an HTML attribute).
+- Props are only added when they control component-specific logic (e.g. `as` on CButton, `value` on CCheckbox/CRadio).
 
-**TypeScript:** Strict mode enabled. Path alias `@/*` maps to `src/*`.
-
-**Component conventions:**
-
-- All components use `defineOptions({ inheritAttrs: false })` and manually bind `v-bind="$attrs"` to pass native
-  attributes through to the underlying HTML element.
-- Components that need an `id` (inputs, checkboxes, radios, select, textarea, form) call `useId()` at setup level, then
-  use a `computed()` to prefer `attrs.id` when provided.
-- `v-model` is exposed via `defineModel()`.
-- `CButton` is polymorphic via an `as` prop (`Component` type, defaults to `'button'`), rendering as
-  `<component :is="as">`.
-- `CCheckbox` supports both boolean and array `v-model` (`value?: string | number` used for array mode).
-- `CRadio` requires a mandatory `value: string | number` prop; `v-model` holds the selected value.
-- `CLabel` has a `for` prop to associate with the auto-generated or explicit IDs on form elements.
-- `CForm` wraps submit with `@submit.prevent` and emits a `submit` event.
-
-**Template style (enforced by ESLint):**
+## Code Style
 
 - 4-space indentation in Vue templates.
-- All elements are self-closing: `<input/>`, `<textarea/>`, `<component/>` etc. (
-  `vue/html-self-closing: normal: always`).
+- Self-closing tags everywhere: `<input/>`, `<component/>` (`vue/html-self-closing: normal: always`).
 
-**Testing:** Vitest + `@vue/test-utils` + jsdom. Tests live in `src/components/__tests__/`. The coverage threshold is
-90% for all metrics.
+## Testing
 
-**Commits:** Conventional Commits format enforced by commitlint + husky. Releases are automated via `semantic-release`
-from the `main` branch. The `beta` branch triggers pre-releases. `chore(deps)` scope triggers a minor release. Never
-commit directly — always propose the commit message and wait for user validation.
+- Vitest + `@vue/test-utils` + jsdom.
+- Tests in `src/components/__tests__/`, one spec file per component.
+- Always run tests after modifying a component.
+
+## Commits
+
+- Conventional Commits enforced by commitlint + husky.
+- `semantic-release` from `main` (pre-releases from `beta`).
+- **Never commit directly** — propose the message and wait for user validation.
