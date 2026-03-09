@@ -61,13 +61,28 @@ npm install @charpente-ui/vue
 These components are thin wrappers around native elements. They use `v-model` and automatically link with labels via
 `useId()`. Full attribute inheritance.
 
-2. **Selection Logic** _(CCheckbox, CRadio)_
+2. **Selection Logic** _(CCheckbox, CRadio, CSelect)_
 
 Managing checkbox arrays in Vue can be repetitive. **Charpente UI** simplifies this:
 
 ```vue
 <CCheckbox v-model="tags" value="foo"/>
 <CCheckbox v-model="tags" value="bar"/>
+```
+
+`CCheckbox` also supports the `indeterminate` state for partial selections:
+
+```vue
+<CCheckbox v-model="allSelected" :indeterminate="someSelected"/>
+```
+
+`CSelect` supports multiple selection via the native `multiple` attribute:
+
+```vue
+<CSelect v-model="selectedItems" multiple>
+    <option value="foo">Foo</option>
+    <option value="bar">Bar</option>
+</CSelect>
 ```
 
 3. **Polymorphic Elements** _(CButton)_
@@ -84,10 +99,11 @@ The button can change its HTML tag while keeping its behavior.
 | Name     | Core Logic                                                                       | Tag         | Status |
 |----------|----------------------------------------------------------------------------------|-------------|--------|
 | Button   | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`   | Ready  |
-| Checkbox | **Smart Toggle:** Handles array state and booleans natively.                     | `CCheckbox` | Ready  |
+| Checkbox | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox` | Ready  |
+| File     | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`     | Ready  |
 | Form     | **Auto-Submit:** Integrated `preventDefault` and event handling.                 | `CForm`     | Ready  |
 | Input    | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`    | Ready  |
 | Label    | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`    | Ready  |
 | Radio    | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`    | Ready  |
-| Select   | **Native Wrapper:** Easy option management without the boilerplate.              | `CSelect`   | Ready  |
+| Select   | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`   | Ready  |
 | Textarea | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea` | Ready  |
