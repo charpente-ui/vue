@@ -34,6 +34,60 @@ describe('BaseSelect', () => {
         expect(wrapper.find('select').attributes('id')).toBeDefined();
     });
 
+    it('renders a multiple select when multiple attr is set', () => {
+        const wrapper = mount(BaseSelect, {
+            attrs: {
+                multiple: true
+            },
+            props: {
+                modelValue: []
+            },
+            slots: {
+                default: `
+          <option value="foo">Foo</option>
+          <option value="bar">Bar</option>
+        `
+            }
+        });
+
+        expect(wrapper.find('select').attributes('multiple')).toBeDefined();
+    });
+
+    it('supports array v-model in multiple mode', async () => {
+        let wrapper: ReturnType<typeof mount>;
+
+        wrapper = mount(BaseSelect, {
+            attrs: {
+                multiple: true
+            },
+            props: {
+                modelValue: [],
+                'onUpdate:modelValue': (e: (string | number)[]) => wrapper.setProps({
+                    modelValue: e
+                })
+            },
+            slots: {
+                default: `
+          <option value="foo">Foo</option>
+          <option value="bar">Bar</option>
+          <option value="baz">Baz</option>
+        `
+            }
+        });
+
+        const options = wrapper.findAll('option');
+
+        await options[0].element.parentElement!.dispatchEvent(
+            new Event('change')
+        );
+
+        (options[0].element as HTMLOptionElement).selected = true;
+        (options[2].element as HTMLOptionElement).selected = true;
+        await wrapper.find('select').trigger('change');
+
+        expect(wrapper.emitted('update:modelValue')?.at(-1)?.[0]).toEqual(['foo', 'baz']);
+    });
+
     it('passes native attributes through', () => {
         const wrapper = mount(BaseSelect, {
             attrs: {

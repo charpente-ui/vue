@@ -5,7 +5,7 @@ defineOptions({
     inheritAttrs: false
 });
 
-const model = defineModel<string | number>();
+const model = defineModel<string | number | (string | number)[]>();
 const attrs = useAttrs();
 const generatedId = useId();
 
