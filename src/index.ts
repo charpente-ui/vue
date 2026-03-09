@@ -1,5 +1,6 @@
 export { default as CButton } from './components/BaseButton.vue';
 export { default as CCheckbox } from './components/BaseCheckbox.vue';
+export { default as CFile } from './components/BaseFile.vue';
 export { default as CForm } from './components/BaseForm.vue';
 export { default as CInput } from './components/BaseInput.vue';
 export { default as CLabel } from './components/BaseLabel.vue';
