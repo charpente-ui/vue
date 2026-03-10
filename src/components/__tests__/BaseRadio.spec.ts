@@ -51,4 +51,44 @@ describe('BaseRadio', () => {
         expect(wrapper.find('input').attributes('disabled')).toBeDefined();
         expect(wrapper.find('input').classes()).toContain('my-radio');
     });
+
+    it('is checked when modelValue matches value', () => {
+        const wrapper = mount(BaseRadio, {
+            props: {
+                value: 'foo',
+                modelValue: 'foo'
+            }
+        });
+
+        expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(true);
+    });
+
+    it('is not checked when modelValue differs from value', () => {
+        const wrapper = mount(BaseRadio, {
+            props: {
+                value: 'foo',
+                modelValue: 'bar'
+            }
+        });
+
+        expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(false);
+    });
+
+    it('supports numeric value', async () => {
+        let wrapper: ReturnType<typeof mount>;
+
+        wrapper = mount(BaseRadio, {
+            props: {
+                value: 42,
+                modelValue: 0,
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        await wrapper.find('input').setValue(true);
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([42]);
+    });
 });

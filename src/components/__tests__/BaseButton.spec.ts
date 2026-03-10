@@ -39,4 +39,12 @@ describe('BaseButton', () => {
         expect(wrapper.attributes('disabled')).toBeDefined();
         expect(wrapper.classes()).toContain('my-button');
     });
+
+    it('forwards click events', async () => {
+        const wrapper = mount(BaseButton);
+
+        await wrapper.trigger('click');
+
+        expect(wrapper.emitted('click')).toHaveLength(1);
+    });
 });

@@ -37,4 +37,36 @@ describe('BaseTextarea', () => {
         expect(wrapper.find('textarea').attributes('disabled')).toBeDefined();
         expect(wrapper.find('textarea').classes()).toContain('my-textarea');
     });
+
+    it('overrides auto-generated ID when attrs.id is provided', () => {
+        const wrapper = mount(BaseTextarea, {
+            attrs: { id: 'custom-textarea' }
+        });
+
+        expect(wrapper.find('textarea').attributes('id')).toBe('custom-textarea');
+    });
+
+    it('handles rapid sequential updates', async () => {
+        let wrapper: ReturnType<typeof mount>;
+
+        wrapper = mount(BaseTextarea, {
+            props: {
+                modelValue: '',
+                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const element = wrapper.find('textarea');
+
+        await element.setValue('a');
+        await element.setValue('ab');
+        await element.setValue('abc');
+
+        const emitted = wrapper.emitted('update:modelValue')!;
+
+        expect(emitted).toHaveLength(3);
+        expect(emitted[2]).toEqual(['abc']);
+    });
 });

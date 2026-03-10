@@ -79,4 +79,12 @@ describe('BaseFile', () => {
         expect(wrapper.find('input').attributes('disabled')).toBeDefined();
         expect(wrapper.find('input').classes()).toContain('my-file');
     });
+
+    it('overrides auto-generated ID when attrs.id is provided', () => {
+        const wrapper = mount(BaseFile, {
+            attrs: { id: 'custom-file' }
+        });
+
+        expect(wrapper.find('input').attributes('id')).toBe('custom-file');
+    });
 });

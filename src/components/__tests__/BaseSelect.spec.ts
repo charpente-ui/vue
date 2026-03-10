@@ -99,4 +99,12 @@ describe('BaseSelect', () => {
         expect(wrapper.find('select').attributes('disabled')).toBeDefined();
         expect(wrapper.find('select').classes()).toContain('my-select');
     });
+
+    it('overrides auto-generated ID when attrs.id is provided', () => {
+        const wrapper = mount(BaseSelect, {
+            attrs: { id: 'custom-select' }
+        });
+
+        expect(wrapper.find('select').attributes('id')).toBe('custom-select');
+    });
 });
