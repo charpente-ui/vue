@@ -9,7 +9,7 @@ describe('BaseSelect', () => {
         wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'foo',
-                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                'onUpdate:modelValue': (e: string | number | (string | number)[]) => wrapper.setProps({
                     modelValue: e
                 })
             },
@@ -62,7 +62,7 @@ describe('BaseSelect', () => {
             },
             props: {
                 modelValue: [],
-                'onUpdate:modelValue': (e: (string | number)[]) => wrapper.setProps({
+                'onUpdate:modelValue': (e: string | number | (string | number)[]) => wrapper.setProps({
                     modelValue: e
                 })
             },

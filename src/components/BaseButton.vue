@@ -6,7 +6,7 @@ defineOptions({
 });
 
 withDefaults(defineProps<{
-    as?: Component
+    as?: Component | string
 }>(), {
     as: 'button'
 });
