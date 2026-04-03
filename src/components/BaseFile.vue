@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useId, useAttrs, ref, watch } from 'vue';
+import { computed, useId, useAttrs, useTemplateRef, watch } from 'vue';
 
 defineOptions({
     inheritAttrs: false
@@ -8,7 +8,7 @@ defineOptions({
 const model = defineModel<FileList | null>();
 const attrs = useAttrs();
 const generatedId = useId();
-const inputRef = ref<HTMLInputElement | null>(null);
+const inputRef = useTemplateRef('input');
 
 const fileId = computed(() => {
     return (attrs.id as string) || generatedId;
@@ -26,5 +26,5 @@ watch(model, (value) => {
 </script>
 
 <template>
-    <input type="file" ref="inputRef" v-bind="$attrs" :id="fileId" @change="handleChange"/>
+    <input type="file" ref="input" v-bind="$attrs" :id="fileId" @change="handleChange"/>
 </template>
