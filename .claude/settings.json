@@ -2,8 +2,21 @@
     "autoMemoryEnabled": true,
     "permissions": {
         "allow": [
+            "Read",
             "Write",
-            "Edit"
+            "Edit",
+            "MultiEdit",
+            "Glob",
+            "Grep",
+            "LS",
+            "Bash(*)"
+        ],
+        "deny": [
+            "Bash(git push *)",
+            "Bash(rm -r*)",
+            "Bash(mv **/.env* *)",
+            "Bash(cp **/.env* *)",
+            "Bash(npm publish *)"
         ]
     }
 }

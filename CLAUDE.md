@@ -1,14 +1,20 @@
-# Project Guidelines
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
 
 Headless Vue 3 component library (`@charpente-ui/vue`). Logic only, zero CSS.
+Requires Node >= 24.
 
 ## Commands
 
 ```bash
 npm run build            # Vite build (ESM + UMD)
-npm run test             # Run tests once
-npm run test:coverage    # Coverage (threshold: 90%)
+npm run test             # Run all tests once (vitest, watch disabled)
+npm run test:coverage    # Coverage (threshold: 90% lines/functions/branches/statements)
 npm run lint             # ESLint auto-fix
+npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test file
 ```
 
 ## Architecture
