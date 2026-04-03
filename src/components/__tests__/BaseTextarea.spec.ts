@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import BaseTextarea from '../BaseTextarea.vue';
 
 describe('BaseTextarea', () => {
-    it('link value to v-model', async () => {
+    it('binds value to v-model', async () => {
         const wrapper = mount(BaseTextarea, {
             props: {
                 modelValue: 'foo',

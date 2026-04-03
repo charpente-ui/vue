@@ -4,7 +4,7 @@ import { nextTick } from 'vue';
 import BaseCheckbox from '../BaseCheckbox.vue';
 
 describe('BaseCheckbox', () => {
-    it('link value to v-model', async () => {
+    it('binds value to v-model', async () => {
         let wrapper: ReturnType<typeof mount>;
 
         wrapper = mount(BaseCheckbox, {

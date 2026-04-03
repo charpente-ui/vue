@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import BaseInput from '../BaseInput.vue';
 
 describe('BaseInput', () => {
-    it('link value to v-model', async () => {
+    it('binds value to v-model', async () => {
         let wrapper: ReturnType<typeof mount>;
 
         wrapper = mount(BaseInput, {

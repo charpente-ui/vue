@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import BaseRadio from '../BaseRadio.vue';
 
 describe('BaseRadio', () => {
-    it('link value to v-model', async () => {
+    it('binds value to v-model', async () => {
         let wrapper: ReturnType<typeof mount>;
 
         wrapper = mount(BaseRadio, {

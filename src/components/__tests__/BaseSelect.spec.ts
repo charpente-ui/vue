@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import BaseSelect from '../BaseSelect.vue';
 
 describe('BaseSelect', () => {
-    it('link value to v-model', async () => {
+    it('binds value to v-model', async () => {
         let wrapper: ReturnType<typeof mount>;
 
         wrapper = mount(BaseSelect, {
