@@ -8,6 +8,10 @@
 
 A logic-first, headless UI library for Vue 3. The logic you need, without the CSS you don't.
 
+<p align="center">
+  <img src=".github/banner.svg" alt="Charpente UI" width="700"/>
+</p>
+
 ## Philosophy: Don't Reinvent the Wheel
 
 **Charpente UI** is built on a simple promise: We handle the boring stuff, you handle the design.
