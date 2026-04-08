@@ -74,6 +74,15 @@ describe('BaseRadio', () => {
         expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(false);
     });
 
+    it('overrides auto-generated ID when attrs.id is provided', () => {
+        const wrapper = mount(BaseRadio, {
+            props: { value: 'foo' },
+            attrs: { id: 'custom-radio' }
+        });
+
+        expect(wrapper.find('input').attributes('id')).toBe('custom-radio');
+    });
+
     it('supports numeric value', async () => {
         let wrapper: ReturnType<typeof mount>;
 

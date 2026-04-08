@@ -77,10 +77,6 @@ describe('BaseSelect', () => {
 
         const options = wrapper.findAll('option');
 
-        await options[0].element.parentElement!.dispatchEvent(
-            new Event('change')
-        );
-
         (options[0].element as HTMLOptionElement).selected = true;
         (options[2].element as HTMLOptionElement).selected = true;
         await wrapper.find('select').trigger('change');

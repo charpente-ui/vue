@@ -27,7 +27,9 @@ describe('BaseFile', () => {
 
         await wrapper.find('input').trigger('change');
 
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+        const emitted = wrapper.emitted('update:modelValue');
+        expect(emitted).toBeTruthy();
+        expect((emitted![0][0] as ArrayLike<File>)[0]).toBe(file);
     });
 
     it('generates an automatic ID via useId', () => {
