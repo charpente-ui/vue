@@ -10,7 +10,7 @@ const attrs = useAttrs();
 const generatedId = useId();
 
 const selectId = computed(() => {
-    return (attrs.id as string) || generatedId;
+    return typeof attrs.id === 'string' ? attrs.id : generatedId;
 });
 </script>
 

@@ -11,7 +11,7 @@ const generatedId = useId();
 const inputRef = useTemplateRef('input');
 
 const fileId = computed(() => {
-    return (attrs.id as string) || generatedId;
+    return typeof attrs.id === 'string' ? attrs.id : generatedId;
 });
 
 function handleChange(event: Event) {

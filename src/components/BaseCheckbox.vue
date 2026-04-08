@@ -16,7 +16,7 @@ const generatedId = useId();
 const inputRef = useTemplateRef('input');
 
 const checkboxId = computed(() => {
-    return (attrs.id as string) || generatedId;
+    return typeof attrs.id === 'string' ? attrs.id : generatedId;
 });
 
 watch([inputRef, () => props.indeterminate], () => {
