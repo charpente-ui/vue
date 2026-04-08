@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useId, useAttrs, useTemplateRef, watchEffect } from 'vue';
+import { computed, useId, useAttrs, useTemplateRef, watch } from 'vue';
 
 defineOptions({
     inheritAttrs: false
@@ -19,11 +19,11 @@ const checkboxId = computed(() => {
     return (attrs.id as string) || generatedId;
 });
 
-watchEffect(() => {
+watch([inputRef, () => props.indeterminate], () => {
     if (inputRef.value) {
         inputRef.value.indeterminate = !!props.indeterminate;
     }
-});
+}, { immediate: true });
 </script>
 
 <template>
