@@ -16,6 +16,7 @@ describe('BaseForm', () => {
 
         expect(wrapper.emitted()).toHaveProperty('submit');
         expect(wrapper.emitted('submit')).toHaveLength(1);
+        expect(wrapper.emitted('submit')![0][0]).toBeInstanceOf(Event);
     });
 
     it('generates an automatic ID via useId', () => {

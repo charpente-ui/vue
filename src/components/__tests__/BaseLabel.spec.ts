@@ -30,4 +30,17 @@ describe('BaseLabel', () => {
 
         expect(wrapper.classes()).toContain('my-label');
     });
+
+    it('renders without a "for" attribute when prop is not set', () => {
+        const wrapper = mount(BaseLabel);
+
+        expect(wrapper.attributes('for')).toBeUndefined();
+    });
+
+    it('renders with an empty slot', () => {
+        const wrapper = mount(BaseLabel);
+
+        expect(wrapper.element.tagName).toBe('LABEL');
+        expect(wrapper.text()).toBe('');
+    });
 });

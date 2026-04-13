@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { defineComponent, markRaw } from 'vue';
 import { describe, it, expect } from 'vitest';
 import BaseButton from '../BaseButton.vue';
 
@@ -16,16 +17,26 @@ describe('BaseButton', () => {
 
     it('renders as a different tag via the "as" prop', () => {
         const wrapper = mount(BaseButton, {
-            props: {
-                as: 'a',
-                href: '#'
-            },
-            slots: {
-                default: 'Lien'
-            }
+            props: { as: 'a' },
+            attrs: { href: '#' },
+            slots: { default: 'Lien' }
         });
 
         expect(wrapper.element.tagName).toBe('A');
+    });
+
+    it('renders as a Vue component via the "as" prop', () => {
+        const CustomComponent = markRaw(defineComponent({
+            template: '<span><slot /></span>'
+        }));
+
+        const wrapper = mount(BaseButton, {
+            props: { as: CustomComponent },
+            slots: { default: 'Custom' }
+        });
+
+        expect(wrapper.element.tagName).toBe('SPAN');
+        expect(wrapper.text()).toBe('Custom');
     });
 
     it('passes native attributes through', () => {
