@@ -23,7 +23,7 @@ describe('BaseTextarea', () => {
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseTextarea);
 
-        expect(wrapper.find('textarea').attributes('id')).toBeDefined();
+        expect(wrapper.find('textarea').attributes('id')).toBeTruthy();
     });
 
     it('passes native attributes through', () => {

@@ -21,7 +21,7 @@ describe('BaseForm', () => {
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseForm);
 
-        expect(wrapper.find('form').attributes('id')).toBeDefined();
+        expect(wrapper.find('form').attributes('id')).toBeTruthy();
     });
 
     it('prevents default browser navigation on submit', async () => {

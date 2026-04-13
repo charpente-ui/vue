@@ -25,7 +25,7 @@ describe('BaseInput', () => {
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseInput);
 
-        expect(wrapper.find('input').attributes('id')).toBeDefined();
+        expect(wrapper.find('input').attributes('id')).toBeTruthy();
     });
 
     it('passes native attributes through', () => {

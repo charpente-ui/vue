@@ -31,7 +31,7 @@ describe('BaseSelect', () => {
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseSelect);
 
-        expect(wrapper.find('select').attributes('id')).toBeDefined();
+        expect(wrapper.find('select').attributes('id')).toBeTruthy();
     });
 
     it('renders a multiple select when multiple attr is set', () => {

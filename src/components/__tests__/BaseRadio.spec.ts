@@ -28,7 +28,7 @@ describe('BaseRadio', () => {
             props: { value: 'foo' }
         });
 
-        expect(wrapper.find('input').attributes('id')).toBeDefined();
+        expect(wrapper.find('input').attributes('id')).toBeTruthy();
     });
 
     it('passes the value prop to the input', () => {

@@ -26,7 +26,7 @@ describe('BaseCheckbox', () => {
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseCheckbox);
 
-        expect(wrapper.find('input').attributes('id')).toBeDefined();
+        expect(wrapper.find('input').attributes('id')).toBeTruthy();
     });
 
     it('adds a value to the array in grouped mode', async () => {

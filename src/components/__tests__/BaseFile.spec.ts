@@ -35,7 +35,7 @@ describe('BaseFile', () => {
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseFile);
 
-        expect(wrapper.find('input').attributes('id')).toBeDefined();
+        expect(wrapper.find('input').attributes('id')).toBeTruthy();
     });
 
     it('has type="file"', () => {
