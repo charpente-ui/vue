@@ -23,9 +23,6 @@ export default defineConfig({
             include: [
                 'src/components/**'
             ],
-            exclude: [
-                'src/index.ts'
-            ],
             thresholds: {
                 lines: 90,
                 functions: 90,
