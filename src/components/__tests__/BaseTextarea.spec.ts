@@ -20,6 +20,12 @@ describe('BaseTextarea', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
     });
 
+    it('renders without initial modelValue', () => {
+        const wrapper = mount(BaseTextarea);
+
+        expect(wrapper.find('textarea').exists()).toBe(true);
+    });
+
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseTextarea);
 

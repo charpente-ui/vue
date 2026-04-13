@@ -22,6 +22,12 @@ describe('BaseInput', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
     });
 
+    it('renders without initial modelValue', () => {
+        const wrapper = mount(BaseInput);
+
+        expect(wrapper.find('input').exists()).toBe(true);
+    });
+
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseInput);
 

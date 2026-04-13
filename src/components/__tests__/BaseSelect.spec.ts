@@ -28,6 +28,12 @@ describe('BaseSelect', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
     });
 
+    it('renders without initial modelValue', () => {
+        const wrapper = mount(BaseSelect);
+
+        expect(wrapper.find('select').exists()).toBe(true);
+    });
+
     it('generates an automatic ID via useId', () => {
         const wrapper = mount(BaseSelect);
 
