@@ -5,9 +5,7 @@ import BaseCheckbox from '../BaseCheckbox.vue';
 
 describe('BaseCheckbox', () => {
     it('binds value to v-model', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseCheckbox, {
+        const wrapper = mount(BaseCheckbox, {
             props: {
                 modelValue: false,
                 'onUpdate:modelValue': (e: boolean | (string | number)[]) => wrapper.setProps({

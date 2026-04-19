@@ -4,9 +4,7 @@ import BaseSelect from '../BaseSelect.vue';
 
 describe('BaseSelect', () => {
     it('binds value to v-model', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseSelect, {
+        const wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'foo',
                 'onUpdate:modelValue': (e: string | number | (string | number)[]) => wrapper.setProps({
@@ -60,9 +58,7 @@ describe('BaseSelect', () => {
     });
 
     it('supports array v-model in multiple mode', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseSelect, {
+        const wrapper = mount(BaseSelect, {
             attrs: {
                 multiple: true
             },
@@ -87,7 +83,8 @@ describe('BaseSelect', () => {
         (options[2].element as HTMLOptionElement).selected = true;
         await wrapper.find('select').trigger('change');
 
-        expect(wrapper.emitted('update:modelValue')?.at(-1)?.[0]).toEqual(['foo', 'baz']);
+        expect(wrapper.emitted('update:modelValue')?.at(-1)?.[0]).toEqual(['foo',
+            'baz']);
     });
 
     it('passes native attributes through', () => {

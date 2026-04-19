@@ -4,9 +4,7 @@ import BaseRadio from '../BaseRadio.vue';
 
 describe('BaseRadio', () => {
     it('binds value to v-model', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseRadio, {
+        const wrapper = mount(BaseRadio, {
             props: {
                 value: 'bar',
                 modelValue: 'foo',
@@ -84,9 +82,7 @@ describe('BaseRadio', () => {
     });
 
     it('supports numeric value', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseRadio, {
+        const wrapper = mount(BaseRadio, {
             props: {
                 value: 42,
                 modelValue: 0,

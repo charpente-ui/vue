@@ -4,9 +4,7 @@ import BaseInput from '../BaseInput.vue';
 
 describe('BaseInput', () => {
     it('binds value to v-model', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseInput, {
+        const wrapper = mount(BaseInput, {
             props: {
                 modelValue: 'foo',
                 'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
@@ -55,9 +53,7 @@ describe('BaseInput', () => {
     });
 
     it('supports numeric v-model', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseInput, {
+        const wrapper = mount(BaseInput, {
             props: {
                 modelValue: 42,
                 'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
@@ -74,9 +70,7 @@ describe('BaseInput', () => {
     });
 
     it('handles rapid sequential updates', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseInput, {
+        const wrapper = mount(BaseInput, {
             props: {
                 modelValue: '',
                 'onUpdate:modelValue': (e: string | number) => wrapper.setProps({

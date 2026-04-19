@@ -53,9 +53,7 @@ describe('BaseTextarea', () => {
     });
 
     it('handles rapid sequential updates', async () => {
-        let wrapper: ReturnType<typeof mount>;
-
-        wrapper = mount(BaseTextarea, {
+        const wrapper = mount(BaseTextarea, {
             props: {
                 modelValue: '',
                 'onUpdate:modelValue': (e: string) => wrapper.setProps({
