@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/charpente-ui/vue/compare/v1.2.1...v1.2.2) (2026-04-19)
+
+### Bug Fixes
+
+* **tests:** replace let with const for wrapper declarations ([3055972](https://github.com/charpente-ui/vue/commit/3055972fdca52e26de35498f4fa036618f79b838))
+
 ## [1.2.1](https://github.com/charpente-ui/vue/compare/v1.2.0...v1.2.1) (2026-04-03)
 
 ### Bug Fixes
