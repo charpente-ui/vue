@@ -7,13 +7,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Headless Vue 3 component library (`@charpente-ui/vue`). Logic only, zero CSS.
 Requires Node >= 24.
 
+---
+
+## ALWAYS DO THIS
+
+- **ALWAYS run `npx eslint --fix` on modified files after code changes** — not `npm run lint` on the whole project
+- **ALWAYS fix all lint errors before committing**
+- **ALWAYS write code, comments, errors in English**
+
+---
+
 ## Commands
 
 ```bash
 npm run build            # Vite build (ESM + UMD)
 npm run test             # Run all tests once (vitest, watch disabled)
 npm run test:coverage    # Coverage (threshold: 90% lines/functions/branches/statements)
-npm run lint             # ESLint auto-fix
+npx eslint --fix <file1> <file2>  # Lint only the modified files
 npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test file
 ```
 
