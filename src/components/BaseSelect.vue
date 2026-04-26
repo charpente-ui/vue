@@ -15,7 +15,7 @@ const selectId = computed(() => {
 </script>
 
 <template>
-    <select v-bind="$attrs" v-model="model" :id="selectId">
+    <select v-bind="$attrs" :id="selectId" v-model="model">
         <slot/>
     </select>
 </template>

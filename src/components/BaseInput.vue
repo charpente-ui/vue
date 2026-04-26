@@ -15,5 +15,5 @@ const inputId = computed(() => {
 </script>
 
 <template>
-    <input v-bind="$attrs" v-model="model" :id="inputId"/>
+    <input v-bind="$attrs" :id="inputId" v-model="model"/>
 </template>

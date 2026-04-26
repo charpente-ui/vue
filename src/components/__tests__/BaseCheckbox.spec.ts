@@ -91,7 +91,10 @@ describe('BaseCheckbox', () => {
     it('removes a value from the array when unchecked in grouped mode', async () => {
         const wrapper = mount(BaseCheckbox, {
             props: {
-                modelValue: ['foo', 'bar'],
+                modelValue: [
+                    'foo',
+                    'bar'
+                ],
                 value: 'bar',
                 'onUpdate:modelValue': (e: boolean | (string | number)[]) => wrapper.setProps({
                     modelValue: e

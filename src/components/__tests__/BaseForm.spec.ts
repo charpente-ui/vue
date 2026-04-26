@@ -28,7 +28,11 @@ describe('BaseForm', () => {
     it('prevents default browser navigation on submit', async () => {
         const wrapper = mount(BaseForm);
 
-        const event = new Event('submit', { bubbles: true, cancelable: true });
+        const event = new Event('submit', {
+            bubbles: true,
+            cancelable: true
+        });
+
         await wrapper.find('form').element.dispatchEvent(event);
 
         expect(event.defaultPrevented).toBe(true);

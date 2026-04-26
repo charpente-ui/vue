@@ -26,5 +26,5 @@ watch(model, (value) => {
 </script>
 
 <template>
-    <input type="file" ref="input" v-bind="$attrs" :id="fileId" @change="handleChange"/>
+    <input v-bind="$attrs" :id="fileId" ref="input" type="file" @change="handleChange"/>
 </template>
