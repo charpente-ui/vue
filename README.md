@@ -38,7 +38,7 @@ npm install @charpente-ui/vue
 
 Try it live on StackBlitz — no installation required:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/charpente-ui/vue)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/charpente-ui/vue)
 
 Or run it locally:
 
