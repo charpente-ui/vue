@@ -5,5 +5,6 @@ export { default as CForm } from './components/BaseForm.vue';
 export { default as CInput } from './components/BaseInput.vue';
 export { default as CLabel } from './components/BaseLabel.vue';
 export { default as CRadio } from './components/BaseRadio.vue';
+export { default as CRadioGroup } from './components/BaseRadioGroup.vue';
 export { default as CSelect } from './components/BaseSelect.vue';
 export { default as CTextarea } from './components/BaseTextarea.vue';
