@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/charpente-ui/vue/compare/v1.3.0...v1.3.1) (2026-04-26)
+
+### Bug Fixes
+
+* **lint:** fix attribute order and style errors across components and tests ([c997e5f](https://github.com/charpente-ui/vue/commit/c997e5f45b0a7c727bd21f6b93c25deb7044b835))
+
 ## [1.3.0](https://github.com/charpente-ui/vue/compare/v1.2.2...v1.3.0) (2026-04-26)
 
 ### Features
