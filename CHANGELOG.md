@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/charpente-ui/vue/compare/v1.3.1...v1.4.0) (2026-04-26)
+
+### Dependencies
+
+* **deps:** upgrade vite to v8 ([ff5cc98](https://github.com/charpente-ui/vue/commit/ff5cc98ebc6f55a2f38f71a834f29a95eae9f35e))
+
 ## [1.3.1](https://github.com/charpente-ui/vue/compare/v1.3.0...v1.3.1) (2026-04-26)
 
 ### Bug Fixes
