@@ -6,3 +6,10 @@ export interface RadioGroupContext {
 }
 
 export const radioGroupKey: InjectionKey<RadioGroupContext> = Symbol('CRadioGroup');
+
+export interface CheckboxGroupContext {
+    model: ModelRef<(string | number)[]>
+    name: ComputedRef<string>
+}
+
+export const checkboxGroupKey: InjectionKey<CheckboxGroupContext> = Symbol('CCheckboxGroup');

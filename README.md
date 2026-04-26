@@ -34,6 +34,18 @@ Styled Components)_.
 npm install @charpente-ui/vue
 ```
 
+## Playground
+
+Try it live on StackBlitz — no installation required:
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/charpente-ui/vue)
+
+Or run it locally:
+
+```shell
+npm run dev
+```
+
 ## Usage
 
 ```vue
@@ -89,7 +101,39 @@ Managing checkbox arrays in Vue can be repetitive. **Charpente UI** simplifies t
 </CSelect>
 ```
 
-3. **Polymorphic Elements** _(CButton)_
+3. **Group Components** _(CRadioGroup, CCheckboxGroup)_
+
+Groups wrap related inputs in a semantic `<fieldset>`, sharing a `v-model` and a `name` attribute across all children
+automatically.
+
+```vue
+<CRadioGroup v-model="selected">
+    <CLabel for="opt-a">Option A</CLabel>
+    <CRadio id="opt-a" value="a"/>
+
+    <CLabel for="opt-b">Option B</CLabel>
+    <CRadio id="opt-b" value="b"/>
+</CRadioGroup>
+```
+
+```vue
+<CCheckboxGroup v-model="selected">
+    <CLabel for="cb-a">Option A</CLabel>
+    <CCheckbox id="cb-a" value="a"/>
+
+    <CLabel for="cb-b">Option B</CLabel>
+    <CCheckbox id="cb-b" value="b"/>
+</CCheckboxGroup>
+```
+
+The `name` attribute is auto-generated via `useId()` and shared across all children. Override it on the group or on
+individual inputs:
+
+```vue
+<CRadioGroup v-model="selected" name="my-group">...</CRadioGroup>
+```
+
+4. **Polymorphic Elements** _(CButton)_
 
 The button can change its HTML tag while keeping its behavior.
 
@@ -100,14 +144,16 @@ The button can change its HTML tag while keeping its behavior.
 
 ## Components
 
-| Name     | Core Logic                                                                       | Tag         | Status |
-|----------|----------------------------------------------------------------------------------|-------------|--------|
-| Button   | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`   | Ready  |
-| Checkbox | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox` | Ready  |
-| File     | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`     | Ready  |
-| Form     | **Auto-Submit:** Integrated `preventDefault` and event handling.                 | `CForm`     | Ready  |
-| Input    | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`    | Ready  |
-| Label    | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`    | Ready  |
-| Radio    | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`    | Ready  |
-| Select   | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`   | Ready  |
-| Textarea | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea` | Ready  |
+| Name          | Core Logic                                                                       | Tag              | Status |
+|---------------|----------------------------------------------------------------------------------|------------------|--------|
+| Button        | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`        | Ready  |
+| Checkbox      | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`      | Ready  |
+| CheckboxGroup | **Group:** Shared v-model and name across checkboxes inside a fieldset.          | `CCheckboxGroup` | Ready  |
+| File          | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`          | Ready  |
+| Form          | **Auto-Submit:** Integrated `preventDefault` and event handling.                 | `CForm`          | Ready  |
+| Input         | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`         | Ready  |
+| Label         | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`         | Ready  |
+| Radio         | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`         | Ready  |
+| RadioGroup    | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`    | Ready  |
+| Select        | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`        | Ready  |
+| Textarea      | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`      | Ready  |

@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { CButton,
     CCheckbox,
+    CCheckboxGroup,
     CFile,
     CForm,
     CInput,
@@ -72,13 +73,20 @@ function resetForm() {
             <CLabel for="my-checkbox">Single checkbox</CLabel>
             <CCheckbox id="my-checkbox" v-model="checkbox"/>
             <p>Value: {{ checkbox }}</p>
+        </section>
 
-            <p>Checkbox group</p>
-            <CLabel for="cb-a">Option A</CLabel>
-            <CCheckbox id="cb-a" v-model="checkboxGroup" value="a"/>
+        <section>
+            <h2>CCheckboxGroup</h2>
+            <CCheckboxGroup v-model="checkboxGroup">
+                <CLabel for="cb-a">Option A</CLabel>
+                <CCheckbox id="cb-a" value="a"/>
 
-            <CLabel for="cb-b">Option B</CLabel>
-            <CCheckbox id="cb-b" v-model="checkboxGroup" value="b"/>
+                <CLabel for="cb-b">Option B</CLabel>
+                <CCheckbox id="cb-b" value="b"/>
+
+                <CLabel for="cb-c">Option C</CLabel>
+                <CCheckbox id="cb-c" value="c"/>
+            </CCheckboxGroup>
             <p>Value: {{ checkboxGroup }}</p>
         </section>
 
