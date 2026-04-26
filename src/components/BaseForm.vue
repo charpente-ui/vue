@@ -9,7 +9,9 @@ const attrs = useAttrs();
 const generatedId = useId();
 
 const emit = defineEmits<{
-    submit: [event: Event]
+    submit: [
+        event: SubmitEvent
+    ]
 }>();
 
 const formId = computed(() => {
