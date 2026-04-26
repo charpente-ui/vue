@@ -4,6 +4,7 @@
     "description": "Charpente UI is a headless CSS Vue component library.",
     "type": "module",
     "scripts": {
+        "dev": "vite --config playground/vite.config.ts",
         "lint:js": "eslint --fix .",
         "lint": "npm-run-all --parallel lint:*",
         "build": "vite build",
