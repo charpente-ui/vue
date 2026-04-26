@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/charpente-ui/vue/compare/v1.2.2...v1.3.0) (2026-04-26)
+
+### Features
+
+* **checkbox-group:** add CCheckboxGroup with shared v-model and name ([801e260](https://github.com/charpente-ui/vue/commit/801e2601271258bbd79774aa086c0e64ddfef395))
+* **radio-group:** add CRadioGroup with shared v-model and name ([dac295d](https://github.com/charpente-ui/vue/commit/dac295d52e1153f719b215ad3af511a3a7bfd737))
+
+### Bug Fixes
+
+* **components:** improve type precision and reactive patterns ([beb32c9](https://github.com/charpente-ui/vue/commit/beb32c9b044e5379be44f7c9b10e0954f5c97ff3))
+
 ## [1.2.2](https://github.com/charpente-ui/vue/compare/v1.2.1...v1.2.2) (2026-04-19)
 
 ### Bug Fixes
