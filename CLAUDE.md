@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Headless Vue 3 component library (`@charpente-ui/vue`). Logic only, zero CSS.
-Requires Node >= 24.
+Requires Node >= 24 (uses native `crypto.randomUUID()` — do not add polyfills).
 
 ---
 
@@ -22,7 +22,7 @@ Requires Node >= 24.
 ```bash
 npm run build            # Vite build (ESM + UMD)
 npm run test             # Run all tests once (vitest, watch disabled)
-npm run test:coverage    # Coverage (threshold: 90% lines/functions/branches/statements)
+npm run test:coverage    # Coverage (threshold: 90% lines/functions/branches/statements — blocking)
 npx eslint --fix <file1> <file2>  # Lint only the modified files
 npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test file
 ```
@@ -33,6 +33,32 @@ npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test 
 - **Build:** ESM + UMD, Vue externalized, TypeScript declarations via `vite-plugin-dts`.
 - **TypeScript:** Strict mode. Path alias `@/*` → `src/*`.
 
+## Adding a New Component
+
+1. Create `src/components/Base<Name>.vue` following the pattern below.
+2. Export it in `src/index.ts` as `C<Name>`.
+3. Add tests in `src/components/__tests__/Base<Name>.spec.ts`.
+
+Minimal template:
+
+```vue
+<script setup lang="ts">
+import { computed, useAttrs } from 'vue';
+import { useId } from 'vue';
+
+defineOptions({ 
+    inheritAttrs: false
+});
+
+const attrs = useAttrs();
+const id = computed(() => (attrs.id as string | undefined) ?? useId());
+</script>
+
+<template>
+    <input v-bind="$attrs" :id="id" />
+</template>
+```
+
 ## Component Conventions
 
 - `defineOptions({ inheritAttrs: false })` + `v-bind="$attrs"` on every component.
@@ -42,6 +68,22 @@ npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test 
   redeclare them as props unless the component needs to react to them in the script (e.g. `indeterminate` on checkbox
   is a DOM property, not an HTML attribute).
 - Props are only added when they control component-specific logic (e.g. `as` on CButton, `value` on CCheckbox/CRadio).
+
+## Polymorphic `as` Prop (CButton)
+
+Components that accept an `as` prop render via `<component :is="as" />`. The prop defaults to `'button'` and accepts any valid HTML tag or Vue component. Pass all attrs through normally — the host element handles the rest.
+
+```vue
+<script setup lang="ts">
+const props = withDefaults(defineProps<{ as?: string | Component }>(), { as: 'button' })
+</script>
+
+<template>
+    <component :is="props.as" v-bind="$attrs">
+        <slot/>
+    </component>
+</template>
+```
 
 ## Code Style
 
