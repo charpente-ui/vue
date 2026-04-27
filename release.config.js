@@ -19,6 +19,11 @@ export default {
                 releaseRules: [
                     {
                         type: 'chore',
+                        scope: 'deps-dev',
+                        release: false
+                    },
+                    {
+                        type: 'chore',
                         scope: 'deps',
                         release: 'minor'
                     }
