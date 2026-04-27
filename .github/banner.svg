@@ -1,151 +1,154 @@
-<svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" width="100%" style="border-radius:12px;display:block">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" style="border-radius:12px;display:block">
     <defs>
         <pattern id="d" width="22" height="22" patternUnits="userSpaceOnUse">
             <circle cx="0.8" cy="0.8" r="0.7" fill="#fff" opacity="0.035"/>
         </pattern>
         <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-            <path d="M1.5 1.5L8.5 5L1.5 8.5" fill="none" stroke="#42b883" stroke-width="1.5" stroke-linecap="round"
+            <path d="M1.5 1.5L8.5 5L1.5 8.5" fill="none" stroke="#b84277" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round"/>
         </marker>
     </defs>
 
-    <rect width="800" height="440" fill="#0c0c0c"/>
-    <rect width="800" height="440" fill="url(#d)"/>
-    <rect width="800" height="440" rx="12" fill="none" stroke="#1a1a1a"/>
-    <rect width="800" height="2.5" fill="#42b883" opacity="0.9"/>
+    <rect width="800" height="480" fill="#0c0c0c"/>
+    <rect width="800" height="480" fill="url(#d)"/>
+    <rect width="800" height="480" rx="12" fill="none" stroke="#1a1a1a"/>
+    <rect width="800" height="2.5" fill="#b84277" opacity="0.9"/>
 
-    <!-- Title -->
-    <text x="400" y="52" text-anchor="middle"
-          font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" font-size="28"
+    <g transform="translate(400, 50)">
+        <rect x="-22" y="-22" width="12" height="12" rx="2" fill="#b84277"/>
+        <rect x="-6" y="-22" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+        <rect x="10" y="-22" width="12" height="12" rx="2" fill="#b84277"/>
+        <rect x="-22" y="-6" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+        <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#b84277"/>
+        <rect x="10" y="-6" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+        <rect x="-22" y="10" width="12" height="12" rx="2" fill="#b84277"/>
+        <rect x="-6" y="10" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+        <rect x="10" y="10" width="12" height="12" rx="2" fill="#b84277"/>
+    </g>
+
+    <text x="400" y="105" text-anchor="middle"
+          font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" font-size="26"
           font-weight="500" fill="#eeeeee" letter-spacing="-0.5">Charpente UI
     </text>
-    <text x="400" y="76" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#42b883"
+    <text x="400" y="126" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#b84277"
           opacity="0.75">headless component library for Vue 3
     </text>
 
-    <!-- LEFT: code panel -->
-    <rect x="44" y="98" width="320" height="234" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
-    <rect x="44" y="98" width="320" height="28" rx="10" fill="#141414"/>
-    <rect x="44" y="114" width="320" height="12" fill="#141414"/>
-    <line x1="44" y1="126" x2="364" y2="126" stroke="#1c1c1c" stroke-width="0.5"/>
-    <circle cx="68" cy="112" r="4.5" fill="#ff5f57"/>
-    <circle cx="84" cy="112" r="4.5" fill="#febc2e"/>
-    <circle cx="100" cy="112" r="4.5" fill="#28c840"/>
+    <rect x="44" y="148" width="320" height="234" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
+    <rect x="44" y="148" width="320" height="28" rx="10" fill="#141414"/>
+    <rect x="44" y="164" width="320" height="12" fill="#141414"/>
+    <line x1="44" y1="176" x2="364" y2="176" stroke="#1c1c1c" stroke-width="0.5"/>
+    <circle cx="68" cy="162" r="4.5" fill="#ff5f57"/>
+    <circle cx="84" cy="162" r="4.5" fill="#febc2e"/>
+    <circle cx="100" cy="162" r="4.5" fill="#28c840"/>
 
-    <!-- code bars -->
-    <rect x="68" y="146" width="52" height="6" rx="2" fill="#42b883" opacity="0.85"/>
-    <rect x="124" y="146" width="22" height="6" rx="2" fill="#42b883" opacity="0.55"/>
+    <rect x="68" y="196" width="52" height="6" rx="2" fill="#b84277" opacity="0.85"/>
+    <rect x="124" y="196" width="22" height="6" rx="2" fill="#b84277" opacity="0.55"/>
 
-    <rect x="80" y="164" width="44" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="128" y="164" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="164" y="164" width="36" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="204" y="164" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
+    <rect x="80" y="214" width="44" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
+    <rect x="128" y="214" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
+    <rect x="164" y="214" width="36" height="6" rx="2" fill="#e07070" opacity="0.75"/>
+    <rect x="204" y="214" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
 
-    <rect x="80" y="180" width="58" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="142" y="180" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="178" y="180" width="42" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="224" y="180" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
+    <rect x="80" y="230" width="58" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
+    <rect x="142" y="230" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
+    <rect x="178" y="230" width="42" height="6" rx="2" fill="#e07070" opacity="0.75"/>
+    <rect x="224" y="230" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
 
-    <rect x="80" y="196" width="38" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="122" y="196" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="158" y="196" width="48" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="210" y="196" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
+    <rect x="80" y="246" width="38" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
+    <rect x="122" y="246" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
+    <rect x="158" y="246" width="48" height="6" rx="2" fill="#e07070" opacity="0.75"/>
+    <rect x="210" y="246" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
 
-    <rect x="80" y="212" width="46" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="130" y="212" width="28" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="162" y="212" width="40" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="206" y="212" width="8" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
+    <rect x="80" y="262" width="46" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
+    <rect x="130" y="262" width="28" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
+    <rect x="162" y="262" width="40" height="6" rx="2" fill="#e07070" opacity="0.75"/>
+    <rect x="206" y="262" width="8" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
 
-    <rect x="96" y="228" width="32" height="6" rx="2" fill="#9aa3b0" opacity="0.55"/>
+    <rect x="96" y="278" width="32" height="6" rx="2" fill="#9aa3b0" opacity="0.55"/>
+    <rect x="80" y="294" width="56" height="6" rx="2" fill="#7c8cf8" opacity="0.65"/>
+    <rect x="68" y="310" width="62" height="6" rx="2" fill="#b84277" opacity="0.7"/>
 
-    <rect x="80" y="244" width="56" height="6" rx="2" fill="#7c8cf8" opacity="0.65"/>
+    <line x1="68" y1="328" x2="340" y2="328" stroke="#181818" stroke-width="0.5"/>
 
-    <rect x="68" y="260" width="62" height="6" rx="2" fill="#42b883" opacity="0.7"/>
+    <rect x="68" y="340" width="44" height="6" rx="2" fill="#b84277" opacity="0.85"/>
+    <rect x="116" y="340" width="28" height="6" rx="2" fill="#f4a261" opacity="0.7"/>
+    <rect x="148" y="340" width="8" height="6" rx="2" fill="#b84277" opacity="0.5"/>
 
-    <line x1="68" y1="278" x2="340" y2="278" stroke="#181818" stroke-width="0.5"/>
+    <rect x="68" y="356" width="32" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
+    <rect x="104" y="356" width="120" height="6" rx="2" fill="#9aa3b0" opacity="0.5"/>
+    <rect x="228" y="356" width="22" height="6" rx="2" fill="#7c8cf8" opacity="0.7"/>
+    <rect x="254" y="356" width="80" height="6" rx="2" fill="#e07070" opacity="0.65"/>
 
-    <rect x="68" y="290" width="44" height="6" rx="2" fill="#42b883" opacity="0.85"/>
-    <rect x="116" y="290" width="28" height="6" rx="2" fill="#f4a261" opacity="0.7"/>
-    <rect x="148" y="290" width="8" height="6" rx="2" fill="#42b883" opacity="0.5"/>
-
-    <rect x="68" y="306" width="32" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="104" y="306" width="120" height="6" rx="2" fill="#9aa3b0" opacity="0.5"/>
-    <rect x="228" y="306" width="22" height="6" rx="2" fill="#7c8cf8" opacity="0.7"/>
-    <rect x="254" y="306" width="80" height="6" rx="2" fill="#e07070" opacity="0.65"/>
-
-    <!-- ARROW -->
-    <line x1="378" y1="215" x2="418" y2="215" stroke="#42b883" stroke-width="1.5" opacity="0.5" marker-end="url(#ar)"/>
-    <text x="398" y="208" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#3a3a3a">your
+    <line x1="378" y1="265" x2="418" y2="265" stroke="#b84277" stroke-width="1.5" opacity="0.5" marker-end="url(#ar)"/>
+    <text x="398" y="258" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#3a3a3a">your
         css
     </text>
 
-    <!-- RIGHT: abstract UI -->
-    <rect x="432" y="98" width="320" height="234" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
-    <rect x="432" y="98" width="320" height="28" rx="10" fill="#141414"/>
-    <rect x="432" y="114" width="320" height="12" fill="#141414"/>
-    <line x1="432" y1="126" x2="752" y2="126" stroke="#1c1c1c" stroke-width="0.5"/>
-    <circle cx="456" cy="112" r="4.5" fill="#ff5f57"/>
-    <circle cx="472" cy="112" r="4.5" fill="#febc2e"/>
-    <circle cx="488" cy="112" r="4.5" fill="#28c840"/>
-    <text x="592" y="116" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#3a3a3a">
+    <rect x="432" y="148" width="320" height="234" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
+    <rect x="432" y="148" width="320" height="28" rx="10" fill="#141414"/>
+    <rect x="432" y="164" width="320" height="12" fill="#141414"/>
+    <line x1="432" y1="176" x2="752" y2="176" stroke="#1c1c1c" stroke-width="0.5"/>
+    <circle cx="456" cy="162" r="4.5" fill="#ff5f57"/>
+    <circle cx="472" cy="162" r="4.5" fill="#febc2e"/>
+    <circle cx="488" cy="162" r="4.5" fill="#28c840"/>
+    <text x="592" y="166" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#3a3a3a">
         preview
     </text>
 
-    <rect x="456" y="146" width="80" height="6" rx="2" fill="#3a3a3a"/>
-    <rect x="540" y="146" width="36" height="6" rx="2" fill="#2a2a2a"/>
+    <rect x="456" y="196" width="80" height="6" rx="2" fill="#3a3a3a"/>
+    <rect x="540" y="196" width="36" height="6" rx="2" fill="#2a2a2a"/>
 
-    <rect x="456" y="166" width="180" height="32" rx="6" fill="#161616" stroke="#2a2a2a"/>
-    <rect x="468" y="178" width="60" height="8" rx="2" fill="#4a4a4a"/>
-    <rect x="624" y="173" width="2" height="18" fill="#42b883" opacity="0.7"/>
+    <rect x="456" y="216" width="180" height="32" rx="6" fill="#161616" stroke="#2a2a2a"/>
+    <rect x="468" y="228" width="60" height="8" rx="2" fill="#4a4a4a"/>
+    <rect x="624" y="223" width="2" height="18" fill="#b84277" opacity="0.7"/>
 
-    <rect x="644" y="166" width="84" height="32" rx="6" fill="#42b883" fill-opacity="0.12" stroke="#42b883"
+    <rect x="644" y="216" width="84" height="32" rx="6" fill="#b84277" fill-opacity="0.12" stroke="#b84277"
           stroke-opacity="0.5"/>
-    <rect x="656" y="178" width="44" height="8" rx="2" fill="#42b883" opacity="0.85"/>
+    <rect x="656" y="228" width="44" height="8" rx="2" fill="#b84277" opacity="0.85"/>
 
-    <line x1="456" y1="216" x2="728" y2="216" stroke="#181818" stroke-width="0.5"/>
+    <line x1="456" y1="266" x2="728" y2="266" stroke="#181818" stroke-width="0.5"/>
 
-    <rect x="456" y="232" width="16" height="16" rx="4" fill="#42b883"/>
-    <path d="M460 240 L463.5 244 L470 236" fill="none" stroke="#0c0c0c" stroke-width="1.6" stroke-linecap="round"
+    <rect x="456" y="282" width="16" height="16" rx="4" fill="#b84277"/>
+    <path d="M460 290 L463.5 294 L470 286" fill="none" stroke="#0c0c0c" stroke-width="1.6" stroke-linecap="round"
           stroke-linejoin="round"/>
-    <rect x="480" y="237" width="120" height="6" rx="2" fill="#5a5a5a"/>
+    <rect x="480" y="287" width="120" height="6" rx="2" fill="#5a5a5a"/>
 
-    <rect x="456" y="256" width="16" height="16" rx="4" fill="#161616" stroke="#2a2a2a"/>
-    <rect x="480" y="261" width="92" height="6" rx="2" fill="#3a3a3a"/>
+    <rect x="456" y="306" width="16" height="16" rx="4" fill="#161616" stroke="#2a2a2a"/>
+    <rect x="480" y="311" width="92" height="6" rx="2" fill="#3a3a3a"/>
 
-    <rect x="456" y="288" width="110" height="32" rx="6" fill="#42b883"/>
-    <rect x="478" y="299" width="66" height="10" rx="3" fill="#0c0c0c" opacity="0.55"/>
+    <rect x="456" y="338" width="110" height="32" rx="6" fill="#b84277"/>
+    <rect x="478" y="349" width="66" height="10" rx="3" fill="#0c0c0c" opacity="0.55"/>
 
-    <rect x="574" y="288" width="100" height="32" rx="6" fill="none" stroke="#42b883" stroke-width="1"/>
-    <rect x="592" y="299" width="64" height="10" rx="3" fill="#42b883" opacity="0.85"/>
+    <rect x="574" y="338" width="100" height="32" rx="6" fill="none" stroke="#b84277" stroke-width="1"/>
+    <rect x="592" y="349" width="64" height="10" rx="3" fill="#b84277" opacity="0.85"/>
 
-    <!-- BOTTOM -->
-    <rect x="222" y="350" width="356" height="26" rx="6" fill="#0e0e0e" stroke="#1e1e1e"/>
-    <rect x="240" y="361" width="6" height="6" rx="1" fill="#42b883" opacity="0.6"/>
-    <text x="256" y="368" font-family="ui-monospace,monospace" font-size="10.5">
-        <tspan fill="#5a5a5a">npm install</tspan>
-        <tspan fill="#42b883">@charpente-ui/vue</tspan>
+    <rect x="222" y="398" width="356" height="26" rx="6" fill="#0e0e0e" stroke="#1e1e1e"/>
+    <text x="400" y="416" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10.5">
+        <tspan fill="#5a5a5a">$ npm install</tspan>
+        <tspan fill="#b84277">@charpente-ui/vue</tspan>
     </text>
 
-    <rect x="240" y="390" width="68" height="20" rx="10" fill="#091510" stroke="#42b883" stroke-width="0.8"/>
-    <text x="274" y="404" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#42b883">
+    <rect x="240" y="436" width="68" height="20" rx="10" fill="#1a0c12" stroke="#b84277" stroke-width="0.8"/>
+    <text x="274" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#b84277">
         headless
     </text>
-    <rect x="316" y="390" width="50" height="20" rx="10" fill="#10101e" stroke="#7c8cf8" stroke-width="0.8"/>
-    <text x="341" y="404" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#7c8cf8">vue
+    <rect x="316" y="436" width="50" height="20" rx="10" fill="#091510" stroke="#42b883" stroke-width="0.8"/>
+    <text x="341" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#42b883">vue
         3
     </text>
-    <rect x="374" y="390" width="38" height="20" rx="10" fill="#1a130a" stroke="#f4a261" stroke-width="0.8"/>
-    <text x="393" y="404" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#f4a261">MIT
+    <rect x="374" y="436" width="38" height="20" rx="10" fill="#1a130a" stroke="#f4a261" stroke-width="0.8"/>
+    <text x="393" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#f4a261">MIT
     </text>
-    <rect x="420" y="390" width="38" height="20" rx="10" fill="#091510" stroke="#42b883" stroke-width="0.8"/>
-    <text x="439" y="404" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#42b883">npm
+    <rect x="420" y="436" width="38" height="20" rx="10" fill="#1a0c12" stroke="#b84277" stroke-width="0.8"/>
+    <text x="439" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#b84277">npm
     </text>
-    <rect x="466" y="390" width="94" height="20" rx="10" fill="#10101e" stroke="#7c8cf8" stroke-width="0.8"/>
-    <text x="513" y="404" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#7c8cf8">
+    <rect x="466" y="436" width="94" height="20" rx="10" fill="#10101e" stroke="#7c8cf8" stroke-width="0.8"/>
+    <text x="513" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#7c8cf8">
         tree-shaking
     </text>
 
-    <text x="400" y="430" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#2a2a2a">The
+    <text x="400" y="473" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#2a2a2a">The
         logic you need. Without the CSS you don't.
     </text>
 </svg>
