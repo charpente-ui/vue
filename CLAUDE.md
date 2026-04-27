@@ -101,3 +101,10 @@ const props = withDefaults(defineProps<{ as?: string | Component }>(), { as: 'bu
 - Conventional Commits enforced by commitlint + husky.
 - `semantic-release` from `main` (pre-releases from `beta`).
 - **Never commit directly** — propose the message and wait for user validation.
+
+### Dependency update scopes
+
+- `chore(deps): ...` → production dependencies (`dependencies` in package.json) — triggers a `minor` release
+- `chore(deps-dev): ...` → dev dependencies (`devDependencies` in package.json) — **no release**
+
+Always check `package.json` before choosing the scope. Vite, ESLint, Vitest, TypeScript and similar tooling are always `devDependencies`.
