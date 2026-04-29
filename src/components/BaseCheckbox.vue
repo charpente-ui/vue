@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, useId, useTemplateRef, watchEffect } from 'vue';
+import { computed, inject, useAttrs, useId, useTemplateRef, watchPostEffect } from 'vue';
 import { checkboxGroupKey } from './internal/keys';
 
 defineOptions({
@@ -31,7 +31,7 @@ const checkboxName = computed(() => {
     return group?.name.value;
 });
 
-watchEffect(() => {
+watchPostEffect(() => {
     if (inputRef.value) {
         inputRef.value.indeterminate = !!props.indeterminate;
     }
