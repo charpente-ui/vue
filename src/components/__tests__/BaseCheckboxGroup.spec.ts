@@ -146,7 +146,7 @@ describe('BaseCheckboxGroup', () => {
         const wrapper = mount(BaseCheckbox, {
             props: {
                 modelValue: false,
-                'onUpdate:modelValue': (e: boolean) => wrapper.setProps({ modelValue: e })
+                'onUpdate:modelValue': (e: boolean | unknown[]) => wrapper.setProps({ modelValue: e })
             }
         });
 

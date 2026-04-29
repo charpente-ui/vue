@@ -1,14 +1,14 @@
 import type { InjectionKey, ModelRef, ComputedRef } from 'vue';
 
 export interface RadioGroupContext {
-    model: ModelRef<string | number | undefined>
+    model: ModelRef<unknown>
     name: ComputedRef<string>
 }
 
 export const radioGroupKey: InjectionKey<RadioGroupContext> = Symbol('CRadioGroup');
 
 export interface CheckboxGroupContext {
-    model: ModelRef<(string | number)[]>
+    model: ModelRef<unknown[]>
     name: ComputedRef<string>
 }
 

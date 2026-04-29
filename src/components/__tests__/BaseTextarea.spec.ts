@@ -7,7 +7,7 @@ describe('BaseTextarea', () => {
         const wrapper = mount(BaseTextarea, {
             props: {
                 modelValue: 'foo',
-                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
                     modelValue: e
                 })
             }
@@ -56,7 +56,7 @@ describe('BaseTextarea', () => {
         const wrapper = mount(BaseTextarea, {
             props: {
                 modelValue: '',
-                'onUpdate:modelValue': (e: string) => wrapper.setProps({
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
                     modelValue: e
                 })
             }

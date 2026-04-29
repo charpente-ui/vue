@@ -8,7 +8,7 @@ describe('BaseRadio', () => {
             props: {
                 value: 'bar',
                 modelValue: 'foo',
-                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                'onUpdate:modelValue': (e: unknown) => wrapper.setProps({
                     modelValue: e
                 })
             }
@@ -86,7 +86,7 @@ describe('BaseRadio', () => {
             props: {
                 value: 42,
                 modelValue: 0,
-                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                'onUpdate:modelValue': (e: unknown) => wrapper.setProps({
                     modelValue: e
                 })
             }

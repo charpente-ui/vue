@@ -7,11 +7,11 @@ defineOptions({
 });
 
 const props = defineProps<{
-    value?: string | number
+    value?: unknown
     indeterminate?: boolean
 }>();
 
-const localModel = defineModel<boolean | (string | number)[]>();
+const localModel = defineModel<boolean | unknown[]>();
 const group = inject(checkboxGroupKey, null);
 const model = group ? group.model : localModel;
 

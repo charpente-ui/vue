@@ -113,7 +113,7 @@ describe('BaseRadioGroup', () => {
             props: {
                 value: 'foo',
                 modelValue: '',
-                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                'onUpdate:modelValue': (e: unknown) => wrapper.setProps({
                     modelValue: e
                 })
             }

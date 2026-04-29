@@ -7,10 +7,10 @@ defineOptions({
 });
 
 defineProps<{
-    value: string | number
+    value: unknown
 }>();
 
-const localModel = defineModel<string | number>();
+const localModel = defineModel<unknown>();
 const group = inject(radioGroupKey, null);
 const model = group ? group.model : localModel;
 
