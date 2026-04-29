@@ -89,4 +89,20 @@ describe('BaseFile', () => {
 
         expect(wrapper.find('input').attributes('id')).toBe('custom-file');
     });
+
+    it('passes accept attribute through', () => {
+        const wrapper = mount(BaseFile, {
+            attrs: { accept: 'image/*' }
+        });
+
+        expect(wrapper.find('input').attributes('accept')).toBe('image/*');
+    });
+
+    it('passes multiple attribute through', () => {
+        const wrapper = mount(BaseFile, {
+            attrs: { multiple: true }
+        });
+
+        expect(wrapper.find('input').attributes('multiple')).toBeDefined();
+    });
 });

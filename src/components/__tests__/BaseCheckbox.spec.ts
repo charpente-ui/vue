@@ -109,6 +109,45 @@ describe('BaseCheckbox', () => {
         expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(['foo']);
     });
 
+    it('passes name attribute through', () => {
+        const wrapper = mount(BaseCheckbox, {
+            props: { value: 'foo' },
+            attrs: { name: 'my-checkbox' }
+        });
+
+        expect(wrapper.find('input').attributes('name')).toBe('my-checkbox');
+    });
+
+    it('supports object value in array model', async () => {
+        const optionA = { id: 1 };
+        const optionB = { id: 2 };
+        const wrapper = mount(BaseCheckbox, {
+            props: {
+                value: optionB,
+                modelValue: [optionA],
+                'onUpdate:modelValue': (e: boolean | unknown[]) => wrapper.setProps({ modelValue: e })
+            }
+        });
+
+        await wrapper.find('input').setValue(true);
+
+        expect(wrapper.emitted('update:modelValue')?.[0][0]).toContainEqual(optionB);
+    });
+
+    it('supports boolean value in array model', async () => {
+        const wrapper = mount(BaseCheckbox, {
+            props: {
+                value: true,
+                modelValue: [],
+                'onUpdate:modelValue': (e: boolean | unknown[]) => wrapper.setProps({ modelValue: e })
+            }
+        });
+
+        await wrapper.find('input').setValue(true);
+
+        expect(wrapper.emitted('update:modelValue')?.[0][0]).toContain(true);
+    });
+
     it('overrides auto-generated ID when attrs.id is provided', () => {
         const wrapper = mount(BaseCheckbox, {
             attrs: { id: 'custom-checkbox' }

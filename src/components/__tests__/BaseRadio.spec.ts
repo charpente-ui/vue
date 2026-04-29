@@ -81,6 +81,45 @@ describe('BaseRadio', () => {
         expect(wrapper.find('input').attributes('id')).toBe('custom-radio');
     });
 
+    it('passes name attribute through', () => {
+        const wrapper = mount(BaseRadio, {
+            props: { value: 'foo' },
+            attrs: { name: 'my-group' }
+        });
+
+        expect(wrapper.find('input').attributes('name')).toBe('my-group');
+    });
+
+    it('supports object value', async () => {
+        const option = { id: 1,
+            label: 'Option A' };
+        const wrapper = mount(BaseRadio, {
+            props: {
+                value: option,
+                modelValue: null,
+                'onUpdate:modelValue': (e: unknown) => wrapper.setProps({ modelValue: e })
+            }
+        });
+
+        await wrapper.find('input').setValue(true);
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([option]);
+    });
+
+    it('supports boolean value', async () => {
+        const wrapper = mount(BaseRadio, {
+            props: {
+                value: true,
+                modelValue: false,
+                'onUpdate:modelValue': (e: unknown) => wrapper.setProps({ modelValue: e })
+            }
+        });
+
+        await wrapper.find('input').setValue(true);
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true]);
+    });
+
     it('supports numeric value', async () => {
         const wrapper = mount(BaseRadio, {
             props: {

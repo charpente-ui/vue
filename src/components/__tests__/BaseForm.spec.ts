@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import BaseForm from '../BaseForm.vue';
 
@@ -12,11 +13,14 @@ describe('BaseForm', () => {
     it('emits a "submit" event when submitted', async () => {
         const wrapper = mount(BaseForm);
 
-        await wrapper.trigger('submit');
+        const event = new SubmitEvent('submit', { bubbles: true,
+            cancelable: true });
+        wrapper.element.dispatchEvent(event);
+        await nextTick();
 
         expect(wrapper.emitted()).toHaveProperty('submit');
         expect(wrapper.emitted('submit')).toHaveLength(1);
-        expect(wrapper.emitted('submit')![0][0]).toBeInstanceOf(Event);
+        expect(wrapper.emitted('submit')![0][0]).toBeInstanceOf(SubmitEvent);
     });
 
     it('generates an automatic ID via useId', () => {

@@ -69,6 +69,32 @@ describe('BaseInput', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['99']);
     });
 
+    it('forwards native input event via $attrs', async () => {
+        let called = false;
+        const wrapper = mount(BaseInput, {
+            attrs: { onInput: () => {
+                called = true; 
+            } }
+        });
+
+        await wrapper.find('input').trigger('input');
+
+        expect(called).toBe(true);
+    });
+
+    it('forwards native change event via $attrs', async () => {
+        let called = false;
+        const wrapper = mount(BaseInput, {
+            attrs: { onChange: () => {
+                called = true; 
+            } }
+        });
+
+        await wrapper.find('input').trigger('change');
+
+        expect(called).toBe(true);
+    });
+
     it('handles rapid sequential updates', async () => {
         const wrapper = mount(BaseInput, {
             props: {
