@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/charpente-ui/vue/compare/v1.4.0...v1.4.1) (2026-04-29)
+
+### Bug Fixes
+
+* **BaseCheckbox,BaseRadio:** widen value prop and model types to unknown ([a8a8292](https://github.com/charpente-ui/vue/commit/a8a8292d79c7423aa228c24cf5d14cdc5ee8ca48))
+* **BaseCheckbox:** use watchPostEffect for post-DOM-flush indeterminate sync ([9d6224f](https://github.com/charpente-ui/vue/commit/9d6224f96cc7eadb7e258b88c7507a9b8126fcf0))
+* **BaseTextarea:** accept string | number model like BaseInput ([2f68c4d](https://github.com/charpente-ui/vue/commit/2f68c4d8f3c19ca20bd780a1ce85f8deabed37d7))
+
 ## [1.4.0](https://github.com/charpente-ui/vue/compare/v1.3.1...v1.4.0) (2026-04-26)
 
 ### Dependencies
