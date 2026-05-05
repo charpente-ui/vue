@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Headless Vue 3 component library (`@charpente-ui/vue`). Logic only, zero CSS.
-Requires Node >= 24 (uses native `crypto.randomUUID()` — do not add polyfills).
+Requires Node >= 20 (uses native `crypto.randomUUID()` — do not add polyfills).
 
 ---
 
