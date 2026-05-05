@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/charpente-ui/vue/compare/v1.4.1...v1.5.0) (2026-05-05)
+
+### Features
+
+* lower engines.node requirement from >=24 to >=20 ([25f695b](https://github.com/charpente-ui/vue/commit/25f695bc380370a9ce31db1e3821fad4c3baf083))
+
 ## [1.4.1](https://github.com/charpente-ui/vue/compare/v1.4.0...v1.4.1) (2026-04-29)
 
 ### Bug Fixes
