@@ -8,7 +8,10 @@ export default defineConfig({
         vue(),
         dts({
             insertTypesEntry: true,
-            cleanVueFileName: true
+            cleanVueFileName: true,
+            exclude: [
+                'src/components/__tests__/**'
+            ]
         })
     ],
     build: {
