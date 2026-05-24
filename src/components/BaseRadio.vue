@@ -31,5 +31,5 @@ const radioName = computed(() => {
 </script>
 
 <template>
-    <input :id="radioId" v-model="model" :name="radioName" :value="value" v-bind="$attrs" type="radio"/>
+    <input v-bind="$attrs" :id="radioId" v-model="model" :name="radioName" :value="value" type="radio"/>
 </template>
