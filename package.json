@@ -1,7 +1,7 @@
 {
     "name": "@charpente-ui/vue",
     "version": "1.5.0",
-    "description": "Charpente UI is a headless CSS Vue component library.",
+    "description": "Charpente UI is a headless Vue component library.",
     "type": "module",
     "scripts": {
         "dev": "vite --config playground/vite.config.ts",
