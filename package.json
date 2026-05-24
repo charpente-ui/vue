@@ -50,7 +50,7 @@
         "vue": "^3.5.29"
     },
     "peerDependencies": {
-        "vue": "^3.0.0"
+        "vue": "^3.5.0"
     },
     "keywords": [
         "vue",
