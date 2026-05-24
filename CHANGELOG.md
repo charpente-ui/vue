@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/charpente-ui/vue/compare/v1.5.0...v1.6.0) (2026-05-24)
+
+### Features
+
+* add sideEffects false for tree-shaking support ([99a9d1f](https://github.com/charpente-ui/vue/commit/99a9d1fcc0556c20a6b25c7592bc6744ad086954))
+
+### Bug Fixes
+
+* exclude test declaration files from build output ([da8f265](https://github.com/charpente-ui/vue/commit/da8f265b01025d99b7294dc9a709ac76f8b15945))
+* remove misleading "CSS" from package description ([3e2931b](https://github.com/charpente-ui/vue/commit/3e2931b20ee0a97d55ae5d0a9fbb254dfda9b485))
+* require Vue >=3.5 as peer dependency ([2f6d46d](https://github.com/charpente-ui/vue/commit/2f6d46d22f765542a421f5f8e71555dd05ec03a1))
+
 ## [1.5.0](https://github.com/charpente-ui/vue/compare/v1.4.1...v1.5.0) (2026-05-05)
 
 ### Features
