@@ -52,19 +52,22 @@ Minimal template:
 
 ```vue
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue';
-import { useId } from 'vue';
+import { computed, useId, useAttrs } from 'vue';
 
 defineOptions({ 
     inheritAttrs: false
 });
 
 const attrs = useAttrs();
-const id = computed(() => (attrs.id as string | undefined) ?? useId());
+const generatedId = useId();
+
+const inputId = computed(() => {
+    return typeof attrs.id === 'string' ? attrs.id : generatedId;
+});
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="id" />
+    <input v-bind="$attrs" :id="inputId"/>
 </template>
 ```
 
