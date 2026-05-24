@@ -69,6 +69,7 @@
         "type": "git",
         "url": "git+https://github.com/charpente-ui/vue.git"
     },
+    "sideEffects": false,
     "files": [
         "dist"
     ],
