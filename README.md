@@ -157,3 +157,43 @@ The button can change its HTML tag while keeping its behavior.
 | RadioGroup    | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`    | Ready  |
 | Select        | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`        | Ready  |
 | Textarea      | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`      | Ready  |
+
+## Wrapping Components
+
+When wrapping a Charpente UI component inside your own, you must forward `$attrs` so that native HTML attributes
+(`id`, `class`, `disabled`, etc.) reach the underlying element instead of landing on your wrapper's root node.
+
+```vue
+<script setup>
+import { CSelect } from '@charpente-ui/vue';
+
+defineOptions({
+    inheritAttrs: false
+});
+
+defineProps({
+    label: String,
+    error: String
+});
+
+const model = defineModel();
+</script>
+
+<template>
+    <div>
+        <label>{{ label }}</label>
+
+        <CSelect v-bind="$attrs" v-model="model">
+            <slot/>
+        </CSelect>
+
+        <span v-if="error">{{ error }}</span>
+    </div>
+</template>
+```
+
+**Why this matters:** Without `inheritAttrs: false`, Vue applies fallthrough attributes to the wrapper's root element
+(`<div>`) instead of the inner component. Adding `v-bind="$attrs"` on the Charpente component ensures attributes like
+`id`, `class`, `required`, or `disabled` pass all the way through to the native HTML element.
+
+This pattern works the same way for all Charpente components (`CInput`, `CCheckbox`, `CRadio`, etc.).
