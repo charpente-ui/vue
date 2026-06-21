@@ -1,154 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" style="display:block">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" style="display:block">
     <defs>
-        <pattern id="d" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="0.8" cy="0.8" r="0.7" fill="#fff" opacity="0.035"/>
+        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="0.8" cy="0.8" r="0.7" fill="#fff" opacity="0.04"/>
         </pattern>
-        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-            <path d="M1.5 1.5L8.5 5L1.5 8.5" fill="none" stroke="#b84277" stroke-width="1.5" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-        </marker>
+        <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#8a2f59"/>
+            <stop offset="0.5" stop-color="#b84277"/>
+            <stop offset="1" stop-color="#d96a98"/>
+        </linearGradient>
+        <clipPath id="frame">
+            <rect width="800" height="360"/>
+        </clipPath>
     </defs>
 
-    <rect width="800" height="480" fill="#0c0c0c"/>
-    <rect width="800" height="480" fill="url(#d)"/>
-    <rect width="800" height="480" rx="12" fill="none" stroke="#1a1a1a"/>
-    <rect width="800" height="2.5" fill="#b84277" opacity="0.9"/>
+    <!-- content clipped to the square frame so the top bar stays within bounds -->
+    <g clip-path="url(#frame)">
+        <rect width="800" height="360" fill="#0c0c0c"/>
+        <rect width="800" height="360" fill="url(#dots)"/>
+        <rect width="800" height="2.5" fill="url(#bar)" opacity="0.95"/>
 
-    <g transform="translate(400, 50)">
-        <rect x="-22" y="-22" width="12" height="12" rx="2" fill="#b84277"/>
-        <rect x="-6" y="-22" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
-        <rect x="10" y="-22" width="12" height="12" rx="2" fill="#b84277"/>
-        <rect x="-22" y="-6" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
-        <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#b84277"/>
-        <rect x="10" y="-6" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
-        <rect x="-22" y="10" width="12" height="12" rx="2" fill="#b84277"/>
-        <rect x="-6" y="10" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
-        <rect x="10" y="10" width="12" height="12" rx="2" fill="#b84277"/>
+        <!-- mark: 3x3 component grid -->
+        <g transform="translate(400, 46)">
+            <rect x="-22" y="-22" width="12" height="12" rx="2" fill="#b84277"/>
+            <rect x="-6" y="-22" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+            <rect x="10" y="-22" width="12" height="12" rx="2" fill="#b84277"/>
+            <rect x="-22" y="-6" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+            <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#b84277"/>
+            <rect x="10" y="-6" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+            <rect x="-22" y="10" width="12" height="12" rx="2" fill="#b84277"/>
+            <rect x="-6" y="10" width="12" height="12" rx="2" fill="#b84277" opacity="0.4"/>
+            <rect x="10" y="10" width="12" height="12" rx="2" fill="#b84277"/>
+        </g>
+
+        <!-- "Charpente UI" wordmark, outlined in Montserrat SemiBold -->
+        <path fill="#eeeeee" d="M321.78 105.26Q319.70 105.26 317.92 104.57Q316.14 103.88 314.82 102.62Q313.51 101.36 312.78 99.64Q312.06 97.93 312.06 95.90Q312.06 93.87 312.78 92.16Q313.51 90.44 314.84 89.18Q316.16 87.92 317.93 87.23Q319.70 86.54 321.81 86.54Q324.04 86.54 325.89 87.31Q327.73 88.07 329.01 89.58L326.82 91.64Q325.83 90.57 324.61 90.04Q323.39 89.50 321.96 89.50Q320.53 89.50 319.35 89.97Q318.17 90.44 317.29 91.30Q316.42 92.16 315.94 93.33Q315.46 94.50 315.46 95.90Q315.46 97.30 315.94 98.47Q316.42 99.64 317.29 100.50Q318.17 101.36 319.35 101.83Q320.53 102.30 321.96 102.30Q323.39 102.30 324.61 101.76Q325.83 101.23 326.82 100.14L329.01 102.22Q327.73 103.70 325.89 104.48Q324.04 105.26 321.78 105.26M334.96 105L331.71 105L331.71 85.71L334.96 85.71L334.96 92.73Q335.56 92.10 336.39 91.66Q337.77 90.96 339.59 90.96Q341.25 90.96 342.57 91.61Q343.88 92.26 344.63 93.60Q345.39 94.94 345.39 97.04L345.39 105L342.14 105L342.14 97.46Q342.14 95.61 341.27 94.70Q340.39 93.79 338.84 93.79Q337.69 93.79 336.81 94.26Q335.92 94.73 335.44 95.65Q334.96 96.58 334.96 97.98L334.96 105M361.14 105L358.07 105L358.07 103.31Q357.58 104.04 356.78 104.51Q355.55 105.18 353.71 105.18Q352.15 105.18 350.98 104.65Q349.81 104.12 349.17 103.17Q348.53 102.22 348.53 101.02Q348.53 99.85 349.09 98.92Q349.65 97.98 350.93 97.43Q352.20 96.89 354.31 96.89L357.89 96.89L357.89 96.68Q357.89 95.25 357.04 94.46Q356.18 93.66 354.44 93.66Q353.26 93.66 352.13 94.03Q351 94.39 350.22 95.04L348.95 92.68Q350.07 91.82 351.61 91.39Q353.16 90.96 354.82 90.96Q357.84 90.96 359.49 92.40Q361.14 93.85 361.14 96.86L361.14 105M357.89 100.66L357.89 99.05L354.54 99.05Q352.88 99.05 352.30 99.58Q351.73 100.11 351.73 100.89Q351.73 101.78 352.43 102.30Q353.13 102.82 354.38 102.82Q355.58 102.82 356.53 102.27Q357.48 101.72 357.89 100.66M368.55 105L365.30 105L365.30 91.12L368.40 91.12L368.40 93.14Q369 92.23 370.01 91.69Q371.33 90.96 373.34 90.96L373.34 94.05Q373.13 94 372.95 93.99Q372.76 93.98 372.58 93.98Q370.74 93.98 369.64 95.06Q368.55 96.13 368.55 98.27L368.55 105M383.92 105.18Q382.23 105.18 380.85 104.40Q380.07 103.96 379.47 103.28L379.47 110.04L376.22 110.04L376.22 91.12L379.32 91.12L379.32 92.94Q379.94 92.18 380.77 91.71Q382.15 90.96 383.92 90.96Q385.97 90.96 387.55 91.84Q389.12 92.73 390.04 94.31Q390.97 95.90 390.97 98.06Q390.97 100.22 390.04 101.81Q389.12 103.41 387.55 104.30Q385.97 105.18 383.92 105.18M383.56 102.40Q384.73 102.40 385.65 101.88Q386.57 101.36 387.12 100.37Q387.66 99.38 387.66 98.06Q387.66 96.71 387.12 95.73Q386.57 94.76 385.65 94.24Q384.73 93.72 383.56 93.72Q382.38 93.72 381.45 94.24Q380.51 94.76 379.97 95.73Q379.42 96.71 379.42 98.06Q379.42 99.38 379.97 100.37Q380.51 101.36 381.45 101.88Q382.38 102.40 383.56 102.40M400.59 105.18Q398.27 105.18 396.54 104.26Q394.81 103.34 393.86 101.72Q392.92 100.11 392.92 98.06Q392.92 95.98 393.84 94.38Q394.76 92.78 396.39 91.87Q398.01 90.96 400.09 90.96Q402.12 90.96 403.71 91.84Q405.29 92.73 406.20 94.34Q407.11 95.95 407.11 98.14Q407.11 98.34 407.10 98.60Q407.09 98.86 407.06 99.10L396.17 99.10Q396.30 99.83 396.66 100.42Q397.23 101.39 398.27 101.91Q399.31 102.43 400.66 102.43Q401.83 102.43 402.77 102.06Q403.71 101.70 404.43 100.92L406.18 102.92Q405.24 104.01 403.82 104.60Q402.41 105.18 400.59 105.18M396.14 96.94L404.04 96.94Q403.94 96.16 403.58 95.51Q403.06 94.60 402.16 94.08Q401.26 93.56 400.09 93.56Q398.90 93.56 398 94.08Q397.10 94.60 396.61 95.51Q396.24 96.16 396.14 96.94M413.48 105L410.23 105L410.23 91.12L413.33 91.12L413.33 92.91Q413.95 92.16 414.91 91.66Q416.29 90.96 418.11 90.96Q419.77 90.96 421.09 91.61Q422.40 92.26 423.15 93.60Q423.91 94.94 423.91 97.04L423.91 105L420.66 105L420.66 97.46Q420.66 95.61 419.79 94.70Q418.92 93.79 417.36 93.79Q416.21 93.79 415.33 94.26Q414.44 94.73 413.96 95.65Q413.48 96.58 413.48 97.98L413.48 105M433.27 105.18Q430.98 105.18 429.73 104Q428.48 102.82 428.48 100.50L428.48 93.72L426.20 93.72L426.20 91.12L428.48 91.12L428.48 88.05L431.73 88.05L431.73 91.12L435.45 91.12L435.45 93.72L431.73 93.72L431.73 100.42Q431.73 101.41 432.24 101.96Q432.75 102.50 433.66 102.50Q434.75 102.50 435.48 101.93L436.39 104.25Q435.82 104.71 434.98 104.95Q434.15 105.18 433.27 105.18M445.59 105.18Q443.28 105.18 441.55 104.26Q439.82 103.34 438.87 101.72Q437.92 100.11 437.92 98.06Q437.92 95.98 438.84 94.38Q439.77 92.78 441.39 91.87Q443.02 90.96 445.10 90.96Q447.13 90.96 448.71 91.84Q450.30 92.73 451.21 94.34Q452.12 95.95 452.12 98.14Q452.12 98.34 452.10 98.60Q452.09 98.86 452.07 99.10L441.17 99.10Q441.30 99.83 441.67 100.42Q442.24 101.39 443.28 101.91Q444.32 102.43 445.67 102.43Q446.84 102.43 447.78 102.06Q448.71 101.70 449.44 100.92L451.18 102.92Q450.25 104.01 448.83 104.60Q447.41 105.18 445.59 105.18M441.15 96.94L449.05 96.94Q448.95 96.16 448.58 95.51Q448.06 94.60 447.16 94.08Q446.27 93.56 445.10 93.56Q443.90 93.56 443 94.08Q442.11 94.60 441.61 95.51Q441.25 96.16 441.15 96.94M470.55 105.26Q466.81 105.26 464.69 103.15Q462.57 101.05 462.57 97.07L462.57 86.80L465.95 86.80L465.95 96.94Q465.95 99.75 467.16 101.02Q468.37 102.30 470.58 102.30Q472.79 102.30 473.98 101.02Q475.18 99.75 475.18 96.94L475.18 86.80L478.51 86.80L478.51 97.07Q478.51 101.05 476.39 103.15Q474.27 105.26 470.55 105.26M486.62 105L483.24 105L483.24 86.80L486.62 86.80"/>
+        <text x="400" y="127" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11"
+              fill="#b84277" opacity="0.8">headless component library for Vue 3
+        </text>
+
+        <!-- code mockup: a headless component, logic only -->
+        <rect x="130" y="152" width="540" height="168" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
+        <rect x="130" y="152" width="540" height="28" rx="10" fill="#141414"/>
+        <rect x="130" y="170" width="540" height="10" fill="#141414"/>
+        <line x1="130" y1="180" x2="670" y2="180" stroke="#1d1d1d" stroke-width="0.75"/>
+        <circle cx="152" cy="166" r="4.5" fill="#ff5f57"/>
+        <circle cx="168" cy="166" r="4.5" fill="#febc2e"/>
+        <circle cx="184" cy="166" r="4.5" fill="#28c840"/>
+        <text x="400" y="170" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11"
+              fill="#5a5a5a">App.vue
+        </text>
+
+        <g font-family="ui-monospace,Menlo,monospace" font-size="13">
+            <text x="150" y="212"><tspan fill="#e07aa3">import</tspan><tspan fill="#c8d0d4"> { </tspan><tspan fill="#42b883">CInput</tspan><tspan fill="#c8d0d4"> } </tspan><tspan fill="#e07aa3">from</tspan><tspan fill="#7fd88f"> '@charpente-ui/vue'</tspan></text>
+            <text x="150" y="250"><tspan fill="#9aa3b0">&lt;</tspan><tspan fill="#42b883">CInput</tspan><tspan fill="#f4a261"> v-model</tspan><tspan fill="#c8d0d4">=</tspan><tspan fill="#7fd88f">"email"</tspan><tspan fill="#f4a261"> type</tspan><tspan fill="#c8d0d4">=</tspan><tspan fill="#7fd88f">"email"</tspan><tspan fill="#9aa3b0"> /&gt;</tspan></text>
+            <text x="150" y="288"><tspan fill="#6b757a">// → headless: bring your own styles</tspan></text>
+        </g>
     </g>
 
-    <text x="400" y="105" text-anchor="middle"
-          font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" font-size="26"
-          font-weight="500" fill="#eeeeee" letter-spacing="-0.5">Charpente UI
-    </text>
-    <text x="400" y="126" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#b84277"
-          opacity="0.75">headless component library for Vue 3
-    </text>
-
-    <rect x="44" y="148" width="320" height="234" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
-    <rect x="44" y="148" width="320" height="28" rx="10" fill="#141414"/>
-    <rect x="44" y="164" width="320" height="12" fill="#141414"/>
-    <line x1="44" y1="176" x2="364" y2="176" stroke="#1c1c1c" stroke-width="0.5"/>
-    <circle cx="68" cy="162" r="4.5" fill="#ff5f57"/>
-    <circle cx="84" cy="162" r="4.5" fill="#febc2e"/>
-    <circle cx="100" cy="162" r="4.5" fill="#28c840"/>
-
-    <rect x="68" y="196" width="52" height="6" rx="2" fill="#b84277" opacity="0.85"/>
-    <rect x="124" y="196" width="22" height="6" rx="2" fill="#b84277" opacity="0.55"/>
-
-    <rect x="80" y="214" width="44" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="128" y="214" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="164" y="214" width="36" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="204" y="214" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
-
-    <rect x="80" y="230" width="58" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="142" y="230" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="178" y="230" width="42" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="224" y="230" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
-
-    <rect x="80" y="246" width="38" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="122" y="246" width="32" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="158" y="246" width="48" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="210" y="246" width="14" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
-
-    <rect x="80" y="262" width="46" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="130" y="262" width="28" height="6" rx="2" fill="#f4a261" opacity="0.8"/>
-    <rect x="162" y="262" width="40" height="6" rx="2" fill="#e07070" opacity="0.75"/>
-    <rect x="206" y="262" width="8" height="6" rx="2" fill="#7c8cf8" opacity="0.6"/>
-
-    <rect x="96" y="278" width="32" height="6" rx="2" fill="#9aa3b0" opacity="0.55"/>
-    <rect x="80" y="294" width="56" height="6" rx="2" fill="#7c8cf8" opacity="0.65"/>
-    <rect x="68" y="310" width="62" height="6" rx="2" fill="#b84277" opacity="0.7"/>
-
-    <line x1="68" y1="328" x2="340" y2="328" stroke="#181818" stroke-width="0.5"/>
-
-    <rect x="68" y="340" width="44" height="6" rx="2" fill="#b84277" opacity="0.85"/>
-    <rect x="116" y="340" width="28" height="6" rx="2" fill="#f4a261" opacity="0.7"/>
-    <rect x="148" y="340" width="8" height="6" rx="2" fill="#b84277" opacity="0.5"/>
-
-    <rect x="68" y="356" width="32" height="6" rx="2" fill="#7c8cf8" opacity="0.9"/>
-    <rect x="104" y="356" width="120" height="6" rx="2" fill="#9aa3b0" opacity="0.5"/>
-    <rect x="228" y="356" width="22" height="6" rx="2" fill="#7c8cf8" opacity="0.7"/>
-    <rect x="254" y="356" width="80" height="6" rx="2" fill="#e07070" opacity="0.65"/>
-
-    <line x1="378" y1="265" x2="418" y2="265" stroke="#b84277" stroke-width="1.5" opacity="0.5" marker-end="url(#ar)"/>
-    <text x="398" y="258" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#3a3a3a">your
-        css
-    </text>
-
-    <rect x="432" y="148" width="320" height="234" rx="10" fill="#0f0f0f" stroke="#1d1d1d"/>
-    <rect x="432" y="148" width="320" height="28" rx="10" fill="#141414"/>
-    <rect x="432" y="164" width="320" height="12" fill="#141414"/>
-    <line x1="432" y1="176" x2="752" y2="176" stroke="#1c1c1c" stroke-width="0.5"/>
-    <circle cx="456" cy="162" r="4.5" fill="#ff5f57"/>
-    <circle cx="472" cy="162" r="4.5" fill="#febc2e"/>
-    <circle cx="488" cy="162" r="4.5" fill="#28c840"/>
-    <text x="592" y="166" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#3a3a3a">
-        preview
-    </text>
-
-    <rect x="456" y="196" width="80" height="6" rx="2" fill="#3a3a3a"/>
-    <rect x="540" y="196" width="36" height="6" rx="2" fill="#2a2a2a"/>
-
-    <rect x="456" y="216" width="180" height="32" rx="6" fill="#161616" stroke="#2a2a2a"/>
-    <rect x="468" y="228" width="60" height="8" rx="2" fill="#4a4a4a"/>
-    <rect x="624" y="223" width="2" height="18" fill="#b84277" opacity="0.7"/>
-
-    <rect x="644" y="216" width="84" height="32" rx="6" fill="#b84277" fill-opacity="0.12" stroke="#b84277"
-          stroke-opacity="0.5"/>
-    <rect x="656" y="228" width="44" height="8" rx="2" fill="#b84277" opacity="0.85"/>
-
-    <line x1="456" y1="266" x2="728" y2="266" stroke="#181818" stroke-width="0.5"/>
-
-    <rect x="456" y="282" width="16" height="16" rx="4" fill="#b84277"/>
-    <path d="M460 290 L463.5 294 L470 286" fill="none" stroke="#0c0c0c" stroke-width="1.6" stroke-linecap="round"
-          stroke-linejoin="round"/>
-    <rect x="480" y="287" width="120" height="6" rx="2" fill="#5a5a5a"/>
-
-    <rect x="456" y="306" width="16" height="16" rx="4" fill="#161616" stroke="#2a2a2a"/>
-    <rect x="480" y="311" width="92" height="6" rx="2" fill="#3a3a3a"/>
-
-    <rect x="456" y="338" width="110" height="32" rx="6" fill="#b84277"/>
-    <rect x="478" y="349" width="66" height="10" rx="3" fill="#0c0c0c" opacity="0.55"/>
-
-    <rect x="574" y="338" width="100" height="32" rx="6" fill="none" stroke="#b84277" stroke-width="1"/>
-    <rect x="592" y="349" width="64" height="10" rx="3" fill="#b84277" opacity="0.85"/>
-
-    <rect x="222" y="398" width="356" height="26" rx="6" fill="#0e0e0e" stroke="#1e1e1e"/>
-    <text x="400" y="416" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10.5">
-        <tspan fill="#5a5a5a">$ npm install</tspan>
-        <tspan fill="#b84277">@charpente-ui/vue</tspan>
-    </text>
-
-    <rect x="240" y="436" width="68" height="20" rx="10" fill="#1a0c12" stroke="#b84277" stroke-width="0.8"/>
-    <text x="274" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#b84277">
-        headless
-    </text>
-    <rect x="316" y="436" width="50" height="20" rx="10" fill="#091510" stroke="#42b883" stroke-width="0.8"/>
-    <text x="341" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#42b883">vue
-        3
-    </text>
-    <rect x="374" y="436" width="38" height="20" rx="10" fill="#1a130a" stroke="#f4a261" stroke-width="0.8"/>
-    <text x="393" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#f4a261">MIT
-    </text>
-    <rect x="420" y="436" width="38" height="20" rx="10" fill="#1a0c12" stroke="#b84277" stroke-width="0.8"/>
-    <text x="439" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#b84277">npm
-    </text>
-    <rect x="466" y="436" width="94" height="20" rx="10" fill="#10101e" stroke="#7c8cf8" stroke-width="0.8"/>
-    <text x="513" y="450" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#7c8cf8">
-        tree-shaking
-    </text>
-
-    <text x="400" y="473" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#2a2a2a">The
-        logic you need. Without the CSS you don't.
-    </text>
+    <!-- crisp square border drawn on top, aligned with the clipped fill -->
+    <rect x="0.5" y="0.5" width="799" height="359" fill="none" stroke="#2a2a2a"/>
 </svg>
