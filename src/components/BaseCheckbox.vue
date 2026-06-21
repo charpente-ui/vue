@@ -32,6 +32,10 @@ const checkboxName = computed(() => {
 });
 
 watchPostEffect(() => {
+    // Defensive null guard required by the `HTMLInputElement | null` ref type.
+    // At runtime Vue always resolves the ref before the post-flush, so the falsy
+    // branch is unreachable — excluded from coverage rather than fake-tested.
+    /* v8 ignore next 2 */
     if (inputRef.value) {
         inputRef.value.indeterminate = !!props.indeterminate;
     }
