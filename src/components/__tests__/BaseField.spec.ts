@@ -27,6 +27,23 @@ describe('BaseField', () => {
         expect(wrapper.text()).toBe('Content');
     });
 
+    it('does not reuse an explicit id on the field wrapper for the label/input pairing', () => {
+        const wrapper = mount(BaseField, {
+            attrs: {
+                id: 'custom-field'
+            },
+            slots: {
+                default: [BaseLabel,
+                    BaseInput]
+            }
+        });
+
+        expect(wrapper.attributes('id')).toBe('custom-field');
+        expect(wrapper.find('label').attributes('for')).not.toBe('custom-field');
+        expect(wrapper.find('input').attributes('id')).not.toBe('custom-field');
+        expect(wrapper.find('input').attributes('id')).toBe(wrapper.find('label').attributes('for'));
+    });
+
     it('links the label to the input via a shared id', () => {
         const wrapper = mount(BaseField, {
             slots: {
