@@ -25,8 +25,17 @@ export function useFieldControl() {
         return field?.supportingTextId.value;
     });
 
+    const ariaInvalid = computed(() => {
+        if ('aria-invalid' in attrs) {
+            return attrs['aria-invalid'];
+        }
+
+        return field?.validationMessage.value ? 'true' : undefined;
+    });
+
     return {
         controlId,
-        describedBy
+        describedBy,
+        ariaInvalid
     };
 }

@@ -212,23 +212,37 @@ function resetForm() {
             </section>
 
             <section class="card">
-                <h2>CForm</h2>
-                <CForm @submit="onSubmit">
+                <h2>CForm — native validation</h2>
+                <CForm validate @submit="onSubmit">
                     <CField class="field">
                         <CLabel>Name *</CLabel>
                         <CInput v-model="form.name" placeholder="John Doe" required/>
+                        <CSupportingText validation class="value">
+                            Your full name, as it should appear.
+                        </CSupportingText>
                     </CField>
                     <CField class="field">
                         <CLabel>Email *</CLabel>
                         <CInput v-model="form.email" type="email" placeholder="john@example.com" required/>
+                        <CSupportingText validation class="value">
+                            We never share your email.
+                        </CSupportingText>
                     </CField>
                     <CField class="field">
                         <CLabel>Message</CLabel>
-                        <CTextarea v-model="form.message" placeholder="Your message..."/>
+                        <CTextarea v-model="form.message" placeholder="Your message..." maxlength="200"/>
+                        <CSupportingText validation class="value">
+                            Optional — 200 characters max.
+                        </CSupportingText>
                     </CField>
-                    <CField class="check-row">
-                        <CCheckbox v-model="form.terms" required/>
-                        <CLabel>I accept the terms</CLabel>
+                    <CField class="field">
+                        <div class="check-row">
+                            <CCheckbox v-model="form.terms" required/>
+                            <CLabel>I accept the terms</CLabel>
+                        </div>
+                        <CSupportingText validation class="value">
+                            Required before submitting.
+                        </CSupportingText>
                     </CField>
                     <div class="row">
                         <CButton type="submit">Submit</CButton>

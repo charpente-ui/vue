@@ -6,12 +6,24 @@ defineOptions({
     inheritAttrs: false
 });
 
+const props = defineProps<{
+    validation?: boolean
+}>();
+
 const attrs = useAttrs();
 const generatedId = useId();
 const field = inject(fieldKey, null);
 
 const textId = computed(() => {
     return typeof attrs.id === 'string' ? attrs.id : generatedId;
+});
+
+const validationMessage = computed(() => {
+    if (props.validation) {
+        return field?.validationMessage.value ?? '';
+    }
+
+    return '';
 });
 
 watchEffect(() => {
@@ -29,6 +41,7 @@ onBeforeUnmount(() => {
 
 <template>
     <p v-bind="$attrs" :id="textId">
-        <slot/>
+        <template v-if="validationMessage">{{ validationMessage }}</template>
+        <slot v-else/>
     </p>
 </template>

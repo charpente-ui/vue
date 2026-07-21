@@ -57,4 +57,54 @@ describe('BaseForm', () => {
         expect(wrapper.attributes('id')).toBe('my-form');
         expect(wrapper.classes()).toContain('flex-col');
     });
+
+    it('does not add novalidate without the validate prop', () => {
+        const wrapper = mount(BaseForm);
+
+        expect(wrapper.attributes('novalidate')).toBeUndefined();
+    });
+
+    it('adds novalidate with the validate prop', () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            }
+        });
+
+        expect(wrapper.attributes('novalidate')).toBeDefined();
+    });
+
+    it('blocks submit and focuses the first invalid control when validating', async () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            },
+            slots: {
+                default: '<input value="ok" required/><input class="empty" required/><button type="submit"/>'
+            },
+            attachTo: document.body
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.emitted('submit')).toBeUndefined();
+        expect(document.activeElement).toBe(wrapper.find('.empty').element);
+
+        wrapper.unmount();
+    });
+
+    it('emits submit when the form is valid while validating', async () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            },
+            slots: {
+                default: '<input value="ok" required/>'
+            }
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.emitted('submit')).toHaveLength(1);
+    });
 });

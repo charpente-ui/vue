@@ -12,10 +12,12 @@ const [
 ] = defineModel<string | number, 'trim' | 'number' | 'lazy'>({
     set: (value) => applyModelModifiers(value, modifiers)
 });
-const { controlId, describedBy } = useFieldControl();
+const { controlId, describedBy, ariaInvalid } = useFieldControl();
 </script>
 
 <template>
-    <input v-if="modifiers.lazy" v-bind="$attrs" :id="controlId" v-model.lazy="model" :aria-describedby="describedBy"/>
-    <input v-else v-bind="$attrs" :id="controlId" v-model="model" :aria-describedby="describedBy"/>
+    <input v-if="modifiers.lazy" v-bind="$attrs" :id="controlId" v-model.lazy="model" :aria-describedby="describedBy"
+           :aria-invalid="ariaInvalid"/>
+    <input v-else v-bind="$attrs" :id="controlId" v-model="model" :aria-describedby="describedBy"
+           :aria-invalid="ariaInvalid"/>
 </template>

@@ -8,7 +8,7 @@ defineOptions({
 
 const model = defineModel<FileList | null>();
 const inputRef = useTemplateRef('input');
-const { controlId, describedBy } = useFieldControl();
+const { controlId, describedBy, ariaInvalid } = useFieldControl();
 
 function handleChange(event: Event) {
     model.value = (event.target as HTMLInputElement).files;
@@ -22,6 +22,6 @@ watch(model, (value) => {
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="controlId" ref="input" :aria-describedby="describedBy" type="file"
-           @change="handleChange"/>
+    <input v-bind="$attrs" :id="controlId" ref="input" :aria-describedby="describedBy" :aria-invalid="ariaInvalid"
+           type="file" @change="handleChange"/>
 </template>

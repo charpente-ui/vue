@@ -183,6 +183,29 @@ avoid accidental form submissions. Pass `type="submit"` explicitly for submit bu
 An explicit `aria-describedby` on the input always wins, and a standalone `CSupportingText` (outside a field)
 simply renders its content with an id.
 
+6. **Native Validation** _(CForm + CField + CSupportingText)_
+
+Browsers already validate forms (`required`, `type="email"`, `minlength`, `pattern`…) and localize their error
+messages for free. Charpente UI exposes that instead of reinventing it — opt in with the `validate` prop:
+
+```vue
+<CForm validate @submit="onSubmit">
+    <CField>
+        <CLabel>Email</CLabel>
+        <CInput v-model="email" type="email" required/>
+        <CSupportingText validation>We never share your email.</CSupportingText>
+    </CField>
+</CForm>
+```
+
+- `CForm validate` suppresses the native bubbles (`novalidate`), blocks `submit` until the form is valid, and
+  focuses the first invalid control.
+- Errors appear after the first submit attempt, then update live as the user fixes the value.
+- `CSupportingText validation` shows the browser's localized `validationMessage` while invalid, and falls back to
+  its slot content otherwise. The control also gets `aria-invalid` automatically.
+- Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
+  Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
+
 An explicit `id` on the input or `for` on the label always wins over the field id. A `CField` wrapping a whole
 group is ignored by the items (a single id must not land on every input); wrap each item in its own `CField`
 instead:
@@ -210,7 +233,7 @@ instead:
 | CheckboxGroup | **Group:** Shared v-model and name across checkboxes inside a fieldset.          | `CCheckboxGroup` | Ready  |
 | Field         | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`         | Ready  |
 | File          | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`          | Ready  |
-| Form          | **Auto-Submit:** Integrated `preventDefault` and event handling.                 | `CForm`          | Ready  |
+| Form          | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`          | Ready  |
 | Input         | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`         | Ready  |
 | Label         | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`         | Ready  |
 | Radio         | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`         | Ready  |

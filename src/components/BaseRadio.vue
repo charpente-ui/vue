@@ -16,7 +16,7 @@ const group = inject(radioGroupKey, null);
 const model = group ? group.model : localModel;
 
 const attrs = useAttrs();
-const { controlId, describedBy } = useFieldControl();
+const { controlId, describedBy, ariaInvalid } = useFieldControl();
 
 const radioName = computed(() => {
     if (typeof attrs.name === 'string') {
@@ -28,6 +28,6 @@ const radioName = computed(() => {
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="controlId" v-model="model" :aria-describedby="describedBy" :name="radioName"
-           :value="value" type="radio"/>
+    <input v-bind="$attrs" :id="controlId" v-model="model" :aria-describedby="describedBy"
+           :aria-invalid="ariaInvalid" :name="radioName" :value="value" type="radio"/>
 </template>

@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { describe, it, expect } from 'vitest';
 import BaseField from '../BaseField.vue';
+import BaseForm from '../BaseForm.vue';
 import BaseSupportingText from '../BaseSupportingText.vue';
 import BaseInput from '../BaseInput.vue';
 import BaseSelect from '../BaseSelect.vue';
@@ -130,5 +131,71 @@ describe('BaseSupportingText', () => {
         await wrapper.setData({ show: false });
 
         expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined();
+    });
+
+    it('shows the native validation message after a failed submit and clears it once fixed', async () => {
+        const wrapper = mount({
+            components: {
+                BaseForm,
+                BaseField,
+                BaseInput,
+                BaseSupportingText
+            },
+            template: `
+                <BaseForm validate>
+                    <BaseField>
+                        <BaseInput required/>
+                        <BaseSupportingText validation>Hint</BaseSupportingText>
+                    </BaseField>
+                </BaseForm>
+            `
+        });
+
+        const input = wrapper.find('input');
+        const text = wrapper.find('p');
+
+        // Typing before any submit attempt must not surface an error.
+        await input.setValue('a');
+        await input.setValue('');
+
+        expect(text.text()).toBe('Hint');
+        expect(input.attributes('aria-invalid')).toBeUndefined();
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(text.text()).not.toBe('Hint');
+        expect(text.text()).toBeTruthy();
+        expect(input.attributes('aria-invalid')).toBe('true');
+
+        await input.setValue('fixed');
+
+        expect(text.text()).toBe('Hint');
+        expect(input.attributes('aria-invalid')).toBeUndefined();
+    });
+
+    it('renders the slot when validation is set outside a field', () => {
+        const wrapper = mount(BaseSupportingText, {
+            props: {
+                validation: true
+            },
+            slots: {
+                default: 'Hint'
+            }
+        });
+
+        expect(wrapper.text()).toBe('Hint');
+    });
+
+    it('lets an explicit aria-invalid on the control win', () => {
+        const wrapper = mount(BaseField, {
+            slots: {
+                default: {
+                    components: { BaseInput },
+                    template: '<BaseInput aria-invalid="false"/>'
+                }
+            }
+        });
+
+        expect(wrapper.find('input').attributes('aria-invalid')).toBe('false');
     });
 });

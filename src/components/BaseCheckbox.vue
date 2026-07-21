@@ -18,7 +18,7 @@ const model = group ? group.model : localModel;
 
 const attrs = useAttrs();
 const inputRef = useTemplateRef('input');
-const { controlId, describedBy } = useFieldControl();
+const { controlId, describedBy, ariaInvalid } = useFieldControl();
 
 const checkboxName = computed(() => {
     if (typeof attrs.name === 'string') {
@@ -41,5 +41,5 @@ watchPostEffect(() => {
 
 <template>
     <input v-bind="$attrs" :id="controlId" ref="input" v-model="model" :aria-describedby="describedBy"
-           :name="checkboxName" type="checkbox" :value="value"/>
+           :aria-invalid="ariaInvalid" :name="checkboxName" type="checkbox" :value="value"/>
 </template>
