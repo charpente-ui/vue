@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, useId } from 'vue';
-import { fieldKey, radioGroupKey } from './internal/keys';
+import { computed, inject, useAttrs } from 'vue';
+import { radioGroupKey } from './internal/keys';
+import { useFieldControl } from './internal/field';
 
 defineOptions({
     inheritAttrs: false
@@ -15,16 +16,7 @@ const group = inject(radioGroupKey, null);
 const model = group ? group.model : localModel;
 
 const attrs = useAttrs();
-const generatedId = useId();
-const field = inject(fieldKey, null);
-
-const radioId = computed(() => {
-    if (typeof attrs.id === 'string') {
-        return attrs.id;
-    }
-
-    return field?.id.value ?? generatedId;
-});
+const { controlId } = useFieldControl();
 
 const radioName = computed(() => {
     if (typeof attrs.name === 'string') {
@@ -36,5 +28,5 @@ const radioName = computed(() => {
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="radioId" v-model="model" :name="radioName" :value="value" type="radio"/>
+    <input v-bind="$attrs" :id="controlId" v-model="model" :name="radioName" :value="value" type="radio"/>
 </template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, useId, useAttrs } from 'vue';
-import { fieldKey } from './internal/keys';
+import { useFieldControl } from './internal/field';
 import { applyModelModifiers } from './internal/modifiers';
 
 defineOptions({
@@ -13,20 +12,10 @@ const [
 ] = defineModel<string | number, 'trim' | 'number' | 'lazy'>({
     set: (value) => applyModelModifiers(value, modifiers)
 });
-const attrs = useAttrs();
-const generatedId = useId();
-const field = inject(fieldKey, null);
-
-const textareaId = computed(() => {
-    if (typeof attrs.id === 'string') {
-        return attrs.id;
-    }
-
-    return field?.id.value ?? generatedId;
-});
+const { controlId } = useFieldControl();
 </script>
 
 <template>
-    <textarea v-if="modifiers.lazy" v-bind="$attrs" :id="textareaId" v-model.lazy="model"/>
-    <textarea v-else v-bind="$attrs" :id="textareaId" v-model="model"/>
+    <textarea v-if="modifiers.lazy" v-bind="$attrs" :id="controlId" v-model.lazy="model"/>
+    <textarea v-else v-bind="$attrs" :id="controlId" v-model="model"/>
 </template>

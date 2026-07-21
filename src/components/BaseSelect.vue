@@ -1,27 +1,16 @@
 <script setup lang="ts">
-import { computed, inject, useId, useAttrs } from 'vue';
-import { fieldKey } from './internal/keys';
+import { useFieldControl } from './internal/field';
 
 defineOptions({
     inheritAttrs: false
 });
 
 const model = defineModel<string | number | (string | number)[]>();
-const attrs = useAttrs();
-const generatedId = useId();
-const field = inject(fieldKey, null);
-
-const selectId = computed(() => {
-    if (typeof attrs.id === 'string') {
-        return attrs.id;
-    }
-
-    return field?.id.value ?? generatedId;
-});
+const { controlId } = useFieldControl();
 </script>
 
 <template>
-    <select v-bind="$attrs" :id="selectId" v-model="model">
+    <select v-bind="$attrs" :id="controlId" v-model="model">
         <slot/>
     </select>
 </template>

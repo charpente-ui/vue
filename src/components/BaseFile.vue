@@ -1,24 +1,14 @@
 <script setup lang="ts">
-import { computed, inject, useId, useAttrs, useTemplateRef, watch } from 'vue';
-import { fieldKey } from './internal/keys';
+import { useTemplateRef, watch } from 'vue';
+import { useFieldControl } from './internal/field';
 
 defineOptions({
     inheritAttrs: false
 });
 
 const model = defineModel<FileList | null>();
-const attrs = useAttrs();
-const generatedId = useId();
 const inputRef = useTemplateRef('input');
-const field = inject(fieldKey, null);
-
-const fileId = computed(() => {
-    if (typeof attrs.id === 'string') {
-        return attrs.id;
-    }
-
-    return field?.id.value ?? generatedId;
-});
+const { controlId } = useFieldControl();
 
 function handleChange(event: Event) {
     model.value = (event.target as HTMLInputElement).files;
@@ -32,5 +22,5 @@ watch(model, (value) => {
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="fileId" ref="input" type="file" @change="handleChange"/>
+    <input v-bind="$attrs" :id="controlId" ref="input" type="file" @change="handleChange"/>
 </template>

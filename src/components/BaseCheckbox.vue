@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs, useId, useTemplateRef, watchPostEffect } from 'vue';
-import { checkboxGroupKey, fieldKey } from './internal/keys';
+import { computed, inject, useAttrs, useTemplateRef, watchPostEffect } from 'vue';
+import { checkboxGroupKey } from './internal/keys';
+import { useFieldControl } from './internal/field';
 
 defineOptions({
     inheritAttrs: false
@@ -16,17 +17,8 @@ const group = inject(checkboxGroupKey, null);
 const model = group ? group.model : localModel;
 
 const attrs = useAttrs();
-const generatedId = useId();
 const inputRef = useTemplateRef('input');
-const field = inject(fieldKey, null);
-
-const checkboxId = computed(() => {
-    if (typeof attrs.id === 'string') {
-        return attrs.id;
-    }
-
-    return field?.id.value ?? generatedId;
-});
+const { controlId } = useFieldControl();
 
 const checkboxName = computed(() => {
     if (typeof attrs.name === 'string') {
@@ -48,6 +40,6 @@ watchPostEffect(() => {
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="checkboxId" ref="input" v-model="model" :name="checkboxName" type="checkbox"
+    <input v-bind="$attrs" :id="controlId" ref="input" v-model="model" :name="checkboxName" type="checkbox"
            :value="value"/>
 </template>
