@@ -15,6 +15,7 @@ import { CButton,
 
 const text = ref('');
 const number = ref(0);
+const lazyText = ref('');
 const fieldText = ref('');
 const textarea = ref('');
 const checkbox = ref(false);
@@ -100,8 +101,13 @@ function resetForm() {
                     <CLabel>Number</CLabel>
                     <CInput v-model="number" type="number"/>
                 </CField>
+                <CField class="field">
+                    <CLabel>Lazy (updates on blur/enter)</CLabel>
+                    <CInput v-model.lazy="lazyText" placeholder="Type, then blur..."/>
+                </CField>
                 <p class="value">Text: <code>{{ text }}</code></p>
                 <p class="value">Number: <code>{{ number }}</code></p>
+                <p class="value">Lazy: <code>{{ lazyText }}</code></p>
             </section>
 
             <section class="card">

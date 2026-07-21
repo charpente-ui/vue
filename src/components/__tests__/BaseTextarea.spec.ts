@@ -73,4 +73,43 @@ describe('BaseTextarea', () => {
         expect(emitted).toHaveLength(3);
         expect(emitted[2]).toEqual(['abc']);
     });
+
+    it('supports the trim modifier', async () => {
+        const wrapper = mount(BaseTextarea, {
+            props: {
+                modelValue: '',
+                modelModifiers: { trim: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        await wrapper.find('textarea').setValue('  foo  ');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+    });
+
+    it('supports the lazy modifier', async () => {
+        const wrapper = mount(BaseTextarea, {
+            props: {
+                modelValue: '',
+                modelModifiers: { lazy: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const element = wrapper.find('textarea');
+
+        element.element.value = 'foo';
+        await element.trigger('input');
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined();
+
+        await element.trigger('change');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+    });
 });

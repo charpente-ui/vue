@@ -75,7 +75,13 @@ npm run dev
 1. **Form Inputs** **(CInput, CTextarea, CSelect)**
 
 These components are thin wrappers around native elements. They use `v-model` and automatically link with labels via
-`useId()`. Full attribute inheritance.
+`useId()`. Full attribute inheritance. `CInput` and `CTextarea` support the native `v-model` modifiers:
+
+```vue
+<CInput v-model.trim="name"/>
+<CInput v-model.number="age"/>
+<CInput v-model.lazy="query"/>
+```
 
 2. **Selection Logic** _(CCheckbox, CRadio, CSelect)_
 

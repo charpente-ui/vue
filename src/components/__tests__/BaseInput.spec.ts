@@ -116,4 +116,65 @@ describe('BaseInput', () => {
         expect(emitted).toHaveLength(3);
         expect(emitted[2]).toEqual(['abc']);
     });
+
+    it('supports the trim modifier', async () => {
+        const wrapper = mount(BaseInput, {
+            props: {
+                modelValue: '',
+                modelModifiers: { trim: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        await wrapper.find('input').setValue('  foo  ');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+    });
+
+    it('supports the number modifier', async () => {
+        const wrapper = mount(BaseInput, {
+            props: {
+                modelValue: '',
+                modelModifiers: { number: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const element = wrapper.find('input');
+
+        await element.setValue('42.5');
+        await element.setValue('abc');
+
+        const emitted = wrapper.emitted('update:modelValue')!;
+
+        expect(emitted[0]).toEqual([42.5]);
+        expect(emitted[1]).toEqual(['abc']);
+    });
+
+    it('supports the lazy modifier', async () => {
+        const wrapper = mount(BaseInput, {
+            props: {
+                modelValue: '',
+                modelModifiers: { lazy: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const element = wrapper.find('input');
+
+        element.element.value = 'foo';
+        await element.trigger('input');
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined();
+
+        await element.trigger('change');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+    });
 });
