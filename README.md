@@ -133,6 +133,12 @@ individual inputs:
 <CRadioGroup v-model="selected" name="my-group">...</CRadioGroup>
 ```
 
+> [!NOTE]
+> Standalone `CRadio` and `CCheckbox` accept any `value` (strings, numbers, booleans, objects — `v-model` compares by
+> reference, as in native Vue). Inside a group, the group `v-model` is typed `string | number`
+> (`(string | number)[]` for checkboxes): stick to those value types in grouped mode, as TypeScript cannot enforce it
+> on the `value` prop without dropping standalone object support.
+
 4. **Polymorphic Elements** _(CButton)_
 
 The button can change its HTML tag while keeping its behavior.
