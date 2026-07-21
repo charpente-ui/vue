@@ -1,22 +1,33 @@
 <script setup lang="ts">
-import { computed, provide, ref, useId } from 'vue';
+import { computed, provide, ref, useAttrs, useId } from 'vue';
 import { fieldKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
 });
 
+const attrs = useAttrs();
 const generatedId = useId();
 const supportingTextId = ref<string>();
 const validationMessage = ref('');
 const invalidated = ref(false);
 
-// Deliberately not overridable via attrs.id: that id lands on the wrapper
-// div through $attrs, and reusing it for the label/input pairing would put
-// the same id on two different DOM elements. Override the pairing at the
-// input or label level instead (see README).
+const fieldId = computed(() => {
+    return typeof attrs.id === 'string' ? attrs.id : generatedId;
+});
+
+// `id` drives the label/input pairing instead of the wrapper div: reusing it
+// on both would put the same id on two different DOM elements.
+const rootAttrs = computed(() => {
+    const rest = { ...attrs };
+
+    delete rest.id;
+
+    return rest;
+});
+
 provide(fieldKey, {
-    id: computed(() => generatedId),
+    id: fieldId,
     supportingTextId,
     validationMessage
 });
@@ -38,7 +49,7 @@ function handleInput(event: Event) {
 </script>
 
 <template>
-    <div v-bind="$attrs" @invalid.capture="handleInvalid" @input.capture="handleInput" @change.capture="handleInput">
+    <div v-bind="rootAttrs" @invalid.capture="handleInvalid" @input.capture="handleInput" @change.capture="handleInput">
         <slot/>
     </div>
 </template>

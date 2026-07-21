@@ -195,6 +195,19 @@ An explicit `aria-describedby` on the input always wins, and a standalone `CSupp
 simply renders its content with an id. Likewise, an explicit `id` on the input or `for` on the label always wins
 over the field id.
 
+Passing `id` to `CField` itself names that pairing instead of the wrapper `<div>` — reusing it on both would put
+the same id on two different DOM elements:
+
+```vue
+<CField id="email-field">
+    <CLabel>Email</CLabel>
+    <CInput v-model="email" type="email"/>
+</CField>
+```
+
+Renders `<label for="email-field">` and `<input id="email-field">`; the `<div>` itself gets no `id`. Use `class`
+to target the wrapper.
+
 A `CField` wrapping a whole group is ignored by the items (a single id must not land on every input); wrap each
 item in its own `CField` instead:
 

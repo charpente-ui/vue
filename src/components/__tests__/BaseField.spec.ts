@@ -27,7 +27,7 @@ describe('BaseField', () => {
         expect(wrapper.text()).toBe('Content');
     });
 
-    it('does not reuse an explicit id on the field wrapper for the label/input pairing', () => {
+    it('uses an explicit id on CField for the label/input pairing instead of the wrapper', () => {
         const wrapper = mount(BaseField, {
             attrs: {
                 id: 'custom-field'
@@ -38,10 +38,9 @@ describe('BaseField', () => {
             }
         });
 
-        expect(wrapper.attributes('id')).toBe('custom-field');
-        expect(wrapper.find('label').attributes('for')).not.toBe('custom-field');
-        expect(wrapper.find('input').attributes('id')).not.toBe('custom-field');
-        expect(wrapper.find('input').attributes('id')).toBe(wrapper.find('label').attributes('for'));
+        expect(wrapper.attributes('id')).toBeUndefined();
+        expect(wrapper.find('label').attributes('for')).toBe('custom-field');
+        expect(wrapper.find('input').attributes('id')).toBe('custom-field');
     });
 
     it('links the label to the input via a shared id', () => {
