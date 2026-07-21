@@ -16,15 +16,16 @@
     "engines": {
         "node": ">=20"
     },
-    "main": "./dist/charpente.umd.cjs",
-    "module": "./dist/charpente.js",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/charpente.js",
-            "require": "./dist/charpente.umd.cjs"
-        }
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
     },
     "devDependencies": {
         "@commitlint/cli": "^20.4.2",

@@ -17,16 +17,19 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'Charpente',
-            fileName: 'charpente'
+            formats: [
+                'es'
+            ]
         },
         rollupOptions: {
             external: [
                 'vue'
             ],
             output: {
-                globals: {
-                    vue: 'Vue'
+                preserveModules: true,
+                preserveModulesRoot: 'src',
+                entryFileNames: (chunk) => {
+                    return `${chunk.name.replace(/\.vue$/, '')}.js`;
                 }
             }
         }
