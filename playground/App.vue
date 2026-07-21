@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { CButton,
     CCheckbox,
     CCheckboxGroup,
+    CField,
     CFile,
     CForm,
     CInput,
@@ -14,13 +15,31 @@ import { CButton,
 
 const text = ref('');
 const number = ref(0);
+const fieldText = ref('');
 const textarea = ref('');
 const checkbox = ref(false);
 const checkboxGroup = ref<string[]>([]);
 const radioStandalone = ref('');
 const radio = ref('');
 const select = ref('');
+const selectMultiple = ref<string[]>([]);
 const file = ref<FileList | null>(null);
+
+const allFruits = ['apple',
+    'banana',
+    'cherry'];
+const fruits = ref<string[]>([]);
+
+const allSelected = computed({
+    get: () => fruits.value.length === allFruits.length,
+    set: (checked) => {
+        fruits.value = checked ? [...allFruits] : [];
+    }
+});
+
+const someSelected = computed(() => {
+    return fruits.value.length > 0 && fruits.value.length < allFruits.length;
+});
 
 const form = ref({ name: '',
     email: '',
@@ -58,117 +77,151 @@ function resetForm() {
                 <h2>CButton</h2>
                 <div class="row">
                     <CButton type="button">Button</CButton>
-                    <CButton type="button" as="a" href="#">As link</CButton>
+                    <CButton as="a" href="#">As link</CButton>
                 </div>
+            </section>
+
+            <section class="card">
+                <h2>CField</h2>
+                <CField class="field">
+                    <CLabel>Auto-linked label</CLabel>
+                    <CInput v-model="fieldText" placeholder="Click the label to focus me..."/>
+                </CField>
+                <p class="value">No <code>for</code>/<code>id</code> written — the field links them automatically.</p>
             </section>
 
             <section class="card">
                 <h2>CInput</h2>
-                <div class="field">
-                    <CLabel for="input-text">Text</CLabel>
-                    <CInput id="input-text" v-model="text" placeholder="Type something..."/>
-                </div>
-                <div class="field">
-                    <CLabel for="input-number">Number</CLabel>
-                    <CInput id="input-number" v-model="number" type="number"/>
-                </div>
-                <p class="value">Value: <code>{{ text || number }}</code></p>
+                <CField class="field">
+                    <CLabel>Text</CLabel>
+                    <CInput v-model="text" placeholder="Type something..."/>
+                </CField>
+                <CField class="field">
+                    <CLabel>Number</CLabel>
+                    <CInput v-model="number" type="number"/>
+                </CField>
+                <p class="value">Text: <code>{{ text }}</code></p>
+                <p class="value">Number: <code>{{ number }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CTextarea</h2>
-                <div class="field">
-                    <CLabel for="my-textarea">Message</CLabel>
-                    <CTextarea id="my-textarea" v-model="textarea" placeholder="Type something..."/>
-                </div>
+                <CField class="field">
+                    <CLabel>Message</CLabel>
+                    <CTextarea v-model="textarea" placeholder="Type something..."/>
+                </CField>
                 <p class="value">Value: <code>{{ textarea }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CCheckbox</h2>
-                <div class="check-row">
-                    <CCheckbox id="my-checkbox" v-model="checkbox"/>
-                    <CLabel for="my-checkbox">Single checkbox</CLabel>
-                </div>
+                <CField class="check-row">
+                    <CCheckbox v-model="checkbox"/>
+                    <CLabel>Single checkbox</CLabel>
+                </CField>
                 <p class="value">Value: <code>{{ checkbox }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CCheckboxGroup</h2>
                 <CCheckboxGroup v-model="checkboxGroup">
-                    <div v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
-                        <CCheckbox :id="`cb-${opt}`" :value="opt"/>
-                        <CLabel :for="`cb-${opt}`">Option {{ opt.toUpperCase() }}</CLabel>
-                    </div>
+                    <CField v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
+                        <CCheckbox :value="opt"/>
+                        <CLabel>Option {{ opt.toUpperCase() }}</CLabel>
+                    </CField>
                 </CCheckboxGroup>
                 <p class="value">Value: <code>{{ checkboxGroup }}</code></p>
             </section>
 
             <section class="card">
+                <h2>CCheckbox — indeterminate</h2>
+                <CField class="check-row">
+                    <CCheckbox v-model="allSelected" :indeterminate="someSelected"/>
+                    <CLabel>Select all</CLabel>
+                </CField>
+                <CCheckboxGroup v-model="fruits" class="sub-group">
+                    <CField v-for="opt in allFruits" :key="opt" class="check-row">
+                        <CCheckbox :value="opt"/>
+                        <CLabel>{{ opt }}</CLabel>
+                    </CField>
+                </CCheckboxGroup>
+                <p class="value">Value: <code>{{ fruits }}</code></p>
+            </section>
+
+            <section class="card">
                 <h2>CRadio</h2>
-                <div v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
-                    <CRadio :id="`rs-${opt}`" v-model="radioStandalone" :value="opt" name="standalone-group"/>
-                    <CLabel :for="`rs-${opt}`">Option {{ opt.toUpperCase() }}</CLabel>
-                </div>
+                <CField v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
+                    <CRadio v-model="radioStandalone" :value="opt" name="standalone-group"/>
+                    <CLabel>Option {{ opt.toUpperCase() }}</CLabel>
+                </CField>
                 <p class="value">Value: <code>{{ radioStandalone }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CRadioGroup</h2>
                 <CRadioGroup v-model="radio" name="radio-group">
-                    <div v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
-                        <CRadio :id="`r-${opt}`" :value="opt"/>
-                        <CLabel :for="`r-${opt}`">Option {{ opt.toUpperCase() }}</CLabel>
-                    </div>
+                    <CField v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
+                        <CRadio :value="opt"/>
+                        <CLabel>Option {{ opt.toUpperCase() }}</CLabel>
+                    </CField>
                 </CRadioGroup>
                 <p class="value">Value: <code>{{ radio }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CSelect</h2>
-                <div class="field">
-                    <CLabel for="my-select">Pick one</CLabel>
-                    <CSelect id="my-select" v-model="select">
+                <CField class="field">
+                    <CLabel>Pick one</CLabel>
+                    <CSelect v-model="select">
                         <option value="">--</option>
                         <option value="a">Option A</option>
                         <option value="b">Option B</option>
                         <option value="c">Option C</option>
                     </CSelect>
-                </div>
-                <p class="value">Value: <code>{{ select }}</code></p>
+                </CField>
+                <CField class="field">
+                    <CLabel>Pick several</CLabel>
+                    <CSelect v-model="selectMultiple" multiple>
+                        <option value="a">Option A</option>
+                        <option value="b">Option B</option>
+                        <option value="c">Option C</option>
+                    </CSelect>
+                </CField>
+                <p class="value">Single: <code>{{ select }}</code></p>
+                <p class="value">Multiple: <code>{{ selectMultiple }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CFile</h2>
-                <div class="field">
-                    <CLabel for="my-file">Upload</CLabel>
-                    <CFile id="my-file" v-model="file"/>
-                </div>
+                <CField class="field">
+                    <CLabel>Upload</CLabel>
+                    <CFile v-model="file"/>
+                </CField>
                 <p class="value">File: <code>{{ file?.[0]?.name ?? 'none' }}</code></p>
             </section>
 
             <section class="card">
                 <h2>CForm</h2>
                 <CForm @submit="onSubmit">
-                    <div class="field">
-                        <CLabel for="form-name">Name *</CLabel>
-                        <CInput id="form-name" v-model="form.name" placeholder="John Doe" required/>
-                    </div>
-                    <div class="field">
-                        <CLabel for="form-email">Email *</CLabel>
-                        <CInput id="form-email" v-model="form.email" type="email" placeholder="john@example.com" required/>
-                    </div>
-                    <div class="field">
-                        <CLabel for="form-message">Message</CLabel>
-                        <CTextarea id="form-message" v-model="form.message" placeholder="Your message..."/>
-                    </div>
-                    <div class="check-row">
-                        <CCheckbox id="form-terms" v-model="form.terms" required/>
-                        <CLabel for="form-terms">I accept the terms</CLabel>
-                    </div>
+                    <CField class="field">
+                        <CLabel>Name *</CLabel>
+                        <CInput v-model="form.name" placeholder="John Doe" required/>
+                    </CField>
+                    <CField class="field">
+                        <CLabel>Email *</CLabel>
+                        <CInput v-model="form.email" type="email" placeholder="john@example.com" required/>
+                    </CField>
+                    <CField class="field">
+                        <CLabel>Message</CLabel>
+                        <CTextarea v-model="form.message" placeholder="Your message..."/>
+                    </CField>
+                    <CField class="check-row">
+                        <CCheckbox v-model="form.terms" required/>
+                        <CLabel>I accept the terms</CLabel>
+                    </CField>
                     <div class="row">
                         <CButton type="submit">Submit</CButton>
-                        <CButton type="reset" @click="resetForm">Reset</CButton>
+                        <CButton type="button" @click="resetForm">Reset</CButton>
                     </div>
                 </CForm>
                 <pre v-if="submitted" class="output">{{ submitted }}</pre>
@@ -267,6 +320,14 @@ body {
     display: flex;
     align-items: center;
     gap: .5rem;
+}
+
+.sub-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-left: 1.25rem;
+    border: none;
 }
 
 .row {

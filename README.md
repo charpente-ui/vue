@@ -148,6 +148,36 @@ The button can change its HTML tag while keeping its behavior.
 <CButton as="RouterLink" to="/dashboard">Dashboard</CButton>
 ```
 
+5. **Field Wrapper** _(CField)_
+
+`CField` links a label and an input automatically: it provides a shared auto-generated id that `CLabel` picks up as
+`for` and the wrapped input picks up as `id` — no manual wiring.
+
+```vue
+<CField>
+    <CLabel>Email</CLabel>
+    <CInput v-model="email" type="email"/>
+</CField>
+```
+
+An explicit `id` on the input or `for` on the label always wins over the field id. A `CField` wrapping a whole
+group is ignored by the items (a single id must not land on every input); wrap each item in its own `CField`
+instead:
+
+```vue
+<CRadioGroup v-model="selected">
+    <CField>
+        <CLabel>Option A</CLabel>
+        <CRadio value="a"/>
+    </CField>
+
+    <CField>
+        <CLabel>Option B</CLabel>
+        <CRadio value="b"/>
+    </CField>
+</CRadioGroup>
+```
+
 ## Components
 
 | Name          | Core Logic                                                                       | Tag              | Status |
@@ -155,6 +185,7 @@ The button can change its HTML tag while keeping its behavior.
 | Button        | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`        | Ready  |
 | Checkbox      | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`      | Ready  |
 | CheckboxGroup | **Group:** Shared v-model and name across checkboxes inside a fieldset.          | `CCheckboxGroup` | Ready  |
+| Field         | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`         | Ready  |
 | File          | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`          | Ready  |
 | Form          | **Auto-Submit:** Integrated `preventDefault` and event handling.                 | `CForm`          | Ready  |
 | Input         | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`         | Ready  |

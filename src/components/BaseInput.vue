@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useId, useAttrs } from 'vue';
+import { computed, inject, useId, useAttrs } from 'vue';
+import { fieldKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
@@ -8,9 +9,14 @@ defineOptions({
 const model = defineModel<string | number>();
 const attrs = useAttrs();
 const generatedId = useId();
+const field = inject(fieldKey, null);
 
 const inputId = computed(() => {
-    return typeof attrs.id === 'string' ? attrs.id : generatedId;
+    if (typeof attrs.id === 'string') {
+        return attrs.id;
+    }
+
+    return field?.id.value ?? generatedId;
 });
 </script>
 

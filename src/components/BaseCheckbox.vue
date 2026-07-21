@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, useAttrs, useId, useTemplateRef, watchPostEffect } from 'vue';
-import { checkboxGroupKey } from './internal/keys';
+import { checkboxGroupKey, fieldKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
@@ -18,9 +18,14 @@ const model = group ? group.model : localModel;
 const attrs = useAttrs();
 const generatedId = useId();
 const inputRef = useTemplateRef('input');
+const field = inject(fieldKey, null);
 
 const checkboxId = computed(() => {
-    return typeof attrs.id === 'string' ? attrs.id : generatedId;
+    if (typeof attrs.id === 'string') {
+        return attrs.id;
+    }
+
+    return field?.id.value ?? generatedId;
 });
 
 const checkboxName = computed(() => {

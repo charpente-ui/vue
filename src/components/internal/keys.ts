@@ -13,3 +13,9 @@ export interface CheckboxGroupContext {
 }
 
 export const checkboxGroupKey: InjectionKey<CheckboxGroupContext> = Symbol('CCheckboxGroup');
+
+export interface FieldContext {
+    id: ComputedRef<string>
+}
+
+export const fieldKey: InjectionKey<FieldContext | null> = Symbol('CField');

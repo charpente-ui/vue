@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, useAttrs, useId } from 'vue';
-import { radioGroupKey } from './internal/keys';
+import { fieldKey, radioGroupKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
@@ -18,6 +18,10 @@ provide(radioGroupKey, {
     model,
     name
 });
+
+// Mask any CField wrapping the whole group: its single id must not land on
+// every item. A CField wrapping an individual item re-provides and wins.
+provide(fieldKey, null);
 </script>
 
 <template>

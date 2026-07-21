@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, useAttrs, useId } from 'vue';
-import { checkboxGroupKey } from './internal/keys';
+import { checkboxGroupKey, fieldKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
@@ -21,6 +21,10 @@ provide(checkboxGroupKey, {
     model,
     name
 });
+
+// Mask any CField wrapping the whole group: its single id must not land on
+// every item. A CField wrapping an individual item re-provides and wins.
+provide(fieldKey, null);
 </script>
 
 <template>

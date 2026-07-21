@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, useAttrs, useId } from 'vue';
-import { radioGroupKey } from './internal/keys';
+import { fieldKey, radioGroupKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
@@ -16,9 +16,14 @@ const model = group ? group.model : localModel;
 
 const attrs = useAttrs();
 const generatedId = useId();
+const field = inject(fieldKey, null);
 
 const radioId = computed(() => {
-    return typeof attrs.id === 'string' ? attrs.id : generatedId;
+    if (typeof attrs.id === 'string') {
+        return attrs.id;
+    }
+
+    return field?.id.value ?? generatedId;
 });
 
 const radioName = computed(() => {
