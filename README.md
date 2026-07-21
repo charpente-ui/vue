@@ -51,24 +51,35 @@ npm run dev
 ```vue
 <script setup>
     import { ref } from 'vue';
-    import { CInput, CButton, CLabel } from '@charpente-ui/vue';
+    import { CForm, CField, CLabel, CInput, CSupportingText, CButton } from '@charpente-ui/vue';
 
     const email = ref('');
+
+    function onSubmit() {
+        // Only called once the form passes native validation.
+    }
 </script>
 
 <template>
-    <div class="form-group">
-        <CLabel for="email-field">Email Address</CLabel>
+    <CForm validate @submit="onSubmit">
+        <CField class="form-group">
+            <CLabel>Email Address</CLabel>
 
-        <CInput id="email-field" v-model="email" type="email" placeholder="hello@world.com"
-                class="my-custom-input-style"/>
+            <CInput v-model="email" type="email" placeholder="hello@world.com" required
+                    class="my-custom-input-style"/>
 
-        <CButton @click="submit" class="btn-primary">
+            <CSupportingText validation>We never share your email.</CSupportingText>
+        </CField>
+
+        <CButton type="submit" class="btn-primary">
             Subscribe
         </CButton>
-    </div>
+    </CForm>
 </template>
 ```
+
+No `for`/`id` wiring, no validation library: the label, the hint and the browser-localized error messages are linked
+and accessible automatically — and every class lands on the native element, ready for your CSS.
 
 ## Component Reference
 
@@ -181,7 +192,25 @@ avoid accidental form submissions. Pass `type="submit"` explicitly for submit bu
 ```
 
 An explicit `aria-describedby` on the input always wins, and a standalone `CSupportingText` (outside a field)
-simply renders its content with an id.
+simply renders its content with an id. Likewise, an explicit `id` on the input or `for` on the label always wins
+over the field id.
+
+A `CField` wrapping a whole group is ignored by the items (a single id must not land on every input); wrap each
+item in its own `CField` instead:
+
+```vue
+<CRadioGroup v-model="selected">
+    <CField>
+        <CLabel>Option A</CLabel>
+        <CRadio value="a"/>
+    </CField>
+
+    <CField>
+        <CLabel>Option B</CLabel>
+        <CRadio value="b"/>
+    </CField>
+</CRadioGroup>
+```
 
 6. **Native Validation** _(CForm + CField + CSupportingText)_
 
@@ -205,24 +234,6 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
   its slot content otherwise. The control also gets `aria-invalid` automatically.
 - Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
   Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
-
-An explicit `id` on the input or `for` on the label always wins over the field id. A `CField` wrapping a whole
-group is ignored by the items (a single id must not land on every input); wrap each item in its own `CField`
-instead:
-
-```vue
-<CRadioGroup v-model="selected">
-    <CField>
-        <CLabel>Option A</CLabel>
-        <CRadio value="a"/>
-    </CField>
-
-    <CField>
-        <CLabel>Option B</CLabel>
-        <CRadio value="b"/>
-    </CField>
-</CRadioGroup>
-```
 
 ## Components
 
@@ -249,7 +260,7 @@ When wrapping a Charpente UI component inside your own, you must forward `$attrs
 
 ```vue
 <script setup>
-import { CSelect } from '@charpente-ui/vue';
+import { CField, CLabel, CSelect, CSupportingText } from '@charpente-ui/vue';
 
 defineOptions({
     inheritAttrs: false
@@ -264,20 +275,21 @@ const model = defineModel();
 </script>
 
 <template>
-    <div>
-        <label>{{ label }}</label>
+    <CField>
+        <CLabel>{{ label }}</CLabel>
 
         <CSelect v-bind="$attrs" v-model="model">
             <slot/>
         </CSelect>
 
-        <span v-if="error">{{ error }}</span>
-    </div>
+        <CSupportingText v-if="error">{{ error }}</CSupportingText>
+    </CField>
 </template>
 ```
 
 **Why this matters:** Without `inheritAttrs: false`, Vue applies fallthrough attributes to the wrapper's root element
-(`<div>`) instead of the inner component. Adding `v-bind="$attrs"` on the Charpente component ensures attributes like
-`id`, `class`, `required`, or `disabled` pass all the way through to the native HTML element.
+instead of the inner component. Adding `v-bind="$attrs"` on the Charpente component ensures attributes like `id`,
+`class`, `required`, or `disabled` pass all the way through to the native HTML element. And since `CField` works by
+provide/inject, the label, select and error stay linked across your wrapper's boundary — accessibility included.
 
 This pattern works the same way for all Charpente components (`CInput`, `CCheckbox`, `CRadio`, etc.).
