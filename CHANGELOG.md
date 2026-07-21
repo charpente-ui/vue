@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/charpente-ui/vue/compare/v1.6.0...v2.0.0) (2026-07-21)
+
+### ⚠ BREAKING CHANGES
+
+* **button:** CButton now renders type="button" by default instead
+of the native type="submit"; pass type="submit" explicitly for submit
+buttons.
+* **build:** the UMD bundle and CJS entry are removed; the package is now ESM-only.
+
+### Features
+
+* add CField component to auto-link labels and inputs ([5c25217](https://github.com/charpente-ui/vue/commit/5c25217fc68028783217866f8dd7c55f13594f4d))
+* **build:** ship ESM-only output with per-component modules ([323c48c](https://github.com/charpente-ui/vue/commit/323c48ca51d4bde49d80eadbbcb8f9ebb4c6ce6f))
+* **button:** default native buttons to type="button" ([2c47e0f](https://github.com/charpente-ui/vue/commit/2c47e0f763e8a4e66cb169155550965af0489a96))
+* support v-model modifiers on CInput and CTextarea ([6acbf87](https://github.com/charpente-ui/vue/commit/6acbf8779a41f4a07e8a44621841b3ceb162a647))
+
 ## [1.6.0](https://github.com/charpente-ui/vue/compare/v1.5.0...v1.6.0) (2026-05-24)
 
 ### Features
