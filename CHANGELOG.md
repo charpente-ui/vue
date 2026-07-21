@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/charpente-ui/vue/compare/v2.0.0...v2.1.0) (2026-07-21)
+
+### Features
+
+* add CSupportingText wired to fields via aria-describedby ([72ba14d](https://github.com/charpente-ui/vue/commit/72ba14da4ec7ca69ff289eadfff468420e3c43e9))
+* add opt-in native form validation ([3bfeccc](https://github.com/charpente-ui/vue/commit/3bfeccc96b6f33f91e2ab9404abd4e43e2441ed5))
+* **field:** let an explicit id on CField drive the label/input pairing ([cbc0fe4](https://github.com/charpente-ui/vue/commit/cbc0fe418e958cc0d35970a88235f0a8c544b274))
+
 ## [2.0.0](https://github.com/charpente-ui/vue/compare/v1.6.0...v2.0.0) (2026-07-21)
 
 ### ⚠ BREAKING CHANGES
