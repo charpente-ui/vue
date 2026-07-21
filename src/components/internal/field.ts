@@ -2,7 +2,8 @@ import { computed, inject, useAttrs, useId } from 'vue';
 import { fieldKey } from './keys';
 
 // Shared wiring for every form control: resolve the element id (explicit id >
-// field id > generated id).
+// field id > generated id) and point aria-describedby at the field's
+// supporting text when one is present.
 export function useFieldControl() {
     const attrs = useAttrs();
     const generatedId = useId();
@@ -16,7 +17,16 @@ export function useFieldControl() {
         return field?.id.value ?? generatedId;
     });
 
+    const describedBy = computed(() => {
+        if (typeof attrs['aria-describedby'] === 'string') {
+            return attrs['aria-describedby'];
+        }
+
+        return field?.supportingTextId.value;
+    });
+
     return {
-        controlId
+        controlId,
+        describedBy
     };
 }

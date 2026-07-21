@@ -11,6 +11,7 @@ import { CButton,
     CRadio,
     CRadioGroup,
     CSelect,
+    CSupportingText,
     CTextarea } from '@charpente-ui/vue';
 
 const text = ref('');
@@ -88,6 +89,9 @@ function resetForm() {
                 <CField class="field">
                     <CLabel>Auto-linked label</CLabel>
                     <CInput v-model="fieldText" placeholder="Click the label to focus me..."/>
+                    <CSupportingText class="value">
+                        Supporting text — wired to the input via <code>aria-describedby</code>.
+                    </CSupportingText>
                 </CField>
                 <p class="value">No <code>for</code>/<code>id</code> written — the field links them automatically.</p>
             </section>

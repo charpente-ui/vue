@@ -169,6 +169,20 @@ avoid accidental form submissions. Pass `type="submit"` explicitly for submit bu
 </CField>
 ```
 
+`CSupportingText` renders a field's hint or error text inside a `CField`: the input automatically gets an
+`aria-describedby` pointing to it, and the attribute is removed when the text unmounts (e.g. behind a `v-if`).
+
+```vue
+<CField>
+    <CLabel>Email</CLabel>
+    <CInput v-model="email" type="email"/>
+    <CSupportingText v-if="error">{{ error }}</CSupportingText>
+</CField>
+```
+
+An explicit `aria-describedby` on the input always wins, and a standalone `CSupportingText` (outside a field)
+simply renders its content with an id.
+
 An explicit `id` on the input or `for` on the label always wins over the field id. A `CField` wrapping a whole
 group is ignored by the items (a single id must not land on every input); wrap each item in its own `CField`
 instead:
@@ -202,6 +216,7 @@ instead:
 | Radio         | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`         | Ready  |
 | RadioGroup    | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`    | Ready  |
 | Select        | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`        | Ready  |
+| SupportingText | **Field Text:** Hint or error text wired to its input via `aria-describedby`.   | `CSupportingText` | Ready  |
 | Textarea      | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`      | Ready  |
 
 ## Wrapping Components

@@ -18,7 +18,7 @@ const model = group ? group.model : localModel;
 
 const attrs = useAttrs();
 const inputRef = useTemplateRef('input');
-const { controlId } = useFieldControl();
+const { controlId, describedBy } = useFieldControl();
 
 const checkboxName = computed(() => {
     if (typeof attrs.name === 'string') {
@@ -40,6 +40,6 @@ watchPostEffect(() => {
 </script>
 
 <template>
-    <input v-bind="$attrs" :id="controlId" ref="input" v-model="model" :name="checkboxName" type="checkbox"
-           :value="value"/>
+    <input v-bind="$attrs" :id="controlId" ref="input" v-model="model" :aria-describedby="describedBy"
+           :name="checkboxName" type="checkbox" :value="value"/>
 </template>

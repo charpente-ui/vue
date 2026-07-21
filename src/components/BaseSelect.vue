@@ -6,11 +6,11 @@ defineOptions({
 });
 
 const model = defineModel<string | number | (string | number)[]>();
-const { controlId } = useFieldControl();
+const { controlId, describedBy } = useFieldControl();
 </script>
 
 <template>
-    <select v-bind="$attrs" :id="controlId" v-model="model">
+    <select v-bind="$attrs" :id="controlId" v-model="model" :aria-describedby="describedBy">
         <slot/>
     </select>
 </template>

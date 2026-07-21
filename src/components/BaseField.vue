@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, useId } from 'vue';
+import { computed, provide, ref, useId } from 'vue';
 import { fieldKey } from './internal/keys';
 
 defineOptions({
@@ -7,9 +7,11 @@ defineOptions({
 });
 
 const generatedId = useId();
+const supportingTextId = ref<string>();
 
 provide(fieldKey, {
-    id: computed(() => generatedId)
+    id: computed(() => generatedId),
+    supportingTextId
 });
 </script>
 

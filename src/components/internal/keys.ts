@@ -1,4 +1,4 @@
-import type { InjectionKey, ModelRef, ComputedRef } from 'vue';
+import type { InjectionKey, ModelRef, ComputedRef, Ref } from 'vue';
 
 export interface RadioGroupContext {
     model: ModelRef<string | number | undefined>
@@ -16,6 +16,7 @@ export const checkboxGroupKey: InjectionKey<CheckboxGroupContext> = Symbol('CChe
 
 export interface FieldContext {
     id: ComputedRef<string>
+    supportingTextId: Ref<string | undefined>
 }
 
 export const fieldKey: InjectionKey<FieldContext | null> = Symbol('CField');
