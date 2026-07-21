@@ -58,4 +58,27 @@ describe('BaseButton', () => {
 
         expect(wrapper.emitted('click')).toHaveLength(1);
     });
+
+    it('defaults to type="button" on native buttons', () => {
+        const wrapper = mount(BaseButton);
+
+        expect(wrapper.attributes('type')).toBe('button');
+    });
+
+    it('keeps an explicit type', () => {
+        const wrapper = mount(BaseButton, {
+            attrs: { type: 'submit' }
+        });
+
+        expect(wrapper.attributes('type')).toBe('submit');
+    });
+
+    it('does not add a type when rendering another tag', () => {
+        const wrapper = mount(BaseButton, {
+            props: { as: 'a' },
+            attrs: { href: '#' }
+        });
+
+        expect(wrapper.attributes('type')).toBeUndefined();
+    });
 });

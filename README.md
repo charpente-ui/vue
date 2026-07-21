@@ -154,6 +154,9 @@ The button can change its HTML tag while keeping its behavior.
 <CButton as="RouterLink" to="/dashboard">Dashboard</CButton>
 ```
 
+When rendering a native `<button>`, `CButton` defaults to `type="button"` (instead of the native `type="submit"`) to
+avoid accidental form submissions. Pass `type="submit"` explicitly for submit buttons.
+
 5. **Field Wrapper** _(CField)_
 
 `CField` links a label and an input automatically: it provides a shared auto-generated id that `CLabel` picks up as

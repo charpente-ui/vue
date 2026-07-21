@@ -77,9 +77,10 @@ function resetForm() {
             <section class="card">
                 <h2>CButton</h2>
                 <div class="row">
-                    <CButton type="button">Button</CButton>
+                    <CButton>Button</CButton>
                     <CButton as="a" href="#">As link</CButton>
                 </div>
+                <p class="value">Defaults to <code>type="button"</code> — no accidental form submits.</p>
             </section>
 
             <section class="card">
