@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/charpente-ui/vue/compare/v2.1.0...v2.1.1) (2026-07-22)
+
+### Bug Fixes
+
+* **build:** strip virtual module query string from chunk output filenames ([683c99f](https://github.com/charpente-ui/vue/commit/683c99fdc1628dbde7c6aa888fe035b5edfd7352))
+
 ## [2.1.0](https://github.com/charpente-ui/vue/compare/v2.0.0...v2.1.0) (2026-07-21)
 
 ### Features
