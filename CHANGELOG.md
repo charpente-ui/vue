@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.0](https://github.com/charpente-ui/vue/compare/v2.2.1...v2.3.0) (2026-07-22)
+
+### Features
+
+* **field:** expose invalid/message via template ref for CField's own wrapper ([a8dbad5](https://github.com/charpente-ui/vue/commit/a8dbad51525be9fbe4be8a2d6ba0bc417a29bc30))
+
 ## [2.2.1](https://github.com/charpente-ui/vue/compare/v2.2.0...v2.2.1) (2026-07-22)
 
 ### Bug Fixes
