@@ -67,6 +67,32 @@ describe('BaseField', () => {
         expect(wrapper.find('span').text()).toBe(input.validationMessage);
     });
 
+    it('exposes invalid and message on the component instance for a template ref', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseInput },
+            template: `
+                <BaseField ref="fieldRef">
+                    <BaseInput required/>
+                </BaseField>
+            `
+        });
+
+        const fieldRef = () => wrapper.vm.$refs.fieldRef as { invalid: boolean,
+            message: string };
+
+        expect(fieldRef().invalid).toBe(false);
+        expect(fieldRef().message).toBe('');
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+
+        input.dispatchEvent(new Event('invalid'));
+        await wrapper.vm.$nextTick();
+
+        expect(fieldRef().invalid).toBe(true);
+        expect(fieldRef().message).toBe(input.validationMessage);
+    });
+
     it('links the label to the input via a shared id', () => {
         const wrapper = mount(BaseField, {
             slots: {

@@ -43,6 +43,7 @@ const someSelected = computed(() => {
     return fruits.value.length > 0 && fruits.value.length < allFruits.length;
 });
 
+const nameFieldRef = ref<InstanceType<typeof CField> | null>(null);
 const form = ref({ name: '',
     email: '',
     message: '',
@@ -412,7 +413,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
             <section class="card">
                 <h2>CForm — native validation</h2>
                 <CForm validate @submit="onSubmit">
-                    <CField class="field">
+                    <CField ref="nameFieldRef" class="field" :class="{ 'is-invalid': nameFieldRef?.invalid }">
                         <CLabel>Name *</CLabel>
                         <CInput v-model="form.name" placeholder="John Doe" required/>
                         <CSupportingText validation class="value">
@@ -457,7 +458,8 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         <span class="code-block__label">Usage</span>
                     </div>
                     <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CForm</span> <span class="attr">validate</span> <span class="attr">@submit</span><span class="punc">=</span><span class="str">&quot;onSubmit&quot;</span><span class="punc">&gt;</span>
-  <span class="punc">&lt;</span><span class="tag">CField</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CField</span> <span class="attr">ref</span><span class="punc">=</span><span class="str">&quot;nameFieldRef&quot;</span>
+    <span class="attr">:class</span><span class="punc">=</span><span class="str">&quot;{ 'is-invalid': nameFieldRef?.invalid }&quot;</span><span class="punc">&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CLabel</span><span class="punc">&gt;</span>Name *<span class="punc">&lt;/</span><span class="tag">CLabel</span><span class="punc">&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CInput</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;form.name&quot;</span> <span class="attr">required</span><span class="punc">/&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CSupportingText</span> <span class="attr">validation</span><span class="punc">&gt;</span>
@@ -667,6 +669,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: .3rem;
+}
+
+.field.is-invalid {
+    padding-left: .5rem;
+    border-left: 2px solid #ff3b30;
 }
 
 .check-row {

@@ -249,7 +249,9 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
   Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
 
 `CField` stays zero-CSS: it never applies a class itself. If you need custom styling beyond `[aria-invalid]` or
-`:invalid` selectors, its default slot exposes `invalid` and `message` so you can drive your own classes:
+`:invalid` selectors, it gives you two ways to read its `invalid`/`message` state:
+
+- **Default slot** — reaches elements placed directly inside `CField`:
 
 ```vue
 <CField v-slot="{ invalid, message }">
@@ -259,8 +261,17 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
 </CField>
 ```
 
-This only reaches elements placed directly inside `CField`'s default slot — a custom component nested deeper won't
-receive `invalid`/`message` automatically; pass them down as props if you need that.
+- **Template ref** — to style `CField`'s own wrapper element instead of a child:
+
+```vue
+<CField ref="fieldRef" :class="{ 'is-invalid': fieldRef?.invalid }">
+    <CLabel>Email</CLabel>
+    <CInput v-model="email" type="email" required/>
+</CField>
+```
+
+Both only reach elements placed directly inside `CField`'s default slot, or the `CField` element itself — a custom
+component nested deeper won't receive `invalid`/`message` automatically; pass them down as props if you need that.
 
 ## Components
 

@@ -67,6 +67,11 @@ function handleInput(event: Event) {
         validationMessage.value = target.validationMessage;
     }
 }
+
+defineExpose({
+    invalid: invalidated,
+    message: validationMessage
+});
 </script>
 
 <template>
