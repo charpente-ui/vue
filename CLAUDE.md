@@ -23,6 +23,8 @@ Requires Node >= 20 (uses native `crypto.randomUUID()` — do not add polyfills)
 - **ALWAYS run `npx eslint --fix` on modified files after code changes** — not `npm run lint` on the whole project
 - **ALWAYS fix all lint errors before committing**
 - **ALWAYS write code, comments, errors in English**
+- **ALWAYS run `npm run build` at the end of a task** — passing tests don't catch build-only failures
+  (e.g. broken `.d.ts` generation, type errors that don't fail `vitest`). Check `dist/index.d.ts` isn't empty.
 
 ---
 
