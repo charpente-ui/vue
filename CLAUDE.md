@@ -39,7 +39,7 @@ npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test 
 ## Architecture
 
 - **Entry point:** `src/index.ts` re-exports components as `C`-prefixed names (`BaseButton.vue` → `CButton`).
-- **Build:** ESM + UMD, Vue externalized, TypeScript declarations via `vite-plugin-dts`.
+- **Build:** ESM only, Vue externalized, TypeScript declarations via `vite-plugin-dts`.
 - **TypeScript:** Strict mode. Path alias `@/*` → `src/*`.
 
 ## Adding a New Component
