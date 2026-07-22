@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://github.com/charpente-ui/vue/compare/v2.1.2...v2.2.0) (2026-07-22)
+
+### Features
+
+* **field:** expose invalid and message via BaseField default scoped slot ([dd7a433](https://github.com/charpente-ui/vue/commit/dd7a4333f1a7d04aa2efce002729e6866b987da2))
+
 ## [2.1.2](https://github.com/charpente-ui/vue/compare/v2.1.1...v2.1.2) (2026-07-22)
 
 ### Bug Fixes
