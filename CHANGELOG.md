@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/charpente-ui/vue/compare/v2.2.0...v2.2.1) (2026-07-22)
+
+### Bug Fixes
+
+* **build:** emit valid .d.ts declarations for the package entry ([c123657](https://github.com/charpente-ui/vue/commit/c1236577e76e2016b72d2e96c155111f75d0f86f))
+
 ## [2.2.0](https://github.com/charpente-ui/vue/compare/v2.1.2...v2.2.0) (2026-07-22)
 
 ### Features
