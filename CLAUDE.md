@@ -116,7 +116,7 @@ const props = withDefaults(defineProps<{ as?: string | Component }>(), { as: 'bu
 
 ### Dependency update scopes
 
-- `chore(deps): ...` → production dependencies (`dependencies` in package.json) — triggers a `minor` release
-- `chore(deps-dev): ...` → dev dependencies (`devDependencies` in package.json) — **no release**
+- `build(deps): ...` → production dependencies (`dependencies` in package.json) — triggers a `minor` release
+- `build(deps-dev): ...` → dev dependencies (`devDependencies` in package.json) — **no release**
 
 Always check `package.json` before choosing the scope. Vite, ESLint, Vitest, TypeScript and similar tooling are always `devDependencies`.
