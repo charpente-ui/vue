@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, useAttrs, useId, watchEffect } from 'vue';
+import { computed, inject, onBeforeUnmount, useAttrs, useId, watch } from 'vue';
 import { fieldKey } from './internal/keys';
 
 defineOptions({
@@ -26,16 +26,20 @@ const validationMessage = computed(() => {
     return '';
 });
 
-watchEffect(() => {
-    if (field) {
-        field.supportingTextId.value = textId.value;
+watch(textId, (id, previousId) => {
+    if (!field) {
+        return;
     }
-});
+
+    if (previousId) {
+        field.unregisterSupportingText(previousId);
+    }
+
+    field.registerSupportingText(id);
+}, { immediate: true });
 
 onBeforeUnmount(() => {
-    if (field) {
-        field.supportingTextId.value = undefined;
-    }
+    field?.unregisterSupportingText(textId.value);
 });
 </script>
 

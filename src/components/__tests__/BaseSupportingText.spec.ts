@@ -133,6 +133,57 @@ describe('BaseSupportingText', () => {
         expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined();
     });
 
+    it('keeps aria-describedby on the remaining text when another one unmounts', async () => {
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput,
+                BaseSupportingText
+            },
+            data: () => ({ showError: true }),
+            template: `
+                <BaseField>
+                    <BaseInput/>
+                    <BaseSupportingText>Hint</BaseSupportingText>
+                    <BaseSupportingText v-if="showError">Error</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const hintId = wrapper.findAll('p')[0].attributes('id');
+
+        await wrapper.setData({ showError: false });
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe(hintId);
+    });
+
+    it('re-wires aria-describedby when the text id changes after mount', async () => {
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput,
+                BaseSupportingText
+            },
+            data: () => ({ id: 'first' }),
+            template: `
+                <BaseField>
+                    <BaseInput/>
+                    <BaseSupportingText :id="id">Hint</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('first');
+
+        await wrapper.setData({ id: 'second' });
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('second');
+    });
+
     it('shows the native validation message after a failed submit and clears it once fixed', async () => {
         const wrapper = mount({
             components: {

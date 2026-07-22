@@ -8,13 +8,29 @@ defineOptions({
 
 const attrs = useAttrs();
 const generatedId = useId();
-const supportingTextId = ref<string>();
+const supportingTextIds = ref<string[]>([]);
 const validationMessage = ref('');
 const invalidated = ref(false);
 
 const fieldId = computed(() => {
     return typeof attrs.id === 'string' ? attrs.id : generatedId;
 });
+
+// The most recently registered supporting text wins; unregistering falls back
+// to whichever one is still mounted, instead of clearing the wiring.
+const supportingTextId = computed(() => supportingTextIds.value.at(-1));
+
+function registerSupportingText(id: string) {
+    supportingTextIds.value.push(id);
+}
+
+function unregisterSupportingText(id: string) {
+    const index = supportingTextIds.value.indexOf(id);
+
+    if (index !== -1) {
+        supportingTextIds.value.splice(index, 1);
+    }
+}
 
 // `id` drives the label/input pairing instead of the wrapper div: reusing it
 // on both would put the same id on two different DOM elements.
@@ -29,7 +45,9 @@ const rootAttrs = computed(() => {
 provide(fieldKey, {
     id: fieldId,
     supportingTextId,
-    validationMessage
+    validationMessage,
+    registerSupportingText,
+    unregisterSupportingText
 });
 
 // The invalid event does not bubble but crosses the field during the capture
