@@ -43,6 +43,30 @@ describe('BaseField', () => {
         expect(wrapper.find('input').attributes('id')).toBe('custom-field');
     });
 
+    it('exposes invalid and message through the default scoped slot', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseInput },
+            template: `
+                <BaseField v-slot="{ invalid, message }">
+                    <span :data-invalid="String(invalid)">{{ message }}</span>
+                    <BaseInput required/>
+                </BaseField>
+            `
+        });
+
+        expect(wrapper.find('span').attributes('data-invalid')).toBe('false');
+        expect(wrapper.find('span').text()).toBe('');
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+
+        input.dispatchEvent(new Event('invalid'));
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.find('span').attributes('data-invalid')).toBe('true');
+        expect(wrapper.find('span').text()).toBe(input.validationMessage);
+    });
+
     it('links the label to the input via a shared id', () => {
         const wrapper = mount(BaseField, {
             slots: {

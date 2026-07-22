@@ -248,6 +248,20 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
 - Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
   Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
 
+`CField` stays zero-CSS: it never applies a class itself. If you need custom styling beyond `[aria-invalid]` or
+`:invalid` selectors, its default slot exposes `invalid` and `message` so you can drive your own classes:
+
+```vue
+<CField v-slot="{ invalid, message }">
+    <CLabel>Email</CLabel>
+    <CInput v-model="email" type="email" required :class="{ 'is-invalid': invalid }"/>
+    <span v-if="invalid" class="error">{{ message }}</span>
+</CField>
+```
+
+This only reaches elements placed directly inside `CField`'s default slot — a custom component nested deeper won't
+receive `invalid`/`message` automatically; pass them down as props if you need that.
+
 ## Components
 
 | Name          | Core Logic                                                                       | Tag              | Status |

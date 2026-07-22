@@ -58,16 +58,19 @@ function handleInvalid(event: Event) {
 }
 
 // Once a control has been flagged invalid, follow its validity live so the
-// message clears as soon as the user fixes the value.
+// message and invalid state clear as soon as the user fixes the value.
 function handleInput(event: Event) {
     if (invalidated.value) {
-        validationMessage.value = (event.target as HTMLInputElement).validationMessage;
+        const target = event.target as HTMLInputElement;
+
+        invalidated.value = !target.validity.valid;
+        validationMessage.value = target.validationMessage;
     }
 }
 </script>
 
 <template>
     <div v-bind="rootAttrs" @invalid.capture="handleInvalid" @input.capture="handleInput" @change.capture="handleInput">
-        <slot/>
+        <slot :invalid="invalidated" :message="validationMessage"/>
     </div>
 </template>

@@ -419,9 +419,10 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             Your full name, as it should appear.
                         </CSupportingText>
                     </CField>
-                    <CField class="field">
+                    <CField v-slot="{ invalid }" class="field">
                         <CLabel>Email *</CLabel>
-                        <CInput v-model="form.email" type="email" placeholder="john@example.com" required/>
+                        <CInput v-model="form.email" type="email" placeholder="john@example.com" required
+                                :class="{ 'is-invalid': invalid }"/>
                         <CSupportingText validation class="value">
                             We never share your email.
                         </CSupportingText>
@@ -463,9 +464,10 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
       Your full name, as it should appear.
     <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
   <span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span>
-  <span class="punc">&lt;</span><span class="tag">CField</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CField</span> <span class="attr">v-slot</span><span class="punc">=</span><span class="str">&quot;{ invalid }&quot;</span><span class="punc">&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CLabel</span><span class="punc">&gt;</span>Email *<span class="punc">&lt;/</span><span class="tag">CLabel</span><span class="punc">&gt;</span>
-    <span class="punc">&lt;</span><span class="tag">CInput</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;form.email&quot;</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;email&quot;</span> <span class="attr">required</span><span class="punc">/&gt;</span>
+    <span class="punc">&lt;</span><span class="tag">CInput</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;form.email&quot;</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;email&quot;</span> <span class="attr">required</span>
+      <span class="attr">:class</span><span class="punc">=</span><span class="str">&quot;{ 'is-invalid': invalid }&quot;</span><span class="punc">/&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CSupportingText</span> <span class="attr">validation</span><span class="punc">&gt;</span>
       We never share your email.
     <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
@@ -698,6 +700,10 @@ body {
     border-radius: 4px;
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
     color: var(--text);
+}
+
+.is-invalid {
+    border-color: #ff3b30 !important;
 }
 
 .output {

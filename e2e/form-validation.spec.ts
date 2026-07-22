@@ -31,6 +31,20 @@ test('clears the validation message once the field is fixed', async ({ page }) =
     await expect(nameHint).toHaveText('Your full name, as it should appear.');
 });
 
+test('applies a custom class via CField scoped slot when the email field is invalid', async ({ page }) => {
+    const emailInput = page.getByPlaceholder('john@example.com');
+
+    await expect(emailInput).not.toHaveClass(/is-invalid/);
+
+    await page.getByRole('button', { name: 'Submit' }).click();
+
+    await expect(emailInput).toHaveClass(/is-invalid/);
+
+    await emailInput.fill('ada@example.com');
+
+    await expect(emailInput).not.toHaveClass(/is-invalid/);
+});
+
 test('submits and emits the form payload once every required field is valid', async ({ page }) => {
     await page.getByPlaceholder('John Doe').fill('Ada Lovelace');
     await page.getByPlaceholder('john@example.com').fill('ada@example.com');
