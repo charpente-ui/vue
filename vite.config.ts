@@ -9,6 +9,9 @@ export default defineConfig({
         dts({
             insertTypesEntry: true,
             cleanVueFileName: true,
+            compilerOptions: {
+                rootDir: resolve(import.meta.dirname, 'src')
+            },
             exclude: [
                 'src/components/__tests__/**'
             ]
