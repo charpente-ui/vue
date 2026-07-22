@@ -1,6 +1,6 @@
 {
     "name": "@charpente-ui/vue",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "Charpente UI is a headless Vue component library.",
     "type": "module",
     "scripts": {

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/charpente-ui/vue/compare/v2.1.1...v2.1.2) (2026-07-22)
+
+### Bug Fixes
+
+* **supporting-text:** keep aria-describedby wired when a sibling supporting text unmounts ([541d692](https://github.com/charpente-ui/vue/commit/541d6921443d3933b678e2eb75b1749c378aec50))
+
 ## [2.1.1](https://github.com/charpente-ui/vue/compare/v2.1.0...v2.1.1) (2026-07-22)
 
 ### Bug Fixes
