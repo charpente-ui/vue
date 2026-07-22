@@ -29,7 +29,7 @@ export default defineConfig({
                 preserveModules: true,
                 preserveModulesRoot: 'src',
                 entryFileNames: (chunk) => {
-                    return `${chunk.name.replace(/\.vue$/, '')}.js`;
+                    return `${chunk.name.split('?')[0].replace(/\.vue$/, '')}.js`;
                 }
             }
         }
