@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://github.com/charpente-ui/vue/compare/v2.3.0...v2.4.0) (2026-07-23)
+
+### Features
+
+* **ids:** namespace auto-generated ids/names with a cui- prefix ([1d9b465](https://github.com/charpente-ui/vue/commit/1d9b46543af95b110e5807866d3d7e6718806550))
+
 ## [2.3.0](https://github.com/charpente-ui/vue/compare/v2.2.1...v2.3.0) (2026-07-22)
 
 ### Features
