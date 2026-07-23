@@ -252,6 +252,23 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
 - Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
   Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
 
+### How `CField` tracks validity: the events it listens to
+
+`CField` never calls the Constraint Validation API itself — it listens to three native events on its wrapper `<div>`,
+all in the **capture phase**, so they're caught on the way down regardless of which control inside the field fired
+them:
+
+| Event                      | When it fires                                                             | What `CField` does                                                                               |
+|----------------------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| `invalid` (capture)        | The browser rejects a control's value on submit/`checkValidity()`         | Sets `invalid = true` and `message` to the control's `validationMessage`                         |
+| `input` (capture)          | The user types/changes a value, before the field was ever flagged invalid | Ignored — no cost paid until the field actually fails once                                       |
+| `input`/`change` (capture) | The user edits a value **after** the field was flagged invalid            | Re-checks `target.validity.valid` live, clearing `invalid`/`message` as soon as the value passes |
+
+The `invalid` event matters here because it **does not bubble** — it only reaches ancestors during the capture
+phase, so `@invalid.capture` on the field's own root is the only way to observe it without wiring a listener on
+every control by hand. `input`/`change` are only used *after* the first `invalid`, so a field that has never failed
+validation pays no per-keystroke cost.
+
 `CField` stays zero-CSS: it never applies a class itself. If you need custom styling beyond `[aria-invalid]` or
 `:invalid` selectors, it gives you two ways to read its `invalid`/`message` state:
 
