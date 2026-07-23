@@ -319,7 +319,7 @@ When wrapping a Charpente UI component inside your own, you must forward `$attrs
 
 ```vue
 <script setup>
-import { CField, CLabel, CSelect, CSupportingText } from '@charpente-ui/vue';
+import { CField, CLabel, CInput, CSupportingText } from '@charpente-ui/vue';
 
 defineOptions({
     inheritAttrs: false
@@ -337,9 +337,7 @@ const model = defineModel();
     <CField>
         <CLabel>{{ label }}</CLabel>
 
-        <CSelect v-bind="$attrs" v-model="model">
-            <slot/>
-        </CSelect>
+        <CInput v-bind="$attrs" v-model="model"/>
 
         <CSupportingText v-if="error">{{ error }}</CSupportingText>
     </CField>
@@ -349,6 +347,6 @@ const model = defineModel();
 **Why this matters:** Without `inheritAttrs: false`, Vue applies fallthrough attributes to the wrapper's root element
 instead of the inner component. Adding `v-bind="$attrs"` on the Charpente component ensures attributes like `id`,
 `class`, `required`, or `disabled` pass all the way through to the native HTML element. And since `CField` works by
-provide/inject, the label, select and error stay linked across your wrapper's boundary — accessibility included.
+provide/inject, the label, input and error stay linked across your wrapper's boundary — accessibility included.
 
 This pattern works the same way for all Charpente components (`CInput`, `CCheckbox`, `CRadio`, etc.).
