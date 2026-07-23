@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, provide, ref, useAttrs, useId } from 'vue';
+import { computed, provide, ref, useAttrs } from 'vue';
+import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
 
 defineOptions({
@@ -7,7 +8,7 @@ defineOptions({
 });
 
 const attrs = useAttrs();
-const generatedId = useId();
+const generatedId = useGeneratedId();
 const supportingTextIds = ref<string[]>([]);
 const validationMessage = ref('');
 const invalidated = ref(false);

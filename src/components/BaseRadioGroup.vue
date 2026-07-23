@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, provide, useAttrs, useId } from 'vue';
+import { computed, provide, useAttrs } from 'vue';
+import { useGeneratedId } from './internal/id';
 import { fieldKey, radioGroupKey } from './internal/keys';
 
 defineOptions({
@@ -8,7 +9,7 @@ defineOptions({
 
 const model = defineModel<string | number>();
 const attrs = useAttrs();
-const generatedName = useId();
+const generatedName = useGeneratedId();
 
 const name = computed(() => {
     return typeof attrs.name === 'string' ? attrs.name : generatedName;

@@ -88,6 +88,10 @@ and accessible automatically — and every class lands on the native element, re
 These components are thin wrappers around native elements. They use `v-model` and automatically link with labels via
 `useId()`. Full attribute inheritance. `CInput` and `CTextarea` support the native `v-model` modifiers:
 
+> [!NOTE]
+> Every auto-generated `id`/`name` is prefixed with `cui-` (e.g. `cui-v-0`), so it never collides with an id from the
+> host app or another component library on the same page. Pass an explicit `id`/`name` to opt out.
+
 ```vue
 <CInput v-model.trim="name"/>
 <CInput v-model.number="age"/>

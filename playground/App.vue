@@ -18,6 +18,7 @@ const text = ref('');
 const number = ref(0);
 const lazyText = ref('');
 const fieldText = ref('');
+const eventDemo = ref('');
 const textarea = ref('');
 const checkbox = ref(false);
 const checkboxGroup = ref<string[]>([]);
@@ -383,6 +384,41 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
         </main>
 
         <main v-show="activeTab === 'composition'" class="sections">
+            <section class="card">
+                <h2>CField — event handling</h2>
+                <p class="value">
+                    <code>CField</code> listens for <code>invalid</code>, <code>input</code> and <code>change</code>
+                    on its wrapper, all during the <strong>capture phase</strong> — that's the only way to catch
+                    <code>invalid</code>, since it doesn't bubble. Try submitting the empty field below, then fix it.
+                </p>
+                <CForm validate>
+                    <CField v-slot="{ invalid, message }" class="field">
+                        <CLabel>Required field</CLabel>
+                        <CInput v-model="eventDemo" placeholder="Leave empty and submit..." required
+                                :class="{ 'is-invalid': invalid }"/>
+                        <p class="value">
+                            State: <code>invalid = {{ invalid }}</code>
+                            <template v-if="invalid">— <code>{{ message }}</code></template>
+                        </p>
+                    </CField>
+                    <CButton type="submit">Submit</CButton>
+                </CForm>
+                <div class="code-block">
+                    <div class="code-block__header">
+                        <span class="code-block__dot code-block__dot--red"/>
+                        <span class="code-block__dot code-block__dot--yellow"/>
+                        <span class="code-block__dot code-block__dot--green"/>
+                        <span class="code-block__label">Event flow</span>
+                    </div>
+                    <pre class="snippet"><code v-pre>1. Submit -&gt; native "invalid" fires on the input, caught by
+   CField's @invalid.capture (invalid doesn't bubble, only captures).
+2. CField sets invalid = true and message = validationMessage.
+3. Every keystroke fires "input" (caught by @input.capture): once
+   invalid is true, CField re-checks target.validity.valid live.
+4. As soon as the value passes, invalid clears automatically.</code></pre>
+                </div>
+            </section>
+
             <section class="card">
                 <h2>CField</h2>
                 <CField class="field">

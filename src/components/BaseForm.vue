@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, useAttrs, useId } from 'vue';
+import { computed, useAttrs } from 'vue';
+import { useGeneratedId } from './internal/id';
 
 defineOptions({
     inheritAttrs: false
@@ -10,7 +11,7 @@ const props = defineProps<{
 }>();
 
 const attrs = useAttrs();
-const generatedId = useId();
+const generatedId = useGeneratedId();
 
 const emit = defineEmits<{
     submit: [

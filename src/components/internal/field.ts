@@ -1,4 +1,5 @@
-import { computed, inject, useAttrs, useId } from 'vue';
+import { computed, inject, useAttrs } from 'vue';
+import { useGeneratedId } from './id';
 import { fieldKey } from './keys';
 
 // Matches Vue's own (unexported) `Booleanish | 'grammar' | 'spelling'` type for `aria-invalid`.
@@ -9,7 +10,7 @@ type AriaInvalid = boolean | 'true' | 'false' | 'grammar' | 'spelling' | undefin
 // supporting text when one is present.
 export function useFieldControl() {
     const attrs = useAttrs();
-    const generatedId = useId();
+    const generatedId = useGeneratedId();
     const field = inject(fieldKey, null);
 
     const controlId = computed(() => {

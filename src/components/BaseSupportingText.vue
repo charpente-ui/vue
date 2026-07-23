@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, useAttrs, useId, watch } from 'vue';
+import { computed, inject, onBeforeUnmount, useAttrs, watch } from 'vue';
+import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
 
 defineOptions({
@@ -11,7 +12,7 @@ const props = defineProps<{
 }>();
 
 const attrs = useAttrs();
-const generatedId = useId();
+const generatedId = useGeneratedId();
 const field = inject(fieldKey, null);
 
 const textId = computed(() => {
