@@ -17,9 +17,10 @@ const fieldId = computed(() => {
     return typeof attrs.id === 'string' ? attrs.id : generatedId;
 });
 
-// The most recently registered supporting text wins; unregistering falls back
-// to whichever one is still mounted, instead of clearing the wiring.
-const supportingTextId = computed(() => supportingTextIds.value.at(-1));
+// aria-describedby takes a list of ids, so every supporting text is referenced
+// rather than just one, in registration order. Unregistering drops that id and
+// keeps the rest wired; an empty list removes the attribute altogether.
+const describedBy = computed(() => supportingTextIds.value.join(' ') || undefined);
 
 function registerSupportingText(id: string) {
     supportingTextIds.value.push(id);
@@ -45,7 +46,7 @@ const rootAttrs = computed(() => {
 
 provide(fieldKey, {
     id: fieldId,
-    supportingTextId,
+    describedBy,
     validationMessage,
     registerSupportingText,
     unregisterSupportingText

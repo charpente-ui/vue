@@ -186,6 +186,8 @@ avoid accidental form submissions. Pass `type="submit"` explicitly for submit bu
 
 `CSupportingText` renders a field's hint or error text inside a `CField`: the input automatically gets an
 `aria-describedby` pointing to it, and the attribute is removed when the text unmounts (e.g. behind a `v-if`).
+Several supporting texts in the same field are all referenced, in mount order — a permanent hint and a
+conditional error can coexist.
 
 ```vue
 <CField>

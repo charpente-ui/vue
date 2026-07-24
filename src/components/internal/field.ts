@@ -7,7 +7,7 @@ type AriaInvalid = boolean | 'true' | 'false' | 'grammar' | 'spelling' | undefin
 
 // Shared wiring for every form control: resolve the element id (explicit id >
 // field id > generated id) and point aria-describedby at the field's
-// supporting text when one is present.
+// supporting texts when there are any.
 export function useFieldControl() {
     const attrs = useAttrs();
     const generatedId = useGeneratedId();
@@ -26,7 +26,7 @@ export function useFieldControl() {
             return attrs['aria-describedby'];
         }
 
-        return field?.supportingTextId.value;
+        return field?.describedBy.value;
     });
 
     const ariaInvalid = computed<AriaInvalid>(() => {

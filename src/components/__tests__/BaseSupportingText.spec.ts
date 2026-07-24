@@ -133,6 +133,23 @@ describe('BaseSupportingText', () => {
         expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined();
     });
 
+    it('references every supporting text of the field, in registration order', async () => {
+        const wrapper = mount(BaseField, {
+            slots: {
+                default: [BaseInput,
+                    BaseSupportingText,
+                    BaseSupportingText]
+            }
+        });
+
+        await nextTick();
+
+        const ids = wrapper.findAll('p').map((text) => text.attributes('id'));
+
+        expect(ids).toHaveLength(2);
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe(ids.join(' '));
+    });
+
     it('keeps aria-describedby on the remaining text when another one unmounts', async () => {
         const wrapper = mount({
             components: {

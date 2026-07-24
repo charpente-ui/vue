@@ -16,7 +16,7 @@ export const checkboxGroupKey: InjectionKey<CheckboxGroupContext> = Symbol('CChe
 
 export interface FieldContext {
     id: ComputedRef<string>
-    supportingTextId: ComputedRef<string | undefined>
+    describedBy: ComputedRef<string | undefined>
     validationMessage: Ref<string>
     registerSupportingText: (id: string) => void
     unregisterSupportingText: (id: string) => void
