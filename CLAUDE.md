@@ -31,7 +31,7 @@ Requires Node >= 20 (uses native `crypto.randomUUID()` — do not add polyfills)
 ## Commands
 
 ```bash
-npm run build            # Vite build (ESM + UMD)
+npm run build            # Vite build (ESM only)
 npm run test             # Run all tests once (vitest, watch disabled)
 npm run test:coverage    # Coverage (threshold: 90% lines/functions/branches/statements — blocking)
 npx eslint --fix <file1> <file2>  # Lint only the modified files
