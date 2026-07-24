@@ -31,6 +31,26 @@ test('clears the validation message once the field is fixed', async ({ page }) =
     await expect(nameHint).toHaveText('Your full name, as it should appear.');
 });
 
+test('a formnovalidate submitter goes through with the form still invalid', async ({ page }) => {
+    const nameInput = page.getByPlaceholder('John Doe');
+
+    await page.getByRole('button', { name: 'Save draft' }).click();
+
+    const output = page.locator('pre.output');
+
+    await expect(output).toBeVisible();
+    await expect(output).toContainText('"draft": true');
+    await expect(output).toContainText('"name": ""');
+    await expect(nameInput).not.toHaveAttribute('aria-invalid', 'true');
+});
+
+test('the plain submit button stays blocked while the draft one is not', async ({ page }) => {
+    await page.getByRole('button', { name: 'Submit' }).click();
+
+    await expect(page.locator('pre.output')).toBeHidden();
+    await expect(page.getByPlaceholder('John Doe')).toHaveAttribute('aria-invalid', 'true');
+});
+
 test('resetting the form clears the validation messages', async ({ page }) => {
     const nameInput = page.getByPlaceholder('John Doe');
     const nameHint = page.locator('form p.value').first();

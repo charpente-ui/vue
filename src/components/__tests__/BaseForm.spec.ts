@@ -93,6 +93,46 @@ describe('BaseForm', () => {
         wrapper.unmount();
     });
 
+    it('skips validation when the submitter carries formnovalidate', async () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            },
+            slots: {
+                default: '<input required/><button type="submit" class="draft" formnovalidate/>'
+            }
+        });
+
+        const submitter = wrapper.find('.draft').element as HTMLButtonElement;
+
+        wrapper.element.dispatchEvent(new SubmitEvent('submit', { submitter,
+            bubbles: true,
+            cancelable: true }));
+        await nextTick();
+
+        expect(wrapper.emitted('submit')).toHaveLength(1);
+    });
+
+    it('still validates when the submitter has no formnovalidate', async () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            },
+            slots: {
+                default: '<input required/><button type="submit" class="publish"/>'
+            }
+        });
+
+        const submitter = wrapper.find('.publish').element as HTMLButtonElement;
+
+        wrapper.element.dispatchEvent(new SubmitEvent('submit', { submitter,
+            bubbles: true,
+            cancelable: true }));
+        await nextTick();
+
+        expect(wrapper.emitted('submit')).toBeUndefined();
+    });
+
     it('emits submit when the form is valid while validating', async () => {
         const wrapper = mount(BaseForm, {
             props: {

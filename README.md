@@ -270,8 +270,26 @@ for free. Charpente UI exposes that instead of reinventing it — opt in with th
   slot content otherwise. The control also gets `aria-invalid` automatically, and the text becomes a
   `role="alert"` live region so screen readers announce the message when it swaps in. Pass an explicit `role`
   (e.g. `role="status"` for a gentler, polite announcement) to override it.
-- Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules. Native
-  escapes still work: `formnovalidate` on a submit button skips validation for that button.
+- Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
+- Native escapes still work: a submit button carrying `formnovalidate` skips validation for its own submission, so
+  `submit` is emitted with the form still invalid. The HTML spec puts the no-validate state on the submitter as much
+  as on the form, and `validate` honours it — that's what a "save draft" button next to a "publish" one relies on.
+
+```vue
+<CForm validate @submit="onSubmit">
+    <CField>
+        <CLabel>Title</CLabel>
+        <CInput v-model="title" required/>
+    </CField>
+
+    <CButton type="submit">Publish</CButton>
+    <CButton type="submit" formnovalidate>Save draft</CButton>
+</CForm>
+```
+
+> [!WARNING]
+> `validate` guarantees a valid form on `submit` **except** when the submitter carries `formnovalidate`. Read
+> `event.submitter` in your handler if the two paths need to behave differently.
 
 ### How `CField` tracks validity: the events it listens to
 

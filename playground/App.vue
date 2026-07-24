@@ -53,8 +53,11 @@ const form = ref({ name: '',
     terms: false });
 const submitted = ref<string | null>(null);
 
-function onSubmit() {
-    submitted.value = JSON.stringify(form.value, null, 2);
+function onSubmit(event: SubmitEvent) {
+    const submitter = event.submitter as HTMLButtonElement | null;
+
+    submitted.value = JSON.stringify({ draft: !!submitter?.formNoValidate,
+        ...form.value }, null, 2);
 }
 
 function resetForm() {
@@ -518,6 +521,12 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     <code>role="alert"</code> live region, so screen readers announce the message instead of it
                     changing silently. Resetting the form clears every message along with the values.
                 </p>
+                <p class="doc">
+                    The native escape hatches keep working: a submit button carrying
+                    <code>formnovalidate</code> skips validation for its own submission — the HTML spec puts the
+                    no-validate state on the submitter, not only on the form. That's what "Save draft" does below:
+                    it goes through with the fields still empty, while "Submit" stays blocked.
+                </p>
                 <div class="example">
                     <CForm validate @submit="onSubmit" @reset="resetForm">
                         <CField ref="nameFieldRef" class="field" :class="{ 'is-invalid': nameFieldRef?.invalid }">
@@ -553,6 +562,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         </CField>
                         <div class="row">
                             <CButton type="submit">Submit</CButton>
+                            <CButton type="submit" formnovalidate>Save draft</CButton>
                             <CButton type="reset">Reset</CButton>
                         </div>
                     </CForm>
@@ -589,6 +599,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
     <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
   <span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;submit&quot;</span><span class="punc">&gt;</span>Submit<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;submit&quot;</span> <span class="attr">formnovalidate</span><span class="punc">&gt;</span>Save draft<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;reset&quot;</span><span class="punc">&gt;</span>Reset<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
 <span class="punc">&lt;/</span><span class="tag">CForm</span><span class="punc">&gt;</span></code></pre>
                     </div>
