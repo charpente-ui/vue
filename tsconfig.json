@@ -13,13 +13,7 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "noEmit": true,
-        "resolveJsonModule": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        }
+        "resolveJsonModule": true
     },
     "include": [
         "src/**/*.ts",

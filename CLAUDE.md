@@ -42,7 +42,9 @@ npx vitest run src/components/__tests__/BaseButton.spec.ts  # Run a single test 
 
 - **Entry point:** `src/index.ts` re-exports components as `C`-prefixed names (`BaseButton.vue` → `CButton`).
 - **Build:** ESM only, Vue externalized, TypeScript declarations via `vite-plugin-dts`.
-- **TypeScript:** Strict mode. Path alias `@/*` → `src/*`.
+- **TypeScript:** Strict mode. No path alias — imports are relative.
+- **Type-checking:** `npm run build` only. Do not run `tsc --noEmit`: plain `tsc` cannot resolve `.vue` modules
+  and reports a `TS2307` per SFC import. `vite-plugin-dts` is what type-checks the SFCs during the build.
 
 ## Adding a New Component
 
