@@ -248,7 +248,9 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
   focuses the first invalid control.
 - Errors appear after the first submit attempt, then update live as the user fixes the value.
 - `CSupportingText validation` shows the browser's localized `validationMessage` while invalid, and falls back to
-  its slot content otherwise. The control also gets `aria-invalid` automatically.
+  its slot content otherwise. The control also gets `aria-invalid` automatically, and the text becomes a
+  `role="alert"` live region so screen readers announce the message when it swaps in. Pass an explicit `role`
+  (e.g. `role="status"` for a gentler, polite announcement) to override it.
 - Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
   Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
 

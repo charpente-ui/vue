@@ -27,6 +27,17 @@ const validationMessage = computed(() => {
     return '';
 });
 
+// A validation message swaps in over the hint in place, so without a live
+// region the change is silent for screen readers. Only wired when `validation`
+// is set: a plain hint must not become one. An explicit role always wins.
+const textRole = computed(() => {
+    if (typeof attrs.role === 'string') {
+        return attrs.role;
+    }
+
+    return props.validation ? 'alert' : undefined;
+});
+
 watch(textId, (id, previousId) => {
     if (!field) {
         return;
@@ -45,7 +56,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <p v-bind="$attrs" :id="textId">
+    <p v-bind="$attrs" :id="textId" :role="textRole">
         <template v-if="validationMessage">{{ validationMessage }}</template>
         <slot v-else/>
     </p>

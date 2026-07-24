@@ -237,6 +237,45 @@ describe('BaseSupportingText', () => {
         expect(wrapper.text()).toBe('Hint');
     });
 
+    it('marks the text as a live region when validation is set', () => {
+        const wrapper = mount(BaseSupportingText, {
+            props: {
+                validation: true
+            },
+            slots: {
+                default: 'Hint'
+            }
+        });
+
+        expect(wrapper.attributes('role')).toBe('alert');
+    });
+
+    it('leaves a plain hint out of the live regions', () => {
+        const wrapper = mount(BaseSupportingText, {
+            slots: {
+                default: 'Hint'
+            }
+        });
+
+        expect(wrapper.attributes('role')).toBeUndefined();
+    });
+
+    it('lets an explicit role on the text win', () => {
+        const wrapper = mount(BaseSupportingText, {
+            props: {
+                validation: true
+            },
+            attrs: {
+                role: 'status'
+            },
+            slots: {
+                default: 'Hint'
+            }
+        });
+
+        expect(wrapper.attributes('role')).toBe('status');
+    });
+
     it('lets an explicit aria-invalid on the control win', () => {
         const wrapper = mount(BaseField, {
             slots: {
