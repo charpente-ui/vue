@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.0](https://github.com/charpente-ui/vue/compare/v2.4.0...v2.5.0) (2026-07-24)
+
+### Features
+
+* **supporting-text:** announce validation messages to screen readers ([164995a](https://github.com/charpente-ui/vue/commit/164995ab8c0d574a5d0894f996236d6fc4ef64a1))
+
+### Bug Fixes
+
+* **field:** clear the invalid state when the form is reset ([e69c7ae](https://github.com/charpente-ui/vue/commit/e69c7aef048efd9a428b5948b73e4da5a522cf0a))
+* **field:** reference every supporting text in aria-describedby ([2380b70](https://github.com/charpente-ui/vue/commit/2380b70b868dc82d0ad7fc3415c0d90dc7fb0df1))
+* **form:** honour formnovalidate on the submitter ([1201611](https://github.com/charpente-ui/vue/commit/1201611d3c743efa5f7d3d9bd0e5925dcc42cce4))
+
 ## [2.4.0](https://github.com/charpente-ui/vue/compare/v2.3.0...v2.4.0) (2026-07-23)
 
 ### Features
