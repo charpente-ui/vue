@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, ref, useAttrs } from 'vue';
+import { computed, onBeforeUnmount, onMounted, provide, ref, useAttrs, useTemplateRef } from 'vue';
 import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
 
@@ -9,6 +9,7 @@ defineOptions({
 
 const attrs = useAttrs();
 const generatedId = useGeneratedId();
+const rootRef = useTemplateRef('root');
 const supportingTextIds = ref<string[]>([]);
 const validationMessage = ref('');
 const invalidated = ref(false);
@@ -70,6 +71,37 @@ function handleInput(event: Event) {
     }
 }
 
+// Resetting wipes the values that made the control invalid, so the message and
+// invalid state must go with them — back to the pre-submit state.
+function handleReset() {
+    invalidated.value = false;
+    validationMessage.value = '';
+}
+
+// Unlike invalid/input, the reset event fires on the form itself — an ancestor
+// — so it never reaches the field on its way down or up. The owning form has to
+// be listened to directly, which also covers a plain <form>, not just CForm.
+let ownerForm: HTMLFormElement | null = null;
+
+onMounted(() => {
+    const root = rootRef.value;
+
+    // Defensive null guard required by the `HTMLDivElement | null` ref type.
+    // At runtime Vue always resolves the ref before mounted, so the falsy
+    // branch is unreachable — excluded from coverage rather than fake-tested.
+    /* v8 ignore next 3 */
+    if (!root) {
+        return;
+    }
+
+    ownerForm = root.closest('form');
+    ownerForm?.addEventListener('reset', handleReset);
+});
+
+onBeforeUnmount(() => {
+    ownerForm?.removeEventListener('reset', handleReset);
+});
+
 defineExpose({
     invalid: invalidated,
     message: validationMessage
@@ -77,7 +109,8 @@ defineExpose({
 </script>
 
 <template>
-    <div v-bind="rootAttrs" @invalid.capture="handleInvalid" @input.capture="handleInput" @change.capture="handleInput">
+    <div v-bind="rootAttrs" ref="root" @invalid.capture="handleInvalid" @input.capture="handleInput"
+         @change.capture="handleInput">
         <slot :invalid="invalidated" :message="validationMessage"/>
     </div>
 </template>

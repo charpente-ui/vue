@@ -23,15 +23,16 @@ test('clicking the label focuses a linked checkbox', async ({ page }) => {
     await expect(checkbox).toBeChecked();
 });
 
-test('aria-describedby links the input to its supporting text', async ({ page }) => {
+test('aria-describedby links the input to every supporting text of the field', async ({ page }) => {
     await page.getByRole('button', { name: 'Composition' }).click();
 
     const input = page.getByPlaceholder('Click the label to focus me...');
-    const supportingText = page.getByText('Supporting text — wired to the input via', { exact: false });
+    const field = page.locator('.field').filter({ has: input });
 
     const describedBy = await input.getAttribute('aria-describedby');
-    const textId = await supportingText.getAttribute('id');
+    const ids = await field.locator('p').evaluateAll((texts) => texts.map((text) => text.id));
 
-    expect(describedBy).toBeTruthy();
-    expect(describedBy).toBe(textId);
+    expect(ids).toHaveLength(2);
+    expect(ids.every(Boolean)).toBe(true);
+    expect(describedBy).toBe(ids.join(' '));
 });

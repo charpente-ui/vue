@@ -248,7 +248,8 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
 
 - `CForm validate` suppresses the native bubbles (`novalidate`), blocks `submit` until the form is valid, and
   focuses the first invalid control.
-- Errors appear after the first submit attempt, then update live as the user fixes the value.
+- Errors appear after the first submit attempt, then update live as the user fixes the value. Resetting the form
+  (`<button type="reset">` or `form.reset()`) clears them along with the values, back to the pre-submit state.
 - `CSupportingText validation` shows the browser's localized `validationMessage` while invalid, and falls back to
   its slot content otherwise. The control also gets `aria-invalid` automatically, and the text becomes a
   `role="alert"` live region so screen readers announce the message when it swaps in. Pass an explicit `role`

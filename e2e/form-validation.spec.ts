@@ -31,6 +31,21 @@ test('clears the validation message once the field is fixed', async ({ page }) =
     await expect(nameHint).toHaveText('Your full name, as it should appear.');
 });
 
+test('resetting the form clears the validation messages', async ({ page }) => {
+    const nameInput = page.getByPlaceholder('John Doe');
+    const nameHint = page.locator('form p.value').first();
+
+    await page.getByRole('button', { name: 'Submit' }).click();
+
+    await expect(nameInput).toHaveAttribute('aria-invalid', 'true');
+    await expect(nameHint).not.toHaveText('Your full name, as it should appear.');
+
+    await page.getByRole('button', { name: 'Reset' }).click();
+
+    await expect(nameInput).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(nameHint).toHaveText('Your full name, as it should appear.');
+});
+
 test('applies a custom class directly on CField via a template ref when the name field is invalid', async ({ page }) => {
     const nameField = page.locator('.field').filter({ has: page.getByPlaceholder('John Doe') });
 

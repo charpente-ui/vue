@@ -1,6 +1,8 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { describe, it, expect } from 'vitest';
 import BaseField from '../BaseField.vue';
+import BaseForm from '../BaseForm.vue';
 import BaseLabel from '../BaseLabel.vue';
 import BaseInput from '../BaseInput.vue';
 import BaseTextarea from '../BaseTextarea.vue';
@@ -255,6 +257,51 @@ describe('BaseField', () => {
 
         expect(forAttribute).toBeTruthy();
         expect(wrapper.find('input').attributes('id')).toBe(forAttribute);
+    });
+
+    it('clears the invalid state and message when the owning form is reset', async () => {
+        const wrapper = mount({
+            components: {
+                BaseForm,
+                BaseField,
+                BaseInput
+            },
+            template: `
+                <BaseForm validate>
+                    <BaseField v-slot="{ invalid, message }">
+                        <BaseInput required/>
+                        <span class="state">{{ invalid }}|{{ message }}</span>
+                    </BaseField>
+                </BaseForm>
+            `
+        });
+
+        const input = wrapper.find('input');
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.find('.state').text()).not.toBe('false|');
+        expect(input.attributes('aria-invalid')).toBe('true');
+
+        wrapper.find('form').element.reset();
+        await nextTick();
+
+        expect(wrapper.find('.state').text()).toBe('false|');
+        expect(input.attributes('aria-invalid')).toBeUndefined();
+
+        wrapper.unmount();
+    });
+
+    it('mounts and unmounts outside any form', () => {
+        const wrapper = mount(BaseField, {
+            slots: {
+                default: BaseInput
+            }
+        });
+
+        expect(wrapper.find('input').exists()).toBe(true);
+
+        wrapper.unmount();
     });
 
     it('does not apply the field id to radios inside a group', () => {

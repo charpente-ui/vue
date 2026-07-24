@@ -20,6 +20,7 @@ const lazyText = ref('');
 const fieldText = ref('');
 const fieldWrapperRef = ref<HTMLDivElement | null>(null);
 const fieldInputId = ref('');
+const fieldDescribedBy = ref('');
 const textarea = ref('');
 const checkbox = ref(false);
 const checkboxGroup = ref<string[]>([]);
@@ -65,7 +66,10 @@ function resetForm() {
 }
 
 onMounted(() => {
-    fieldInputId.value = fieldWrapperRef.value?.querySelector('input')?.id ?? '';
+    const input = fieldWrapperRef.value?.querySelector('input');
+
+    fieldInputId.value = input?.id ?? '';
+    fieldDescribedBy.value = input?.getAttribute('aria-describedby') ?? '';
 });
 
 const tabs = [
@@ -448,8 +452,10 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                 <p class="doc">
                     <code>CField</code> is the glue: it generates one id, hands it to <code>CLabel</code> as
                     <code>for</code> and to the wrapped input as <code>id</code>, and wires
-                    <code>aria-describedby</code> to any <code>CSupportingText</code> inside — all without you
-                    writing <code>for</code>/<code>id</code>/<code>aria-describedby</code> anywhere yourself.
+                    <code>aria-describedby</code> to every <code>CSupportingText</code> inside — all without you
+                    writing <code>for</code>/<code>id</code>/<code>aria-describedby</code> anywhere yourself. Several
+                    texts in one field are all referenced, in mount order, so a permanent hint and a conditional
+                    error can coexist instead of one hiding the other.
                 </p>
                 <div class="example">
                     <div ref="fieldWrapperRef">
@@ -459,12 +465,19 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             <CSupportingText class="value">
                                 Supporting text — wired to the input via <code>aria-describedby</code>.
                             </CSupportingText>
+                            <CSupportingText class="value">
+                                A second one — both ids land in the same attribute.
+                            </CSupportingText>
                         </CField>
                     </div>
                     <p class="value">No <code>for</code>/<code>id</code> written — the field links them automatically.</p>
                     <p class="value">
                         Generated id: <code>{{ fieldInputId }}</code> — namespaced with a <code>cui-</code> prefix so it
                         never collides with an id from your app or another library.
+                    </p>
+                    <p class="value">
+                        Resulting <code>aria-describedby</code>: <code>{{ fieldDescribedBy }}</code> — a
+                        space-separated list, one id per supporting text.
                     </p>
                     <div class="code-block">
                         <div class="code-block__header">
@@ -476,6 +489,9 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
   <span class="punc">&lt;</span><span class="tag">CInput</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;value&quot;</span><span class="punc">/&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
     Supporting text, linked via aria-describedby.
+  <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
+    A second one — both ids land in the same attribute.
   <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
 <span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span></code></pre>
                     </div>
@@ -490,10 +506,12 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     <code>CForm</code>'s <code>validate</code> prop opts into that instead of reinventing it: it
                     suppresses the native error bubbles, blocks submit until <code>checkValidity()</code> passes,
                     and focuses the first invalid control. <code>CSupportingText validation</code> then shows that
-                    browser-localized message live, as each field's validity changes.
+                    browser-localized message live, as each field's validity changes — as a
+                    <code>role="alert"</code> live region, so screen readers announce the message instead of it
+                    changing silently. Resetting the form clears every message along with the values.
                 </p>
                 <div class="example">
-                    <CForm validate @submit="onSubmit">
+                    <CForm validate @submit="onSubmit" @reset="resetForm">
                         <CField ref="nameFieldRef" class="field" :class="{ 'is-invalid': nameFieldRef?.invalid }">
                             <CLabel>Name *</CLabel>
                             <CInput v-model="form.name" placeholder="John Doe" required/>
@@ -527,7 +545,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         </CField>
                         <div class="row">
                             <CButton type="submit">Submit</CButton>
-                            <CButton type="button" @click="resetForm">Reset</CButton>
+                            <CButton type="reset">Reset</CButton>
                         </div>
                     </CForm>
                     <pre v-if="submitted" class="output">{{ submitted }}</pre>
@@ -536,7 +554,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             <span class="code-block__label">Example</span>
                             <span class="code-block__lang">vue</span>
                         </div>
-                        <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CForm</span> <span class="attr">validate</span> <span class="attr">@submit</span><span class="punc">=</span><span class="str">&quot;onSubmit&quot;</span><span class="punc">&gt;</span>
+                        <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CForm</span> <span class="attr">validate</span> <span class="attr">@submit</span><span class="punc">=</span><span class="str">&quot;onSubmit&quot;</span> <span class="attr">@reset</span><span class="punc">=</span><span class="str">&quot;resetForm&quot;</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CField</span> <span class="attr">ref</span><span class="punc">=</span><span class="str">&quot;nameFieldRef&quot;</span>
     <span class="attr">:class</span><span class="punc">=</span><span class="str">&quot;{ 'is-invalid': nameFieldRef?.invalid }&quot;</span><span class="punc">&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CLabel</span><span class="punc">&gt;</span>Name *<span class="punc">&lt;/</span><span class="tag">CLabel</span><span class="punc">&gt;</span>
@@ -563,6 +581,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
     <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
   <span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;submit&quot;</span><span class="punc">&gt;</span>Submit<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;reset&quot;</span><span class="punc">&gt;</span>Reset<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
 <span class="punc">&lt;/</span><span class="tag">CForm</span><span class="punc">&gt;</span></code></pre>
                     </div>
                 </div>
