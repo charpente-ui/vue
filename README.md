@@ -17,8 +17,8 @@ A logic-first, headless UI library for Vue 3. The logic you need, without the CS
 **Charpente UI** is built on a simple promise: We handle the boring stuff, you handle the design.
 
 Most UI libraries are bloated because they try to impose a visual style. **Charpente UI** is headless. We provide the
-"chassis" _(HTML structure and complex input logic)_ and you bring the "paint" _(Tailwind, CSS Modules, or
-Styled Components)_.
+"chassis" _(HTML structure and complex input logic)_ and you bring the "paint" _(Tailwind, CSS Modules, or Styled
+Components)_.
 
 ### Core Principles:
 
@@ -78,8 +78,8 @@ npm run dev
 </template>
 ```
 
-No `for`/`id` wiring, no validation library: the label, the hint and the browser-localized error messages are linked
-and accessible automatically — and every class lands on the native element, ready for your CSS.
+No `for`/`id` wiring, no validation library: the label, the hint and the browser-localized error messages are linked and
+accessible automatically — and every class lands on the native element, ready for your CSS.
 
 ## Component Reference
 
@@ -129,6 +129,8 @@ automatically.
 
 ```vue
 <CRadioGroup v-model="selected">
+    <legend>Favorite fruit</legend>
+
     <CLabel for="opt-a">Option A</CLabel>
     <CRadio id="opt-a" value="a"/>
 
@@ -139,6 +141,8 @@ automatically.
 
 ```vue
 <CCheckboxGroup v-model="selected">
+    <legend>Favorite fruits</legend>
+
     <CLabel for="cb-a">Option A</CLabel>
     <CCheckbox id="cb-a" value="a"/>
 
@@ -146,6 +150,18 @@ automatically.
     <CCheckbox id="cb-b" value="b"/>
 </CCheckboxGroup>
 ```
+
+### Naming the group
+
+A `<fieldset>` takes its accessible name from a `<legend>`, so that's what names the group — pass one as the first
+child and the browser does the rest. There is no `CLegend`: the native element already works, and the group renders
+your slot content untouched.
+
+> [!WARNING]
+> Do **not** use `CLabel` to name a group. A `<label for>` can only point at a labelable element, and a `<fieldset>`
+> is not one. Inside a group `CLabel` also finds no field id to pick up (the group masks any surrounding `CField`
+> on purpose), so it renders a `<label>` with no `for` at all — a label attached to nothing, silently. `CLabel` is
+> for individual controls; `<legend>` is for the group.
 
 The `name` attribute is auto-generated via `useId()` and shared across all children. Override it on the group or on
 individual inputs:
@@ -185,9 +201,9 @@ avoid accidental form submissions. Pass `type="submit"` explicitly for submit bu
 ```
 
 `CSupportingText` renders a field's hint or error text inside a `CField`: the input automatically gets an
-`aria-describedby` pointing to it, and the attribute is removed when the text unmounts (e.g. behind a `v-if`).
-Several supporting texts in the same field are all referenced, in mount order — a permanent hint and a
-conditional error can coexist.
+`aria-describedby` pointing to it, and the attribute is removed when the text unmounts (e.g. behind a `v-if`). Several
+supporting texts in the same field are all referenced, in mount order — a permanent hint and a conditional error can
+coexist.
 
 ```vue
 <CField>
@@ -198,11 +214,11 @@ conditional error can coexist.
 ```
 
 An explicit `aria-describedby` on the input always wins, and a standalone `CSupportingText` (outside a field)
-simply renders its content with an id. Likewise, an explicit `id` on the input or `for` on the label always wins
-over the field id.
+simply renders its content with an id. Likewise, an explicit `id` on the input or `for` on the label always wins over
+the field id.
 
-Passing `id` to `CField` itself names that pairing instead of the wrapper `<div>` — reusing it on both would put
-the same id on two different DOM elements:
+Passing `id` to `CField` itself names that pairing instead of the wrapper `<div>` — reusing it on both would put the
+same id on two different DOM elements:
 
 ```vue
 <CField id="email-field">
@@ -214,8 +230,8 @@ the same id on two different DOM elements:
 Renders `<label for="email-field">` and `<input id="email-field">`; the `<div>` itself gets no `id`. Use `class`
 to target the wrapper.
 
-A `CField` wrapping a whole group is ignored by the items (a single id must not land on every input); wrap each
-item in its own `CField` instead:
+A `CField` wrapping a whole group is ignored by the items (a single id must not land on every input); wrap each item in
+its own `CField` instead:
 
 ```vue
 <CRadioGroup v-model="selected">
@@ -233,8 +249,8 @@ item in its own `CField` instead:
 
 6. **Native Validation** _(CForm + CField + CSupportingText)_
 
-Browsers already validate forms (`required`, `type="email"`, `minlength`, `pattern`…) and localize their error
-messages for free. Charpente UI exposes that instead of reinventing it — opt in with the `validate` prop:
+Browsers already validate forms (`required`, `type="email"`, `minlength`, `pattern`…) and localize their error messages
+for free. Charpente UI exposes that instead of reinventing it — opt in with the `validate` prop:
 
 ```vue
 <CForm validate @submit="onSubmit">
@@ -246,22 +262,21 @@ messages for free. Charpente UI exposes that instead of reinventing it — opt i
 </CForm>
 ```
 
-- `CForm validate` suppresses the native bubbles (`novalidate`), blocks `submit` until the form is valid, and
-  focuses the first invalid control.
+- `CForm validate` suppresses the native bubbles (`novalidate`), blocks `submit` until the form is valid, and focuses
+  the first invalid control.
 - Errors appear after the first submit attempt, then update live as the user fixes the value. Resetting the form
   (`<button type="reset">` or `form.reset()`) clears them along with the values, back to the pre-submit state.
-- `CSupportingText validation` shows the browser's localized `validationMessage` while invalid, and falls back to
-  its slot content otherwise. The control also gets `aria-invalid` automatically, and the text becomes a
+- `CSupportingText validation` shows the browser's localized `validationMessage` while invalid, and falls back to its
+  slot content otherwise. The control also gets `aria-invalid` automatically, and the text becomes a
   `role="alert"` live region so screen readers announce the message when it swaps in. Pass an explicit `role`
   (e.g. `role="status"` for a gentler, polite announcement) to override it.
-- Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
-  Native escapes still work: `formnovalidate` on a submit button skips validation for that button.
+- Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules. Native
+  escapes still work: `formnovalidate` on a submit button skips validation for that button.
 
 ### How `CField` tracks validity: the events it listens to
 
 `CField` never calls the Constraint Validation API itself — it listens to three native events on its wrapper `<div>`,
-all in the **capture phase**, so they're caught on the way down regardless of which control inside the field fired
-them:
+all in the **capture phase**, so they're caught on the way down regardless of which control inside the field fired them:
 
 | Event                      | When it fires                                                             | What `CField` does                                                                               |
 |----------------------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
@@ -269,10 +284,10 @@ them:
 | `input` (capture)          | The user types/changes a value, before the field was ever flagged invalid | Ignored — no cost paid until the field actually fails once                                       |
 | `input`/`change` (capture) | The user edits a value **after** the field was flagged invalid            | Re-checks `target.validity.valid` live, clearing `invalid`/`message` as soon as the value passes |
 
-The `invalid` event matters here because it **does not bubble** — it only reaches ancestors during the capture
-phase, so `@invalid.capture` on the field's own root is the only way to observe it without wiring a listener on
-every control by hand. `input`/`change` are only used *after* the first `invalid`, so a field that has never failed
-validation pays no per-keystroke cost.
+The `invalid` event matters here because it **does not bubble** — it only reaches ancestors during the capture phase, so
+`@invalid.capture` on the field's own root is the only way to observe it without wiring a listener on every control by
+hand. `input`/`change` are only used *after* the first `invalid`, so a field that has never failed validation pays no
+per-keystroke cost.
 
 `CField` stays zero-CSS: it never applies a class itself. If you need custom styling beyond `[aria-invalid]` or
 `:invalid` selectors, it gives you two ways to read its `invalid`/`message` state:
@@ -301,26 +316,26 @@ component nested deeper won't receive `invalid`/`message` automatically; pass th
 
 ## Components
 
-| Name          | Core Logic                                                                       | Tag              | Status |
-|---------------|----------------------------------------------------------------------------------|------------------|--------|
-| Button        | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`        | Ready  |
-| Checkbox      | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`      | Ready  |
-| CheckboxGroup | **Group:** Shared v-model and name across checkboxes inside a fieldset.          | `CCheckboxGroup` | Ready  |
-| Field         | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`         | Ready  |
-| File          | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`          | Ready  |
-| Form          | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`          | Ready  |
-| Input         | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`         | Ready  |
-| Label         | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`         | Ready  |
-| Radio         | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`         | Ready  |
-| RadioGroup    | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`    | Ready  |
-| Select        | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`        | Ready  |
-| SupportingText | **Field Text:** Hint or error text wired to its input via `aria-describedby`.   | `CSupportingText` | Ready  |
-| Textarea      | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`      | Ready  |
+| Name           | Core Logic                                                                       | Tag               | Status |
+|----------------|----------------------------------------------------------------------------------|-------------------|--------|
+| Button         | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`         | Ready  |
+| Checkbox       | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`       | Ready  |
+| CheckboxGroup  | **Group:** Shared v-model and name across checkboxes inside a fieldset.          | `CCheckboxGroup`  | Ready  |
+| Field          | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`          | Ready  |
+| File           | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`           | Ready  |
+| Form           | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`           | Ready  |
+| Input          | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`          | Ready  |
+| Label          | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`          | Ready  |
+| Radio          | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`          | Ready  |
+| RadioGroup     | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`     | Ready  |
+| Select         | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`         | Ready  |
+| SupportingText | **Field Text:** Hint or error text wired to its input via `aria-describedby`.    | `CSupportingText` | Ready  |
+| Textarea       | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`       | Ready  |
 
 ## Wrapping Components
 
-When wrapping a Charpente UI component inside your own, you must forward `$attrs` so that native HTML attributes
-(`id`, `class`, `disabled`, etc.) reach the underlying element instead of landing on your wrapper's root node.
+When wrapping a Charpente UI component inside your own, you must forward `$attrs` so that native HTML attributes (`id`,
+`class`, `disabled`, etc.) reach the underlying element instead of landing on your wrapper's root node.
 
 ```vue
 <script setup>

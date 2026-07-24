@@ -239,10 +239,13 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         <p class="doc">
                             Wrap several checkboxes in <code>CCheckboxGroup</code> to share one <code>v-model</code>
                             array and one auto-generated <code>name</code> across all of them — no manual bookkeeping
-                            of which value belongs to which field.
+                            of which value belongs to which field. Name the group with a native
+                            <code>&lt;legend&gt;</code>, the only element a <code>&lt;fieldset&gt;</code> takes its
+                            accessible name from — not a <code>CLabel</code>, which can only point at a control.
                         </p>
                         <div class="example">
                             <CCheckboxGroup v-model="checkboxGroup">
+                                <legend>Options</legend>
                                 <CField v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
                                     <CCheckbox :value="opt"/>
                                     <CLabel>Option {{ opt.toUpperCase() }}</CLabel>
@@ -255,6 +258,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                                     <span class="code-block__lang">vue</span>
                                 </div>
                                 <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CCheckboxGroup</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;selected&quot;</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">legend</span><span class="punc">&gt;</span>Options<span class="punc">&lt;/</span><span class="tag">legend</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CField</span><span class="punc">&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CCheckbox</span> <span class="attr">value</span><span class="punc">=</span><span class="str">&quot;a&quot;</span><span class="punc">/&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CLabel</span><span class="punc">&gt;</span>Option A<span class="punc">&lt;/</span><span class="tag">CLabel</span><span class="punc">&gt;</span>
@@ -281,6 +285,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                                 <CLabel>Select all</CLabel>
                             </CField>
                             <CCheckboxGroup v-model="fruits" class="sub-group">
+                                <legend>Fruits</legend>
                                 <CField v-for="opt in allFruits" :key="opt" class="check-row">
                                     <CCheckbox :value="opt"/>
                                     <CLabel>{{ opt }}</CLabel>
@@ -336,10 +341,12 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         <p class="doc">
                             Does for radios what <code>CCheckboxGroup</code> does for checkboxes: one
                             <code>v-model</code>, one auto-generated <code>name</code> shared by every
-                            <code>CRadio</code> inside, wrapped in a semantic <code>&lt;fieldset&gt;</code>.
+                            <code>CRadio</code> inside, wrapped in a semantic <code>&lt;fieldset&gt;</code> — named,
+                            as any fieldset should be, by a native <code>&lt;legend&gt;</code>.
                         </p>
                         <div class="example">
                             <CRadioGroup v-model="radio" name="radio-group">
+                                <legend>Options</legend>
                                 <CField v-for="opt in ['a', 'b', 'c']" :key="opt" class="check-row">
                                     <CRadio :value="opt"/>
                                     <CLabel>Option {{ opt.toUpperCase() }}</CLabel>
@@ -352,6 +359,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                                     <span class="code-block__lang">vue</span>
                                 </div>
                                 <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CRadioGroup</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;choice&quot;</span> <span class="attr">name</span><span class="punc">=</span><span class="str">&quot;group&quot;</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">legend</span><span class="punc">&gt;</span>Options<span class="punc">&lt;/</span><span class="tag">legend</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CField</span><span class="punc">&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CRadio</span> <span class="attr">value</span><span class="punc">=</span><span class="str">&quot;a&quot;</span><span class="punc">/&gt;</span>
     <span class="punc">&lt;</span><span class="tag">CLabel</span><span class="punc">&gt;</span>Option A<span class="punc">&lt;/</span><span class="tag">CLabel</span><span class="punc">&gt;</span>

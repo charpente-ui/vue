@@ -4,6 +4,12 @@ test.beforeEach(async ({ page }) => {
     await page.goto('/');
 });
 
+test('the legend gives the fieldset its accessible name', async ({ page }) => {
+    const group = page.locator('fieldset').filter({ has: page.locator('input[type="radio"]') });
+
+    await expect(group).toHaveAccessibleName('Options');
+});
+
 test('arrow keys move selection across radios sharing the same name', async ({ page }) => {
     const group = page.locator('fieldset').filter({ has: page.locator('input[type="radio"]') });
     const optionA = group.locator('input[type="radio"]').nth(0);
