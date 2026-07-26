@@ -22,19 +22,15 @@ export default defineConfig({
             entry: resolve(import.meta.dirname, 'src/index.ts'),
             formats: [
                 'es'
-            ]
+            ],
+            // Without this, lib mode names the bundle after the package
+            // (@charpente-ui/vue -> vue.js) and package.json's paths break.
+            fileName: 'index'
         },
         rollupOptions: {
             external: [
                 'vue'
-            ],
-            output: {
-                preserveModules: true,
-                preserveModulesRoot: 'src',
-                entryFileNames: (chunk) => {
-                    return `${chunk.name.split('?')[0].replace(/\.vue$/, '')}.js`;
-                }
-            }
+            ]
         }
     }
 });
