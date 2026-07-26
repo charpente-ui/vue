@@ -10,8 +10,10 @@ import vuePlugin from 'eslint-plugin-vue';
 export default defineConfig([
     {
         ignores: [
+            'coverage/**',
             'dist/**',
-            'node_modules/**'
+            'node_modules/**',
+            'playground/dist/**'
         ]
     },
     ...ts.configs.recommended,
