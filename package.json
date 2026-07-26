@@ -1,7 +1,7 @@
 {
     "name": "@charpente-ui/vue",
     "version": "2.5.0",
-    "description": "Charpente UI is a headless Vue component library.",
+    "description": "Headless, unstyled Vue 3 components for accessible forms. Logic only, zero CSS.",
     "type": "module",
     "scripts": {
         "dev": "vite --config playground/vite.config.ts",
@@ -59,11 +59,17 @@
     },
     "keywords": [
         "vue",
-        "components",
-        "framework",
-        "charpente",
+        "vue3",
+        "headless",
+        "headless-ui",
+        "unstyled",
         "ui",
-        "headless"
+        "components",
+        "component-library",
+        "form",
+        "accessibility",
+        "a11y",
+        "typescript"
     ],
     "license": "MIT",
     "homepage": "https://github.com/charpente-ui/vue",
