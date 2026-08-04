@@ -30,9 +30,42 @@ test('aria-describedby links the input to every supporting text of the field', a
     const field = page.locator('.field').filter({ has: input });
 
     const describedBy = await input.getAttribute('aria-describedby');
-    const ids = await field.locator('p').evaluateAll((texts) => texts.map((text) => text.id));
+
+    // Only identified paragraphs can be referenced: the field also renders plain
+    // <p> elements that are not supporting texts.
+    const ids = await field.locator('p[id]').evaluateAll((texts) => texts.map((text) => text.id));
 
     expect(ids).toHaveLength(2);
-    expect(ids.every(Boolean)).toBe(true);
     expect(describedBy).toBe(ids.join(' '));
+});
+
+test('wires a native control through the scoped slot id and describedBy', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+
+    const label = page.getByText('Birthdate — native input, wired by hand');
+    const input = page.locator('input[type="date"]');
+
+    await label.click();
+
+    await expect(input).toBeFocused();
+
+    const field = page.locator('.field').filter({ has: input });
+    const describedBy = await input.getAttribute('aria-describedby');
+
+    await expect(field.locator(`#${describedBy}`)).toHaveText(/Not a Charpente component/);
+});
+
+test('flags a native control as invalid through the scoped slot', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+
+    const input = page.locator('input[type="date"]');
+    const message = page.locator(`#${await input.getAttribute('aria-describedby')}`);
+
+    await expect(input).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(message).toHaveText(/Not a Charpente component/);
+
+    await page.getByRole('button', { name: 'Validate the date' }).click();
+
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(message).not.toHaveText(/Not a Charpente component/);
 });

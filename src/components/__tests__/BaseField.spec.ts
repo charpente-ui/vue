@@ -4,6 +4,7 @@ import { describe, it, expect } from 'vitest';
 import BaseField from '../BaseField.vue';
 import BaseForm from '../BaseForm.vue';
 import BaseLabel from '../BaseLabel.vue';
+import BaseSupportingText from '../BaseSupportingText.vue';
 import BaseInput from '../BaseInput.vue';
 import BaseTextarea from '../BaseTextarea.vue';
 import BaseSelect from '../BaseSelect.vue';
@@ -67,6 +68,28 @@ describe('BaseField', () => {
 
         expect(wrapper.find('span').attributes('data-invalid')).toBe('true');
         expect(wrapper.find('span').text()).toBe(input.validationMessage);
+    });
+
+    it('exposes id and describedBy through the default scoped slot to wire a non-Charpente control', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseLabel,
+                BaseSupportingText },
+            template: `
+                <BaseField v-slot="{ id, describedBy }">
+                    <BaseLabel>Email</BaseLabel>
+                    <input :id="id" :aria-describedby="describedBy"/>
+                    <BaseSupportingText>Hint</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const input = wrapper.find('input');
+
+        expect(input.attributes('id')).toBe(wrapper.find('label').attributes('for'));
+        expect(input.attributes('aria-describedby')).toBe(wrapper.find('p').attributes('id'));
     });
 
     it('exposes invalid and message on the component instance for a template ref', async () => {

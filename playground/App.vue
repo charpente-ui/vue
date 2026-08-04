@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { CButton,
     CCheckbox,
     CCheckboxGroup,
@@ -18,9 +18,7 @@ const text = ref('');
 const number = ref(0);
 const lazyText = ref('');
 const fieldText = ref('');
-const fieldWrapperRef = ref<HTMLDivElement | null>(null);
-const fieldInputId = ref('');
-const fieldDescribedBy = ref('');
+const nativeDate = ref('');
 const textarea = ref('');
 const checkbox = ref(false);
 const checkboxGroup = ref<string[]>([]);
@@ -67,13 +65,6 @@ function resetForm() {
         terms: false };
     submitted.value = null;
 }
-
-onMounted(() => {
-    const input = fieldWrapperRef.value?.querySelector('input');
-
-    fieldInputId.value = input?.id ?? '';
-    fieldDescribedBy.value = input?.getAttribute('aria-describedby') ?? '';
-});
 
 const tabs = [
     { id: 'primitives',
@@ -469,27 +460,25 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     error can coexist instead of one hiding the other.
                 </p>
                 <div class="example">
-                    <div ref="fieldWrapperRef">
-                        <CField class="field">
-                            <CLabel>Auto-linked label</CLabel>
-                            <CInput v-model="fieldText" placeholder="Click the label to focus me..."/>
-                            <CSupportingText class="value">
-                                Supporting text — wired to the input via <code>aria-describedby</code>.
-                            </CSupportingText>
-                            <CSupportingText class="value">
-                                A second one — both ids land in the same attribute.
-                            </CSupportingText>
-                        </CField>
-                    </div>
+                    <CField v-slot="{ id, describedBy }" class="field">
+                        <CLabel>Auto-linked label</CLabel>
+                        <CInput v-model="fieldText" placeholder="Click the label to focus me..."/>
+                        <CSupportingText class="value">
+                            Supporting text — wired to the input via <code>aria-describedby</code>.
+                        </CSupportingText>
+                        <CSupportingText class="value">
+                            A second one — both ids land in the same attribute.
+                        </CSupportingText>
+                        <p class="value">
+                            Generated id: <code>{{ id }}</code> — namespaced with a <code>cui-</code> prefix so it
+                            never collides with an id from your app or another library.
+                        </p>
+                        <p class="value">
+                            Resulting <code>aria-describedby</code>: <code>{{ describedBy }}</code> — a
+                            space-separated list, one id per supporting text.
+                        </p>
+                    </CField>
                     <p class="value">No <code>for</code>/<code>id</code> written — the field links them automatically.</p>
-                    <p class="value">
-                        Generated id: <code>{{ fieldInputId }}</code> — namespaced with a <code>cui-</code> prefix so it
-                        never collides with an id from your app or another library.
-                    </p>
-                    <p class="value">
-                        Resulting <code>aria-describedby</code>: <code>{{ fieldDescribedBy }}</code> — a
-                        space-separated list, one id per supporting text.
-                    </p>
                     <div class="code-block">
                         <div class="code-block__header">
                             <span class="code-block__label">Example</span>
@@ -602,6 +591,54 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
   <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;submit&quot;</span> <span class="attr">formnovalidate</span><span class="punc">&gt;</span>Save draft<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
   <span class="punc">&lt;</span><span class="tag">CButton</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;reset&quot;</span><span class="punc">&gt;</span>Reset<span class="punc">&lt;/</span><span class="tag">CButton</span><span class="punc">&gt;</span>
 <span class="punc">&lt;/</span><span class="tag">CForm</span><span class="punc">&gt;</span></code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>CField — a control it doesn't own</h2>
+                <p class="doc">
+                    <code>CLabel</code> and <code>CInput</code> resolve the field id by injection — something a plain
+                    <code>&lt;input&gt;</code> or a third-party date picker can't do. The default slot hands out
+                    <code>id</code>, <code>describedBy</code> and <code>invalid</code> so you can bind them yourself:
+                    the label, the supporting texts and the invalid state keep working on a control the library never
+                    wraps. A third-party component only ends up accessible if it forwards that id down to its real
+                    input, so check its API — <code>uid</code>, <code>input-id</code>, <code>inputProps</code> — rather
+                    than assuming a plain <code>id</code> lands on the right element.
+                </p>
+                <div class="example">
+                    <CForm validate>
+                        <CField v-slot="{ id, describedBy, invalid }" class="field">
+                            <CLabel>Birthdate — native input, wired by hand</CLabel>
+                            <input :id="id" v-model="nativeDate" type="date" :aria-describedby="describedBy"
+                                   :aria-invalid="invalid || undefined" required/>
+                            <CSupportingText validation class="value">
+                                Not a Charpente component — still labelled, described and flagged.
+                            </CSupportingText>
+                            <p class="value">
+                                Bound by hand: <code>id="{{ id }}"</code>,
+                                <code>aria-describedby="{{ describedBy }}"</code>.
+                            </p>
+                        </CField>
+                        <div class="row">
+                            <CButton type="submit">Validate the date</CButton>
+                        </div>
+                    </CForm>
+                    <p class="value">Value: <code>{{ nativeDate || 'none' }}</code></p>
+                    <div class="code-block">
+                        <div class="code-block__header">
+                            <span class="code-block__label">Example</span>
+                            <span class="code-block__lang">vue</span>
+                        </div>
+                        <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CField</span> <span class="attr">v-slot</span><span class="punc">=</span><span class="str">&quot;{ id, describedBy, invalid }&quot;</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CLabel</span><span class="punc">&gt;</span>Birthdate<span class="punc">&lt;/</span><span class="tag">CLabel</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">input</span> <span class="attr">:id</span><span class="punc">=</span><span class="str">&quot;id&quot;</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;date&quot;</span> <span class="attr">type</span><span class="punc">=</span><span class="str">&quot;date&quot;</span>
+    <span class="attr">:aria-describedby</span><span class="punc">=</span><span class="str">&quot;describedBy&quot;</span>
+    <span class="attr">:aria-invalid</span><span class="punc">=</span><span class="str">&quot;invalid || undefined&quot;</span> <span class="attr">required</span><span class="punc">/&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">CSupportingText</span> <span class="attr">validation</span><span class="punc">&gt;</span>
+    Not a Charpente component — still wired.
+  <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
+<span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span></code></pre>
                     </div>
                 </div>
             </section>

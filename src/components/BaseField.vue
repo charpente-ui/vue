@@ -111,6 +111,6 @@ defineExpose({
 <template>
     <div v-bind="rootAttrs" ref="root" @invalid.capture="handleInvalid" @input.capture="handleInput"
          @change.capture="handleInput">
-        <slot :invalid="invalidated" :message="validationMessage"/>
+        <slot :id="fieldId" :described-by="describedBy" :invalid="invalidated" :message="validationMessage"/>
     </div>
 </template>

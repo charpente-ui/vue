@@ -332,6 +332,27 @@ per-keystroke cost.
 Both only reach elements placed directly inside `CField`'s default slot, or the `CField` element itself — a custom
 component nested deeper won't receive `invalid`/`message` automatically; pass them down as props if you need that.
 
+### Wiring a control `CField` doesn't own
+
+`CLabel`, `CInput` & co. pick up the field's id and `aria-describedby` by injection. A plain `<input>`, or a third-party
+component like a date picker, can't — so the default slot hands both out for you to bind by hand:
+
+```vue
+<CField v-slot="{ id, describedBy, invalid }">
+    <CLabel>Date of birth</CLabel>
+    <VueDatePicker :uid="id" :aria-describedby="describedBy" :aria-invalid="invalid || undefined"/>
+    <CSupportingText validation>DD/MM/YYYY</CSupportingText>
+</CField>
+```
+
+`id` is the field's own id — the one `CLabel` points its `for` at — and `describedBy` is the space-separated list of the
+ids of every `CSupportingText` registered in the field. Both stay reactive: a supporting text mounted or unmounted later
+updates `describedBy` on the spot.
+
+> [!NOTE]
+> A third-party component only ends up accessible if it forwards that id down to its real `<input>`. Check its API
+> (`uid`, `input-id`, `inputProps`…) instead of assuming a plain `id` lands on the right element.
+
 ## Components
 
 | Name           | Core Logic                                                                       | Tag               | Status |
