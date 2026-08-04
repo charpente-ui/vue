@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.0](https://github.com/charpente-ui/vue/compare/v2.5.0...v2.6.0) (2026-08-04)
+
+### Features
+
+* **field:** expose id and describedBy through the default slot ([c6f0ca5](https://github.com/charpente-ui/vue/commit/c6f0ca585d5c2d6d1e5ff0ed6b9ba38e71c8afde))
+
 ## [2.5.0](https://github.com/charpente-ui/vue/compare/v2.4.0...v2.5.0) (2026-07-24)
 
 ### Features
