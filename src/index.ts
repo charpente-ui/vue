@@ -11,3 +11,5 @@ export { default as CRadioGroup } from './components/BaseRadioGroup.vue';
 export { default as CSelect } from './components/BaseSelect.vue';
 export { default as CSupportingText } from './components/BaseSupportingText.vue';
 export { default as CTextarea } from './components/BaseTextarea.vue';
+
+export type { SelectOption, SelectOptionGroup, SelectOptionItem } from './types';

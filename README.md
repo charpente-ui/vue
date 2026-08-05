@@ -122,6 +122,49 @@ Managing checkbox arrays in Vue can be repetitive. **Charpente UI** simplifies t
 </CSelect>
 ```
 
+### Declaring options with a prop
+
+Writing `<option>` by hand gets tedious when the list comes from data, so `CSelect` also accepts an `options` prop.
+Each entry is either a `{ label, value, disabled? }` object or a plain string/number used as both label and value:
+
+```vue
+<CSelect v-model="fruit" :options="['apple', 'banana']"/>
+
+<CSelect
+    v-model="fruit"
+    :options="[
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana', disabled: true }
+    ]"
+/>
+```
+
+An entry carrying its own `options` array renders an `<optgroup>`:
+
+```vue
+<CSelect
+    v-model="fruit"
+    :options="[
+        { label: 'Citrus', options: ['lemon', 'orange'] },
+        { label: 'Berries', options: ['strawberry'], disabled: true }
+    ]"
+/>
+```
+
+Values are bound with `:value`, so numbers, and anything else you put in `value`, survive the round-trip — the
+`v-model` gives you back exactly what you passed in.
+
+The prop **completes** the slot, it does not replace it. Slot content renders first, which is what you want for a
+placeholder:
+
+```vue
+<CSelect v-model="fruit" :options="fruits">
+    <option value="" disabled>Choose a fruit…</option>
+</CSelect>
+```
+
+The `SelectOption`, `SelectOptionGroup` and `SelectOptionItem` types are exported for typing your own lists.
+
 3. **Group Components** _(CRadioGroup, CCheckboxGroup)_
 
 Groups wrap related inputs in a semantic `<fieldset>`, sharing a `v-model` and a `name` attribute across all children

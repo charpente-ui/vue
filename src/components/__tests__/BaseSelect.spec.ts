@@ -99,6 +99,131 @@ describe('BaseSelect', () => {
         expect(wrapper.find('select').classes()).toContain('my-select');
     });
 
+    it('renders options from the options prop', () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                options: [{
+                    label: 'Foo',
+                    value: 'foo'
+                },
+                {
+                    label: 'Bar',
+                    value: 'bar',
+                    disabled: true
+                }]
+            }
+        });
+
+        const options = wrapper.findAll('option');
+
+        expect(options).toHaveLength(2);
+        expect(options[0].text()).toBe('Foo');
+        expect(options[0].attributes('value')).toBe('foo');
+        expect(options[1].attributes('disabled')).toBeDefined();
+    });
+
+    it('accepts plain strings and numbers as options', () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                options: ['foo',
+                    42]
+            }
+        });
+
+        const options = wrapper.findAll('option');
+
+        expect(options[0].text()).toBe('foo');
+        expect(options[1].text()).toBe('42');
+        expect((options[1].element as HTMLOptionElement).value).toBe('42');
+    });
+
+    it('renders option groups', () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                options: [{
+                    label: 'Group',
+                    options: ['foo',
+                        {
+                            label: 'Bar',
+                            value: 'bar'
+                        }]
+                },
+                {
+                    label: 'Disabled group',
+                    disabled: true,
+                    options: ['baz']
+                }]
+            }
+        });
+
+        const groups = wrapper.findAll('optgroup');
+
+        expect(groups).toHaveLength(2);
+        expect(groups[0].attributes('label')).toBe('Group');
+        expect(groups[0].findAll('option')).toHaveLength(2);
+        expect(groups[1].attributes('disabled')).toBeDefined();
+    });
+
+    it('renders the slot alongside the options prop', () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                options: ['foo']
+            },
+            slots: {
+                default: '<option value="">Choose…</option>'
+            }
+        });
+
+        const options = wrapper.findAll('option');
+
+        expect(options).toHaveLength(2);
+        expect(options[0].text()).toBe('Choose…');
+        expect(options[1].text()).toBe('foo');
+    });
+
+    it('binds v-model to an option coming from the options prop', async () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                modelValue: 'foo',
+                options: [{
+                    label: 'Foo',
+                    value: 'foo'
+                },
+                {
+                    label: 'Bar',
+                    value: 'bar'
+                }]
+            }
+        });
+
+        await wrapper.find('select').setValue('bar');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
+    });
+
+    it('keeps non-string option values intact', async () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                modelValue: 1,
+                options: [{
+                    label: 'One',
+                    value: 1
+                },
+                {
+                    label: 'Two',
+                    value: 2
+                }]
+            }
+        });
+
+        const options = wrapper.findAll('option');
+
+        (options[1].element as HTMLOptionElement).selected = true;
+        await wrapper.find('select').trigger('change');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([2]);
+    });
+
     it('overrides auto-generated ID when attrs.id is provided', () => {
         const wrapper = mount(BaseSelect, {
             attrs: { id: 'custom-select' }

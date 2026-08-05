@@ -13,6 +13,7 @@ import { CButton,
     CSelect,
     CSupportingText,
     CTextarea } from '@charpente-ui/vue';
+import type { SelectOptionItem } from '@charpente-ui/vue';
 
 const text = ref('');
 const number = ref(0);
@@ -26,6 +27,29 @@ const radioStandalone = ref('');
 const radio = ref('');
 const select = ref('');
 const selectMultiple = ref<string[]>([]);
+const selectOptions = ref('');
+const selectGrouped = ref<string | number>('');
+
+const flatOptions: SelectOptionItem[] = ['apple',
+    { label: 'Banana',
+        value: 'banana' },
+    { label: 'Cherry (out of stock)',
+        value: 'cherry',
+        disabled: true }];
+
+const groupedOptions: SelectOptionItem[] = [
+    { label: 'Citrus',
+        options: ['lemon',
+            'orange'] },
+    { label: 'Berries',
+        options: [{ label: 'Strawberry',
+            value: 1 },
+        { label: 'Raspberry',
+            value: 2 }] },
+    { label: 'Unavailable',
+        disabled: true,
+        options: ['durian'] }
+];
 const file = ref<FileList | null>(null);
 
 const allFruits = ['apple',
@@ -379,6 +403,10 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             yourself through the default slot, and toggle multi-selection with the plain HTML
                             <code>multiple</code> attribute — no extra prop or data shape to learn.
                         </p>
+                        <p class="doc">
+                            When the list comes from data, the <code>options</code> prop spares you the
+                            <code>v-for</code> — see the next card.
+                        </p>
                         <div class="example">
                             <CField class="field">
                                 <CLabel>Pick one</CLabel>
@@ -410,6 +438,51 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
     <span class="punc">&lt;</span><span class="tag">option</span> <span class="attr">value</span><span class="punc">=</span><span class="str">&quot;a&quot;</span><span class="punc">&gt;</span>Option A<span class="punc">&lt;/</span><span class="tag">option</span><span class="punc">&gt;</span>
   <span class="punc">&lt;/</span><span class="tag">CSelect</span><span class="punc">&gt;</span>
 <span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span></code></pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="card">
+                        <h2>CSelect — options prop</h2>
+                        <p class="doc">
+                            Hand-writing <code>&lt;option&gt;</code> gets old once the list lives in your data, so
+                            <code>CSelect</code> also takes an <code>options</code> prop. An entry is either a
+                            <code>{ label, value, disabled? }</code> object or a bare string/number used as both.
+                            An entry carrying its own <code>options</code> array becomes an
+                            <code>&lt;optgroup&gt;</code>.
+                        </p>
+                        <p class="doc">
+                            The prop <strong>completes</strong> the slot, it doesn't replace it: slot content is
+                            rendered first, which is exactly where a placeholder belongs. Values are bound with
+                            <code>:value</code>, so a numeric <code>value</code> comes back as a number.
+                        </p>
+                        <div class="example">
+                            <CField class="field">
+                                <CLabel>Pick a fruit</CLabel>
+                                <CSelect v-model="selectOptions" :options="flatOptions">
+                                    <option value="" disabled>Choose a fruit…</option>
+                                </CSelect>
+                            </CField>
+                            <CField class="field">
+                                <CLabel>Pick from a group</CLabel>
+                                <CSelect v-model="selectGrouped" :options="groupedOptions">
+                                    <option value="">--</option>
+                                </CSelect>
+                            </CField>
+                            <p class="value">Flat: <code>{{ selectOptions }}</code></p>
+                            <p class="value">
+                                Grouped: <code>{{ selectGrouped }}</code> ({{ typeof selectGrouped }})
+                            </p>
+                            <div class="code-block">
+                                <div class="code-block__header">
+                                    <span class="code-block__label">Example</span>
+                                    <span class="code-block__lang">vue</span>
+                                </div>
+                                <pre class="snippet"><code v-pre><span class="punc">&lt;</span><span class="tag">CSelect</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;value&quot;</span> <span class="attr">:options</span><span class="punc">=</span><span class="str">&quot;[&#39;apple&#39;, { label: &#39;Banana&#39;, value: &#39;banana&#39; }]&quot;</span><span class="punc">&gt;</span>
+  <span class="punc">&lt;</span><span class="tag">option</span> <span class="attr">value</span><span class="punc">=</span><span class="str">&quot;&quot;</span> <span class="attr">disabled</span><span class="punc">&gt;</span>Choose a fruit…<span class="punc">&lt;/</span><span class="tag">option</span><span class="punc">&gt;</span>
+<span class="punc">&lt;/</span><span class="tag">CSelect</span><span class="punc">&gt;</span>
+
+<span class="punc">&lt;</span><span class="tag">CSelect</span> <span class="attr">v-model</span><span class="punc">=</span><span class="str">&quot;value&quot;</span> <span class="attr">:options</span><span class="punc">=</span><span class="str">&quot;[{ label: &#39;Citrus&#39;, options: [&#39;lemon&#39;, &#39;orange&#39;] }]&quot;</span><span class="punc">/&gt;</span></code></pre>
                             </div>
                         </div>
                     </section>
