@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.0](https://github.com/charpente-ui/vue/compare/v2.6.0...v2.7.0) (2026-08-05)
+
+### Features
+
+* **select:** add an options prop alongside the default slot ([5dac358](https://github.com/charpente-ui/vue/commit/5dac358a7f236b8cdd82e063ba42751bed8a7d19))
+
 ## [2.6.0](https://github.com/charpente-ui/vue/compare/v2.5.0...v2.6.0) (2026-08-04)
 
 ### Features
