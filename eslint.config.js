@@ -12,6 +12,8 @@ export default defineConfig([
         ignores: [
             'coverage/**',
             'dist/**',
+            'docs/.vitepress/cache/**',
+            'docs/.vitepress/dist/**',
             'node_modules/**',
             'playground/dist/**'
         ]

@@ -1,0 +1,97 @@
+:root {
+    /* Palette taken from .github/banner.svg — same mark, same colours. */
+    --vp-c-brand-1: #c9548a;
+    --vp-c-brand-2: #b84277;
+    --vp-c-brand-3: #8a2f59;
+    --vp-c-brand-soft: rgb(184 66 119 / 14%);
+
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: linear-gradient(90deg, #8a2f59, #b84277 50%, #d96a98);
+    --vp-home-hero-image-background-image: linear-gradient(-45deg, #b84277 40%, #d96a98 50%);
+    --vp-home-hero-image-filter: blur(56px);
+
+    --vp-button-brand-bg: #b84277;
+    --vp-button-brand-hover-bg: #c9548a;
+    --vp-button-brand-active-bg: #8a2f59;
+}
+
+.dark {
+    --vp-c-brand-1: #e07aa3;
+    --vp-c-brand-2: #d96a98;
+    --vp-c-brand-3: #b84277;
+}
+
+.demo {
+    margin: 1.25rem 0 0;
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* A demo followed by its source is one card in two halves: the preview loses
+   its bottom edge, the code block picks the card back up. A demo standing on
+   its own keeps all four sides. */
+.demo:has(+ div[class*='language-']) {
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+}
+
+.demo__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .5rem .9rem;
+    background: var(--vp-c-bg-soft);
+    border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.demo__label {
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--vp-c-text-2);
+}
+
+.demo__hint {
+    font-size: .72rem;
+    color: var(--vp-c-text-3);
+}
+
+/* Layout only. The controls themselves stay untouched on purpose: this is what
+   the library renders before you bring any CSS. */
+.demo__preview {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: 1.1rem;
+}
+
+.demo__preview fieldset {
+    border: 1px solid var(--vp-c-divider);
+    padding: .6rem .9rem;
+}
+
+.demo__preview .row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.demo__preview .value {
+    font-family: var(--vp-font-family-mono);
+    font-size: .8rem;
+    color: var(--vp-c-text-2);
+}
+
+/* The demo sits directly above the source that produced it. */
+.demo + div[class*='language-'] {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    border: 1px solid var(--vp-c-divider);
+    border-top: 1px solid var(--vp-c-divider);
+    border-radius: 0 0 8px 8px;
+}

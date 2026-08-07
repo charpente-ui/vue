@@ -17,3 +17,7 @@ junit.xml
 /playwright-report
 /playwright/.cache
 /test-results
+
+# VitePress
+docs/.vitepress/cache
+docs/.vitepress/dist
