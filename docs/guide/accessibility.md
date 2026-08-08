@@ -18,16 +18,21 @@ re-implementation that has to be maintained, tested across screen readers, and k
 
 Each component page carries the keyboard table for its own element.
 
-## What the library adds
+## What the library wires for you
 
-Four things, all of them wiring that is easy to forget and invisible when missing:
+All of it is wiring that is easy to forget and invisible when missing:
 
-| Charpente does                                       | Otherwise you write                                        |
-|------------------------------------------------------|------------------------------------------------------------|
-| Generates one id per [`Field`](/components/field) and shares it | `for`/`id` pairs, by hand, unique across the page |
-| Points `aria-describedby` at every registered hint   | The id list, updated whenever a hint mounts or unmounts     |
-| Sets `aria-invalid` when the browser rejects a value | A watcher on each control's validity                        |
-| Makes a validation message a `role="alert"` region   | A live region, so the message is announced when it swaps in |
+| Behavior                   | How                                                                                          |
+|----------------------------|-----------------------------------------------------------------------------------------------|
+| Label ↔ control pairing    | [`CField`](/components/field) shares a generated id, `CLabel` picks it up as `for`.            |
+| Hint and error association | [`CSupportingText`](/components/supporting-text) registers its id, controls expose it as `aria-describedby`. |
+| Invalid state              | `aria-invalid` follows native constraint validation, and clears as the user types.             |
+| Error announcement         | `CSupportingText validation` becomes a `role="alert"` live region.                             |
+| Group description          | The `<fieldset>` carries the wiring once, not each item. [Details](/components/radio-group#describing-the-group) |
+| Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](/components/radio-group#why-the-name-is-generated) |
+| Focus on submit            | [`CForm validate`](/components/form) focuses the first invalid control instead of failing silently. |
+
+Every one of these can be overridden: pass `aria-describedby`, `aria-invalid` or `role` explicitly and yours wins.
 
 ## What is left to you
 
@@ -35,16 +40,30 @@ The library is headless, which means some accessibility decisions are yours by c
 
 - **Names.** A control without a label has no accessible name. Wrap it in a [`Field`](/components/field) with a
   [`Label`](/components/label), or pass `aria-label`. Charpente never invents a name.
-- **Group names.** A `<fieldset>` is named by its `<legend>` — never by a `<label>`. See
-  [`CheckboxGroup`](/components/checkbox-group).
+- **Group names.** A `<fieldset>` is named by its `<legend>` — never by a `<label>`. `CLabel` cannot name a group: a
+  `<label for>` only points at a labelable element, and inside a group `CLabel` finds no id to bind, so it silently
+  renders a label attached to nothing. See [`CheckboxGroup`](/components/checkbox-group#naming-the-group).
+- **One control per field.** `CField` tracks a single validation message, so two controls in the same field overwrite
+  each other's — the last one to fire `invalid` wins. Wrap each control in its own field; use
+  [`CRadioGroup`](/components/radio-group) or [`CCheckboxGroup`](/components/checkbox-group) for a set of related
+  items, which is handled as a single control on purpose.
+- **`as` on [`Button`](/components/button).** With `as="button"` you get everything natively. With `as="div"` or
+  `as="span"` you get an element with no role, no `tabindex` and no keyboard activation — invisible to assistive
+  technology. And `disabled` is inert on anything that is not a form control, so `<CButton as="a" disabled>` stays
+  focusable and clickable. Pass the ARIA yourself, or keep a real `<button>`.
+- **Anything the browser cannot infer.** `aria-label` on an icon-only button, `aria-expanded` on a disclosure trigger,
+  `aria-current` on a nav link: the library never guesses these, because it does not know what you are building.
 - **Focus visibility.** No CSS ships with the library, so the focus ring is the browser's default. If you reset it,
   put one back.
 - **Colour and contrast.** Entirely yours.
-- **`as` on [`Button`](/components/button).** Rendering a `<div>` throws away everything in the table above. If you
-  do it, you own the consequences.
 
 ## Testing
 
 The library's own suite asserts the wiring end to end in a real browser — that `label[for]` equals `input[id]`, that
 `aria-describedby` matches the hint ids in order, that `aria-invalid` appears on rejection. Those are the invariants
 you are relying on when you drop the boilerplate.
+
+::: warning
+Asserting rendered attributes is not the same as validating with a real screen reader. Notably, `aria-invalid` on a
+`<fieldset>` is valid but unevenly announced across assistive technologies. Test your own critical flows.
+:::

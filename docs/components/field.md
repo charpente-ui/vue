@@ -104,5 +104,7 @@ referenced through `aria-describedby`, and `aria-invalid` on a rejected control.
 
 ### Groups
 
-A `CField` wrapping a whole group is deliberately ignored by the items — one id must not land on every input. Wrap each
-item in its own `CField`. See [`RadioGroup`](/components/radio-group).
+A `CField` wrapping a whole group describes the group as a whole: the `<fieldset>` carries `aria-describedby` and
+`aria-invalid`, the items carry neither and receive no field id — one id must not land on every input. Wrap each item
+in its own `CField` when it needs its own label. See
+[`RadioGroup`](/components/radio-group#describing-the-group).

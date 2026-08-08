@@ -23,8 +23,8 @@ attribute keeps working exactly as it does in plain markup.
 | [Label](/components/label)                       | `<label>`    | A `for` it resolves on its own                               |
 | [SupportingText](/components/supporting-text)    | `<p>`        | Hint or error text, referenced by `aria-describedby`         |
 | [Form](/components/form)                         | `<form>`     | No page reload, opt-in native validation                     |
-| [CheckboxGroup](/components/checkbox-group)      | `<fieldset>` | One array model and one `name` across every checkbox         |
-| [RadioGroup](/components/radio-group)            | `<fieldset>` | One model and one `name` across every radio                  |
+| [CheckboxGroup](/components/checkbox-group)      | `<fieldset>` | One array model, and an opt-in `name`, across every checkbox |
+| [RadioGroup](/components/radio-group)            | `<fieldset>` | One model and one shared `name` across every radio           |
 
 ## Where to start
 

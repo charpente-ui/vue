@@ -69,6 +69,16 @@
     padding: 1.1rem;
 }
 
+/* VitePress ships a preflight-style reset that strips form controls bare:
+   `border: 0`, `padding: 0`, a transparent background on inputs and buttons,
+   `appearance: none` on selects. On a page background that renders an input as
+   nothing at all — and it contradicts the label above, since what you would be
+   looking at is VitePress's reset, not the browser. Hand the user agent its own
+   styles back so a preview shows what the library actually renders. */
+.demo__preview :where(input, textarea, select, optgroup, button) {
+    all: revert;
+}
+
 .demo__preview fieldset {
     border: 1px solid var(--vp-c-divider);
     padding: .6rem .9rem;

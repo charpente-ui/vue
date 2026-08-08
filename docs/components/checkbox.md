@@ -49,7 +49,9 @@ Inside a [`CheckboxGroup`](/components/checkbox-group), the group's model takes 
 
 ### Attributes
 
-`disabled`, `required`, `name`, `class`… all pass through. An explicit `name` wins over the group's.
+`disabled`, `required`, `name`, `class`… all pass through. An explicit `name` wins over the group's — and a
+[`CheckboxGroup`](/components/checkbox-group#why-no-name-is-generated) with no `name` of its own emits none, so the box
+keeps whatever you set here, or nothing.
 
 ## Accessibility
 

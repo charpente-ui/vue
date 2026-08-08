@@ -56,5 +56,7 @@ A third-party component is only accessible if it forwards that id down to its re
 
 ## Groups are different
 
-A `CField` wrapping a whole group is deliberately ignored by the items — one id must not land on every input. Wrap each
-item in its own `CField` instead. See [`CRadioGroup`](/components/radio-group).
+A `CField` wrapping a whole group describes the group, not its items. The `<fieldset>` gets the `aria-describedby` and
+the `aria-invalid`, so the hint or the error is announced once on entering the group; the items get neither, and none
+of them receives the field id — one id must not land on every input. Wrap each item in its own `CField` when it needs
+its own label. See [`CRadioGroup`](/components/radio-group#describing-the-group).

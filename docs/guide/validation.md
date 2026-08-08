@@ -28,6 +28,10 @@ What `validate` does:
 slot content otherwise. The control also gets `aria-invalid`, and the text becomes a `role="alert"` live region so the
 message is announced. Pass an explicit `role` (for instance `role="status"`) to override that.
 
+When the field wraps a [`CRadioGroup`](/components/radio-group#describing-the-group) or a
+[`CCheckboxGroup`](/components/checkbox-group#describing-the-group), `aria-invalid` and `aria-describedby` land on the
+`<fieldset>` instead of on each item, so the error is announced once for the whole group.
+
 ## The "save draft" escape hatch
 
 Per the HTML spec, the no-validate state belongs to the submitter as much as to the form. A submit button carrying
