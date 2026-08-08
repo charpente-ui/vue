@@ -232,6 +232,27 @@ reaches your payload.
 > (`(string | number)[]` for checkboxes): stick to those value types in grouped mode, as TypeScript cannot enforce it
 > on the `value` prop without dropping standalone object support.
 
+### Describing a group
+
+Wrapped in a `CField`, a group is described as a whole: the `<fieldset>` carries the `aria-describedby` pointing at the
+supporting texts and the `aria-invalid` flag, so a screen reader announces the hint or the error once when entering the
+group rather than on every item. Write the `CSupportingText` inside the group or next to it — both register with the
+field.
+
+```vue
+<CField>
+    <CRadioGroup v-model="plan">
+        <legend>Plan</legend>
+        <CRadio value="free"/>
+        <CRadio value="pro"/>
+        <CSupportingText validation/>
+    </CRadioGroup>
+</CField>
+```
+
+The items themselves get no `aria-describedby`, no `aria-invalid` and no field `id` — each keeps its own generated id so
+labels stay paired one-to-one. Set `aria-describedby` or `aria-invalid` on the group to override either.
+
 4. **Polymorphic Elements** _(CButton)_
 
 The button can change its HTML tag while keeping its behavior.

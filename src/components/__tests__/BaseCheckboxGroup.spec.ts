@@ -1,7 +1,10 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
+import { nextTick } from 'vue';
 import BaseCheckboxGroup from '../BaseCheckboxGroup.vue';
 import BaseCheckbox from '../BaseCheckbox.vue';
+import BaseField from '../BaseField.vue';
+import BaseSupportingText from '../BaseSupportingText.vue';
 
 describe('BaseCheckboxGroup', () => {
     it('renders a fieldset with slot content', () => {
@@ -151,5 +154,59 @@ describe('BaseCheckboxGroup', () => {
         await wrapper.find('input').setValue(true);
 
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true]);
+    });
+
+    it('describes the fieldset with the supporting texts of a wrapping field', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseCheckboxGroup,
+                BaseCheckbox,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseCheckboxGroup>
+                        <BaseCheckbox value="a"/>
+                    </BaseCheckboxGroup>
+                    <BaseSupportingText>Pick some</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const hintId = wrapper.find('p').attributes('id');
+
+        expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(hintId);
+        expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined();
+    });
+
+    it('renders a validation message written inside the group', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseCheckboxGroup,
+                BaseCheckbox,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseCheckboxGroup>
+                        <BaseCheckbox value="a"/>
+                        <BaseSupportingText validation/>
+                    </BaseCheckboxGroup>
+                </BaseField>
+            `
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.setCustomValidity('Pick at least one');
+        await input.trigger('invalid');
+        await nextTick();
+
+        const message = wrapper.find('p');
+
+        expect(message.text()).toBe('Pick at least one');
+        expect(message.attributes('role')).toBe('alert');
+        expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(message.attributes('id'));
+        expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
     });
 });

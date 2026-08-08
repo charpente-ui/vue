@@ -48,6 +48,7 @@ const rootAttrs = computed(() => {
 provide(fieldKey, {
     id: fieldId,
     describedBy,
+    invalid: invalidated,
     validationMessage,
     registerSupportingText,
     unregisterSupportingText

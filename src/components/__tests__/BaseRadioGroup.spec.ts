@@ -1,7 +1,10 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
+import { nextTick } from 'vue';
 import BaseRadioGroup from '../BaseRadioGroup.vue';
 import BaseRadio from '../BaseRadio.vue';
+import BaseField from '../BaseField.vue';
+import BaseSupportingText from '../BaseSupportingText.vue';
 
 describe('BaseRadioGroup', () => {
     it('renders a fieldset with slot content', () => {
@@ -106,6 +109,162 @@ describe('BaseRadioGroup', () => {
 
         expect(fieldset.attributes('disabled')).toBeDefined();
         expect(fieldset.classes()).toContain('my-group');
+    });
+
+    it('describes the fieldset with the supporting texts of a wrapping field', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseRadioGroup,
+                BaseRadio,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseRadioGroup>
+                        <BaseRadio value="a"/>
+                    </BaseRadioGroup>
+                    <BaseSupportingText>Pick one</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const hintId = wrapper.find('p').attributes('id');
+
+        expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(hintId);
+    });
+
+    it('registers a supporting text written inside the group', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseRadioGroup,
+                BaseRadio,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseRadioGroup>
+                        <BaseRadio value="a"/>
+                        <BaseSupportingText>Pick one</BaseSupportingText>
+                    </BaseRadioGroup>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const hintId = wrapper.find('p').attributes('id');
+
+        expect(hintId).toBeTruthy();
+        expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(hintId);
+    });
+
+    it('keeps the description and the id off the individual radios', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseRadioGroup,
+                BaseRadio,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseRadioGroup>
+                        <BaseRadio value="a"/>
+                        <BaseRadio value="b"/>
+                    </BaseRadioGroup>
+                    <BaseSupportingText>Pick one</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const inputs = wrapper.findAll('input');
+        const fieldId = wrapper.find('fieldset').attributes('aria-describedby');
+
+        expect(inputs[0].attributes('aria-describedby')).toBeUndefined();
+        expect(inputs[1].attributes('aria-describedby')).toBeUndefined();
+        expect(inputs[0].attributes('id')).not.toBe(inputs[1].attributes('id'));
+        expect(fieldId).toBeTruthy();
+    });
+
+    it('flags the fieldset invalid and leaves the radios untouched', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseRadioGroup,
+                BaseRadio },
+            template: `
+                <BaseField>
+                    <BaseRadioGroup>
+                        <BaseRadio value="a"/>
+                    </BaseRadioGroup>
+                </BaseField>
+            `
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.setCustomValidity('Required');
+        await input.trigger('invalid');
+
+        expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
+        expect(input.attributes('aria-invalid')).toBeUndefined();
+    });
+
+    it('lets an explicit aria-describedby on the group win', () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseRadioGroup,
+                BaseRadio,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseRadioGroup aria-describedby="custom">
+                        <BaseRadio value="a"/>
+                    </BaseRadioGroup>
+                    <BaseSupportingText>Pick one</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe('custom');
+    });
+
+    it('lets an explicit aria-invalid on the group win', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseRadioGroup,
+                BaseRadio },
+            template: `
+                <BaseField>
+                    <BaseRadioGroup aria-invalid="false">
+                        <BaseRadio value="a"/>
+                    </BaseRadioGroup>
+                </BaseField>
+            `
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.setCustomValidity('Required');
+        await input.trigger('invalid');
+
+        expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('false');
+    });
+
+    it('adds no aria wiring without a wrapping field', () => {
+        const wrapper = mount({
+            components: { BaseRadioGroup,
+                BaseRadio },
+            template: `
+                <BaseRadioGroup>
+                    <BaseRadio value="a"/>
+                </BaseRadioGroup>
+            `
+        });
+
+        const fieldset = wrapper.find('fieldset');
+
+        expect(fieldset.attributes('aria-describedby')).toBeUndefined();
+        expect(fieldset.attributes('aria-invalid')).toBeUndefined();
     });
 
     it('falls back to standalone v-model when used outside a group', async () => {
