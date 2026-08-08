@@ -108,3 +108,9 @@ A `CField` wrapping a whole group describes the group as a whole: the `<fieldset
 `aria-invalid`, the items carry neither and receive no field id — one id must not land on every input. Wrap each item
 in its own `CField` when it needs its own label. See
 [`RadioGroup`](/components/radio#describing-the-group).
+
+::: warning
+Name the group with a `<legend>`, never with `CLabel`. A `<label for>` can only point at a labelable element, and a
+`<fieldset>` is not one — so inside a group `CLabel` finds no field id to pick up and renders a `<label>` attached to
+nothing, silently.
+:::
