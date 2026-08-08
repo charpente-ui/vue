@@ -430,6 +430,49 @@ updates `describedBy` on the spot.
 > A third-party component only ends up accessible if it forwards that id down to its real `<input>`. Check its API
 > (`uid`, `input-id`, `inputProps`…) instead of assuming a plain `id` lands on the right element.
 
+## Accessibility
+
+The library leans on native elements, so most of the accessible behaviour comes from the browser rather than from ARIA.
+What follows is the contract: what you get without asking, and what stays yours.
+
+### What the library wires for you
+
+| Behaviour                  | How                                                                                     |
+|----------------------------|-----------------------------------------------------------------------------------------|
+| Label ↔ control pairing    | `CField` shares a generated id, `CLabel` picks it up as `for`.                          |
+| Hint and error association | `CSupportingText` registers its id, controls expose it as `aria-describedby`.           |
+| Invalid state              | `aria-invalid` follows native constraint validation, and clears as the user types.      |
+| Error announcement         | `CSupportingText validation` becomes a `role="alert"` live region.                      |
+| Group description          | The `<fieldset>` carries the wiring once, not each item. [Details](#describing-a-group) |
+| Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](#naming-the-group) |
+| Focus on submit            | `CForm validate` focuses the first invalid control instead of failing silently.         |
+
+Every one of these can be overridden: pass `aria-describedby`, `aria-invalid` or `role` explicitly and yours wins.
+
+### What stays your responsibility
+
+**Name every group with a `<legend>`.** A `<fieldset>` takes its accessible name from its legend, and nothing else will
+do — see the warning in [Naming the group](#naming-the-group). `CLabel` cannot name a group: a `<label for>`
+only points at a labelable element, and inside a group `CLabel` finds no id to bind, so it silently renders a label
+attached to nothing.
+
+**`CButton` guarantees no semantics beyond the tag you choose.** With `as="button"` (the default) you get everything
+natively. With `as="div"` or `as="span"` you get an element with no role, no `tabindex` and no keyboard activation —
+invisible to assistive technology. And `disabled` is inert on anything that is not a form control, so
+`<CButton as="a" disabled>` stays focusable and clickable. Pass the ARIA yourself, or keep a real `<button>`.
+
+**One control per `CField`.** The wrapper tracks a single validation message, so two controls inside the same field
+overwrite each other's — the last one to fire `invalid` wins. Wrap each control in its own `CField`; use
+`CRadioGroup`/`CCheckboxGroup` for a set of related items, which is handled as a single control on purpose.
+
+**Anything the browser cannot infer.** `aria-label` on an icon-only button, `aria-expanded` on a disclosure trigger,
+`aria-current` on a nav link: the library never guesses these, because it does not know what you are building.
+
+> [!NOTE]
+> The wiring above is verified by unit and end-to-end tests asserting the rendered attributes. That is not the same
+> as validation with a real screen reader — notably, `aria-invalid` on a `<fieldset>` is valid but unevenly announced
+> across assistive technologies. Test your own critical flows.
+
 ## Components
 
 | Name           | Core Logic                                                                       | Tag               | Status |
