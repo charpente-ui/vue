@@ -46,12 +46,16 @@ import Demo from '../demos/form-validation.vue';
 
 That form does four things you did not write:
 
-1. `CField` generates one id, gives it to the `<label>` as `for` and to the `<input>` as `id`.
-2. `CSupportingText` registers itself, and the input's `aria-describedby` points at it.
-3. `validate` suppresses the browser's error bubbles and blocks `submit` until the form is valid, focusing the first
-   invalid control.
+1. [`CField`](/components/field) generates one id, gives it to the `<label>` as `for` and to the `<input>` as `id`.
+2. [`CSupportingText`](/components/supporting-text) registers itself, and the input's `aria-describedby` points at it.
+3. [`validate`](/guide/validation) suppresses the browser's error bubbles and blocks `submit` until the form is valid,
+   focusing the first invalid control.
 4. Once the form has failed once, `CSupportingText validation` swaps its content for the browser's own localized
    message, and clears it live as soon as the value becomes valid.
+
+[`CField`](/components/field) is the piece that removes the most boilerplate, and the one worth reading next: it
+generates the id, hands it to the label and the control, collects the hints that describe them, and exposes the
+invalid state for you to style.
 
 ## Styling
 

@@ -77,8 +77,6 @@ export default defineConfig({
             {
                 text: 'Guides',
                 items: [
-                    { text: 'Fields and labels',
-                        link: '/components/field' },
                     { text: 'Native validation',
                         link: '/guide/validation' },
                     { text: 'Wrapping components',
