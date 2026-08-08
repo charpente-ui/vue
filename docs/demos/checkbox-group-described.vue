@@ -2,27 +2,27 @@
 import { ref } from 'vue';
 import { CCheckbox, CCheckboxGroup, CField, CLabel, CSupportingText } from '@charpente-ui/vue';
 
-const selected = ref<string[]>([]);
+const channels = ref<string[]>([]);
 </script>
 
 <template>
     <CField>
-        <CCheckboxGroup v-model="selected" name="fruits">
-            <legend>Favorite fruits</legend>
+        <CCheckboxGroup v-model="channels" name="channels">
+            <legend>Notifications</legend>
 
             <CField class="row">
-                <CCheckbox value="apple"/>
-                <CLabel>Apple</CLabel>
+                <CCheckbox value="email"/>
+                <CLabel>Email</CLabel>
             </CField>
 
             <CField class="row">
-                <CCheckbox value="banana"/>
-                <CLabel>Banana</CLabel>
+                <CCheckbox value="sms"/>
+                <CLabel>SMS</CLabel>
             </CField>
 
-            <CSupportingText>Pick as many as you like.</CSupportingText>
+            <CSupportingText>Announced once on the fieldset, not on every box.</CSupportingText>
         </CCheckboxGroup>
     </CField>
 
-    <p class="value">{{ JSON.stringify(selected) }}</p>
+    <p class="value">{{ JSON.stringify(channels) }}</p>
 </template>

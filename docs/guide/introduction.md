@@ -36,6 +36,9 @@ no modal — those need markup and styling decisions, which is exactly what this
 | | |
 |---|---|
 | Vue | **3.5 or newer** — the library builds its ids on Vue's own `useId()`, added in 3.5 |
-| Node | 20 or newer, for the build tooling |
+| Node | **20 or newer** — declared in `engines`, so it is checked when you install |
+| Modules | ESM only — a single `import` entry, no CommonJS build |
 
-Vue is a peer dependency: the library never bundles its own copy.
+Vue is a peer dependency: the library never bundles its own copy. Nothing here constrains the browser at runtime, since
+the components render native elements and call no Node API — but `engines` is published on the package, so on Node 18
+pnpm refuses the install outright and npm warns with `EBADENGINE`.

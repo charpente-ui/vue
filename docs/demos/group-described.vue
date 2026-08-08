@@ -2,29 +2,31 @@
 import { ref } from 'vue';
 import { CButton, CField, CForm, CLabel, CRadio, CRadioGroup, CSupportingText } from '@charpente-ui/vue';
 
-const plan = ref('');
+const shipping = ref('');
 </script>
 
 <template>
     <CForm validate>
         <CField>
-            <CRadioGroup v-model="plan" name="plan">
-                <legend>Plan</legend>
+            <CRadioGroup v-model="shipping" name="shipping">
+                <legend>Delivery</legend>
 
                 <CField class="row">
-                    <CRadio value="free" required/>
-                    <CLabel>Free</CLabel>
+                    <CRadio value="standard" required/>
+                    <CLabel>Standard</CLabel>
                 </CField>
 
                 <CField class="row">
-                    <CRadio value="pro" required/>
-                    <CLabel>Pro</CLabel>
+                    <CRadio value="express" required/>
+                    <CLabel>Express</CLabel>
                 </CField>
             </CRadioGroup>
 
-            <CSupportingText validation>Billing starts at the end of the trial.</CSupportingText>
+            <CSupportingText validation>Express adds two working days of tracking.</CSupportingText>
         </CField>
 
         <CButton type="submit">Continue</CButton>
     </CForm>
+
+    <p class="value">{{ shipping || 'nothing selected — submit to see the error move to the fieldset' }}</p>
 </template>

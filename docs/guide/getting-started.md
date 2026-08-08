@@ -2,9 +2,35 @@
 
 ## Install
 
-```sh
+::: code-group
+
+```sh [npm]
 npm install @charpente-ui/vue
 ```
+
+```sh [pnpm]
+pnpm add @charpente-ui/vue
+```
+
+```sh [yarn]
+yarn add @charpente-ui/vue
+```
+
+```sh [bun]
+bun add @charpente-ui/vue
+```
+
+:::
+
+::: warning Vue 3.5 or newer
+The library builds its ids on Vue's own `useId()`, added in 3.5, and declares `vue` as a peer dependency on `^3.5.0`.
+On an older Vue, npm stops the install with an `ERESOLVE` conflict, while pnpm and yarn only warn. Force past that
+warning and the failure resurfaces at mount, as `useId is not a function` — so upgrade Vue rather than silence it.
+Check what you have with `npm ls vue`. See [Requirements](/guide/introduction#requirements).
+:::
+
+The package is **ESM only**: it ships a single `import` entry, no CommonJS build. Vite, Nuxt, Webpack 5 and modern
+bundlers handle that natively; a setup that still resolves through `require()` will not load it.
 
 ## Your first form
 
