@@ -11,7 +11,9 @@ attribute keeps working exactly as it does in plain markup.
 | [Textarea](/components/textarea)             | `<textarea>`        | Same, on a multiline control                                         |
 | [Select](/components/select)                 | `<select>`          | Options from markup, from data, or both                              |
 | [Checkbox](/components/checkbox)             | `<input checkbox>`  | Boolean or array models, and the `indeterminate` DOM property        |
+| [CheckboxGroup](/components/checkbox#ccheckboxgroup) | `<fieldset>` | One array model, and an opt-in `name`, across every checkbox  |
 | [Radio](/components/radio)                   | `<input radio>`     | Value of any type, shared `name` when grouped                        |
+| [RadioGroup](/components/radio#cradiogroup)  | `<fieldset>`        | One model and one shared `name` across every radio                   |
 | [File](/components/file)                     | `<input file>`      | A `v-model` that works, resets included                              |
 | [Button](/components/button)                 | `<button>` or `as`  | Safe `type="button"` default, polymorphic tag                        |
 
@@ -23,8 +25,6 @@ attribute keeps working exactly as it does in plain markup.
 | [Label](/components/label)                       | `<label>`    | A `for` it resolves on its own                               |
 | [SupportingText](/components/supporting-text)    | `<p>`        | Hint or error text, referenced by `aria-describedby`         |
 | [Form](/components/form)                         | `<form>`     | No page reload, opt-in native validation                     |
-| [CheckboxGroup](/components/checkbox-group)      | `<fieldset>` | One array model, and an opt-in `name`, across every checkbox |
-| [RadioGroup](/components/radio-group)            | `<fieldset>` | One model and one shared `name` across every radio           |
 
 ## Where to start
 

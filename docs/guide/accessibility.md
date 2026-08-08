@@ -28,8 +28,8 @@ All of it is wiring that is easy to forget and invisible when missing:
 | Hint and error association | [`CSupportingText`](/components/supporting-text) registers its id, controls expose it as `aria-describedby`. |
 | Invalid state              | `aria-invalid` follows native constraint validation, and clears as the user types.             |
 | Error announcement         | `CSupportingText validation` becomes a `role="alert"` live region.                             |
-| Group description          | The `<fieldset>` carries the wiring once, not each item. [Details](/components/radio-group#describing-the-group) |
-| Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](/components/radio-group#why-the-name-is-generated) |
+| Group description          | The `<fieldset>` carries the wiring once, not each item. [Details](/components/radio#describing-the-group) |
+| Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](/components/radio#why-the-name-is-generated) |
 | Focus on submit            | [`CForm validate`](/components/form) focuses the first invalid control instead of failing silently. |
 
 Every one of these can be overridden: pass `aria-describedby`, `aria-invalid` or `role` explicitly and yours wins.
@@ -42,10 +42,10 @@ The library is headless, which means some accessibility decisions are yours by c
   [`Label`](/components/label), or pass `aria-label`. Charpente never invents a name.
 - **Group names.** A `<fieldset>` is named by its `<legend>` — never by a `<label>`. `CLabel` cannot name a group: a
   `<label for>` only points at a labelable element, and inside a group `CLabel` finds no id to bind, so it silently
-  renders a label attached to nothing. See [`CheckboxGroup`](/components/checkbox-group#naming-the-group).
+  renders a label attached to nothing. See [`CheckboxGroup`](/components/checkbox#naming-the-group).
 - **One control per field.** `CField` tracks a single validation message, so two controls in the same field overwrite
   each other's — the last one to fire `invalid` wins. Wrap each control in its own field; use
-  [`CRadioGroup`](/components/radio-group) or [`CCheckboxGroup`](/components/checkbox-group) for a set of related
+  [`CRadioGroup`](/components/radio) or [`CCheckboxGroup`](/components/checkbox) for a set of related
   items, which is handled as a single control on purpose.
 - **`as` on [`Button`](/components/button).** With `as="button"` you get everything natively. With `as="div"` or
   `as="span"` you get an element with no role, no `tabindex` and no keyboard activation — invisible to assistive
