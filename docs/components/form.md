@@ -10,7 +10,6 @@ import { CForm } from '@charpente-ui/vue';
 
 <script setup>
 import Validation from '../demos/form-validation.vue';
-import Draft from '../demos/form-draft.vue';
 </script>
 
 ### Native validation
@@ -23,17 +22,10 @@ import Draft from '../demos/form-draft.vue';
 and reveals errors only after the first attempt — then keeps them up to date live. Full behavior in the
 [validation guide](/guide/validation).
 
-### Save draft
-
-Per the HTML spec the no-validate state belongs to the submitter as much as to the form: a submit button carrying
-`formnovalidate` skips validation for its own submission. `validate` honours it.
-
-<Demo><Draft/></Demo>
-
-<<< ../demos/form-draft.vue
-
 ::: warning
-This is the one case where `submit` fires on an invalid form. Read `event.submitter` if the two paths must differ.
+A submit button carrying `formnovalidate` skips validation for its own submission, so it is the one case where
+`submit` fires on an invalid form — read `event.submitter` if the two paths must differ. That is the "save draft"
+button, [demonstrated in the guide](/guide/validation#the-save-draft-escape-hatch).
 :::
 
 ## API Reference

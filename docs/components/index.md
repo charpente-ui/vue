@@ -42,4 +42,4 @@ Most forms are three components deep:
 </CForm>
 ```
 
-Read [Fields and labels](/guide/fields) for the wiring, then [Native validation](/guide/validation) for the rest.
+Read [Field](/components/field) for the id wiring, then [Native validation](/guide/validation) for the rest.

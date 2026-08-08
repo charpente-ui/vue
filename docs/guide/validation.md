@@ -6,7 +6,6 @@ into the user's language for free. Charpente exposes that instead of reinventing
 <script setup>
 import Validation from '../demos/form-validation.vue';
 import Draft from '../demos/form-draft.vue';
-import Slot from '../demos/field-slot.vue';
 </script>
 
 ## Opting in
@@ -49,23 +48,12 @@ Per the HTML spec, the no-validate state belongs to the submitter as much as to 
 
 ## Styling the invalid state
 
-`CField` never applies a class of its own. It gives you the state instead, through its default slot:
+`CField` never applies a class of its own. It hands you the state instead — `invalid` and `message`, through its
+default slot or a template ref. Both are demonstrated on the
+[`Field` page](/components/field#reading-the-invalid-state).
 
-<Demo><Slot/></Demo>
-
-<<< ../demos/field-slot.vue
-
-A template ref works too, when you want to style the field's own wrapper rather than a child:
-
-```vue
-<CField ref="fieldRef" :class="{ 'is-invalid': fieldRef?.invalid }">
-    <CLabel>Email</CLabel>
-    <CInput v-model="email" type="email" required/>
-</CField>
-```
-
-Both reach elements placed directly inside `CField`, or the `CField` element itself. A custom component nested deeper
-receives nothing automatically — pass `invalid`/`message` down as props if you need them there.
+A custom component nested deeper than the field's direct children receives nothing automatically: pass
+`invalid`/`message` down as props if you need them there.
 
 ## How the field knows
 
