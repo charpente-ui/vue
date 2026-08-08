@@ -86,7 +86,7 @@ describe('BaseCheckboxGroup', () => {
         expect(fieldset.classes()).toContain('my-group');
     });
 
-    it('shares an auto-generated name across child checkboxes', () => {
+    it('emits no name on child checkboxes when the group has none', () => {
         const wrapper = mount({
             components: { BaseCheckboxGroup,
                 BaseCheckbox },
@@ -99,11 +99,9 @@ describe('BaseCheckboxGroup', () => {
         });
 
         const inputs = wrapper.findAll('input');
-        const nameA = inputs[0].attributes('name');
-        const nameB = inputs[1].attributes('name');
 
-        expect(nameA).toBeTruthy();
-        expect(nameA).toBe(nameB);
+        expect(inputs[0].attributes('name')).toBeUndefined();
+        expect(inputs[1].attributes('name')).toBeUndefined();
     });
 
     it('uses a custom name attribute when provided', () => {

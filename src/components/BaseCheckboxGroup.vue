@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, provide, useAttrs } from 'vue';
-import { useGeneratedId } from './internal/id';
 import { checkboxGroupKey, fieldKey } from './internal/keys';
 
 defineOptions({
@@ -12,10 +11,13 @@ const model = defineModel<(string | number)[]>({
 });
 
 const attrs = useAttrs();
-const generatedName = useGeneratedId();
 
+// Unlike radios, a shared name buys checkboxes no native behaviour (no mutual
+// exclusion, no arrow-key navigation, no group-level required). Generating one
+// would only submit the items under a meaningless key, so stay silent until the
+// app provides one.
 const name = computed(() => {
-    return typeof attrs.name === 'string' ? attrs.name : generatedName;
+    return typeof attrs.name === 'string' ? attrs.name : undefined;
 });
 
 provide(checkboxGroupKey, {

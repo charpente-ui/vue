@@ -206,12 +206,25 @@ your slot content untouched.
 > on purpose), so it renders a `<label>` with no `for` at all — a label attached to nothing, silently. `CLabel` is
 > for individual controls; `<legend>` is for the group.
 
-The `name` attribute is auto-generated via `useId()` and shared across all children. Override it on the group or on
-individual inputs:
+Set `name` on the group and every child inherits it. A child can still override it with its own `name` attribute.
 
 ```vue
 <CRadioGroup v-model="selected" name="my-group">...</CRadioGroup>
+<CCheckboxGroup v-model="selected" name="my-group">...</CCheckboxGroup>
 ```
+
+The two groups differ when you leave `name` out, on purpose:
+
+- **`CCheckboxGroup` emits no `name`.** The attribute is the key your data is submitted under, and the library
+  cannot know your server's schema — inventing one would post the boxes under a meaningless key. With no `name`,
+  the boxes are simply not submitted, which is what you asked for by omitting it. `v-model` is unaffected.
+- **`CRadioGroup` falls back to a generated name** (`useId()`, shared across the children). On radios the shared
+  `name` is not just a payload key: the browser relies on it for arrow-key navigation between the buttons and for
+  group-level `required` validation. Without it a forgotten `name` would silently break keyboard accessibility, so
+  the fallback trades a throwaway key in `FormData` for behaviour that works out of the box.
+
+Set `name` explicitly on `CRadioGroup` whenever the form is submitted natively, and the generated value never
+reaches your payload.
 
 > [!NOTE]
 > Standalone `CRadio` and `CCheckbox` accept any `value` (strings, numbers, booleans, objects — `v-model` compares by
@@ -402,7 +415,7 @@ updates `describedBy` on the spot.
 |----------------|----------------------------------------------------------------------------------|-------------------|--------|
 | Button         | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`         | Ready  |
 | Checkbox       | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`       | Ready  |
-| CheckboxGroup  | **Group:** Shared v-model and name across checkboxes inside a fieldset.          | `CCheckboxGroup`  | Ready  |
+| CheckboxGroup  | **Group:** Shared v-model and opt-in name across checkboxes inside a fieldset.   | `CCheckboxGroup`  | Ready  |
 | Field          | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`          | Ready  |
 | File           | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`           | Ready  |
 | Form           | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`           | Ready  |
