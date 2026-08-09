@@ -50,6 +50,11 @@ button, [demonstrated in the guide](/guide/validation#the-save-draft-escape-hatc
 |-----------|--------------------|
 | `default` | The form's content |
 
+### Attributes
+
+All of them land on the `<form>`: `action`, `method`, `target`, `autocomplete`, `class`… `novalidate` is set for you
+when `validate` is on, so the browser's bubbles never appear.
+
 ## Accessibility
 
 ### Keyboard

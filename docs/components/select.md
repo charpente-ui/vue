@@ -116,6 +116,11 @@ first one, and your model silently disagrees with the screen.
 |-----------|---------------------------------------------------------|
 | `default` | Extra `<option>`s, rendered **before** the generated ones |
 
+### Attributes
+
+All of them land on the `<select>`: `multiple`, `required`, `disabled`, `size`, `autocomplete`, `class`… An explicit
+`id` or `aria-describedby` wins over the generated one.
+
 ### Types
 
 ```ts

@@ -14,7 +14,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: Components
-      link: /components/button
+      link: /components/
     - theme: alt
       text: GitHub
       link: https://github.com/charpente-ui/vue

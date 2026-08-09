@@ -59,6 +59,11 @@ falls back to its slot content otherwise. One element, two jobs — see the
 |-----------|----------------------------------------------------------|
 | `default` | The hint text, and the fallback when `validation` is set |
 
+### Attributes
+
+All of them land on the `<p>`. An explicit `id` wins over the generated one, and an explicit `role` wins over the
+`role="alert"` that `validation` would otherwise set.
+
 ## Accessibility
 
 A `validation` text becomes a `role="alert"` live region, so a screen reader announces the message when it swaps in.

@@ -24,13 +24,18 @@ Set the model back to `null` and the native input clears with it — try the but
 
 ### Props
 
-None. `accept`, `multiple`, `capture`, `required` pass through.
+None.
 
 ### Model
 
 | Binding   | Type               | Description                          |
 |-----------|--------------------|--------------------------------------|
 | `v-model` | `FileList \| null` | The selected files, or `null`        |
+
+### Attributes
+
+All of them land on the `<input type="file">`: `accept`, `multiple`, `capture`, `required`, `class`… An explicit `id`
+or `aria-describedby` wins over the generated one.
 
 ## Why this exists
 

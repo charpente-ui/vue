@@ -3,19 +3,19 @@
 Sooner or later you build your own `<AppInput>` on top of Charpente. Two rules make it work.
 
 ```vue
-<script setup>
+<script setup lang="ts">
 import { CField, CLabel, CInput, CSupportingText } from '@charpente-ui/vue';
 
 defineOptions({
     inheritAttrs: false
 });
 
-defineProps({
-    label: String,
-    error: String
-});
+defineProps<{
+    label?: string
+    error?: string
+}>();
 
-const model = defineModel();
+const model = defineModel<string>();
 </script>
 
 <template>

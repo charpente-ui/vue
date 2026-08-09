@@ -64,7 +64,12 @@ A third-party component is only accessible if it forwards that id down to its re
 
 ### Props
 
-None — but see the note on `id` below.
+None — but see [Precedence](#precedence) for how `id` is treated.
+
+### Attributes
+
+All of them land on the wrapper `<div>` — except `id`, which names the label/control pairing instead. See
+[Precedence](#precedence).
 
 ### Slots
 

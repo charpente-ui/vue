@@ -45,6 +45,11 @@ Outside a field, point it at an id yourself.
 |-----------|---------------------|
 | `default` | The label's content |
 
+### Attributes
+
+All of them land on the `<label>`. Only `for` is a prop, because the component has to fall back to the injected field
+id when you omit it.
+
 ## Accessibility
 
 A correctly associated label does two things: it names the control for assistive technology, and it makes the label

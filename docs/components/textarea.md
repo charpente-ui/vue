@@ -22,13 +22,18 @@ import Basic from '../demos/textarea-basic.vue';
 
 ### Props
 
-None. `rows`, `cols`, `maxlength`, `required` and the rest pass through.
+None.
 
 ### Model
 
 | Binding   | Type               | Modifiers                   |
 |-----------|--------------------|-----------------------------|
 | `v-model` | `string \| number` | `.trim`, `.number`, `.lazy` |
+
+### Attributes
+
+All of them land on the `<textarea>`: `rows`, `cols`, `maxlength`, `required`, `placeholder`, `class`… An explicit `id`
+or `aria-describedby` wins over the generated one.
 
 ::: tip
 `.lazy` is the useful one here: it updates the model on `change` rather than on every keystroke, which matters far
