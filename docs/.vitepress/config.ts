@@ -4,9 +4,9 @@ import { createRequire } from 'node:module';
 
 const { version } = createRequire(import.meta.url)('../../package.json');
 
-// GitHub project page: https://charpente-ui.github.io/vue/
-// Serving from a custom domain instead? Set base to '/'.
-const base = '/vue/';
+// Served at the root of https://charpente.frontfactory.dev (Vercel).
+// Moving back to a GitHub project page? Set base to '/vue/'.
+const base = '/';
 
 export default defineConfig({
     base,
@@ -34,7 +34,7 @@ export default defineConfig({
                 content: 'Charpente UI' }],
         ['meta',
             { property: 'og:image',
-                content: 'https://charpente-ui.github.io/vue/banner.svg' }],
+                content: 'https://charpente.frontfactory.dev/banner.svg' }],
         ['meta',
             { property: 'og:description',
                 content: 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.' }]
