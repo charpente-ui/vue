@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.1](https://github.com/charpente-ui/vue/compare/v2.8.0...v2.8.1) (2026-08-09)
+
+### Bug Fixes
+
+* **docs:** serve the site from the domain root ([8339417](https://github.com/charpente-ui/vue/commit/8339417ed2d2cb29563366fb85cfbdc2fe2515a1))
+
 ## [2.8.0](https://github.com/charpente-ui/vue/compare/v2.7.0...v2.8.0) (2026-08-09)
 
 ### Features
