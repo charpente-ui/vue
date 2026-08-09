@@ -14,6 +14,7 @@ re-implementation that has to be maintained, tested across screen readers, and k
 | <kbd>Space</kbd> toggling a checkbox                                  | The browser     |
 | Implicit form submission on <kbd>Enter</kbd>                          | The browser     |
 | Validation messages, localized into the user's language               | The browser     |
+| Messages from a [custom rule](/guide/validation#rules-of-your-own)    | **You** — they are strings you write, so translate them yourself |
 | Announcing a control as required, invalid or disabled                 | The browser     |
 
 Each component page carries the keyboard table for its own element.
@@ -31,6 +32,7 @@ All of it is wiring that is easy to forget and invisible when missing:
 | Group description          | The `<fieldset>` carries the wiring once, not each item. [Details](/components/radio#describing-the-group) |
 | Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](/components/radio#why-the-name-is-generated) |
 | Focus on submit            | [`CForm validate`](/components/form) focuses the first invalid control instead of failing silently. |
+| Custom rule errors         | A [`rule`](/guide/validation#rules-of-your-own) feeds native validation, so it is announced like any other error. |
 
 Every one of these can be overridden: pass `aria-describedby`, `aria-invalid` or `role` explicitly and yours wins. The
 generated ids holding it together are yours to take over too — see [Ids](/guide/ids).

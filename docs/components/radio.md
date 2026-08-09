@@ -50,9 +50,10 @@ Leave it out and the group falls back to a generated one — see
 
 #### Props
 
-| Prop    | Type      | Default | Description                   |
-|---------|-----------|---------|-------------------------------|
-| `value` | `unknown` | —       | **Required.** Value this radio selects |
+| Prop    | Type                      | Default     | Description                                                  |
+|---------|---------------------------|-------------|--------------------------------------------------------------|
+| `value` | `unknown`                 | —           | **Required.** Value this radio selects                       |
+| `rule`  | `ValidationRule<unknown>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
 
 #### Model
 

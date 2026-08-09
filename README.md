@@ -347,7 +347,7 @@ for free. Charpente UI exposes that instead of reinventing it — opt in with th
   slot content otherwise. The control also gets `aria-invalid` automatically, and the text becomes a
   `role="alert"` live region so screen readers announce the message when it swaps in. Pass an explicit `role`
   (e.g. `role="status"` for a gentler, polite announcement) to override it.
-- Without `validate`, nothing changes — bring your own validation library if you need cross-field or async rules.
+- Without `validate`, nothing changes — bring your own validation library if you prefer.
 - Native escapes still work: a submit button carrying `formnovalidate` skips validation for its own submission, so
   `submit` is emitted with the form still invalid. The HTML spec puts the no-validate state on the submitter as much
   as on the form, and `validate` honours it — that's what a "save draft" button next to a "publish" one relies on.
@@ -367,6 +367,42 @@ for free. Charpente UI exposes that instead of reinventing it — opt in with th
 > [!WARNING]
 > `validate` guarantees a valid form on `submit` **except** when the submitter carries `formnovalidate`. Read
 > `event.submitter` in your handler if the two paths need to behave differently.
+
+### Rules of your own
+
+The browser cannot know that two passwords must match. Pass a `rule` and it joins the browser's own validation instead
+of running beside it — the control becomes `:invalid`, the form refuses to submit, and the message flows to
+`CSupportingText validation` like any native error:
+
+```vue
+<CField>
+    <CLabel>Confirm password</CLabel>
+    <CInput v-model="confirm" type="password" required
+            :rule="value => value === password ? '' : 'Both passwords must match.'"/>
+    <CSupportingText validation/>
+</CField>
+```
+
+A rule returns the error message, or an empty string when the value is acceptable — the contract of
+`setCustomValidity()`, which is what it drives underneath. It receives the model value, not `element.value`.
+
+- **Cross-field rules come for free.** The rule runs inside a reactive effect, so anything reactive it reads becomes a
+  dependency: editing `password` re-checks the confirmation on its own. No watcher, no dependency list. Keep the rule
+  **pure** for the same reason — a side effect inside it fires on every re-evaluation.
+- **Native constraints win.** A rule only runs once the HTML constraints already pass, so an empty `required` field
+  keeps the browser's own localized message rather than your English-only string. The flip side: **your** messages are
+  yours to translate.
+- **Async checks work without any async API.** A rule cannot `await`, but it is evaluated reactively, so it only needs
+  to read a ref you fill asynchronously. Returning a message while the request is in flight is what blocks a submit
+  fired before the answer arrives:
+
+  ```ts
+  const rule = () => pending.value ? 'Checking availability…' : serverError.value;
+  ```
+
+  The same ref carries an error the server returns after submission. The debounce stays yours.
+- Available on `CInput`, `CTextarea`, `CSelect`, `CFile`, `CCheckbox` and `CRadio`. A `<fieldset>` has no validity of
+  its own, so groups take no rule — put it on an item. The `ValidationRule` type is exported.
 
 ### How `CField` tracks validity: the events it listens to
 

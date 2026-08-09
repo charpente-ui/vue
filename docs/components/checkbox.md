@@ -59,10 +59,11 @@ Leave it out and no `name` is emitted at all — see [Why no name is generated](
 
 #### Props
 
-| Prop            | Type      | Default     | Description                                                |
-|-----------------|-----------|-------------|------------------------------------------------------------|
-| `value`         | `unknown` | `undefined` | Value added to / removed from the model array when checked |
-| `indeterminate` | `boolean` | `false`     | Sets the DOM `indeterminate` property                      |
+| Prop            | Type                                                | Default     | Description                                                  |
+|-----------------|-----------------------------------------------------|-------------|--------------------------------------------------------------|
+| `value`         | `unknown`                                           | `undefined` | Value added to / removed from the model array when checked   |
+| `indeterminate` | `boolean`                                           | `false`     | Sets the DOM `indeterminate` property                        |
+| `rule`          | `ValidationRule<boolean \| unknown[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
 
 #### Model
 

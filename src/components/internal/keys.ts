@@ -23,6 +23,9 @@ export interface FieldContext {
     validationMessage: Ref<string>
     registerSupportingText: (id: string) => void
     unregisterSupportingText: (id: string) => void
+    // Custom validity is set by JS after the events the field listens to have
+    // already fired, so a control that owns a rule reports its new state here.
+    syncValidity: (control: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => void
 }
 
 export const fieldKey: InjectionKey<FieldContext | null> = Symbol('CField');

@@ -100,9 +100,10 @@ first one, and your model silently disagrees with the screen.
 
 ### Props
 
-| Prop      | Type                 | Default | Description                                 |
-|-----------|----------------------|---------|---------------------------------------------|
-| `options` | `SelectOptionItem[]` | `[]`    | Options rendered **after** the default slot |
+| Prop      | Type                                                                    | Default     | Description                                                  |
+|-----------|-------------------------------------------------------------------------|-------------|--------------------------------------------------------------|
+| `options` | `SelectOptionItem[]`                                                    | `[]`        | Options rendered **after** the default slot                  |
+| `rule`    | `ValidationRule<string \| number \| (string \| number)[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
 
 ### Model
 

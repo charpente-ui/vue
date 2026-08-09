@@ -13,3 +13,4 @@ export { default as CSupportingText } from './components/BaseSupportingText.vue'
 export { default as CTextarea } from './components/BaseTextarea.vue';
 
 export type { SelectOption, SelectOptionGroup, SelectOptionItem } from './types';
+export type { ValidatableElement, ValidationRule } from './types';

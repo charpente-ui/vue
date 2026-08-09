@@ -22,7 +22,11 @@ import Basic from '../demos/textarea-basic.vue';
 
 ### Props
 
-None.
+Only one, and it is optional.
+
+| Prop   | Type                                            | Default     | Description                                                  |
+|--------|-------------------------------------------------|-------------|--------------------------------------------------------------|
+| `rule` | `ValidationRule<string \| number \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
 
 ### Model
 

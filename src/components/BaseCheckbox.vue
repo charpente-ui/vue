@@ -2,6 +2,8 @@
 import { computed, inject, useAttrs, useTemplateRef, watchPostEffect } from 'vue';
 import { checkboxGroupKey } from './internal/keys';
 import { useFieldControl } from './internal/field';
+import { useCustomValidity } from './internal/validity';
+import type { ValidationRule } from '../types';
 
 defineOptions({
     inheritAttrs: false
@@ -10,6 +12,7 @@ defineOptions({
 const props = defineProps<{
     value?: unknown
     indeterminate?: boolean
+    rule?: ValidationRule<boolean | unknown[] | undefined, HTMLInputElement>
 }>();
 
 const localModel = defineModel<boolean | unknown[]>();
@@ -19,6 +22,8 @@ const model = group ? group.model : localModel;
 const attrs = useAttrs();
 const inputRef = useTemplateRef('input');
 const { controlId, describedBy, ariaInvalid } = useFieldControl();
+
+useCustomValidity(inputRef, model, () => props.rule);
 
 const checkboxName = computed(() => {
     if (typeof attrs.name === 'string') {

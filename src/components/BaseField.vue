@@ -51,7 +51,8 @@ provide(fieldKey, {
     invalid: invalidated,
     validationMessage,
     registerSupportingText,
-    unregisterSupportingText
+    unregisterSupportingText,
+    syncValidity
 });
 
 // The invalid event does not bubble but crosses the field during the capture
@@ -62,14 +63,18 @@ function handleInvalid(event: Event) {
 }
 
 // Once a control has been flagged invalid, follow its validity live so the
-// message and invalid state clear as soon as the user fixes the value.
-function handleInput(event: Event) {
+// message and invalid state clear as soon as the user fixes the value. Nothing
+// happens before that first rejection: a field must not shout at a value the
+// user has not finished typing.
+function syncValidity(control: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
     if (invalidated.value) {
-        const target = event.target as HTMLInputElement;
-
-        invalidated.value = !target.validity.valid;
-        validationMessage.value = target.validationMessage;
+        invalidated.value = !control.validity.valid;
+        validationMessage.value = control.validationMessage;
     }
+}
+
+function handleInput(event: Event) {
+    syncValidity(event.target as HTMLInputElement);
 }
 
 // Resetting wipes the values that made the control invalid, so the message and

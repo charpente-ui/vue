@@ -72,8 +72,23 @@ const nameFieldRef = ref<InstanceType<typeof CField> | null>(null);
 const form = ref({ name: '',
     email: '',
     message: '',
+    password: '',
+    confirm: '',
     terms: false });
 const submitted = ref<string | null>(null);
+
+// Empty matches empty, so the pair starts valid and only blocks once the two
+// actually diverge.
+function matchPassword(value: string | number | undefined) {
+    return value === form.value.password ? '' : 'Both passwords must match.';
+}
+
+// On a field that is also `required`, to show the rule waiting its turn: while
+// the native constraint fails, the browser's own localized message is what
+// shows.
+function noDigits(value: string | number | undefined) {
+    return (/\d/).test(String(value ?? '')) ? 'A name cannot contain digits.' : '';
+}
 
 function onSubmit(event: SubmitEvent) {
     const submitter = event.submitter as HTMLButtonElement | null;
@@ -86,6 +101,8 @@ function resetForm() {
     form.value = { name: '',
         email: '',
         message: '',
+        password: '',
+        confirm: '',
         terms: false };
     submitted.value = null;
 }
@@ -589,11 +606,18 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     no-validate state on the submitter, not only on the form. That's what "Save draft" does below:
                     it goes through with the fields still empty, while "Submit" stays blocked.
                 </p>
+                <p class="doc">
+                    The browser can't know that two passwords must match. A <code>rule</code> feeds that kind of
+                    constraint into its own validation rather than running beside it, so the pair below blocks
+                    submission and shows its message exactly like a native error. The rule reads
+                    <code>form.password</code>, so editing the first field re-checks the second on its own — no
+                    watcher, no dependency list.
+                </p>
                 <div class="example">
                     <CForm validate @submit="onSubmit" @reset="resetForm">
                         <CField ref="nameFieldRef" class="field" :class="{ 'is-invalid': nameFieldRef?.invalid }">
                             <CLabel>Name *</CLabel>
-                            <CInput v-model="form.name" placeholder="John Doe" required/>
+                            <CInput v-model="form.name" placeholder="John Doe" required :rule="noDigits"/>
                             <CSupportingText validation class="value">
                                 Your full name, as it should appear.
                             </CSupportingText>
@@ -611,6 +635,21 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             <CTextarea v-model="form.message" placeholder="Your message..." maxlength="200"/>
                             <CSupportingText validation class="value">
                                 Optional — 200 characters max.
+                            </CSupportingText>
+                        </CField>
+                        <CField class="field">
+                            <CLabel>Password</CLabel>
+                            <CInput v-model="form.password" type="password" placeholder="Choose a password"/>
+                            <CSupportingText validation class="value">
+                                Anything you like, here.
+                            </CSupportingText>
+                        </CField>
+                        <CField class="field">
+                            <CLabel>Confirm password</CLabel>
+                            <CInput v-model="form.confirm" type="password" placeholder="Repeat it"
+                                    :rule="matchPassword"/>
+                            <CSupportingText validation class="value">
+                                Must match the password above.
                             </CSupportingText>
                         </CField>
                         <CField class="field">

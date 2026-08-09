@@ -24,7 +24,11 @@ Set the model back to `null` and the native input clears with it — try the but
 
 ### Props
 
-None.
+Only one, and it is optional.
+
+| Prop   | Type                                            | Default     | Description                                                  |
+|--------|-------------------------------------------------|-------------|--------------------------------------------------------------|
+| `rule` | `ValidationRule<FileList \| null \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
 
 ### Model
 

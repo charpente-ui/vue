@@ -31,8 +31,12 @@ import Basic from '../demos/input-basic.vue';
 
 ### Props
 
-None. `type`, `placeholder`, `required`, `pattern`, `disabled` and every other input attribute pass through — which is
-why there is no `type` prop to learn.
+Only one. `type`, `placeholder`, `required`, `pattern`, `disabled` and every other input attribute pass through — which
+is why there is no `type` prop to learn.
+
+| Prop   | Type                                            | Default     | Description                                                  |
+|--------|-------------------------------------------------|-------------|--------------------------------------------------------------|
+| `rule` | `ValidationRule<string \| number \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
 
 ### Model
 

@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 import { useFieldControl } from './internal/field';
-import type { SelectOption, SelectOptionGroup, SelectOptionItem } from '../types';
+import { useCustomValidity } from './internal/validity';
+import type { SelectOption, SelectOptionGroup, SelectOptionItem, ValidationRule } from '../types';
+
+type SelectValue = string | number | (string | number)[] | undefined;
 
 defineOptions({
     inheritAttrs: false
@@ -9,10 +12,14 @@ defineOptions({
 
 const props = defineProps<{
     options?: SelectOptionItem[];
+    rule?: ValidationRule<SelectValue, HTMLSelectElement>
 }>();
 
 const model = defineModel<string | number | (string | number)[]>();
+const selectRef = useTemplateRef('select');
 const { controlId, describedBy, ariaInvalid } = useFieldControl();
+
+useCustomValidity(selectRef, model, () => props.rule);
 
 function isGroup(item: SelectOptionItem): item is SelectOptionGroup {
     return typeof item === 'object' && 'options' in item;
@@ -42,7 +49,7 @@ const normalizedOptions = computed(() => {
 </script>
 
 <template>
-    <select v-bind="$attrs" :id="controlId" v-model="model" :aria-describedby="describedBy"
+    <select v-bind="$attrs" :id="controlId" ref="select" v-model="model" :aria-describedby="describedBy"
             :aria-invalid="ariaInvalid">
         <slot/>
 
