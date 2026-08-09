@@ -40,6 +40,11 @@ export default defineConfig({
                 content: 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.' }]
     ],
     themeConfig: {
+        // Decorative: the mark sits inside the same link as the site title, so
+        // an alt would make a screen reader announce the name twice.
+        logo: { light: '/logo-light.svg',
+            dark: '/logo-dark.svg',
+            alt: '' },
         search: { provider: 'local' },
         nav: [
             { text: 'Guide',
