@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
     <!-- The mark from favicon.svg, without the dark tile: the navbar provides
-         its own background. Colour matches --vp-c-brand-1 in the dark palette. -->
+         its own background. Colour matches the dark brand tone in custom.css.
+         Never write a double hyphen in here: XML forbids it inside a comment
+         and the browser silently refuses to render the file. -->
     <g fill="#e07aa3">
         <rect width="12" height="12" x="0" y="0" rx="2"/>
         <rect width="12" height="12" x="16" y="0" rx="2" opacity="0.4"/>
