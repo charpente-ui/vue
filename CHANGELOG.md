@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.0](https://github.com/charpente-ui/vue/compare/v2.7.0...v2.8.0) (2026-08-09)
+
+### Features
+
+* **validation:** add a rule prop for application-level constraints ([4f3187e](https://github.com/charpente-ui/vue/commit/4f3187e09562f8a747d4b4b054447743a8743357))
+
+### Bug Fixes
+
+* **checkbox-group:** stop generating a name for child checkboxes ([1137bfb](https://github.com/charpente-ui/vue/commit/1137bfb891df6a530c7d63369e00ff89d96da57d))
+* **docs:** repair the malformed logo SVGs ([b5d4127](https://github.com/charpente-ui/vue/commit/b5d41270e175ebe0252cf9abdf1c9b4d597969cb))
+* **groups:** describe radio and checkbox groups on the fieldset ([b537bf4](https://github.com/charpente-ui/vue/commit/b537bf4cffc1fccb8e1108ffa192f45e2edf6c55))
+
 ## [2.7.0](https://github.com/charpente-ui/vue/compare/v2.6.0...v2.7.0) (2026-08-05)
 
 ### Features
