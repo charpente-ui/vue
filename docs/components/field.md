@@ -102,6 +102,8 @@ That last row surprises people: `<CField id="email-field">` renders `<label for=
 `<input id="email-field">`, and the `<div>` gets no id at all — the same id on two elements would be invalid HTML. Use
 `class` to target the wrapper.
 
+The [Ids](/guide/ids) guide covers the same cascade across the whole library, plus prefixing, SSR and groups.
+
 ## Accessibility
 
 `CField` exists to make three things automatic that are otherwise forgotten: a label pointing at its control, hints

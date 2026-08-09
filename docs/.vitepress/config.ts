@@ -82,6 +82,8 @@ export default defineConfig({
             {
                 text: 'Guides',
                 items: [
+                    { text: 'Ids',
+                        link: '/guide/ids' },
                     { text: 'Native validation',
                         link: '/guide/validation' },
                     { text: 'Wrapping components',

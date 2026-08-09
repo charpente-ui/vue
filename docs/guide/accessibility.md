@@ -32,7 +32,8 @@ All of it is wiring that is easy to forget and invisible when missing:
 | Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](/components/radio#why-the-name-is-generated) |
 | Focus on submit            | [`CForm validate`](/components/form) focuses the first invalid control instead of failing silently. |
 
-Every one of these can be overridden: pass `aria-describedby`, `aria-invalid` or `role` explicitly and yours wins.
+Every one of these can be overridden: pass `aria-describedby`, `aria-invalid` or `role` explicitly and yours wins. The
+generated ids holding it together are yours to take over too — see [Ids](/guide/ids).
 
 ## What is left to you
 
