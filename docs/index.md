@@ -1,5 +1,7 @@
 ---
 layout: home
+# Without this, titleTemplate turns the home title into "Charpente UI | Charpente UI".
+titleTemplate: false
 
 hero:
   name: Charpente UI

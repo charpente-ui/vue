@@ -1,3 +1,7 @@
+---
+description: How Charpente UI generates the ids behind label[for] and aria-describedby, and how to take them over.
+---
+
 # Ids
 
 Accessible wiring is held together by ids: `label[for]` points at `input[id]`, `aria-describedby` lists the ids of

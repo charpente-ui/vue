@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://charpente.frontfactory.dev/sitemap.xml

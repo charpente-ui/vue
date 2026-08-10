@@ -1,3 +1,7 @@
+---
+description: CField — wraps a label, a control and its supporting text, linking them through one generated id with no manual wiring.
+---
+
 # Field
 
 The wrapper that links a label, a control and its hints — one generated id, no manual wiring.

@@ -1,3 +1,7 @@
+---
+description: Every Charpente UI component, each a thin layer over a native element that forwards $attrs so any HTML attribute keeps working.
+---
+
 # Components
 
 Thirteen components, each one a thin layer over a native element. Every one of them forwards `$attrs`, so any HTML

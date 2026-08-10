@@ -1,3 +1,7 @@
+---
+description: CForm — a Vue 3 form that stops the page reload and turns the browser's native validation into state you can display.
+---
+
 # Form
 
 A form that stops the page reload, and optionally turns the browser's own validation into something you can display.

@@ -1,3 +1,7 @@
+---
+description: Use the browser's native form validation — required, type, minlength, pattern — and its localized messages through Charpente UI.
+---
+
 # Native validation
 
 Browsers already validate forms — `required`, `type="email"`, `minlength`, `pattern` — and localize the error messages

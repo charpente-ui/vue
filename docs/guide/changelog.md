@@ -1,3 +1,7 @@
+---
+description: Release history and changelog for the @charpente-ui/vue package.
+---
+
 # Changelog
 
 - **[Full changelog on GitHub](https://github.com/charpente-ui/vue/blob/main/CHANGELOG.md)**

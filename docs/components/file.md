@@ -1,3 +1,7 @@
+---
+description: CFile — a headless Vue 3 file input with a v-model that actually works, resetting the selection included.
+---
+
 # File
 
 A file input with a `v-model` that actually works, including resetting it.

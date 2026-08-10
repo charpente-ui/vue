@@ -1,3 +1,7 @@
+---
+description: CButton — a native Vue 3 button that can render as any other tag or component through the as prop, without losing its behavior.
+---
+
 # Button
 
 A native button that can become any other tag without losing its behavior.

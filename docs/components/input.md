@@ -1,3 +1,7 @@
+---
+description: CInput — a native Vue 3 text input with a generated id, automatic label linking and the native v-model modifiers.
+---
+
 # Input
 
 A native text input with a generated id, label linking and the native `v-model` modifiers.

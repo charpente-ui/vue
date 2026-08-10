@@ -1,3 +1,7 @@
+---
+description: CLabel — a headless Vue 3 label that resolves its for attribute on its own.
+---
+
 # Label
 
 A label that finds its `for` on its own.

@@ -7,17 +7,24 @@ const { version } = createRequire(import.meta.url)('../../package.json');
 // Served at the root of https://charpente.frontfactory.dev (Vercel).
 // Moving back to a GitHub project page? Set base to '/vue/'.
 const base = '/';
+const hostname = 'https://charpente.frontfactory.dev';
+
+const title = 'Charpente UI';
+const description = 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.';
 
 export default defineConfig({
     base,
-    title: 'Charpente UI',
-    description: 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.',
+    title,
+    description,
     cleanUrls: true,
+    sitemap: { hostname },
     // Underscore-prefixed files are partials pulled in with <!--@include: -->,
     // never pages of their own.
     srcExclude: ['**/_*.md'],
     lastUpdated: true,
     titleTemplate: ':title | Charpente UI',
+    // og:title, og:description, og:url and the canonical link are per-page:
+    // see transformPageData below. Only site-wide tags belong here.
     head: [
         ['link',
             { rel: 'icon',
@@ -30,15 +37,54 @@ export default defineConfig({
             { property: 'og:type',
                 content: 'website' }],
         ['meta',
-            { property: 'og:title',
-                content: 'Charpente UI' }],
+            { property: 'og:site_name',
+                content: title }],
+        // PNG, not SVG: no social network renders an SVG preview.
         ['meta',
             { property: 'og:image',
-                content: 'https://charpente.frontfactory.dev/banner.svg' }],
+                content: `${hostname}/banner.png` }],
         ['meta',
-            { property: 'og:description',
-                content: 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.' }]
+            { property: 'og:image:width',
+                content: '1200' }],
+        ['meta',
+            { property: 'og:image:height',
+                content: '630' }],
+        ['meta',
+            { property: 'og:image:alt',
+                content: 'Charpente UI — headless component library for Vue 3' }],
+        ['meta',
+            { name: 'twitter:card',
+                content: 'summary_large_image' }],
+        ['meta',
+            { name: 'twitter:image',
+                content: `${hostname}/banner.png` }]
     ],
+    transformPageData(pageData) {
+        const path = pageData.relativePath
+            .replace(/(^|\/)index\.md$/, '$1')
+            .replace(/\.md$/, '');
+        const url = `${hostname}/${path}`;
+        // Mirrors titleTemplate: the home page keeps the bare site title.
+        const pageTitle = pageData.title && pageData.title !== title
+            ? `${pageData.title} | ${title}`
+            : title;
+
+        pageData.frontmatter.head ??= [];
+        pageData.frontmatter.head.push(
+            ['link',
+                { rel: 'canonical',
+                    href: url }],
+            ['meta',
+                { property: 'og:url',
+                    content: url }],
+            ['meta',
+                { property: 'og:title',
+                    content: pageTitle }],
+            ['meta',
+                { property: 'og:description',
+                    content: pageData.description || description }]
+        );
+    },
     themeConfig: {
         // Decorative: the mark sits inside the same link as the site title, so
         // an alt would make a screen reader announce the name twice.

@@ -1,3 +1,7 @@
+---
+description: CRadio — a native Vue 3 radio that picks up its name and its model from the surrounding group, or works standalone.
+---
+
 # Radio
 
 A native radio that finds its `name` and its model from the surrounding group, or works standalone.

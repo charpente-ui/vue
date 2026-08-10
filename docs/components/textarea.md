@@ -1,3 +1,7 @@
+---
+description: CTextarea — a native Vue 3 textarea with the same id generation and label wiring as CInput.
+---
+
 # Textarea
 
 A native textarea with the same wiring as [`Input`](/components/input).

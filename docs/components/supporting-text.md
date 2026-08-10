@@ -1,3 +1,7 @@
+---
+description: CSupportingText — hint and error text wired to its control through aria-describedby.
+---
+
 # SupportingText
 
 Hint or error text, wired to its control through `aria-describedby`.

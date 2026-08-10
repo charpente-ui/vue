@@ -1,3 +1,7 @@
+---
+description: The two rules for building your own AppInput on top of Charpente UI components.
+---
+
 # Wrapping components
 
 Sooner or later you build your own `<AppInput>` on top of Charpente. Two rules make it work.

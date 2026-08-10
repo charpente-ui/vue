@@ -1,3 +1,7 @@
+---
+description: Install @charpente-ui/vue and build your first headless form in a few lines.
+---
+
 # Getting started
 
 ## Install

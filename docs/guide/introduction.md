@@ -1,3 +1,7 @@
+---
+description: "What headless means in Charpente UI: native elements, no CSS, no wrapper markup — only the form logic you would rewrite anyway."
+---
+
 # Introduction
 
 Charpente UI is a headless component library for Vue 3. It ships the parts of a form that are tedious and easy to get

@@ -1,3 +1,7 @@
+---
+description: "CSelect — a native Vue 3 select: write the options yourself, hand it an array, or both."
+---
+
 # Select
 
 A native select. Write the options yourself, hand it an array, or both.

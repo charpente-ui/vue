@@ -1,3 +1,7 @@
+---
+description: Why Charpente UI implements almost no accessibility behavior, and what the platform already gives you for free.
+---
+
 # Accessibility
 
 Charpente UI implements almost no accessibility behavior. That is the point.

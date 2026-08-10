@@ -1,3 +1,7 @@
+---
+description: CCheckbox — a headless Vue 3 checkbox that toggles a boolean or adds and removes a value from an array, indeterminate state included.
+---
+
 # Checkbox
 
 One component for the two things checkboxes actually do: toggle a boolean, or add and remove a value from an array.
