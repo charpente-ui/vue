@@ -24,7 +24,8 @@ Add `validate` to the form. Without it nothing changes, and you can bring your o
 What `validate` does:
 
 - Sets `novalidate` so the browser's own bubbles never appear.
-- Blocks `submit` until the form is valid, and focuses the first invalid control.
+- Blocks `submit` until the form is valid, focuses the first invalid control and emits `invalid-submit` —
+  the hook for an error summary or an analytics call.
 - Surfaces errors only **after** the first submit attempt, then updates them live as the user types.
 - Restores the pre-submit state on reset (`<button type="reset">` or `form.reset()`).
 

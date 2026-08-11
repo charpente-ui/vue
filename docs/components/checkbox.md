@@ -82,6 +82,22 @@ Inside a group, the group's model takes over and the local one is ignored.
 `disabled`, `required`, `name`, `class`… all pass through. An explicit `name` wins over the group's — and a group with
 no `name` of its own emits none, so the box keeps whatever you set here, or nothing.
 
+#### Exposed
+
+| Property | Type                       | Description                           |
+|----------|----------------------------|---------------------------------------|
+| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
+
+```vue
+<CCheckbox ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ### CCheckboxGroup
 
 #### Props
@@ -105,21 +121,11 @@ Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. 
 it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
 :::
 
-### Exposed
+#### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
-| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
-
-```vue
-<CCheckbox ref="control"/>
-```
-
-```js
-const control = useTemplateRef('control');
-
-control.value?.el?.focus();
-```
+| Property | Type                        | Description                              |
+|----------|-----------------------------|------------------------------------------|
+| `el`     | `HTMLFieldSetElement \| null` | The `<fieldset>`, through a template ref |
 
 ## Accessibility
 

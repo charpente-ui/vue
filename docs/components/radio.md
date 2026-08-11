@@ -69,6 +69,22 @@ Leave it out and the group falls back to a generated one — see
 
 `name`, `disabled`, `required`, `class`… pass through. An explicit `name` wins over the group's.
 
+#### Exposed
+
+| Property | Type                       | Description                           |
+|----------|----------------------------|---------------------------------------|
+| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
+
+```vue
+<CRadio ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ### CRadioGroup
 
 #### Props
@@ -93,21 +109,11 @@ model is typed `string | number`; stick to those types there, as TypeScript cann
 without dropping standalone object support.
 :::
 
-### Exposed
+#### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
-| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
-
-```vue
-<CRadio ref="control"/>
-```
-
-```js
-const control = useTemplateRef('control');
-
-control.value?.el?.focus();
-```
+| Property | Type                        | Description                              |
+|----------|-----------------------------|------------------------------------------|
+| `el`     | `HTMLFieldSetElement \| null` | The `<fieldset>`, through a template ref |
 
 ## Accessibility
 
