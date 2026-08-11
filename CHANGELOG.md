@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.0](https://github.com/charpente-ui/vue/compare/v2.8.1...v2.9.0) (2026-08-11)
+
+### Features
+
+* **components:** expose the native element on every component ([ad1b976](https://github.com/charpente-ui/vue/commit/ad1b976b790376f9804119d6ec9116b0d7893669))
+* **form:** emit invalid-submit when validation blocks a submission ([2bcee5d](https://github.com/charpente-ui/vue/commit/2bcee5d61582217e5c8afe3aa26b1c207d4399b1))
+
+### Bug Fixes
+
+* **form:** keep a novalidate passed by the app ([9cf32f6](https://github.com/charpente-ui/vue/commit/9cf32f6d2575971d72ec0ff590a7eec88f4873fe))
+
 ## [2.8.1](https://github.com/charpente-ui/vue/compare/v2.8.0...v2.8.1) (2026-08-09)
 
 ### Bug Fixes
