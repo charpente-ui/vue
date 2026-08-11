@@ -28,14 +28,14 @@ Components)_.
 
 ## Requirements
 
-| Requirement | Constraint                                                                            |
-|-------------|---------------------------------------------------------------------------------------|
-| Vue         | **3.5 or newer** — the library builds its ids on Vue's own `useId()`, added in 3.5    |
-| Node        | **20 or newer** — declared in `engines`, so it is checked when you install            |
-| Modules     | **ESM only** — a single `import` entry, no CommonJS build                             |
+| Requirement | Constraint                                                                         |
+|-------------|------------------------------------------------------------------------------------|
+| Vue         | **3.5 or newer** — the library builds its ids on Vue's own `useId()`, added in 3.5 |
+| Node        | **20 or newer** — declared in `engines`, so it is checked when you install         |
+| Modules     | **ESM only** — a single `import` entry, no CommonJS build                          |
 
-On an older Vue, npm stops the install with an `ERESOLVE` conflict while pnpm and yarn only warn — and forcing past
-that warning surfaces as `useId is not a function` at mount. See
+On an older Vue, npm stops the install with an `ERESOLVE` conflict while pnpm and yarn only warn — and forcing past that
+warning surfaces as `useId is not a function` at mount. See
 [Requirements](https://charpente.frontfactory.dev/guide/introduction#requirements).
 
 ## Installing
@@ -95,21 +95,21 @@ accessible automatically — and every class lands on the native element, ready 
 
 ## Components
 
-| Name           | Core Logic                                                                       | Tag               | Status |
-|----------------|----------------------------------------------------------------------------------|-------------------|--------|
-| Button         | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`         | Ready  |
-| Checkbox       | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`       | Ready  |
-| CheckboxGroup  | **Group:** Shared v-model and opt-in name across checkboxes inside a fieldset.   | `CCheckboxGroup`  | Ready  |
-| Field          | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`          | Ready  |
-| File           | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`           | Ready  |
-| Form           | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`           | Ready  |
-| Input          | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`          | Ready  |
-| Label          | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`          | Ready  |
-| Radio          | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`          | Ready  |
-| RadioGroup     | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`     | Ready  |
-| Select         | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`         | Ready  |
-| SupportingText | **Field Text:** Hint or error text wired to its input via `aria-describedby`.    | `CSupportingText` | Ready  |
-| Textarea       | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`       | Ready  |
+| Name           | Core Logic                                                                       | Tag               | Status                                                     |
+|----------------|----------------------------------------------------------------------------------|-------------------|------------------------------------------------------------|
+| Button         | **Polymorphic:** Switches tags _(a, button, etc...)_ while keeping logic.        | `CButton`         | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Checkbox       | **Smart Toggle:** Handles array state, booleans, and indeterminate natively.     | `CCheckbox`       | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| CheckboxGroup  | **Group:** Shared v-model and opt-in name across checkboxes inside a fieldset.   | `CCheckboxGroup`  | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Field          | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| File           | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`           | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Form           | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`           | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Input          | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Label          | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Radio          | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| RadioGroup     | **Group:** Shared v-model and name across radios inside a fieldset.              | `CRadioGroup`     | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Select         | **Native Wrapper:** Single and multiple selection support.                       | `CSelect`         | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| SupportingText | **Field Text:** Hint or error text wired to its input via `aria-describedby`.    | `CSupportingText` | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Textarea       | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`       | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 
 [Component reference →](https://charpente.frontfactory.dev/components/)
 
