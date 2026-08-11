@@ -109,6 +109,7 @@ onBeforeUnmount(() => {
 });
 
 defineExpose({
+    el: rootRef,
     invalid: invalidated,
     message: validationMessage
 });

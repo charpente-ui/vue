@@ -144,6 +144,22 @@ interface SelectOptionGroup {
 type SelectOptionItem = SelectOption | SelectOptionGroup | string | number;
 ```
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLSelectElement \| null` | The `<select>`, through a template ref |
+
+```vue
+<CSelect ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 ### Keyboard

@@ -88,6 +88,7 @@ All of them land on the wrapper `<div>` — except `id`, which names the label/c
 
 | Property  | Type      | Description                            |
 |-----------|-----------|----------------------------------------|
+| `el`      | `HTMLDivElement \| null` | The wrapper element, through a template ref |
 | `invalid` | `boolean` | The same state, through a template ref |
 | `message` | `string`  | The same message, through a template ref |
 

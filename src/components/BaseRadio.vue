@@ -31,6 +31,13 @@ const radioName = computed(() => {
 
     return group?.name.value;
 });
+
+// The native element, so an app can call what only the DOM offers:
+// focus(), select(), showPicker(), reportValidity(). Vue's own `$el` would
+// technically reach it, but it is untyped and an implementation detail.
+defineExpose({
+    el: inputRef
+});
 </script>
 
 <template>

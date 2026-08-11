@@ -68,6 +68,22 @@ falls back to its slot content otherwise. One element, two jobs — see the
 All of them land on the `<p>`. An explicit `id` wins over the generated one, and an explicit `role` wins over the
 `role="alert"` that `validation` would otherwise set.
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLParagraphElement \| null` | The `<p>`, through a template ref |
+
+```vue
+<CSupportingText ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 A `validation` text becomes a `role="alert"` live region, so a screen reader announces the message when it swaps in.

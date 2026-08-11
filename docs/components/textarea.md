@@ -48,6 +48,22 @@ or `aria-describedby` wins over the generated one.
 more on a long text field than on a single-line input.
 :::
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLTextAreaElement \| null` | The `<textarea>`, through a template ref |
+
+```vue
+<CTextarea ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 ### Keyboard

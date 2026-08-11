@@ -54,6 +54,22 @@ Outside a field, point it at an id yourself.
 All of them land on the `<label>`. Only `for` is a prop, because the component has to fall back to the injected field
 id when you omit it.
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLLabelElement \| null` | The `<label>`, through a template ref |
+
+```vue
+<CLabel ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 A correctly associated label does two things: it names the control for assistive technology, and it makes the label

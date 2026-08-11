@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue';
+import { computed, useAttrs, useTemplateRef } from 'vue';
 import { useGeneratedId } from './internal/id';
 
 defineOptions({
@@ -12,6 +12,7 @@ const props = defineProps<{
 
 const attrs = useAttrs();
 const generatedId = useGeneratedId();
+const formRef = useTemplateRef('form');
 
 const emit = defineEmits<{
     submit: [
@@ -68,10 +69,16 @@ function focusFirstInvalid(form: HTMLFormElement) {
         }
     }
 }
+
+// The native element, so an app can reach reset(), requestSubmit() and
+// checkValidity() without keeping its own ref on the DOM.
+defineExpose({
+    el: formRef
+});
 </script>
 
 <template>
-    <form v-bind="$attrs" :id="formId" :novalidate="noValidate" @submit.prevent="handleSubmit">
+    <form v-bind="$attrs" :id="formId" ref="form" :novalidate="noValidate" @submit.prevent="handleSubmit">
         <slot/>
     </form>
 </template>

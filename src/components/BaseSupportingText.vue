@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, useAttrs, watch } from 'vue';
+import { computed, inject, onBeforeUnmount, useAttrs, useTemplateRef, watch } from 'vue';
 import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
 
@@ -12,6 +12,7 @@ const props = defineProps<{
 }>();
 
 const attrs = useAttrs();
+const textRef = useTemplateRef('text');
 const generatedId = useGeneratedId();
 const field = inject(fieldKey, null);
 
@@ -53,10 +54,16 @@ watch(textId, (id, previousId) => {
 onBeforeUnmount(() => {
     field?.unregisterSupportingText(textId.value);
 });
+
+// The native element, kept consistent with the form controls so a ref on any
+// Charpente component reaches its DOM node the same way.
+defineExpose({
+    el: textRef
+});
 </script>
 
 <template>
-    <p v-bind="$attrs" :id="textId" :role="textRole">
+    <p v-bind="$attrs" :id="textId" ref="text" :role="textRole">
         <template v-if="validationMessage">{{ validationMessage }}</template>
         <slot v-else/>
     </p>

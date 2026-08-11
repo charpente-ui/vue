@@ -60,6 +60,22 @@ All of them land on the `<form>`: `action`, `method`, `target`, `autocomplete`, 
 when `validate` is on, so the browser's bubbles never appear. Passing `novalidate` yourself keeps it, which is how you
 turn the native constraints off without opting into `validate`; `:novalidate="false"` is the way to remove it again.
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLFormElement \| null` | The `<form>`, through a template ref |
+
+```vue
+<CForm ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.reset();
+```
+
 ## Accessibility
 
 ### Keyboard

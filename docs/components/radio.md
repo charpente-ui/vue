@@ -93,6 +93,22 @@ model is typed `string | number`; stick to those types there, as TypeScript cann
 without dropping standalone object support.
 :::
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
+
+```vue
+<CRadio ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 ### Keyboard

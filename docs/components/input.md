@@ -57,6 +57,22 @@ Generated ids and names are prefixed with `cui-` (for example `cui-v-0`), so the
 or another library on the page.
 :::
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
+
+```vue
+<CInput ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 ### Keyboard

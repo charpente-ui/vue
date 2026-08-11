@@ -23,6 +23,13 @@ const textareaRef = useTemplateRef('textarea');
 const { controlId, describedBy, ariaInvalid } = useFieldControl();
 
 useCustomValidity(textareaRef, model, () => props.rule);
+
+// The native element, so an app can call what only the DOM offers:
+// focus(), select(), showPicker(), reportValidity(). Vue's own `$el` would
+// technically reach it, but it is untyped and an implementation detail.
+defineExpose({
+    el: textareaRef
+});
 </script>
 
 <template>

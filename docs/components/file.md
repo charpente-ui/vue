@@ -52,6 +52,22 @@ machinery does not apply. `CFile` syncs the `FileList` into your model on `chang
 the native input when you set the model back to `null`. Without that, the file name stays on screen after a "remove"
 button has already emptied your state.
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
+
+```vue
+<CFile ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 ### Keyboard

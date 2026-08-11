@@ -105,6 +105,22 @@ Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. 
 it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
 :::
 
+### Exposed
+
+| Property | Type                    | Description                          |
+|----------|-------------------------|--------------------------------------|
+| `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
+
+```vue
+<CCheckbox ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
 ## Accessibility
 
 ### Keyboard
