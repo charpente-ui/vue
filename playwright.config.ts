@@ -10,10 +10,22 @@ export default defineConfig({
         baseURL: 'http://localhost:5183',
         trace: 'retain-on-failure'
     },
+    // The library delegates to the browser's own constraint validation, so the
+    // engines are the implementation: message wording, the order the invalid
+    // events fire in and what `setCustomValidity` does to `validity.valid` are
+    // all engine territory. Testing one of them would only prove Chromium works.
     projects: [
         {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] }
+        },
+        {
+            name: 'firefox',
+            use: { ...devices['Desktop Firefox'] }
+        },
+        {
+            name: 'webkit',
+            use: { ...devices['Desktop Safari'] }
         }
     ],
     webServer: {

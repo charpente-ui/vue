@@ -13,13 +13,15 @@ test('clicking the label focuses the linked input', async ({ page }) => {
     await expect(input).toBeFocused();
 });
 
-test('clicking the label focuses a linked checkbox', async ({ page }) => {
+// Whether the click also moves focus is the engine's call — WebKit follows the
+// macOS convention and leaves focus where it was on a checkbox. Toggling is what
+// the for/id pairing actually buys, and that holds everywhere.
+test('clicking the label toggles a linked checkbox', async ({ page }) => {
     const label = page.getByText('Single checkbox', { exact: true });
     const checkbox = page.locator('input[type="checkbox"]').first();
 
     await label.click();
 
-    await expect(checkbox).toBeFocused();
     await expect(checkbox).toBeChecked();
 });
 
