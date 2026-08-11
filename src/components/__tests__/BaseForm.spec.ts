@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import BaseForm from '../BaseForm.vue';
@@ -121,6 +121,68 @@ describe('BaseForm', () => {
         expect(document.activeElement).toBe(wrapper.find('.empty').element);
 
         wrapper.unmount();
+    });
+
+    it('emits invalid-submit when validation blocks the submission', async () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            },
+            slots: {
+                default: '<input required/><button type="submit"/>'
+            }
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.emitted('submit')).toBeUndefined();
+        expect(wrapper.emitted('invalid-submit')).toHaveLength(1);
+        expect(wrapper.emitted('invalid-submit')![0][0]).toBeInstanceOf(Event);
+    });
+
+    it('does not emit invalid-submit on a submission that goes through', async () => {
+        const wrapper = mount(BaseForm, {
+            props: {
+                validate: true
+            },
+            slots: {
+                default: '<input value="ok" required/><button type="submit"/>'
+            }
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.emitted('submit')).toHaveLength(1);
+        expect(wrapper.emitted('invalid-submit')).toBeUndefined();
+    });
+
+    it('does not emit invalid-submit without the validate prop', async () => {
+        const wrapper = mount(BaseForm, {
+            slots: {
+                default: '<input required/><button type="submit"/>'
+            }
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.emitted('submit')).toHaveLength(1);
+        expect(wrapper.emitted('invalid-submit')).toBeUndefined();
+    });
+
+    // The reason the event is not simply called `invalid`: a declared emit is
+    // taken out of $attrs, which would stop `@invalid` from reaching the DOM.
+    it('leaves the native invalid event to the app', () => {
+        const onInvalid = vi.fn();
+        const wrapper = mount(BaseForm, {
+            attrs: { onInvalid }
+        });
+
+        wrapper.element.dispatchEvent(new Event('invalid', {
+            bubbles: false,
+            cancelable: true
+        }));
+
+        expect(onInvalid).toHaveBeenCalledTimes(1);
     });
 
     it('skips validation when the submitter carries formnovalidate', async () => {

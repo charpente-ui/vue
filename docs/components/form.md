@@ -42,11 +42,22 @@ button, [demonstrated in the guide](/guide/validation#the-save-draft-escape-hatc
 
 ### Events
 
-| Event    | Payload       | When                                                  |
-|----------|---------------|-------------------------------------------------------|
-| `submit` | `SubmitEvent` | The form was submitted and passed validation           |
+| Event            | Payload       | When                                          |
+|------------------|---------------|-----------------------------------------------|
+| `submit`         | `SubmitEvent` | The form was submitted and passed validation  |
+| `invalid-submit` | `SubmitEvent` | `validate` refused the submission             |
 
 `preventDefault()` is always called for you — with or without `validate`, the page never reloads.
+
+`invalid-submit` is what a blocked submission is for. Focus already moves to the first invalid control, but that is all
+the app is told: the event is where an error summary, an analytics call or a scroll belongs.
+
+```vue
+<CForm validate @submit="save" @invalid-submit="trackFailure">
+```
+
+It is named `invalid-submit` rather than `invalid` so that `@invalid` keeps reaching the DOM: a declared emit is taken
+out of `$attrs`, and a native event name is not the library's to take.
 
 ### Slots
 

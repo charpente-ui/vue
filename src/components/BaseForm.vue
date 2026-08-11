@@ -18,6 +18,13 @@ const emit = defineEmits<{
     submit: [
         event: SubmitEvent
     ]
+    // Not `invalid`: a declared emit is taken out of `$attrs`, so that name
+    // would stop `@invalid` on CForm from reaching the DOM. A library that
+    // promises not to hide native HTML cannot confiscate a native event name.
+    // It is also what VeeValidate and FormKit already call this.
+    'invalid-submit': [
+        event: SubmitEvent
+    ]
 }>();
 
 const formId = computed(() => {
@@ -49,8 +56,11 @@ function handleSubmit(event: SubmitEvent) {
     const form = event.target as HTMLFormElement;
     const submitter = event.submitter as HTMLButtonElement | HTMLInputElement | null;
 
+    // Focus moves to the first invalid control, but nothing else told the app
+    // its submission was refused — no error summary, no analytics, no scroll.
     if (props.validate && !submitter?.formNoValidate && !form.checkValidity()) {
         focusFirstInvalid(form);
+        emit('invalid-submit', event);
 
         return;
     }
