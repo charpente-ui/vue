@@ -74,6 +74,36 @@ describe('BaseForm', () => {
         expect(wrapper.attributes('novalidate')).toBeDefined();
     });
 
+    it('keeps a novalidate passed by the app without the validate prop', () => {
+        const wrapper = mount(BaseForm, {
+            attrs: {
+                novalidate: true
+            }
+        });
+
+        expect(wrapper.attributes('novalidate')).toBeDefined();
+    });
+
+    it('keeps a bare novalidate written as an empty string', () => {
+        const wrapper = mount(BaseForm, {
+            attrs: {
+                novalidate: ''
+            }
+        });
+
+        expect(wrapper.attributes('novalidate')).toBeDefined();
+    });
+
+    it('drops novalidate bound to false', () => {
+        const wrapper = mount(BaseForm, {
+            attrs: {
+                novalidate: false
+            }
+        });
+
+        expect(wrapper.attributes('novalidate')).toBeUndefined();
+    });
+
     it('blocks submit and focuses the first invalid control when validating', async () => {
         const wrapper = mount(BaseForm, {
             props: {

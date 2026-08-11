@@ -57,7 +57,8 @@ button, [demonstrated in the guide](/guide/validation#the-save-draft-escape-hatc
 ### Attributes
 
 All of them land on the `<form>`: `action`, `method`, `target`, `autocomplete`, `class`… `novalidate` is set for you
-when `validate` is on, so the browser's bubbles never appear.
+when `validate` is on, so the browser's bubbles never appear. Passing `novalidate` yourself keeps it, which is how you
+turn the native constraints off without opting into `validate`; `:novalidate="false"` is the way to remove it again.
 
 ## Accessibility
 

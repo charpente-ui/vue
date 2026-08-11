@@ -23,6 +23,22 @@ const formId = computed(() => {
     return typeof attrs.id === 'string' ? attrs.id : generatedId;
 });
 
+// `novalidate` is bound after `v-bind="$attrs"`, so the explicit binding wins:
+// resolving to `undefined` would strip the attribute an app passed itself and
+// silently hand its form back to the native bubbles. Whatever came through
+// `$attrs` is therefore re-applied — a bare `novalidate` in a template arrives
+// as an empty string, which HTML reads as present, while `:novalidate="false"`
+// is the one way to ask for it to be gone.
+const noValidate = computed<true | undefined>(() => {
+    if (props.validate) {
+        return true;
+    }
+
+    const passed = attrs.novalidate;
+
+    return passed === undefined || passed === null || passed === false ? undefined : true;
+});
+
 // Per the HTML spec the no-validate state belongs to the submitter as much as
 // to the form: a `formnovalidate` button skips validation for its own
 // submission. `validate` re-implements the spec's validation step in JS, so it
@@ -55,7 +71,7 @@ function focusFirstInvalid(form: HTMLFormElement) {
 </script>
 
 <template>
-    <form v-bind="$attrs" :id="formId" :novalidate="validate || undefined" @submit.prevent="handleSubmit">
+    <form v-bind="$attrs" :id="formId" :novalidate="noValidate" @submit.prevent="handleSubmit">
         <slot/>
     </form>
 </template>
