@@ -59,8 +59,10 @@
     color: var(--vp-c-text-3);
 }
 
-/* Layout only. The controls themselves stay untouched on purpose: this is what
-   the library renders before you bring any CSS. */
+/* The controls keep their user-agent look on purpose — a preview shows what the
+   library renders, not a design system. What is added below is the minimum that
+   makes a demo readable: fields stacked instead of running inline, and an
+   invalid state you can actually see. */
 .demo__preview {
     display: flex;
     flex-direction: column;
@@ -82,6 +84,58 @@
 .demo__preview fieldset {
     border: 1px solid var(--vp-c-divider);
     padding: .6rem .9rem;
+}
+
+/* A CField renders a plain <div>; the one reliable way to spot it is that it
+   owns the label. Stacking it is what separates one field from the next. */
+.demo__preview :is(div, fieldset):has(> label, > legend) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .3rem;
+}
+
+.demo__preview form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.demo__preview label,
+.demo__preview legend {
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--vp-c-text-1);
+}
+
+/* A checkbox or radio reads as one line: control first, then its label. */
+.demo__preview :is(div, fieldset):has(> input[type='checkbox'], > input[type='radio']) {
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+}
+
+/* The supporting text, hint and error alike. */
+.demo__preview p {
+    margin: 0;
+    font-size: .8rem;
+    line-height: 1.4;
+    color: var(--vp-c-text-3);
+}
+
+/* The invalid state, which is otherwise invisible: the control keeps its shape
+   and only gains an outline, and the message it points at turns red. */
+.demo__preview [aria-invalid='true'] {
+    outline: 2px solid var(--vp-c-danger-1);
+    outline-offset: 1px;
+    border-radius: 2px;
+}
+
+.demo__preview :is(div, fieldset):has([aria-invalid='true']) > p[role='alert'] {
+    color: var(--vp-c-danger-1);
+    font-weight: 500;
 }
 
 .demo__preview .row {

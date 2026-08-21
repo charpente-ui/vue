@@ -20,6 +20,15 @@ forwards everything to it:
 That renders one `<input>`, carrying `type`, `placeholder`, `required` and `class`, plus an `id` generated for you and
 linked to its label. There is no wrapper `<div>`, no theme, no `size="md"` prop.
 
+::: info The demos on this site are styled. The library is not.
+Every live example you see here gets a few lines of CSS from **this documentation site**: fields stacked in a column,
+labels in bold, a red outline on an invalid control. None of it ships in the package.
+
+The controls themselves are left with their user-agent appearance, so what you see is the browser's own rendering of
+the markup Charpente produces. Install the library and you get no stylesheet at all — not a reset, not a class name,
+not a CSS variable. Styling is entirely yours.
+:::
+
 ## What you get that plain HTML doesn't give you
 
 | Problem in plain Vue                                              | What Charpente does                                     |
