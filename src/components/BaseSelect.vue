@@ -61,7 +61,7 @@ defineExpose({
         <slot/>
 
         <template v-for="(item, index) in normalizedOptions" :key="index">
-            <optgroup v-if="'options' in item" :label="item.label" :disabled="item.disabled">
+            <optgroup v-if="isGroup(item)" :label="item.label" :disabled="item.disabled">
                 <option v-for="(option, optionIndex) in item.options" :key="optionIndex" :value="option.value"
                         :disabled="option.disabled">
                     {{ option.label }}
