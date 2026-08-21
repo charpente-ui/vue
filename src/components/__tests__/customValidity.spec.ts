@@ -132,6 +132,27 @@ describe('custom validity', () => {
         expect(wrapper.find('input').element.validationMessage).toBe('Custom message.');
     });
 
+    // Without `required` an empty value satisfies every native constraint, so
+    // there is nothing to hold the rule back: it is the one check that still
+    // runs on an empty optional field. A rule that rejects '' therefore makes
+    // the field mandatory in practice, which the guide warns against.
+    it('applies the rule to an empty value on an optional field', async () => {
+        const wrapper = mount(BaseInput, {
+            props: {
+                modelValue: '',
+                rule: (value: unknown) => value ? '' : 'Empty is rejected.'
+            }
+        });
+
+        await nextTick();
+
+        const input = wrapper.find('input').element;
+
+        expect(input.validity.valueMissing).toBe(false);
+        expect(input.validity.customError).toBe(true);
+        expect(input.validationMessage).toBe('Empty is rejected.');
+    });
+
     // Native validity can flip without the model moving — a reactive
     // `:required` turned off is the common case. Nothing about `validity` is
     // reactive, so this is the one path the watch cannot see.
