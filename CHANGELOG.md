@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.1](https://github.com/charpente-ui/vue/compare/v2.9.0...v2.9.1) (2026-08-21)
+
+### Bug Fixes
+
+* **a11y:** keep the field state when aria-invalid or for is empty ([b172499](https://github.com/charpente-ui/vue/commit/b1724997e1f62426fbc8081790290d1daf3bbad0))
+* **form:** stop copying form.elements to find the first invalid control ([2556827](https://github.com/charpente-ui/vue/commit/2556827503ade768c62f500052a0bbb2482b6cbf))
+
 ## [2.9.0](https://github.com/charpente-ui/vue/compare/v2.8.1...v2.9.0) (2026-08-11)
 
 ### Features

@@ -1,6 +1,6 @@
 {
     "name": "@charpente-ui/vue",
-    "version": "2.9.0",
+    "version": "2.9.1",
     "description": "Headless, unstyled Vue 3 components for accessible forms. Logic only, zero CSS.",
     "type": "module",
     "scripts": {
