@@ -68,8 +68,10 @@ function handleSubmit(event: SubmitEvent) {
     emit('submit', event);
 }
 
+// `form.elements` is already iterable, and the loop stops at the first match:
+// copying it into an array would walk every control to find, often, the first.
 function focusFirstInvalid(form: HTMLFormElement) {
-    for (const element of Array.from(form.elements)) {
+    for (const element of form.elements) {
         const control = element as HTMLInputElement;
 
         if (control.willValidate && !control.validity.valid) {
