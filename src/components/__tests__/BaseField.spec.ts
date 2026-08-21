@@ -315,6 +315,81 @@ describe('BaseField', () => {
         wrapper.unmount();
     });
 
+    // `:aria-invalid="condition || undefined"` is a common Vue idiom: the key
+    // reaches $attrs carrying undefined, which means "no attribute", not "I am
+    // taking over". Reading it as an override would leave an invalid control
+    // unflagged for assistive technology.
+    it('keeps flagging the control when aria-invalid is passed as undefined', async () => {
+        const wrapper = mount({
+            components: {
+                BaseForm,
+                BaseField,
+                BaseInput
+            },
+            template: `
+                <BaseForm validate>
+                    <BaseField>
+                        <BaseInput required :aria-invalid="undefined"/>
+                    </BaseField>
+                </BaseForm>
+            `
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.find('input').attributes('aria-invalid')).toBe('true');
+
+        wrapper.unmount();
+    });
+
+    // `null` is the other way Vue spells "no attribute", and template
+    // expressions produce it as readily as undefined.
+    it('keeps flagging the control when aria-invalid is passed as null', async () => {
+        const wrapper = mount({
+            components: {
+                BaseForm,
+                BaseField,
+                BaseInput
+            },
+            template: `
+                <BaseForm validate>
+                    <BaseField>
+                        <BaseInput required :aria-invalid="null"/>
+                    </BaseField>
+                </BaseForm>
+            `
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.find('input').attributes('aria-invalid')).toBe('true');
+
+        wrapper.unmount();
+    });
+
+    it('lets an explicit aria-invalid value win over the field state', async () => {
+        const wrapper = mount({
+            components: {
+                BaseForm,
+                BaseField,
+                BaseInput
+            },
+            template: `
+                <BaseForm validate>
+                    <BaseField>
+                        <BaseInput required aria-invalid="false"/>
+                    </BaseField>
+                </BaseForm>
+            `
+        });
+
+        await wrapper.find('form').trigger('submit');
+
+        expect(wrapper.find('input').attributes('aria-invalid')).toBe('false');
+
+        wrapper.unmount();
+    });
+
     it('mounts and unmounts outside any form', () => {
         const wrapper = mount(BaseField, {
             slots: {

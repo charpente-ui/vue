@@ -7,6 +7,20 @@ import type { FieldContext } from './keys';
 // Matches Vue's own (unexported) `Booleanish | 'grammar' | 'spelling'` type for `aria-invalid`.
 type AriaInvalid = boolean | 'true' | 'false' | 'grammar' | 'spelling' | undefined;
 
+// An app overriding aria-invalid wins, but only when it actually supplies a
+// value. `:aria-invalid="condition || undefined"` is a common Vue idiom and it
+// leaves the key in `$attrs` — testing for the key alone would read that as an
+// override and drop the field's own state, silently un-flagging an invalid
+// control. `undefined` and `null` both mean "no attribute" to Vue, so both fall
+// back to the field.
+function resolveAriaInvalid(passed: unknown, field: FieldContext | null) {
+    if (passed !== undefined && passed !== null) {
+        return passed as AriaInvalid;
+    }
+
+    return field?.invalid.value ? 'true' : undefined;
+}
+
 // Shared wiring for every form control: resolve the element id (explicit id >
 // field id > generated id) and point aria-describedby at the field's
 // supporting texts when there are any.
@@ -32,11 +46,7 @@ export function useFieldControl() {
     });
 
     const ariaInvalid = computed<AriaInvalid>(() => {
-        if ('aria-invalid' in attrs) {
-            return attrs['aria-invalid'] as AriaInvalid;
-        }
-
-        return field?.invalid.value ? 'true' : undefined;
+        return resolveAriaInvalid(attrs['aria-invalid'], field);
     });
 
     return {
@@ -66,11 +76,7 @@ export function useFieldGroup() {
     });
 
     const ariaInvalid = computed<AriaInvalid>(() => {
-        if ('aria-invalid' in attrs) {
-            return attrs['aria-invalid'] as AriaInvalid;
-        }
-
-        return field?.invalid.value ? 'true' : undefined;
+        return resolveAriaInvalid(attrs['aria-invalid'], field);
     });
 
     const itemField: FieldContext | null = field && {

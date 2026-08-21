@@ -13,8 +13,10 @@ const props = defineProps<{
 const field = inject(fieldKey, null);
 const labelRef = useTemplateRef('label');
 
+// `||`, not `??`: an empty string is not an id, and rendering `for=""` would
+// break the label/control pairing instead of falling back to the field.
 const labelFor = computed(() => {
-    return props.for ?? field?.id.value;
+    return props.for || field?.id.value;
 });
 
 // The native element, kept consistent with the form controls so a ref on any

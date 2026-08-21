@@ -209,4 +209,29 @@ describe('BaseCheckboxGroup', () => {
         expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(message.attributes('id'));
         expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
     });
+
+    // Same trap as on a single control: an undefined value in $attrs must not
+    // read as the app taking over the fieldset's invalid state.
+    it('keeps flagging the fieldset when aria-invalid is passed as undefined', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseCheckboxGroup,
+                BaseCheckbox },
+            template: `
+                <BaseField>
+                    <BaseCheckboxGroup :aria-invalid="undefined">
+                        <BaseCheckbox value="a"/>
+                    </BaseCheckboxGroup>
+                </BaseField>
+            `
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.setCustomValidity('Pick at least one');
+        await input.trigger('invalid');
+        await nextTick();
+
+        expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
+    });
 });
