@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.0](https://github.com/charpente-ui/vue/compare/v2.9.1...v2.10.0) (2026-08-27)
+
+### Features
+
+* **button:** expose the rendered element as el ([982ed4d](https://github.com/charpente-ui/vue/commit/982ed4d1fbce4d16b8eb18318c665149c314f8b6))
+* **supporting-text:** let the rendered tag be chosen with as ([6047c4a](https://github.com/charpente-ui/vue/commit/6047c4a98aa3c1866c2eeb65231fd099063040c1))
+
+### Bug Fixes
+
+* **field:** ignore input events from elements without a validity state ([a21e54c](https://github.com/charpente-ui/vue/commit/a21e54c1908c244b93edddef9e6143f5cb778acd))
+* **input:** stop the model modifiers from rewriting the field being typed in ([ff45f78](https://github.com/charpente-ui/vue/commit/ff45f7805ddee320e263ab2c1d8b219587e1eaee))
+
 ## [2.9.1](https://github.com/charpente-ui/vue/compare/v2.9.0...v2.9.1) (2026-08-21)
 
 ### Bug Fixes
