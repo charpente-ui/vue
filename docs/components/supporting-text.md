@@ -53,9 +53,21 @@ falls back to its slot content otherwise. One element, two jobs — see the
 
 ### Props
 
-| Prop         | Type      | Default | Description                                                                 |
-|--------------|-----------|---------|-----------------------------------------------------------------------------|
-| `validation` | `boolean` | `false` | Show the browser's validation message while invalid, slot content otherwise |
+| Prop         | Type                  | Default | Description                                                       |
+|--------------|-----------------------|---------|--------------------------------------------------------------------|
+| `as`         | `string \| Component` | `'p'`   | Tag or component to render in place of `<p>`                        |
+| `validation` | `boolean`             | `false` | Show the browser's validation message while invalid, slot content otherwise |
+
+`<p>` is the one tag in the library that semantics does not impose, so it is the one you can change. Two cases call
+for it: a `<label>` may only contain phrasing content, which a `<p>` is not, and a hint sitting inline next to a
+character counter reads better as a `<span>`.
+
+```vue
+<CSupportingText as="span">2 of 140 characters</CSupportingText>
+```
+
+Everything else is unchanged by the tag: the generated id, the registration with the field, `aria-describedby`, and
+the `role="alert"` a `validation` text carries.
 
 ### Slots
 
@@ -65,14 +77,14 @@ falls back to its slot content otherwise. One element, two jobs — see the
 
 ### Attributes
 
-All of them land on the `<p>`. An explicit `id` wins over the generated one, and an explicit `role` wins over the
-`role="alert"` that `validation` would otherwise set.
+All of them land on the rendered element. An explicit `id` wins over the generated one, and an explicit `role` wins
+over the `role="alert"` that `validation` would otherwise set.
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
-| `el`     | `HTMLParagraphElement \| null` | The `<p>`, through a template ref |
+| Property | Type                  | Description                                  |
+|----------|-----------------------|------------------------------------------------|
+| `el`     | `HTMLElement \| null` | The rendered element, through a template ref   |
 
 ```vue
 <CSupportingText ref="control"/>

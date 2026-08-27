@@ -33,12 +33,27 @@ test('aria-describedby links the input to every supporting text of the field', a
 
     const describedBy = await input.getAttribute('aria-describedby');
 
-    // Only identified paragraphs can be referenced: the field also renders plain
-    // <p> elements that are not supporting texts.
-    const ids = await field.locator('p[id]').evaluateAll((texts) => texts.map((text) => text.id));
+    // Only identified texts can be referenced: the field also renders plain <p>
+    // elements that are not supporting texts. Both tags are listed because the
+    // third supporting text below is rendered as a <span>.
+    const ids = await field.locator('p[id], span[id]').evaluateAll((texts) => texts.map((text) => text.id));
 
-    expect(ids).toHaveLength(2);
+    expect(ids).toHaveLength(3);
     expect(describedBy).toBe(ids.join(' '));
+});
+
+// The tag is the app's to pick, and picking it must not cost the wiring.
+test('a supporting text rendered as another tag is still referenced by the control', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+
+    const input = page.getByLabel('Auto-linked label');
+    const span = page.locator('span.value', { hasText: 'rendered as a' });
+
+    const describedBy = await input.getAttribute('aria-describedby');
+    const id = await span.getAttribute('id');
+
+    expect(id).toBeTruthy();
+    expect(describedBy?.split(' ')).toContain(id);
 });
 
 test('wires a native control through the scoped slot id and describedBy', async ({ page }) => {

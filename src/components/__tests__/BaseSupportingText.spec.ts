@@ -27,6 +27,31 @@ describe('BaseSupportingText', () => {
         wrapper.unmount();
     });
 
+    // `<p>` is invalid inside a `<label>`, and a hint sometimes has to sit
+    // inline next to a counter, so the tag is the app's to pick.
+    it('renders another tag when as is passed, keeping the field wiring', async () => {
+        const wrapper = mount({
+            components: { BaseField,
+                BaseInput,
+                BaseSupportingText },
+            template: `
+                <BaseField>
+                    <BaseInput/>
+                    <BaseSupportingText as="span" validation>Hint</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        const text = wrapper.find('span');
+
+        expect(text.exists()).toBe(true);
+        expect(wrapper.find('p').exists()).toBe(false);
+        expect(text.attributes('role')).toBe('alert');
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe(text.attributes('id'));
+    });
+
     it('wires the control aria-describedby to the text id inside a field', async () => {
         const wrapper = mount(BaseField, {
             slots: {

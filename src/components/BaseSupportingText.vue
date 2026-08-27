@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onBeforeUnmount, useAttrs, useTemplateRef, watch } from 'vue';
+import type { Component, ComponentPublicInstance } from 'vue';
+import { toElement } from './internal/element';
 import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
 
@@ -7,12 +9,17 @@ defineOptions({
     inheritAttrs: false
 });
 
-const props = defineProps<{
+// `<p>` is the only tag in the library that semantics does not impose, and it
+// is invalid inside a `<label>`, whose content model is phrasing content.
+const props = withDefaults(defineProps<{
+    as?: Component | string
     validation?: boolean
-}>();
+}>(), {
+    as: 'p'
+});
 
 const attrs = useAttrs();
-const textRef = useTemplateRef('text');
+const textRef = useTemplateRef<HTMLElement | ComponentPublicInstance>('text');
 const generatedId = useGeneratedId();
 const field = inject(fieldKey, null);
 
@@ -55,16 +62,20 @@ onBeforeUnmount(() => {
     field?.unregisterSupportingText(textId.value);
 });
 
-// The native element, kept consistent with the form controls so a ref on any
-// Charpente component reaches its DOM node the same way.
+// The rendered element, kept consistent with the form controls so a ref on any
+// Charpente component reaches its DOM node the same way. A getter rather than a
+// computed: it is read once, imperatively, and must not cache a node the
+// rendered component has since replaced.
 defineExpose({
-    el: textRef
+    get el() {
+        return toElement(textRef.value);
+    }
 });
 </script>
 
 <template>
-    <p v-bind="$attrs" :id="textId" ref="text" :role="textRole">
+    <component :is="as" v-bind="$attrs" :id="textId" ref="text" :role="textRole">
         <template v-if="validationMessage">{{ validationMessage }}</template>
         <slot v-else/>
-    </p>
+    </component>
 </template>

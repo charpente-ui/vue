@@ -95,6 +95,14 @@ describe('element access', () => {
         expect(el).toBe(wrapper.element);
     });
 
+    it('gives the rendered element when CSupportingText renders another tag', () => {
+        const wrapper = mount(BaseSupportingText, { props: { as: 'span' } });
+        const el = (wrapper.vm as unknown as { el: HTMLElement | null }).el;
+
+        expect(el).toBeInstanceOf(HTMLSpanElement);
+        expect(el).toBe(wrapper.element);
+    });
+
     it('gives the element behind the component when CButton renders one', () => {
         const Link: Component = {
             setup: (_props, { slots }) => () => h('a', { href: '/somewhere' }, slots.default?.())

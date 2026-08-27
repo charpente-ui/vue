@@ -568,6 +568,9 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         <CSupportingText class="value">
                             A second one — both ids land in the same attribute.
                         </CSupportingText>
+                        <CSupportingText as="span" class="value">
+                            A third one rendered as a <code>&lt;span&gt;</code> — same wiring, different tag.
+                        </CSupportingText>
                         <p class="value">
                             Generated id: <code>{{ id }}</code> — namespaced with a <code>cui-</code> prefix so it
                             never collides with an id from your app or another library.

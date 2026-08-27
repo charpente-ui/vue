@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, useTemplateRef } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
+import { toElement } from './internal/element';
 
 defineOptions({
     inheritAttrs: false
@@ -25,19 +26,12 @@ const buttonType = computed(() => {
     return props.as === 'button' ? 'button' : undefined;
 });
 
-// The native element, like every other component — but `as` makes the template
-// ref hold either the element or, when it renders a component, that component's
-// instance. Unwrapping `$el` here keeps `el` a DOM node in both cases, so the
-// app never has to know which one it got. A getter rather than a computed: it
-// is read once, imperatively, and must not cache a node the child has since
-// replaced. `null` when the rendered component has no single root element,
-// rather than the comment node Vue anchors a fragment with.
+// The rendered element, like every other component. A getter rather than a
+// computed: it is read once, imperatively, and must not cache a node the
+// rendered component has since replaced.
 defineExpose({
     get el() {
-        const root = rootRef.value;
-        const element = (root as ComponentPublicInstance)?.$el ?? root;
-
-        return element instanceof HTMLElement ? element : null;
+        return toElement(rootRef.value);
     }
 });
 </script>
