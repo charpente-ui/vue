@@ -57,6 +57,25 @@ to `type="button"` — ask for `submit` explicitly.
 
 Every other attribute (`type`, `disabled`, `form`, `formnovalidate`, `class`…) falls through to the rendered element.
 
+### Exposed
+
+| Property | Type                     | Description                                    |
+|----------|--------------------------|------------------------------------------------|
+| `el`     | `HTMLElement \| null`    | The rendered element, through a template ref   |
+
+```vue
+<CButton ref="control"/>
+```
+
+```js
+const control = useTemplateRef('control');
+
+control.value?.el?.focus();
+```
+
+`el` is the DOM node whatever `as` renders — the `<button>`, the `<a>`, or the element a component like `RouterLink`
+renders. It is `null` only when that component has no single root element, since there is then no node to hand back.
+
 ## Accessibility
 
 ### Keyboard

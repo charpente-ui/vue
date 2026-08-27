@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { h } from 'vue';
 import type { Component } from 'vue';
+import BaseButton from '../BaseButton.vue';
 import BaseCheckbox from '../BaseCheckbox.vue';
 import BaseCheckboxGroup from '../BaseCheckboxGroup.vue';
 import BaseField from '../BaseField.vue';
@@ -18,6 +20,10 @@ import BaseTextarea from '../BaseTextarea.vue';
 // name, so a ref on any of them reaches the DOM the same way. `el` is the
 // documented surface: `$el` also works but is Vue's own untyped internal.
 const components: [string, Component, string, Record<string, unknown>][] = [
+    ['CButton',
+        BaseButton,
+        'BUTTON',
+        {}],
     ['CInput',
         BaseInput,
         'INPUT',
@@ -76,6 +82,40 @@ describe('element access', () => {
         expect(el).toBeInstanceOf(HTMLElement);
         expect(el?.tagName).toBe(tag);
         expect(el).toBe(wrapper.element);
+    });
+
+    // `as` is the one case where the template ref does not hold an element:
+    // rendering a component gives its instance instead. `el` unwraps that, so
+    // the app reaches the same DOM node whatever `as` was.
+    it('gives the rendered element when CButton renders another tag', () => {
+        const wrapper = mount(BaseButton, { props: { as: 'a' } });
+        const el = (wrapper.vm as unknown as { el: HTMLElement | null }).el;
+
+        expect(el).toBeInstanceOf(HTMLAnchorElement);
+        expect(el).toBe(wrapper.element);
+    });
+
+    it('gives the element behind the component when CButton renders one', () => {
+        const Link: Component = {
+            setup: (_props, { slots }) => () => h('a', { href: '/somewhere' }, slots.default?.())
+        };
+
+        const wrapper = mount(BaseButton, { props: { as: Link } });
+        const el = (wrapper.vm as unknown as { el: HTMLElement | null }).el;
+
+        expect(el).toBeInstanceOf(HTMLAnchorElement);
+        expect(el).toBe(wrapper.element);
+    });
+
+    it('gives null when CButton renders a component without a single root element', () => {
+        const Fragment: Component = {
+            setup: () => () => [h('span', 'one'),
+                h('span', 'two')]
+        };
+
+        const wrapper = mount(BaseButton, { props: { as: Fragment } });
+
+        expect((wrapper.vm as unknown as { el: HTMLElement | null }).el).toBeNull();
     });
 
     it('gives an input that can be focused from the outside', () => {
