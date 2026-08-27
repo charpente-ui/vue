@@ -90,6 +90,27 @@ describe('BaseTextarea', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
     });
 
+    // Same guard as CInput: the model is trimmed, the typed value is not.
+    it('leaves the typed value in the field while the trim modifier shortens the model', async () => {
+        const wrapper = mount(BaseTextarea, {
+            props: {
+                modelValue: '',
+                modelModifiers: { trim: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const textarea = wrapper.find('textarea');
+
+        textarea.element.value = 'Jean ';
+        await textarea.trigger('input');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['Jean']);
+        expect(textarea.element.value).toBe('Jean ');
+    });
+
     it('supports the lazy modifier', async () => {
         const wrapper = mount(BaseTextarea, {
             props: {

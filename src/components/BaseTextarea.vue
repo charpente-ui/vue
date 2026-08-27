@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue';
 import { useFieldControl } from './internal/field';
-import { applyModelModifiers } from './internal/modifiers';
+import { useModifiedModel } from './internal/modifiers';
 import { useCustomValidity } from './internal/validity';
 import type { ValidationRule } from '../types';
 
@@ -16,9 +16,8 @@ const props = defineProps<{
 const [
     model,
     modifiers
-] = defineModel<string | number, 'trim' | 'number' | 'lazy'>({
-    set: (value) => applyModelModifiers(value, modifiers)
-});
+] = defineModel<string | number, 'trim' | 'number' | 'lazy'>();
+const { raw, handleChange } = useModifiedModel(model, modifiers);
 const textareaRef = useTemplateRef('textarea');
 const { controlId, describedBy, ariaInvalid } = useFieldControl();
 
@@ -33,8 +32,8 @@ defineExpose({
 </script>
 
 <template>
-    <textarea v-if="modifiers.lazy" v-bind="$attrs" :id="controlId" ref="textarea" v-model.lazy="model"
-              :aria-describedby="describedBy" :aria-invalid="ariaInvalid"/>
-    <textarea v-else v-bind="$attrs" :id="controlId" ref="textarea" v-model="model" :aria-describedby="describedBy"
-              :aria-invalid="ariaInvalid"/>
+    <textarea v-if="modifiers.lazy" v-bind="$attrs" :id="controlId" ref="textarea" v-model.lazy="raw"
+              :aria-describedby="describedBy" :aria-invalid="ariaInvalid" @change="handleChange"/>
+    <textarea v-else v-bind="$attrs" :id="controlId" ref="textarea" v-model="raw" :aria-describedby="describedBy"
+              :aria-invalid="ariaInvalid" @change="handleChange"/>
 </template>

@@ -133,6 +133,58 @@ describe('BaseInput', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
     });
 
+    // Trimming the model must not trim what the user is typing: writing the
+    // trimmed value back into the field ate the space under the cursor, and
+    // `Jean Dupont` came out as `JeanDupont`.
+    it('leaves the typed value in the field while the trim modifier shortens the model', async () => {
+        const wrapper = mount(BaseInput, {
+            props: {
+                modelValue: '',
+                modelModifiers: { trim: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.value = 'Jean ';
+        await input.trigger('input');
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['Jean']);
+        expect(input.element.value).toBe('Jean ');
+
+        input.element.value = 'Jean Dupont';
+        await input.trigger('input');
+
+        expect(input.element.value).toBe('Jean Dupont');
+        expect(wrapper.emitted('update:modelValue')?.[1]).toEqual(['Jean Dupont']);
+    });
+
+    // What Vue's own directive does on `change`: the value left behind is the
+    // value the app holds.
+    it('normalizes the field itself once the user leaves it', async () => {
+        const wrapper = mount(BaseInput, {
+            props: {
+                modelValue: '',
+                modelModifiers: { trim: true },
+                'onUpdate:modelValue': (e: string | number) => wrapper.setProps({
+                    modelValue: e
+                })
+            }
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.value = '  foo  ';
+        await input.trigger('input');
+        await input.trigger('change');
+
+        expect(input.element.value).toBe('foo');
+        expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+    });
+
     it('supports the number modifier', async () => {
         const wrapper = mount(BaseInput, {
             props: {

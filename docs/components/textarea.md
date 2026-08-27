@@ -38,6 +38,10 @@ Only one, and it is optional.
 |-----------|--------------------|-----------------------------|
 | `v-model` | `string \| number` | `.trim`, `.number`, `.lazy` |
 
+Each one is opt-in, and they behave exactly as on a plain `<textarea>` — and exactly as on
+[`CInput`](/components/input#model), where they are described in full: a plain `v-model` touches nothing, and a
+modifier changes what your app receives, never what the user is typing.
+
 ### Attributes
 
 All of them land on the `<textarea>`: `rows`, `cols`, `maxlength`, `required`, `placeholder`, `class`… An explicit `id`
