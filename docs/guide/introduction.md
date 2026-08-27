@@ -44,6 +44,38 @@ not a CSS variable. Styling is entirely yours.
 It is not a design system, and it does not implement widgets the platform lacks. There is no combobox, no date picker,
 no modal — those need markup and styling decisions, which is exactly what this library refuses to make for you.
 
+It is also not a form framework. Charpente knows one thing about a field: what the browser says about it, right now.
+It keeps no state of its own — no `dirty`, no `touched`, no error object, no submission lifecycle.
+
+## When to reach for something else
+
+| What you need                                        | Where it lives                                          |
+|------------------------------------------------------|----------------------------------------------------------|
+| `dirty`, `touched`, `isSubmitting`, field arrays, reset to initial values | [VeeValidate], [FormKit]           |
+| One schema (Zod, Yup) for a whole form                | the same two — a [`rule`] covers one field, synchronously |
+| A form generated from a schema                        | [FormKit]                                                 |
+| A wizard carrying its values across routes            | your store, or a form framework                           |
+| A combobox, a date picker, a modal                    | [Reka UI], [Ark UI]                                       |
+| A form that works with JavaScript disabled            | a plain `<form action=…>`, since [`CForm` never submits]   |
+
+[VeeValidate]: https://vee-validate.logaretm.com/
+[FormKit]: https://formkit.com/
+[Reka UI]: https://reka-ui.com/
+[Ark UI]: https://ark-ui.com/
+[`rule`]: /guide/validation#rules-of-your-own
+[`CForm` never submits]: /components/form#attributes
+
+Your own error messages are worth their own line: the browser's are localized for you, yours are strings you write, so
+a multilingual app runs them through its own `t()`. See [Native validation](/guide/validation#rules-of-your-own).
+
+::: tip They compose.
+Charpente is not an alternative to those libraries so much as a lower layer. Without `validate`, `CForm` intercepts
+nothing, so another library can own the validation entirely — and if you want the two to work together, a `rule` that
+returns that library's message feeds it into native validation, so `aria-invalid`, the supporting text and the blocked
+submit all keep working. That is the same shape as the
+[server-side recipe](/guide/validation#server-side-and-async-checks).
+:::
+
 ## Requirements
 
 | Requirement | Constraint                                                                         |
