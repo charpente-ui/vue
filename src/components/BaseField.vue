@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, provide, ref, useAttrs, useTemplateRef } from 'vue';
 import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
+import type { ValidatableElement } from '../types';
 
 defineOptions({
     inheritAttrs: false
@@ -73,8 +74,20 @@ function syncValidity(control: HTMLInputElement | HTMLTextAreaElement | HTMLSele
     }
 }
 
+// A field is not limited to form controls: a contenteditable editor or a
+// third-party widget lives inside just as well, and both emit input and change
+// events of their own. Anything without a validity state has nothing to sync —
+// reading it would throw. Duck-typed rather than checked against the three
+// element classes, so a form-associated custom element is followed like any
+// other control.
+function isValidatable(target: EventTarget | null): target is ValidatableElement {
+    return !!target && 'validity' in target;
+}
+
 function handleInput(event: Event) {
-    syncValidity(event.target as HTMLInputElement);
+    if (isValidatable(event.target)) {
+        syncValidity(event.target);
+    }
 }
 
 // Resetting wipes the values that made the control invalid, so the message and

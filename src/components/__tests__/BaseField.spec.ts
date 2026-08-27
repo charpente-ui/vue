@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import BaseField from '../BaseField.vue';
 import BaseForm from '../BaseForm.vue';
 import BaseLabel from '../BaseLabel.vue';
@@ -313,6 +313,48 @@ describe('BaseField', () => {
         expect(input.attributes('aria-invalid')).toBeUndefined();
 
         wrapper.unmount();
+    });
+
+    // A rich text editor or a third-party widget sits inside a field like any
+    // other control and emits its own input events. It owns no validity state,
+    // so the field must let those pass instead of reading one.
+    it('ignores an input event coming from an element without a validity state', async () => {
+        // Vue funnels a throwing event handler into the app error handler, so
+        // dispatching alone would report a passing test on a crashing field.
+        const errorHandler = vi.fn();
+
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput
+            },
+            template: `
+                <BaseField v-slot="{ invalid, message }">
+                    <BaseInput required/>
+                    <div contenteditable class="editor"/>
+                    <span class="state">{{ invalid }}|{{ message }}</span>
+                </BaseField>
+            `
+        }, {
+            global: {
+                config: { errorHandler }
+            }
+        });
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+
+        input.dispatchEvent(new Event('invalid'));
+        await nextTick();
+
+        const state = wrapper.find('.state').text();
+
+        expect(state).not.toBe('false|');
+
+        wrapper.find('.editor').element.dispatchEvent(new Event('input', { bubbles: true }));
+        await nextTick();
+
+        expect(errorHandler).not.toHaveBeenCalled();
+        expect(wrapper.find('.state').text()).toBe(state);
     });
 
     // `:aria-invalid="condition || undefined"` is a common Vue idiom: the key
