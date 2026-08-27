@@ -112,9 +112,8 @@ A third-party component is only accessible if it forwards that id to its real `<
 
 ## Groups use `name`, not `id`
 
-A single id cannot name a set of radios, so [`CRadioGroup`](/components/radio) and
-[`CCheckboxGroup`](/components/checkbox) generate a shared `name` instead — that is what keeps native arrow-key
-navigation working. Same cascade: your `name` wins.
+A single id cannot name a set of radios, so [`CRadioGroup`](/components/radio) generates a shared `name` instead —
+that is what keeps native arrow-key navigation working. Same cascade: your `name` wins.
 
 ```vue
 <CRadioGroup v-model="plan" name="plan">
@@ -122,6 +121,10 @@ navigation working. Same cascade: your `name` wins.
     <!-- … -->
 </CRadioGroup>
 ```
+
+[`CCheckboxGroup`](/components/checkbox#why-no-name-is-generated) generates nothing: a `name` is the key the data is
+submitted under, no native behaviour depends on it for checkboxes, and the library cannot guess your server's schema.
+Pass one and it reaches every box; leave it out and they are simply not submitted.
 
 Inside a group, the items receive **no** field id: a `CField` wrapping the whole group describes it as a whole, so the
 `<fieldset>` carries `aria-describedby` and `aria-invalid` and the items carry neither. Wrap each item in its own

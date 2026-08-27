@@ -67,9 +67,18 @@ out of `$attrs`, and a native event name is not the library's to take.
 
 ### Attributes
 
-All of them land on the `<form>`: `action`, `method`, `target`, `autocomplete`, `class`… `novalidate` is set for you
-when `validate` is on, so the browser's bubbles never appear. Passing `novalidate` yourself keeps it, which is how you
-turn the native constraints off without opting into `validate`; `:novalidate="false"` is the way to remove it again.
+All of them land on the `<form>`: `autocomplete`, `name`, `class`… `novalidate` is set for you when `validate` is on,
+so the browser's bubbles never appear. Passing `novalidate` yourself keeps it, which is how you turn the native
+constraints off without opting into `validate`; `:novalidate="false"` is the way to remove it again.
+
+::: warning `action`, `method` and `target` are inert.
+They are rendered on the `<form>`, but `CForm` calls `preventDefault()` on every submission, so the browser never
+navigates and never posts. Submitting is your handler's job — `fetch` in `@submit`.
+
+That rules out a form that works without JavaScript. If you need one, use a plain `<form action=…>`: the rest of the
+library has no such constraint, and `CField`, `CLabel` and `CSupportingText` wire themselves inside it exactly the
+same — [`CField` listens on its own wrapper](/guide/validation#under-the-hood) and finds the owning form by itself.
+:::
 
 ### Exposed
 
