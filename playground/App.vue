@@ -18,6 +18,7 @@ import type { SelectOptionItem } from '@charpente-ui/vue';
 const text = ref('');
 const number = ref(0);
 const lazyText = ref('');
+const trimmedText = ref('');
 const fieldText = ref('');
 const nativeDate = ref('');
 const textarea = ref('');
@@ -190,14 +191,19 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             </CField>
                             <CField class="field">
                                 <CLabel>Number</CLabel>
-                                <CInput v-model="number" type="number"/>
+                                <CInput v-model.number="number" type="number"/>
+                            </CField>
+                            <CField class="field">
+                                <CLabel>Trimmed</CLabel>
+                                <CInput v-model.trim="trimmedText" placeholder="  Spaces are stripped  "/>
                             </CField>
                             <CField class="field">
                                 <CLabel>Lazy (updates on blur/enter)</CLabel>
                                 <CInput v-model.lazy="lazyText" placeholder="Type, then blur..."/>
                             </CField>
                             <p class="value">Text: <code>{{ text }}</code></p>
-                            <p class="value">Number: <code>{{ number }}</code></p>
+                            <p class="value">Number: <code>{{ number }}</code> ({{ typeof number }})</p>
+                            <p class="value">Trimmed: <code>[{{ trimmedText }}]</code></p>
                             <p class="value">Lazy: <code>{{ lazyText }}</code></p>
                             <div class="code-block">
                                 <div class="code-block__header">
@@ -521,6 +527,9 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                                 <CLabel>Upload</CLabel>
                                 <CFile v-model="file"/>
                             </CField>
+                            <div class="row">
+                                <CButton @click="file = null">Clear</CButton>
+                            </div>
                             <p class="value">File: <code>{{ file?.[0]?.name ?? 'none' }}</code></p>
                             <div class="code-block">
                                 <div class="code-block__header">

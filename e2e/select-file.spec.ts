@@ -74,3 +74,23 @@ test('CFile reports the uploaded file name after selection', async ({ page }) =>
 
     await expect(page.getByText('File:', { exact: false })).toContainText('charpente-e2e-upload.txt');
 });
+
+// A file input cannot be assigned from JavaScript, so emptying the model has to
+// clear the element itself — otherwise the browser keeps showing a file the app
+// no longer holds.
+test('CFile clears the native input when the model is emptied', async ({ page }) => {
+    const filePath = join(tmpdir(), 'charpente-e2e-cleared.txt');
+
+    writeFileSync(filePath, 'hello');
+
+    const fileInput = page.getByLabel('Upload');
+    const value = page.getByText('File:', { exact: false });
+
+    await fileInput.setInputFiles(filePath);
+    await expect(value).toContainText('charpente-e2e-cleared.txt');
+
+    await page.getByRole('button', { name: 'Clear' }).click();
+
+    await expect(value).toContainText('none');
+    await expect(fileInput).toHaveValue('');
+});
