@@ -224,6 +224,62 @@ describe('BaseSelect', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([2]);
     });
 
+    // The array index is not a key: it would make Vue patch the <option>
+    // elements in place and rewrite their value, so the node that carried 'a'
+    // would come back carrying 'c'. Keying on the value moves the nodes instead.
+    it('moves the option nodes when the options are reordered', async () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                modelValue: 'c',
+                options: ['a',
+                    'b',
+                    'c']
+            }
+        });
+
+        const first = wrapper.findAll('option')[0].element;
+
+        await wrapper.setProps({ options: ['c',
+            'b',
+            'a'] });
+
+        const options = wrapper.findAll('option');
+
+        expect(options.map((option) => (option.element as HTMLOptionElement).value)).toEqual(['c',
+            'b',
+            'a']);
+        expect(options[2].element).toBe(first);
+        expect((wrapper.find('select').element as HTMLSelectElement).value).toBe('c');
+    });
+
+    it('moves the option nodes when the options inside a group are reordered', async () => {
+        const wrapper = mount(BaseSelect, {
+            props: {
+                options: [{
+                    label: 'Letters',
+                    options: ['a',
+                        'b']
+                }]
+            }
+        });
+
+        const first = wrapper.findAll('option')[0].element;
+
+        await wrapper.setProps({
+            options: [{
+                label: 'Letters',
+                options: ['b',
+                    'a']
+            }]
+        });
+
+        const options = wrapper.findAll('option');
+
+        expect(options.map((option) => (option.element as HTMLOptionElement).value)).toEqual(['b',
+            'a']);
+        expect(options[1].element).toBe(first);
+    });
+
     it('overrides auto-generated ID when attrs.id is provided', () => {
         const wrapper = mount(BaseSelect, {
             attrs: { id: 'custom-select' }

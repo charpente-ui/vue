@@ -34,16 +34,29 @@ function toOption(item: SelectOption | string | number): SelectOption {
 
 // Normalized once so the template only deals with two shapes: an option, or a
 // group of options.
+//
+// Each entry also carries a key, because the array index is not one: options
+// are routinely filtered or reordered at runtime, and an index key makes Vue
+// patch the <option> elements in place — rewriting their value underneath the
+// current selection instead of moving the nodes. Groups and options share the
+// same list, so the two are namespaced to keep a group label from colliding
+// with an option value.
 const normalizedOptions = computed(() => {
     return (props.options ?? []).map((item) => {
         if (isGroup(item)) {
             return {
                 ...item,
+                key: `group:${item.label}`,
                 options: item.options.map(toOption)
             };
         }
 
-        return toOption(item);
+        const option = toOption(item);
+
+        return {
+            ...option,
+            key: `option:${option.value}`
+        };
     });
 });
 
@@ -60,9 +73,9 @@ defineExpose({
             :aria-invalid="ariaInvalid">
         <slot/>
 
-        <template v-for="(item, index) in normalizedOptions" :key="index">
+        <template v-for="item in normalizedOptions" :key="item.key">
             <optgroup v-if="isGroup(item)" :label="item.label" :disabled="item.disabled">
-                <option v-for="(option, optionIndex) in item.options" :key="optionIndex" :value="option.value"
+                <option v-for="option in item.options" :key="option.value" :value="option.value"
                         :disabled="option.disabled">
                     {{ option.label }}
                 </option>
