@@ -119,6 +119,8 @@ export default defineConfig({
                         link: '/guide/introduction' },
                     { text: 'Getting started',
                         link: '/guide/getting-started' },
+                    { text: 'Comparison',
+                        link: '/guide/comparison' },
                     { text: 'Accessibility',
                         link: '/guide/accessibility' },
                     { text: 'Changelog',

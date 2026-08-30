@@ -117,6 +117,7 @@ accessible automatically — and every class lands on the native element, ready 
 
 - [Introduction](https://charpente.frontfactory.dev/guide/introduction) — what headless means here, and what it is not
 - [Getting started](https://charpente.frontfactory.dev/guide/getting-started) — install, first form, SSR, TypeScript
+- [Comparison](https://charpente.frontfactory.dev/guide/comparison) — against headless widgets, form frameworks and styled libraries
 - [Ids](https://charpente.frontfactory.dev/guide/ids) — the `for`/`id` cascade, the `cui-` prefix, taking it over
 - [Native validation](https://charpente.frontfactory.dev/guide/validation) — `validate`, custom rules, async checks
 - [Accessibility](https://charpente.frontfactory.dev/guide/accessibility) — what the platform does, what is left to you

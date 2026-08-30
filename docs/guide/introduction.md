@@ -76,6 +76,9 @@ submit all keep working. That is the same shape as the
 [server-side recipe](/guide/validation#server-side-and-async-checks).
 :::
 
+The table above is the short version. [Comparison](/guide/comparison) is the long one: what each family actually
+trades away, and where Charpente loses.
+
 ## Requirements
 
 | Requirement | Constraint                                                                         |
