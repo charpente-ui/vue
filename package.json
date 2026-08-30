@@ -33,6 +33,7 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
+        "@axe-core/playwright": "^4.13.0",
         "@commitlint/cli": "^20.5.3",
         "@commitlint/config-conventional": "^20.5.3",
         "@front-factory/eslint-config": "^1.3.1",
