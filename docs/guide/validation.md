@@ -24,7 +24,7 @@ message.
 
 <<< ../demos/form-validation.vue
 
-That is the whole setup. Everything below is detail on top of it.
+That is the whole setup. Everything below is a detail on top of it.
 
 ## What `validate` does
 
@@ -33,7 +33,7 @@ That is the whole setup. Everything below is detail on top of it.
   an error summary or an analytics call.
 - Restores the pre-submit state on reset (`<button type="reset">` or `form.reset()`).
 
-Without `validate` nothing is intercepted and you can bring your own validation library. Note that the browser still
+Without `validate` nothing is intercepted, and you can bring your own validation library. Note that the browser still
 validates on its own in that case, bubbles included — `validate` is what replaces them, not what enables them.
 
 ## When the error appears
@@ -66,11 +66,11 @@ alone:
 
 <<< ../demos/validation-optional.vue
 
-| Value              | `type="email" required` | `type="email"` (optional) |
-|--------------------|-------------------------|---------------------------|
-| empty              | invalid — `valueMissing` | **valid** — nothing to check |
-| `not-an-email`     | invalid — `typeMismatch` | invalid — `typeMismatch` |
-| `ada@example.com`  | valid                    | valid |
+| Value             | `type="email" required`  | `type="email"` (optional)    |
+|-------------------|--------------------------|------------------------------|
+| empty             | invalid — `valueMissing` | **valid** — nothing to check |
+| `not-an-email`    | invalid — `typeMismatch` | invalid — `typeMismatch`     |
+| `ada@example.com` | valid                    | valid                        |
 
 An empty optional field is valid under `minlength`, `pattern`, `min` and `maxlength` alike — verified on Chromium,
 Firefox and WebKit. So `minlength="8"` without `required` means "at least 8 characters *if you write any*".
@@ -80,12 +80,12 @@ Nothing is shown until the value is rejected, and then the error is the only tex
 
 It carries a `pattern` because `type` alone would validate nothing here. Only two types check a format on their own:
 
-| `type`             | Validates the format by itself?                                            |
-|--------------------|-----------------------------------------------------------------------------|
-| `email`, `url`     | **Yes** — `typeMismatch`, with a localized message, no `pattern` needed      |
-| `tel`              | No. Phone formats vary too much to be specified — add a `pattern` or a `rule` |
-| `number`, `date`, `time` | No `typeMismatch`: the browser simply refuses to hold a value it cannot parse, so `value` comes back empty |
-| `text`, `search`, `password` | No format to check                                                  |
+| `type`                       | Validates the format by itself?                                                                            |
+|------------------------------|------------------------------------------------------------------------------------------------------------|
+| `email`, `url`               | **Yes** — `typeMismatch`, with a localized message, no `pattern` needed                                    |
+| `tel`                        | No. Phone formats vary too much to be specified — add a `pattern` or a `rule`                              |
+| `number`, `date`, `time`     | No `typeMismatch`: the browser simply refuses to hold a value it cannot parse, so `value` comes back empty |
+| `text`, `search`, `password` | No format to check                                                                                         |
 
 So `<CInput type="email"/>` on its own rejects `abc` — verified on all three engines. `<CInput type="tel"/>` on its own
 accepts anything.
@@ -99,11 +99,11 @@ Firefox produces a message for it.
 That combination has a catch worth knowing before you ship it. The native message for a failed `pattern` describes
 nothing:
 
-| Engine | `pattern="[0-9]{10}"` rejected | With `title="Ten digits, no spaces."` |
-|--------|-------------------------------|---------------------------------------|
-| Chromium | "Please match the requested format." | *unchanged* — `title` is not in the message |
-| Firefox | "Please match the requested format." | "Please match the requested format: Ten digits, no spaces." |
-| WebKit | "Match the requested format" | "Match the requested format: Ten digits, no spaces." |
+| Engine   | `pattern="[0-9]{10}"` rejected       | With `title="Ten digits, no spaces."`                       |
+|----------|--------------------------------------|-------------------------------------------------------------|
+| Chromium | "Please match the requested format." | *unchanged* — `title` is not in the message                 |
+| Firefox  | "Please match the requested format." | "Please match the requested format: Ten digits, no spaces." |
+| WebKit   | "Match the requested format"         | "Match the requested format: Ten digits, no spaces."        |
 
 `title` is therefore not a reliable way to explain the format: Chromium leaves it out of `validationMessage`, and since
 `validate` suppresses the native bubbles, a Chromium user never sees it at all. When the expected format is not obvious
@@ -199,13 +199,13 @@ depending on how they are used — and which one it is, is decided at runtime. A
 own, an array once it has a `value`, and the group's array inside a `CCheckboxGroup`. The prop type has to cover all
 three at once:
 
-| Component              | `value` received by the rule                          |
-|------------------------|--------------------------------------------------------|
-| `CInput`, `CTextarea`  | `string \| number \| undefined`                        |
-| `CFile`                | `FileList \| null \| undefined`                        |
-| `CCheckbox`            | `boolean \| unknown[] \| undefined`                    |
-| `CSelect`              | `string \| number \| (string \| number)[] \| undefined` |
-| `CRadio`               | `unknown`                                              |
+| Component             | `value` received by the rule                            |
+|-----------------------|---------------------------------------------------------|
+| `CInput`, `CTextarea` | `string \| number \| undefined`                         |
+| `CFile`               | `FileList \| null \| undefined`                         |
+| `CCheckbox`           | `boolean \| unknown[] \| undefined`                     |
+| `CSelect`             | `string \| number \| (string \| number)[] \| undefined` |
+| `CRadio`              | `unknown`                                               |
 
 So on a checkbox, a select or a radio, a rule has to narrow the value before using it — even when you know which shape
 it will be:
@@ -292,9 +292,9 @@ const rule = () => pending.value ? 'Checking availability…' : serverError.valu
 
 Two details carry it:
 
-- **Pending counts as invalid.** Returning a message while the check runs is what stops a submit fired before the answer
+- **Pending counts as invalid.** Returning a message while the check runs is what stops a submitting fired before the answer
   arrives. Leave it out and an unverified value slips through.
-- **`role="status"` while pending**, so the wait is announced politely and only the error is assertive.
+- **`role="status"` while pending**, so the wait is announced politely, and only the error is assertive.
 
 The same shape covers an error the server returns *after* submission: write it into `serverError` and the field goes
 invalid on its own. No separate error channel.
@@ -333,7 +333,7 @@ The message still lands on the group: `aria-invalid` goes on the `<fieldset>` an
 ### Rules and `reset`
 
 `form.reset()` restores DOM values but never touches a Vue model — true of the library as a whole. A rule reads the
-model, so after a reset it still sees the old value and the control stays invalid.
+model, so after a reset it still sees the old value, and the control stays invalid.
 
 ::: warning
 The field stops *displaying* the error on reset while the control is still invalid underneath — a form that refuses to
@@ -375,12 +375,12 @@ field's direct children receives nothing automatically: pass them down as props.
 **capture** phase — the `invalid` event does not bubble, so capturing is the only way to observe it without wiring a
 listener onto every control.
 
-| Event                      | When                                            | What `CField` does                        |
-|----------------------------|-------------------------------------------------|-------------------------------------------|
-| `invalid` (capture)        | The browser rejects a value on submit or `checkValidity()` | Flags the field, stores the message |
-| `input` (capture)          | The user types, before the field ever failed    | Ignored                                    |
-| `input`/`change` (capture) | The user edits **after** the field failed       | Re-checks live, clearing as soon as it passes |
-| `reset` (on the form)      | The form is reset                               | Back to the pre-submit state               |
+| Event                      | When                                                       | What `CField` does                            |
+|----------------------------|------------------------------------------------------------|-----------------------------------------------|
+| `invalid` (capture)        | The browser rejects a value on submit or `checkValidity()` | Flags the field, stores the message           |
+| `input` (capture)          | The user types, before the field ever failed               | Ignored                                       |
+| `input`/`change` (capture) | The user edits **after** the field failed                  | Re-checks live, clearing as soon as it passes |
+| `reset` (on the form)      | The form is reset                                          | Back to the pre-submit state                  |
 
 `invalid` is therefore the only thing that can *show* an error — which is why a rule violated before any submit stays
 silent. A control carrying a rule reports its state to the field directly, because custom validity is set by JavaScript

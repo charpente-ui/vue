@@ -54,8 +54,8 @@ button has already emptied your state.
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
+| Property | Type                       | Description                           |
+|----------|----------------------------|---------------------------------------|
 | `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
 
 ```vue
@@ -72,10 +72,10 @@ control.value?.el?.focus();
 
 ### Keyboard
 
-| Key                              | Behavior                    |
-|----------------------------------|-----------------------------|
-| <kbd>Enter</kbd> <kbd>Space</kbd> | Opens the OS file picker    |
-| <kbd>Tab</kbd>                   | Moves focus in and out      |
+| Key                               | Behavior                 |
+|-----------------------------------|--------------------------|
+| <kbd>Enter</kbd> <kbd>Space</kbd> | Opens the OS file picker |
+| <kbd>Tab</kbd>                    | Moves focus in and out   |
 
 The file picker itself belongs to the operating system and is outside the page's control — which is also why it cannot
 be styled.

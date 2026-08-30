@@ -54,8 +54,8 @@ more on a long text field than on a single-line input.
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
+| Property | Type                          | Description                              |
+|----------|-------------------------------|------------------------------------------|
 | `el`     | `HTMLTextAreaElement \| null` | The `<textarea>`, through a template ref |
 
 ```vue

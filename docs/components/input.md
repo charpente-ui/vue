@@ -44,8 +44,8 @@ is why there is no `type` prop to learn.
 
 ### Model
 
-| Binding   | Type               | Modifiers                  |
-|-----------|--------------------|----------------------------|
+| Binding   | Type               | Modifiers                   |
+|-----------|--------------------|-----------------------------|
 | `v-model` | `string \| number` | `.trim`, `.number`, `.lazy` |
 
 Each one is opt-in. A plain `v-model` touches nothing — the value reaches you exactly as typed, spaces included,
@@ -57,10 +57,10 @@ like a plain `<input>`:
 ```
 
 | Modifier  | What it changes when you add it                                                        |
-|-----------|-----------------------------------------------------------------------------------------|
-| `.trim`   | Leading and trailing spaces are stripped from the model                                 |
-| `.number` | A value that parses as a number reaches the model as a number, not a string             |
-| `.lazy`   | The model updates on `change` — when the field is left — instead of on every keystroke   |
+|-----------|----------------------------------------------------------------------------------------|
+| `.trim`   | Leading and trailing spaces are stripped from the model                                |
+| `.number` | A value that parses as a number reaches the model as a number, not a string            |
+| `.lazy`   | The model updates on `change` — when the field is left — instead of on every keystroke |
 
 They behave exactly as on a plain `<input>`, which includes one thing worth spelling out.
 
@@ -96,8 +96,8 @@ or another library on the page.
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
+| Property | Type                       | Description                           |
+|----------|----------------------------|---------------------------------------|
 | `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
 
 ```vue
@@ -114,11 +114,11 @@ control.value?.el?.focus();
 
 ### Keyboard
 
-| Key                                      | Behavior                                        |
-|------------------------------------------|-------------------------------------------------|
-| <kbd>Tab</kbd>                           | Moves focus in and out                           |
-| <kbd>Enter</kbd>                         | Submits the form (implicit submission)           |
-| Text editing keys                        | Native, unmodified                               |
+| Key               | Behavior                               |
+|-------------------|----------------------------------------|
+| <kbd>Tab</kbd>    | Moves focus in and out                 |
+| <kbd>Enter</kbd>  | Submits the form (implicit submission) |
+| Text editing keys | Native, unmodified                     |
 
 ### Labelling
 

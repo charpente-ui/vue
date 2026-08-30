@@ -52,7 +52,6 @@ Inside a `CCheckboxGroup`, drop the `v-model`: the group collects every checked 
 Set `name` on the group and every checkbox inherits it. A checkbox can still override it with its own `name`.
 
 ```vue
-
 <CCheckboxGroup v-model="selected" name="fruits">...</CCheckboxGroup>
 ```
 
@@ -90,7 +89,6 @@ no `name` of its own emits none, so the box keeps whatever you set here, or noth
 | `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
 
 ```vue
-
 <CCheckbox ref="control"/>
 ```
 

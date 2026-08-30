@@ -56,8 +56,8 @@ id when you omit it.
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
+| Property | Type                       | Description                           |
+|----------|----------------------------|---------------------------------------|
 | `el`     | `HTMLLabelElement \| null` | The `<label>`, through a template ref |
 
 ```vue

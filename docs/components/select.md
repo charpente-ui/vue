@@ -150,7 +150,6 @@ type SelectOptionItem = SelectOption | SelectOptionGroup | string | number;
 | `el`     | `HTMLSelectElement \| null` | The `<select>`, through a template ref |
 
 ```vue
-
 <CSelect ref="control"/>
 ```
 

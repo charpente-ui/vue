@@ -36,7 +36,6 @@ Charpente builds none of it, because a `<select>`, a `<input type="checkbox">` a
 Concretely, this:
 
 ```vue
-
 <CInput v-model="email" type="email" required class="my-input"/>
 ```
 

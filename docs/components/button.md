@@ -80,11 +80,11 @@ renders. It is `null` only when that component has no single root element, since
 
 ### Keyboard
 
-| Key                 | Behavior                                         |
-|---------------------|--------------------------------------------------|
-| <kbd>Enter</kbd>    | Activates the button                              |
-| <kbd>Space</kbd>    | Activates the button                              |
-| <kbd>Tab</kbd>      | Moves focus in and out                            |
+| Key              | Behavior               |
+|------------------|------------------------|
+| <kbd>Enter</kbd> | Activates the button   |
+| <kbd>Space</kbd> | Activates the button   |
+| <kbd>Tab</kbd>   | Moves focus in and out |
 
 This is the browser's behavior, not ours — `CButton` renders a real `<button>` and stays out of the way.
 

@@ -31,13 +31,13 @@ not a CSS variable. Styling is entirely yours.
 
 ## What you get that plain HTML doesn't give you
 
-| Problem in plain Vue                                              | What Charpente does                                     |
-|-------------------------------------------------------------------|---------------------------------------------------------|
-| Wiring `for`/`id` between every label and input                   | [`CField`](/components/field) generates and shares one id |
-| Checkbox arrays, indeterminate state, radio `name` attributes     | [`CCheckbox`](/components/checkbox), [`CRadio`](/components/radio) and their groups handle it |
-| Pointing `aria-describedby` at hints that mount and unmount       | [`CSupportingText`](/components/supporting-text) registers itself |
-| Showing the browser's own validation messages, localized          | [`CForm validate`](/guide/validation) exposes them       |
-| `v-model` on a file input                                          | [`CFile`](/components/file) syncs the `FileList`         |
+| Problem in plain Vue                                          | What Charpente does                                                                           |
+|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| Wiring `for`/`id` between every label and input               | [`CField`](/components/field) generates and shares one id                                     |
+| Checkbox arrays, indeterminate state, radio `name` attributes | [`CCheckbox`](/components/checkbox), [`CRadio`](/components/radio) and their groups handle it |
+| Pointing `aria-describedby` at hints that mount and unmount   | [`CSupportingText`](/components/supporting-text) registers itself                             |
+| Showing the browser's own validation messages, localized      | [`CForm validate`](/guide/validation) exposes them                                            |
+| `v-model` on a file input                                     | [`CFile`](/components/file) syncs the `FileList`                                              |
 
 ## What it is not
 
@@ -49,14 +49,14 @@ It keeps no state of its own — no `dirty`, no `touched`, no error object, no s
 
 ## When to reach for something else
 
-| What you need                                        | Where it lives                                          |
-|------------------------------------------------------|----------------------------------------------------------|
-| `dirty`, `touched`, `isSubmitting`, field arrays, reset to initial values | [VeeValidate], [FormKit]           |
-| One schema (Zod, Yup) for a whole form                | the same two — a [`rule`] covers one field, synchronously |
-| A form generated from a schema                        | [FormKit]                                                 |
-| A wizard carrying its values across routes            | your store, or a form framework                           |
-| A combobox, a date picker, a modal                    | [Reka UI], [Ark UI]                                       |
-| A form that works with JavaScript disabled            | a plain `<form action=…>`, since [`CForm` never submits]   |
+| What you need                                                             | Where it lives                                            |
+|---------------------------------------------------------------------------|-----------------------------------------------------------|
+| `dirty`, `touched`, `isSubmitting`, field arrays, reset to initial values | [VeeValidate], [FormKit]                                  |
+| One schema (Zod, Yup) for a whole form                                    | the same two — a [`rule`] covers one field, synchronously |
+| A form generated from a schema                                            | [FormKit]                                                 |
+| A wizard carrying its values across routes                                | your store, or a form framework                           |
+| A combobox, a date picker, a modal                                        | [Reka UI], [Ark UI]                                       |
+| A form that works with JavaScript disabled                                | a plain `<form action=…>`, since [`CForm` never submits]  |
 
 [VeeValidate]: https://vee-validate.logaretm.com/
 [FormKit]: https://formkit.com/
@@ -89,4 +89,4 @@ trades away, and where Charpente loses.
 
 Vue is a peer dependency: the library never bundles its own copy. Nothing here constrains the browser at runtime, since
 the components render native elements and call no Node API — but `engines` is published on the package, so on Node 18
-pnpm refuses the install outright and npm warns with `EBADENGINE`.
+pnpm refuses the installation outright and npm warns with `EBADENGINE`.

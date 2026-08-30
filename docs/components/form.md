@@ -82,8 +82,8 @@ same — [`CField` listens on its own wrapper](/guide/validation#under-the-hood)
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
+| Property | Type                      | Description                          |
+|----------|---------------------------|--------------------------------------|
 | `el`     | `HTMLFormElement \| null` | The `<form>`, through a template ref |
 
 ```vue
@@ -100,9 +100,9 @@ control.value?.el?.reset();
 
 ### Keyboard
 
-| Key              | Behavior                                                                 |
-|------------------|--------------------------------------------------------------------------|
-| <kbd>Enter</kbd> | Submits from any text field (implicit submission), as in plain HTML       |
+| Key              | Behavior                                                            |
+|------------------|---------------------------------------------------------------------|
+| <kbd>Enter</kbd> | Submits from any text field (implicit submission), as in plain HTML |
 
 With `validate`, an invalid submission moves focus to the first invalid control rather than silently doing nothing —
 which is what a keyboard or screen-reader user needs to know where the problem is.

@@ -42,7 +42,6 @@ Inside a `CRadioGroup`, drop both the `v-model` and the `name`: the group owns t
 Set `name` on the group and every radio inherits it. A radio can still override it with its own `name`.
 
 ```vue
-
 <CRadioGroup v-model="plan" name="billing-plan">...</CRadioGroup>
 ```
 
@@ -77,7 +76,6 @@ Leave it out and the group falls back to a generated one — see
 | `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
 
 ```vue
-
 <CRadio ref="control"/>
 ```
 

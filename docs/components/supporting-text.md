@@ -53,9 +53,9 @@ falls back to its slot content otherwise. One element, two jobs — see the
 
 ### Props
 
-| Prop         | Type                  | Default | Description                                                       |
-|--------------|-----------------------|---------|--------------------------------------------------------------------|
-| `as`         | `string \| Component` | `'p'`   | Tag or component to render in place of `<p>`                        |
+| Prop         | Type                  | Default | Description                                                                 |
+|--------------|-----------------------|---------|-----------------------------------------------------------------------------|
+| `as`         | `string \| Component` | `'p'`   | Tag or component to render in place of `<p>`                                |
 | `validation` | `boolean`             | `false` | Show the browser's validation message while invalid, slot content otherwise |
 
 `<p>` is the one tag in the library that semantics does not impose, so it is the one you can change. Two cases call
@@ -83,8 +83,8 @@ over the `role="alert"` that `validation` would otherwise set.
 ### Exposed
 
 | Property | Type                  | Description                                  |
-|----------|-----------------------|------------------------------------------------|
-| `el`     | `HTMLElement \| null` | The rendered element, through a template ref   |
+|----------|-----------------------|----------------------------------------------|
+| `el`     | `HTMLElement \| null` | The rendered element, through a template ref |
 
 ```vue
 <CSupportingText ref="control"/>

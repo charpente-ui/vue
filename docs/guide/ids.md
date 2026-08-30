@@ -13,13 +13,13 @@ One rule covers the whole library: **explicit always beats generated.**
 
 Each component resolves its id through the same cascade, stopping at the first value it finds.
 
-| Component                          | Cascade                                                     |
-|------------------------------------|-------------------------------------------------------------|
+| Component                                                        | Cascade                                          |
+|------------------------------------------------------------------|--------------------------------------------------|
 | `CInput`, `CTextarea`, `CSelect`, `CFile`, `CCheckbox`, `CRadio` | your `id` → the parent `CField`'s id → generated |
-| [`CField`](/components/field)      | your `id` → generated                                        |
-| [`CLabel`](/components/label)      | your `for` → the injected field id                           |
-| [`CSupportingText`](/components/supporting-text) | your `id` → generated                          |
-| [`CForm`](/components/form)        | your `id` → generated                                        |
+| [`CField`](/components/field)                                    | your `id` → generated                            |
+| [`CLabel`](/components/label)                                    | your `for` → the injected field id               |
+| [`CSupportingText`](/components/supporting-text)                 | your `id` → generated                            |
+| [`CForm`](/components/form)                                      | your `id` → generated                            |
 
 So this markup needs no id at all:
 
@@ -124,7 +124,7 @@ that is what keeps native arrow-key navigation working. Same cascade: your `name
 
 [`CCheckboxGroup`](/components/checkbox#why-no-name-is-generated) generates nothing: a `name` is the key the data is
 submitted under, no native behaviour depends on it for checkboxes, and the library cannot guess your server's schema.
-Pass one and it reaches every box; leave it out and they are simply not submitted.
+Pass one, and it reaches every box; leave it out, and they are simply not submitted.
 
 Inside a group, the items receive **no** field id: a `CField` wrapping the whole group describes it as a whole, so the
 `<fieldset>` carries `aria-describedby` and `aria-invalid` and the items carry neither. Wrap each item in its own
