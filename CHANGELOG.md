@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.1](https://github.com/charpente-ui/vue/compare/v2.10.0...v2.10.1) (2026-08-30)
+
+### Bug Fixes
+
+* **select:** key the options by value so a reorder moves the nodes ([884e3c5](https://github.com/charpente-ui/vue/commit/884e3c5c56218de5a256b72fc1689bf724ad79f8))
+
 ## [2.10.0](https://github.com/charpente-ui/vue/compare/v2.9.1...v2.10.0) (2026-08-27)
 
 ### Features
