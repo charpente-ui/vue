@@ -27,11 +27,19 @@ export default defineConfig({
             include: [
                 'src/components/**'
             ],
+            // Set to what the suite actually covers, not to a round number
+            // below it: a threshold under the real figure protects nothing —
+            // it silently allows every point of regression in between.
+            //
+            // Branches sit at 99.39% (165/166). The one uncovered branch is
+            // the `index !== -1` miss in BaseField's unregisterSupportingText,
+            // unreachable while every supporting text registers before it
+            // unregisters. Losing a second branch drops below 99 and fails.
             thresholds: {
-                lines: 90,
-                functions: 90,
-                branches: 90,
-                statements: 90
+                lines: 100,
+                functions: 100,
+                branches: 99,
+                statements: 100
             }
         }
     }
