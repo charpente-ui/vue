@@ -61,8 +61,8 @@ const options = computed<SelectOptionItem[]>(() => {
 
 <<< ../demos/select-groups.vue
 
-::: tip
-Values are bound with `:value`, not stringified into the DOM. A numeric `value` comes back as a **number** in your
+::: tip Values are bound with `:value`, not stringified into the DOM. A numeric `value` comes back as a **number** in
+your
 `v-model` — no `Number()` on the way out. The demo prints its `typeof` to prove it.
 :::
 
@@ -82,16 +82,15 @@ Each attribute earns its place:
 - `hidden` removes it from the dropdown once a real choice is made.
 - `selected` covers a model that starts as `undefined`.
 
-::: warning
-The placeholder only works in **first** position. An empty-valued option placed later is an ordinary option and
+::: warning The placeholder only works in **first** position. An empty-valued option placed later is an ordinary option
+and
 `required` accepts it — verified in Chrome: first position gives `validity.valueMissing === true`, second gives
 `false`. Since the slot renders before the `options` prop, putting the placeholder in the slot puts it where the spec
 needs it.
 :::
 
-::: tip
-Initialise your model to `''`, not `undefined`. With `undefined` no option matches, the browser still displays the
-first one, and your model silently disagrees with the screen.
+::: tip Initialise your model to `''`, not `undefined`. With `undefined` no option matches, the browser still displays
+the first one, and your model silently disagrees with the screen.
 :::
 
 ### Multiple
@@ -104,21 +103,21 @@ first one, and your model silently disagrees with the screen.
 
 ### Props
 
-| Prop      | Type                                                                    | Default     | Description                                                  |
-|-----------|-------------------------------------------------------------------------|-------------|--------------------------------------------------------------|
-| `options` | `SelectOptionItem[]`                                                    | `[]`        | Options rendered **after** the default slot                  |
-| `rule`    | `ValidationRule<string \| number \| (string \| number)[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
+| Prop      | Type                                                                    | Default     | Description                                                                                                                                                                  |
+|-----------|-------------------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `options` | `SelectOptionItem[]`                                                    | `[]`        | Options rendered **after** the default slot                                                                                                                                  |
+| `rule`    | `ValidationRule<string \| number \| (string \| number)[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own). The type covers single and `multiple` — [narrow it](/guide/validation#the-value-type-is-wider-than-your-field) |
 
 ### Model
 
-| Binding   | Type                                       | Description                          |
-|-----------|--------------------------------------------|--------------------------------------|
-| `v-model` | `string \| number \| (string \| number)[]` | An array when `multiple` is set      |
+| Binding   | Type                                       | Description                     |
+|-----------|--------------------------------------------|---------------------------------|
+| `v-model` | `string \| number \| (string \| number)[]` | An array when `multiple` is set |
 
 ### Slots
 
-| Slot      | Description                                             |
-|-----------|---------------------------------------------------------|
+| Slot      | Description                                               |
+|-----------|-----------------------------------------------------------|
 | `default` | Extra `<option>`s, rendered **before** the generated ones |
 
 ### Attributes
@@ -146,11 +145,12 @@ type SelectOptionItem = SelectOption | SelectOptionGroup | string | number;
 
 ### Exposed
 
-| Property | Type                    | Description                          |
-|----------|-------------------------|--------------------------------------|
+| Property | Type                        | Description                            |
+|----------|-----------------------------|----------------------------------------|
 | `el`     | `HTMLSelectElement \| null` | The `<select>`, through a template ref |
 
 ```vue
+
 <CSelect ref="control"/>
 ```
 
@@ -166,13 +166,13 @@ control.value?.el?.focus();
 
 The dropdown is the browser's own, so the keys are the platform's and vary slightly across OSes:
 
-| Key                                       | Behavior                                      |
-|-------------------------------------------|-----------------------------------------------|
-| <kbd>Space</kbd> <kbd>Enter</kbd> <kbd>Alt</kbd>+<kbd>↓</kbd> | Opens the list       |
-| <kbd>↑</kbd> <kbd>↓</kbd>                 | Moves through the options                      |
-| <kbd>Home</kbd> <kbd>End</kbd>            | First / last option                            |
-| Typing                                    | Typeahead to the matching option               |
-| <kbd>Esc</kbd>                            | Closes without changing the value              |
+| Key                                                           | Behavior                          |
+|---------------------------------------------------------------|-----------------------------------|
+| <kbd>Space</kbd> <kbd>Enter</kbd> <kbd>Alt</kbd>+<kbd>↓</kbd> | Opens the list                    |
+| <kbd>↑</kbd> <kbd>↓</kbd>                                     | Moves through the options         |
+| <kbd>Home</kbd> <kbd>End</kbd>                                | First / last option               |
+| Typing                                                        | Typeahead to the matching option  |
+| <kbd>Esc</kbd>                                                | Closes without changing the value |
 
 That is a lot of behavior you get for free, and a lot of behavior a custom listbox has to re-implement — the reason
 `CSelect` stays a real `<select>`.

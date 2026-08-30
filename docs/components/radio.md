@@ -42,6 +42,7 @@ Inside a `CRadioGroup`, drop both the `v-model` and the `name`: the group owns t
 Set `name` on the group and every radio inherits it. A radio can still override it with its own `name`.
 
 ```vue
+
 <CRadioGroup v-model="plan" name="billing-plan">...</CRadioGroup>
 ```
 
@@ -54,16 +55,16 @@ Leave it out and the group falls back to a generated one — see
 
 #### Props
 
-| Prop    | Type                      | Default     | Description                                                  |
-|---------|---------------------------|-------------|--------------------------------------------------------------|
-| `value` | `unknown`                 | —           | **Required.** Value this radio selects                       |
-| `rule`  | `ValidationRule<unknown>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
+| Prop    | Type                      | Default     | Description                                                                                                                                                                               |
+|---------|---------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `value` | `unknown`                 | —           | **Required.** Value this radio selects                                                                                                                                                    |
+| `rule`  | `ValidationRule<unknown>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own). `unknown` because a radio value is yours to choose — [narrow it](/guide/validation#the-value-type-is-wider-than-your-field) |
 
 #### Model
 
-| Binding   | Type      | Description                                   |
-|-----------|-----------|-----------------------------------------------|
-| `v-model` | `unknown` | Ignored inside a group, which owns the model  |
+| Binding   | Type      | Description                                  |
+|-----------|-----------|----------------------------------------------|
+| `v-model` | `unknown` | Ignored inside a group, which owns the model |
 
 #### Attributes
 
@@ -76,6 +77,7 @@ Leave it out and the group falls back to a generated one — see
 | `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
 
 ```vue
+
 <CRadio ref="control"/>
 ```
 
@@ -101,18 +103,17 @@ None.
 
 | Slot      | Description                         |
 |-----------|-------------------------------------|
-| `default` | A `<legend>` followed by the radios  |
+| `default` | A `<legend>` followed by the radios |
 
-::: tip
-Standalone, `CRadio` accepts any `value` — Vue compares by reference, exactly as it does natively. Inside a group the
-model is typed `string | number`; stick to those types there, as TypeScript cannot enforce it on the `value` prop
-without dropping standalone object support.
+::: tip Standalone, `CRadio` accepts any `value` — Vue compares by reference, exactly as it does natively. Inside a
+group the model is typed `string | number`; stick to those types there, as TypeScript cannot enforce it on the `value`
+prop without dropping standalone object support.
 :::
 
 #### Exposed
 
-| Property | Type                        | Description                              |
-|----------|-----------------------------|------------------------------------------|
+| Property | Type                          | Description                              |
+|----------|-------------------------------|------------------------------------------|
 | `el`     | `HTMLFieldSetElement \| null` | The `<fieldset>`, through a template ref |
 
 ## Accessibility
@@ -121,19 +122,19 @@ without dropping standalone object support.
 
 | Key                       | Behavior                                                |
 |---------------------------|---------------------------------------------------------|
-| <kbd>Tab</kbd>            | Enters the group at the checked radio, or the first one  |
+| <kbd>Tab</kbd>            | Enters the group at the checked radio, or the first one |
 | <kbd>↑</kbd> <kbd>←</kbd> | Moves to the previous radio **and selects it**          |
 | <kbd>↓</kbd> <kbd>→</kbd> | Moves to the next radio **and selects it**              |
-| <kbd>Space</kbd>          | Selects the focused radio                                |
+| <kbd>Space</kbd>          | Selects the focused radio                               |
 
 A radio group is a single tab stop. That is the browser's doing, and it only works when every radio shares the same
 `name`.
 
 ### Why the name is generated
 
-On radios the shared `name` is not just the key the value is submitted under: the browser relies on it for the
-arrow-key navigation above and for group-level `required` validation. A forgotten `name` silently breaks keyboard
-accessibility — the classic hand-rolled radio bug — so `CRadioGroup` generates one rather than leave the group broken.
+On radios the shared `name` is not just the key the value is submitted under: the browser relies on it for the arrow-key
+navigation above and for group-level `required` validation. A forgotten `name` silently breaks keyboard accessibility —
+the classic hand-rolled radio bug — so `CRadioGroup` generates one rather than leave the group broken.
 
 The trade is a throwaway key in `FormData`. Set `name` explicitly whenever the form is submitted natively, and the
 generated value never reaches your payload.

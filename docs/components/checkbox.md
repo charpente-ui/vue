@@ -52,6 +52,7 @@ Inside a `CCheckboxGroup`, drop the `v-model`: the group collects every checked 
 Set `name` on the group and every checkbox inherits it. A checkbox can still override it with its own `name`.
 
 ```vue
+
 <CCheckboxGroup v-model="selected" name="fruits">...</CCheckboxGroup>
 ```
 
@@ -63,11 +64,11 @@ Leave it out and no `name` is emitted at all — see [Why no name is generated](
 
 #### Props
 
-| Prop            | Type                                                | Default     | Description                                                  |
-|-----------------|-----------------------------------------------------|-------------|--------------------------------------------------------------|
-| `value`         | `unknown`                                           | `undefined` | Value added to / removed from the model array when checked   |
-| `indeterminate` | `boolean`                                           | `false`     | Sets the DOM `indeterminate` property                        |
-| `rule`          | `ValidationRule<boolean \| unknown[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own) |
+| Prop            | Type                                                | Default     | Description                                                                                                                                                                                |
+|-----------------|-----------------------------------------------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `value`         | `unknown`                                           | `undefined` | Value added to / removed from the model array when checked                                                                                                                                 |
+| `indeterminate` | `boolean`                                           | `false`     | Sets the DOM `indeterminate` property                                                                                                                                                      |
+| `rule`          | `ValidationRule<boolean \| unknown[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own). The type covers a toggle, a value array and a group — [narrow it](/guide/validation#the-value-type-is-wider-than-your-field) |
 
 #### Model
 
@@ -89,6 +90,7 @@ no `name` of its own emits none, so the box keeps whatever you set here, or noth
 | `el`     | `HTMLInputElement \| null` | The `<input>`, through a template ref |
 
 ```vue
+
 <CCheckbox ref="control"/>
 ```
 
@@ -114,17 +116,16 @@ None.
 
 | Slot      | Description                             |
 |-----------|-----------------------------------------|
-| `default` | A `<legend>` followed by the checkboxes  |
+| `default` | A `<legend>` followed by the checkboxes |
 
-::: tip
-Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. Vue compares by reference, exactly as
-it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
+::: tip Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. Vue compares by reference,
+exactly as it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
 :::
 
 #### Exposed
 
-| Property | Type                        | Description                              |
-|----------|-----------------------------|------------------------------------------|
+| Property | Type                          | Description                              |
+|----------|-------------------------------|------------------------------------------|
 | `el`     | `HTMLFieldSetElement \| null` | The `<fieldset>`, through a template ref |
 
 ## Accessibility
@@ -141,9 +142,8 @@ Each checkbox is its own tab stop — unlike radios, which share one.
 ### Why no name is generated
 
 The `name` attribute is the key your data is submitted under, and the library cannot know your server's schema.
-Inventing one would post the boxes under a meaningless key, so `CCheckboxGroup` stays silent until you provide one.
-With no `name`, the boxes are simply not submitted — which is what omitting it asks for. `v-model` is unaffected
-either way.
+Inventing one would post the boxes under a meaningless key, so `CCheckboxGroup` stays silent until you provide one. With
+no `name`, the boxes are simply not submitted — which is what omitting it asks for. `v-model` is unaffected either way.
 
 ::: tip
 [`CRadioGroup`](/components/radio#why-the-name-is-generated) does the opposite and falls back to a generated name. On

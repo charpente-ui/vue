@@ -192,6 +192,41 @@ const noSpaces: ValidationRule<string | number | undefined> = (value) => {
 };
 ```
 
+### The value type is wider than your field
+
+The type parameter is fixed when the component is declared, but several controls carry a different kind of model
+depending on how they are used — and which one it is, is decided at runtime. A `CCheckbox` is a boolean toggle on its
+own, an array once it has a `value`, and the group's array inside a `CCheckboxGroup`. The prop type has to cover all
+three at once:
+
+| Component              | `value` received by the rule                          |
+|------------------------|--------------------------------------------------------|
+| `CInput`, `CTextarea`  | `string \| number \| undefined`                        |
+| `CFile`                | `FileList \| null \| undefined`                        |
+| `CCheckbox`            | `boolean \| unknown[] \| undefined`                    |
+| `CSelect`              | `string \| number \| (string \| number)[] \| undefined` |
+| `CRadio`               | `unknown`                                              |
+
+So on a checkbox, a select or a radio, a rule has to narrow the value before using it — even when you know which shape
+it will be:
+
+```ts
+import type { ValidationRule } from '@charpente-ui/vue';
+
+const atLeastTwo: ValidationRule<boolean | unknown[] | undefined> = (value) => {
+    return Array.isArray(value) && value.length >= 2 ? '' : 'Pick at least two.';
+};
+```
+
+::: warning Declaring a narrower rule does not work.
+`ValidationRule<string[]>` is **not** assignable to `ValidationRule<boolean | unknown[] | undefined>` — function
+parameters are contravariant, and `strict` mode enforces it. The rule has to accept the wide type and narrow inside;
+there is no annotation that gets you out of it.
+
+`Array.isArray()` narrows to `unknown[]`, so reading an element gives you `unknown`. Cast it, or compare it as a whole
+(`value.includes('vue')` works fine).
+:::
+
 ### Two things rules do on their own
 
 **Cross-field checks come free.** A rule is evaluated inside a computed, so anything reactive it reads becomes a
@@ -275,11 +310,22 @@ item; the group's model is shared, so the rule sees the whole selection:
 <CField>
     <CCheckboxGroup v-model="tags">
         <legend>Tags</legend>
-        <CCheckbox value="vue" :rule="v => v.length >= 2 ? '' : 'Pick at least two.'"/>
+        <CCheckbox value="vue" :rule="atLeastTwo"/>
         <CCheckbox value="headless"/>
         <CSupportingText validation/>
     </CCheckboxGroup>
 </CField>
+```
+
+```ts
+import type { ValidationRule } from '@charpente-ui/vue';
+
+// Array.isArray is not defensive here — inside a group the value is always the
+// array. It is what narrows the checkbox's wider type, which also covers a
+// standalone boolean toggle. See "The value type is wider than your field".
+const atLeastTwo: ValidationRule<boolean | unknown[] | undefined> = (value) => {
+    return Array.isArray(value) && value.length >= 2 ? '' : 'Pick at least two.';
+};
 ```
 
 The message still lands on the group: `aria-invalid` goes on the `<fieldset>` and the text appears once, not per item.
