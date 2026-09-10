@@ -189,9 +189,10 @@ export default defineConfigWithTheme<ThemeConfig>({
             text: 'Edit this page on GitHub'
         },
         ff: {
+            navOrder: 'menu-first',
             footerColumns: [
                 {
-                    title: 'Docs',
+                    title: 'Guide',
                     items: [
                         { text: 'Getting started',
                             link: '/guide/getting-started' },
