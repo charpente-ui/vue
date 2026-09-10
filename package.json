@@ -37,7 +37,7 @@
         "@commitlint/cli": "^20.5.3",
         "@commitlint/config-conventional": "^20.5.3",
         "@front-factory/eslint-config": "^1.3.1",
-        "@frontfactory/vitepress-theme": "^1.2.0",
+        "@frontfactory/vitepress-theme": "^1.3.0",
         "@playwright/test": "^1.61.1",
         "@semantic-release/changelog": "^6.0.3",
         "@semantic-release/git": "^10.0.1",
