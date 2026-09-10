@@ -4,12 +4,14 @@ layout: home
 titleTemplate: false
 
 hero:
-  name: Charpente UI
+  # The kicker above the headline, not the site name: the navbar already says
+  # Charpente UI two lines up.
+  name: by Front Factory
   text: The frame, not the paint.
   tagline: Headless Vue 3 components. The logic you need, without the CSS you don't.
-  image:
-    src: /favicon.svg
-    alt: The Charpente UI mark — a 3x3 component grid
+  # The theme puts the install panel in the second column of the hero, but only
+  # when no image claims it.
+  command: npm install @charpente-ui/vue
   actions:
     - theme: brand
       text: Get started
