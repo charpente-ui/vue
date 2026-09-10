@@ -1,9 +1,16 @@
-import { defineConfig } from 'vitepress';
+import { defineConfigWithTheme } from 'vitepress';
 import baseConfig from '@frontfactory/vitepress-theme/config';
+import type { ThemeConfig } from '@frontfactory/vitepress-theme';
 import { fileURLToPath, URL } from 'node:url';
 import { createRequire } from 'node:module';
 
 const { version } = createRequire(import.meta.url)('../../package.json');
+
+// Baked in at build time. The range stays a single year until the project
+// outlives its first one.
+const startYear = 2026;
+const thisYear = new Date().getFullYear();
+const years = thisYear > startYear ? `${startYear}–${thisYear}` : `${startYear}`;
 
 // Served at the root of https://charpente.frontfactory.dev (Vercel).
 // Moving back to a GitHub project page? Set base to '/vue/'.
@@ -13,7 +20,7 @@ const hostname = 'https://charpente.frontfactory.dev';
 const title = 'Charpente UI';
 const description = 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.';
 
-export default defineConfig({
+export default defineConfigWithTheme<ThemeConfig>({
     // Required by the theme: swaps the default-theme components it replaces,
     // keeps the package out of dependency pre-bundling and injects the banner
     // script.
@@ -181,9 +188,39 @@ export default defineConfig({
             pattern: 'https://github.com/charpente-ui/vue/edit/main/docs/:path',
             text: 'Edit this page on GitHub'
         },
+        ff: {
+            footerColumns: [
+                {
+                    title: 'Docs',
+                    items: [
+                        { text: 'Getting started',
+                            link: '/guide/getting-started' },
+                        { text: 'Components',
+                            link: '/components/' },
+                        { text: 'Accessibility',
+                            link: '/guide/accessibility' },
+                        { text: 'Changelog',
+                            link: '/guide/changelog' }
+                    ]
+                },
+                {
+                    title: 'Project',
+                    items: [
+                        { text: 'GitHub',
+                            link: 'https://github.com/charpente-ui/vue' },
+                        { text: 'Releases',
+                            link: 'https://github.com/charpente-ui/vue/releases' },
+                        { text: 'Issues',
+                            link: 'https://github.com/charpente-ui/vue/issues' },
+                        { text: 'npm',
+                            link: 'https://www.npmjs.com/package/@charpente-ui/vue' }
+                    ]
+                }
+            ]
+        },
         footer: {
             message: 'Released under the MIT License.',
-            copyright: 'Copyright © Charpente UI'
+            copyright: `Copyright © ${years} Front Factory`
         }
     },
     vite: {
