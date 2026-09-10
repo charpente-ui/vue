@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import baseConfig from '@frontfactory/vitepress-theme/config';
 import { fileURLToPath, URL } from 'node:url';
 import { createRequire } from 'node:module';
 
@@ -13,6 +14,10 @@ const title = 'Charpente UI';
 const description = 'Headless Vue 3 components. The logic you need, without the CSS you don\'t.';
 
 export default defineConfig({
+    // Required by the theme: swaps the default-theme components it replaces,
+    // keeps the package out of dependency pre-bundling and injects the banner
+    // script.
+    extends: baseConfig,
     base,
     title,
     description,

@@ -1,10 +1,10 @@
-import DefaultTheme from 'vitepress/theme';
+import FfTheme from '@frontfactory/vitepress-theme';
 import type { Theme } from 'vitepress';
 import Demo from './Demo.vue';
 import './custom.css';
 
 export default {
-    extends: DefaultTheme,
+    extends: FfTheme,
     enhanceApp({ app }) {
         app.component('Demo', Demo);
     }

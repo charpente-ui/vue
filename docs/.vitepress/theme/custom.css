@@ -1,24 +1,19 @@
+/* Palette taken from .github/banner.svg — same mark, same colours. The theme
+   derives its own --vp-* brand variables from these. */
 :root {
-    /* Palette taken from .github/banner.svg — same mark, same colours. */
-    --vp-c-brand-1: #c9548a;
-    --vp-c-brand-2: #b84277;
-    --vp-c-brand-3: #8a2f59;
-    --vp-c-brand-soft: rgb(184 66 119 / 14%);
-
-    --vp-home-hero-name-color: transparent;
-    --vp-home-hero-name-background: linear-gradient(90deg, #8a2f59, #b84277 50%, #d96a98);
-    --vp-home-hero-image-background-image: linear-gradient(-45deg, #b84277 40%, #d96a98 50%);
-    --vp-home-hero-image-filter: blur(56px);
-
-    --vp-button-brand-bg: #b84277;
-    --vp-button-brand-hover-bg: #c9548a;
-    --vp-button-brand-active-bg: #8a2f59;
+    --ff-color-accent: #b84277;
+    --ff-color-accent-hover: #8a2f59;
+    --ff-color-accent-contrast: #ffffff;
+    --ff-color-accent-soft: rgb(184 66 119 / 9%);
+    --ff-color-accent-glow: rgb(184 66 119 / 16%);
 }
 
 .dark {
-    --vp-c-brand-1: #e07aa3;
-    --vp-c-brand-2: #d96a98;
-    --vp-c-brand-3: #b84277;
+    --ff-color-accent: #e07aa3;
+    --ff-color-accent-hover: #f0a2c1;
+    --ff-color-accent-contrast: #1a0a12;
+    --ff-color-accent-soft: rgb(224 122 163 / 13%);
+    --ff-color-accent-glow: rgb(224 122 163 / 20%);
 }
 
 .demo {
