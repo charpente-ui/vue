@@ -206,8 +206,7 @@ export default defineConfigWithTheme<ThemeConfig>({
                 {
                     title: 'Project',
                     items: [
-                        { text: 'GitHub',
-                            link: 'https://github.com/charpente-ui/vue' },
+                        // The repo link itself now lives in the native footerSocial column below.
                         { text: 'Releases',
                             link: 'https://github.com/charpente-ui/vue/releases' },
                         { text: 'Issues',

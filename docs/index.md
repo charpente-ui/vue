@@ -12,6 +12,7 @@ hero:
   # The theme puts the install panel in the second column of the hero, but only
   # when no image claims it.
   command: npm install @charpente-ui/vue
+  quote: <strong>Charpente</strong> /ʃaʁ.pɑ̃t/ — French for the timber frame of a building. The frame holds everything up; you decide what it looks like.
   actions:
     - theme: brand
       text: Get started
@@ -30,6 +31,3 @@ features:
   - title: Native validation
     details: The browser already validates forms and localizes the messages. Charpente exposes that instead of reinventing it.
 ---
-
-> **Charpente** /ʃaʁ.pɑ̃t/ — French for the timber frame of a building. The frame holds everything up; you decide what
-> it looks like.
