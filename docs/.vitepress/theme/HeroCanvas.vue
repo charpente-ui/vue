@@ -111,12 +111,19 @@ const rects = [
 
 const COLOR_BASE = '#b84277';
 
-const SCALE = 4;
+// The <canvas> element itself is fixed at 500x500 (see template) and scaled down responsively via
+// CSS; SCALE is derived so the pedestal's top plate — the widest part of the illustration — spans
+// CONTENT_WIDTH_RATIO of that internal drawing space, regardless of how the canvas is displayed.
+// The plate is a square rotated 45° (see draw3DPedestal), so its on-screen bounding box is
+// BASE_SIZE * sqrt(2) wide, not BASE_SIZE — that factor has to come out before solving for SCALE.
+const CANVAS_SIZE = 500;
+const CONTENT_WIDTH_RATIO = 0.8;
+const BASE_PADDING = 8;
+const SCALE = (((CANVAS_SIZE * CONTENT_WIDTH_RATIO) / Math.SQRT2) - (BASE_PADDING * 2)) / 44;
 const SIZE = 12 * SCALE;
 const RADIUS = 2 * SCALE;
 const OFFSET = (44 * SCALE) / 2;
 
-const BASE_PADDING = 8;
 const BASE_SIZE = (44 * SCALE) + (BASE_PADDING * 2);
 const BASE_OFFSET = BASE_SIZE / 2;
 const BASE_RADIUS = 4 * SCALE;
@@ -339,7 +346,7 @@ onUnmounted(() => {
 .hero-canvas {
     display: block;
     width: 100%;
-    max-width: 500px;
+    max-width: 420px;
     height: auto;
 }
 </style>
