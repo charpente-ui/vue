@@ -220,7 +220,7 @@ export default defineConfigWithTheme<ThemeConfig>({
         },
         footer: {
             message: 'Released under the MIT License.',
-            copyright: `Copyright © ${years} Front Factory`
+            copyright: `Copyright © ${years} <a href="https://frontfactory.dev">Front Factory</a>.`
         }
     },
     vite: {
