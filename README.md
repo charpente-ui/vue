@@ -31,7 +31,7 @@ Components)_.
 | Requirement | Constraint                                                                         |
 |-------------|------------------------------------------------------------------------------------|
 | Vue         | **3.5 or newer** — the library builds its ids on Vue's own `useId()`, added in 3.5 |
-| Node        | **20 or newer** — declared in `engines`, so it is checked when you install         |
+| Node        | **22 or newer** — declared in `engines`, so it is checked when you install         |
 | Modules     | **ESM only** — a single `import` entry, no CommonJS build                          |
 
 On an older Vue, npm stops the install with an `ERESOLVE` conflict while pnpm and yarn only warn — and forcing past that

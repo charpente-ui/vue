@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Headless Vue 3 component library (`@charpente-ui/vue`). Logic only, zero CSS.
 Requires Vue >= 3.5 — generated ids are built on Vue's own `useId()`, so do not reintroduce `crypto.randomUUID()`,
-a counter or `Math.random()`: they break SSR hydration. Node >= 20 is a tooling floor only; the runtime calls no
+a counter or `Math.random()`: they break SSR hydration. Node >= 22 is a tooling floor only; the runtime calls no
 Node API.
 
 ---
