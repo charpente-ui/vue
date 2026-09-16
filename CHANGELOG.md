@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.0](https://github.com/charpente-ui/vue/compare/v2.10.1...v2.11.0) (2026-09-16)
+
+### Features
+
+* **engines:** raise minimum Node version to 22 ([13fc573](https://github.com/charpente-ui/vue/commit/13fc573f193cdffbf7d7183332be9feead0d7352))
+
+### Bug Fixes
+
+* **deps:** downgrade conventional-changelog-conventionalcommits to v9 for semantic-release compat ([d947ad6](https://github.com/charpente-ui/vue/commit/d947ad6e7e7ca1adbd4bf7dd052ffe27a4f219ee))
+* **deps:** resync package-lock.json for npm 10 compatibility ([9ff2021](https://github.com/charpente-ui/vue/commit/9ff20218853c61b0dbbf43b4492d5d2a5b3433b0))
+
 ## [2.10.1](https://github.com/charpente-ui/vue/compare/v2.10.0...v2.10.1) (2026-08-30)
 
 ### Bug Fixes
