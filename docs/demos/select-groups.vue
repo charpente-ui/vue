@@ -8,16 +8,22 @@ const picked = ref<string | number>('');
 // An entry carrying its own `options` array becomes an <optgroup>.
 const options: SelectOptionItem[] = [
     { label: 'Citrus',
-        options: ['lemon',
-            'orange'] },
+        options: [
+            'lemon',
+            'orange'
+        ] },
     { label: 'Berries',
-        options: [{ label: 'Strawberry',
-            value: 1 },
-        { label: 'Raspberry',
-            value: 2 }] },
+        options: [
+            { label: 'Strawberry',
+                value: 1 },
+            { label: 'Raspberry',
+                value: 2 }
+        ] },
     { label: 'Unavailable',
         disabled: true,
-        options: ['durian'] }
+        options: [
+            'durian'
+        ] }
 ];
 </script>
 

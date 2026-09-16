@@ -17,7 +17,9 @@ describe('BaseTextarea', () => {
 
         await element.setValue('bar');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'bar'
+        ]);
     });
 
     it('renders without initial modelValue', () => {
@@ -71,7 +73,9 @@ describe('BaseTextarea', () => {
         const emitted = wrapper.emitted('update:modelValue')!;
 
         expect(emitted).toHaveLength(3);
-        expect(emitted[2]).toEqual(['abc']);
+        expect(emitted[2]).toEqual([
+            'abc'
+        ]);
     });
 
     it('supports the trim modifier', async () => {
@@ -87,7 +91,9 @@ describe('BaseTextarea', () => {
 
         await wrapper.find('textarea').setValue('  foo  ');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'foo'
+        ]);
     });
 
     // Same guard as CInput: the model is trimmed, the typed value is not.
@@ -107,7 +113,10 @@ describe('BaseTextarea', () => {
         textarea.element.value = 'Jean ';
         await textarea.trigger('input');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['Jean']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'Jean'
+        ]);
+
         expect(textarea.element.value).toBe('Jean ');
     });
 
@@ -131,6 +140,8 @@ describe('BaseTextarea', () => {
 
         await element.trigger('change');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'foo'
+        ]);
     });
 });

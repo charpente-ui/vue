@@ -145,11 +145,13 @@ function interpolateColor(colorA: ThemeColors, colorB: ThemeColors, factor: numb
     const r = Math.round(colorA.r + factor * (colorB.r - colorA.r));
     const g = Math.round(colorA.g + factor * (colorB.g - colorA.g));
     const b = Math.round(colorA.b + factor * (colorB.b - colorA.b));
+
     return `rgb(${r}, ${g}, ${b})`;
 }
 
 function createNoiseCanvas(width: number, height: number, opacity = 0.25): HTMLCanvasElement {
     const nCanvas = document.createElement('canvas');
+
     nCanvas.width = width;
     nCanvas.height = height;
 
@@ -160,10 +162,12 @@ function createNoiseCanvas(width: number, height: number, opacity = 0.25): HTMLC
     for (let i = 0; i < buffer.length; i++) {
         const v = (Math.random() * 255) | 0;
         const alpha = (Math.random() * 255 * opacity) | 0;
+
         buffer[i] = (alpha << 24) | (v << 16) | (v << 8) | v;
     }
 
     nCtx.putImageData(imgData, 0, 0);
+
     return nCanvas;
 }
 
@@ -171,6 +175,7 @@ let rafId = 0;
 
 onMounted(() => {
     const canvas = canvasEl.value;
+
     if (!canvas) {
         return;
     }
@@ -246,6 +251,7 @@ onMounted(() => {
 
         if (cycleTime > fadeOutStartTime) {
             const fadeProgress = (cycleTime - fadeOutStartTime) / FADE_OUT_TIME;
+
             globalFadeOut = Math.max(0, 1 - fadeProgress);
         }
 
@@ -258,6 +264,7 @@ onMounted(() => {
 
             if (r.isDark) {
                 const config = darkConfigs[i];
+
                 label = config.label;
                 const elapsedTime = Math.max(0, cycleTime - config.delay);
                 const progress = Math.min(1, elapsedTime / config.duration);
@@ -269,12 +276,14 @@ onMounted(() => {
                 } else {
                     // Grow-in spread and slowed over the start of the movement.
                     const scaleProgress = Math.min(1, progress / 0.5);
+
                     growthScale = easeOutSine(scaleProgress);
 
                     fadeAlpha = Math.min(1, scaleProgress * 1.5) * globalFadeOut;
 
                     // Progressive drop.
                     const dropProgress = easeInQuad(progress);
+
                     offsetY = DROP_OFFSET_Y * (1 - dropProgress);
 
                     strokeColor = interpolateColor(theme.fallingStart, theme.fallingFinal, dropProgress);

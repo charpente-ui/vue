@@ -31,37 +31,49 @@ const selectMultiple = ref<string[]>([]);
 const selectOptions = ref('');
 const selectGrouped = ref<string | number>('');
 
-const flatOptions: SelectOptionItem[] = ['apple',
+const flatOptions: SelectOptionItem[] = [
+    'apple',
     { label: 'Banana',
         value: 'banana' },
     { label: 'Cherry (out of stock)',
         value: 'cherry',
-        disabled: true }];
+        disabled: true }
+];
 
 const groupedOptions: SelectOptionItem[] = [
     { label: 'Citrus',
-        options: ['lemon',
-            'orange'] },
+        options: [
+            'lemon',
+            'orange'
+        ] },
     { label: 'Berries',
-        options: [{ label: 'Strawberry',
-            value: 1 },
-        { label: 'Raspberry',
-            value: 2 }] },
+        options: [
+            { label: 'Strawberry',
+                value: 1 },
+            { label: 'Raspberry',
+                value: 2 }
+        ] },
     { label: 'Unavailable',
         disabled: true,
-        options: ['durian'] }
+        options: [
+            'durian'
+        ] }
 ];
 const file = ref<FileList | null>(null);
 
-const allFruits = ['apple',
+const allFruits = [
+    'apple',
     'banana',
-    'cherry'];
+    'cherry'
+];
 const fruits = ref<string[]>([]);
 
 const allSelected = computed({
     get: () => fruits.value.length === allFruits.length,
     set: (checked) => {
-        fruits.value = checked ? [...allFruits] : [];
+        fruits.value = checked ? [
+            ...allFruits
+        ] : [];
     }
 });
 
@@ -105,6 +117,7 @@ function resetForm() {
         password: '',
         confirm: '',
         terms: false };
+
     submitted.value = null;
 }
 

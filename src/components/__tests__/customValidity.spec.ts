@@ -60,6 +60,7 @@ describe('custom validity', () => {
         await wrapper.setProps({
             modelValue: 'ok'
         });
+
         await nextTick();
 
         expect(input.validity.customError).toBe(false);
@@ -127,6 +128,7 @@ describe('custom validity', () => {
         await wrapper.setProps({
             modelValue: 'nope'
         });
+
         await nextTick();
 
         expect(wrapper.find('input').element.validationMessage).toBe('Custom message.');
@@ -181,6 +183,7 @@ describe('custom validity', () => {
         await wrapper.setData({
             mandatory: false
         });
+
         await nextTick();
 
         expect(input.validity.customError).toBe(true);
@@ -203,6 +206,7 @@ describe('custom validity', () => {
         await wrapper.setProps({
             modelValue: 'changed'
         });
+
         await nextTick();
 
         expect(input.validationMessage).toBe('Set from outside.');
@@ -227,6 +231,7 @@ describe('custom validity', () => {
         await wrapper.setProps({
             rule: undefined
         });
+
         await nextTick();
 
         expect(input.validity.customError).toBe(false);
@@ -387,8 +392,10 @@ describe('custom validity', () => {
         const wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'a',
-                options: ['a',
-                    'b'],
+                options: [
+                    'a',
+                    'b'
+                ],
                 rule: (value: unknown) => value === 'b' ? '' : 'Pick b.'
             }
         });
@@ -519,6 +526,7 @@ describe('custom validity', () => {
         await wrapper.setData({
             value: 'ok'
         });
+
         await nextTick();
 
         expect(input.element.validity.customError).toBe(false);
@@ -602,7 +610,6 @@ describe('custom validity', () => {
 
         expect(submitted.value).toBe(0);
 
-        settle = () => {};
         serverError.value = '';
         await nextTick();
 

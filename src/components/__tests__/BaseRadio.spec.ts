@@ -18,7 +18,9 @@ describe('BaseRadio', () => {
 
         await element.setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'bar'
+        ]);
     });
 
     it('generates an automatic ID via useId', () => {
@@ -103,7 +105,9 @@ describe('BaseRadio', () => {
 
         await wrapper.find('input').setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([option]);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            option
+        ]);
     });
 
     it('supports boolean value', async () => {
@@ -117,7 +121,9 @@ describe('BaseRadio', () => {
 
         await wrapper.find('input').setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true]);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            true
+        ]);
     });
 
     it('supports numeric value', async () => {
@@ -133,6 +139,8 @@ describe('BaseRadio', () => {
 
         await wrapper.find('input').setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([42]);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            42
+        ]);
     });
 });

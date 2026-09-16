@@ -36,8 +36,10 @@ describe('BaseField', () => {
                 id: 'custom-field'
             },
             slots: {
-                default: [BaseLabel,
-                    BaseInput]
+                default: [
+                    BaseLabel,
+                    BaseInput
+                ]
             }
         });
 
@@ -121,8 +123,10 @@ describe('BaseField', () => {
     it('links the label to the input via a shared id', () => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [BaseLabel,
-                    BaseInput]
+                default: [
+                    BaseLabel,
+                    BaseInput
+                ]
             }
         });
 
@@ -133,15 +137,21 @@ describe('BaseField', () => {
     });
 
     it.each([
-        ['textarea',
-            BaseTextarea],
-        ['select',
-            BaseSelect]
+        [
+            'textarea',
+            BaseTextarea
+        ],
+        [
+            'select',
+            BaseSelect
+        ]
     ])('links the label to a %s via a shared id', (selector, component) => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [BaseLabel,
-                    component]
+                default: [
+                    BaseLabel,
+                    component
+                ]
             }
         });
 
@@ -149,15 +159,21 @@ describe('BaseField', () => {
     });
 
     it.each([
-        ['file input',
-            BaseFile],
-        ['standalone checkbox',
-            BaseCheckbox]
+        [
+            'file input',
+            BaseFile
+        ],
+        [
+            'standalone checkbox',
+            BaseCheckbox
+        ]
     ])('links the label to a %s via a shared id', (_, component) => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [BaseLabel,
-                    component]
+                default: [
+                    BaseLabel,
+                    component
+                ]
             }
         });
 

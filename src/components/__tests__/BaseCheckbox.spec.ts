@@ -18,7 +18,9 @@ describe('BaseCheckbox', () => {
 
         await element.setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true]);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            true
+        ]);
     });
 
     it('generates an automatic ID via useId', () => {
@@ -106,7 +108,9 @@ describe('BaseCheckbox', () => {
 
         await element.setValue(false);
 
-        expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(['foo']);
+        expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual([
+            'foo'
+        ]);
     });
 
     it('passes name attribute through', () => {
@@ -124,7 +128,9 @@ describe('BaseCheckbox', () => {
         const wrapper = mount(BaseCheckbox, {
             props: {
                 value: optionB,
-                modelValue: [optionA],
+                modelValue: [
+                    optionA
+                ],
                 'onUpdate:modelValue': (e: boolean | unknown[]) => wrapper.setProps({ modelValue: e })
             }
         });

@@ -23,7 +23,9 @@ describe('BaseSelect', () => {
 
         await element.setValue('bar');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'bar'
+        ]);
     });
 
     it('renders without initial modelValue', () => {
@@ -83,8 +85,10 @@ describe('BaseSelect', () => {
         (options[2].element as HTMLOptionElement).selected = true;
         await wrapper.find('select').trigger('change');
 
-        expect(wrapper.emitted('update:modelValue')?.at(-1)?.[0]).toEqual(['foo',
-            'baz']);
+        expect(wrapper.emitted('update:modelValue')?.at(-1)?.[0]).toEqual([
+            'foo',
+            'baz'
+        ]);
     });
 
     it('passes native attributes through', () => {
@@ -102,15 +106,17 @@ describe('BaseSelect', () => {
     it('renders options from the options prop', () => {
         const wrapper = mount(BaseSelect, {
             props: {
-                options: [{
-                    label: 'Foo',
-                    value: 'foo'
-                },
-                {
-                    label: 'Bar',
-                    value: 'bar',
-                    disabled: true
-                }]
+                options: [
+                    {
+                        label: 'Foo',
+                        value: 'foo'
+                    },
+                    {
+                        label: 'Bar',
+                        value: 'bar',
+                        disabled: true
+                    }
+                ]
             }
         });
 
@@ -125,8 +131,10 @@ describe('BaseSelect', () => {
     it('accepts plain strings and numbers as options', () => {
         const wrapper = mount(BaseSelect, {
             props: {
-                options: ['foo',
-                    42]
+                options: [
+                    'foo',
+                    42
+                ]
             }
         });
 
@@ -140,19 +148,25 @@ describe('BaseSelect', () => {
     it('renders option groups', () => {
         const wrapper = mount(BaseSelect, {
             props: {
-                options: [{
-                    label: 'Group',
-                    options: ['foo',
-                        {
-                            label: 'Bar',
-                            value: 'bar'
-                        }]
-                },
-                {
-                    label: 'Disabled group',
-                    disabled: true,
-                    options: ['baz']
-                }]
+                options: [
+                    {
+                        label: 'Group',
+                        options: [
+                            'foo',
+                            {
+                                label: 'Bar',
+                                value: 'bar'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Disabled group',
+                        disabled: true,
+                        options: [
+                            'baz'
+                        ]
+                    }
+                ]
             }
         });
 
@@ -167,7 +181,9 @@ describe('BaseSelect', () => {
     it('renders the slot alongside the options prop', () => {
         const wrapper = mount(BaseSelect, {
             props: {
-                options: ['foo']
+                options: [
+                    'foo'
+                ]
             },
             slots: {
                 default: '<option value="">Choose…</option>'
@@ -185,34 +201,40 @@ describe('BaseSelect', () => {
         const wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'foo',
-                options: [{
-                    label: 'Foo',
-                    value: 'foo'
-                },
-                {
-                    label: 'Bar',
-                    value: 'bar'
-                }]
+                options: [
+                    {
+                        label: 'Foo',
+                        value: 'foo'
+                    },
+                    {
+                        label: 'Bar',
+                        value: 'bar'
+                    }
+                ]
             }
         });
 
         await wrapper.find('select').setValue('bar');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'bar'
+        ]);
     });
 
     it('keeps non-string option values intact', async () => {
         const wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 1,
-                options: [{
-                    label: 'One',
-                    value: 1
-                },
-                {
-                    label: 'Two',
-                    value: 2
-                }]
+                options: [
+                    {
+                        label: 'One',
+                        value: 1
+                    },
+                    {
+                        label: 'Two',
+                        value: 2
+                    }
+                ]
             }
         });
 
@@ -221,7 +243,9 @@ describe('BaseSelect', () => {
         (options[1].element as HTMLOptionElement).selected = true;
         await wrapper.find('select').trigger('change');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([2]);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            2
+        ]);
     });
 
     // The array index is not a key: it would make Vue patch the <option>
@@ -231,23 +255,30 @@ describe('BaseSelect', () => {
         const wrapper = mount(BaseSelect, {
             props: {
                 modelValue: 'c',
-                options: ['a',
+                options: [
+                    'a',
                     'b',
-                    'c']
+                    'c'
+                ]
             }
         });
 
         const first = wrapper.findAll('option')[0].element;
 
-        await wrapper.setProps({ options: ['c',
+        await wrapper.setProps({ options: [
+            'c',
             'b',
-            'a'] });
+            'a'
+        ] });
 
         const options = wrapper.findAll('option');
 
-        expect(options.map((option) => (option.element as HTMLOptionElement).value)).toEqual(['c',
+        expect(options.map((option) => (option.element as HTMLOptionElement).value)).toEqual([
+            'c',
             'b',
-            'a']);
+            'a'
+        ]);
+
         expect(options[2].element).toBe(first);
         expect((wrapper.find('select').element as HTMLSelectElement).value).toBe('c');
     });
@@ -255,28 +286,39 @@ describe('BaseSelect', () => {
     it('moves the option nodes when the options inside a group are reordered', async () => {
         const wrapper = mount(BaseSelect, {
             props: {
-                options: [{
-                    label: 'Letters',
-                    options: ['a',
-                        'b']
-                }]
+                options: [
+                    {
+                        label: 'Letters',
+                        options: [
+                            'a',
+                            'b'
+                        ]
+                    }
+                ]
             }
         });
 
         const first = wrapper.findAll('option')[0].element;
 
         await wrapper.setProps({
-            options: [{
-                label: 'Letters',
-                options: ['b',
-                    'a']
-            }]
+            options: [
+                {
+                    label: 'Letters',
+                    options: [
+                        'b',
+                        'a'
+                    ]
+                }
+            ]
         });
 
         const options = wrapper.findAll('option');
 
-        expect(options.map((option) => (option.element as HTMLOptionElement).value)).toEqual(['b',
-            'a']);
+        expect(options.map((option) => (option.element as HTMLOptionElement).value)).toEqual([
+            'b',
+            'a'
+        ]);
+
         expect(options[1].element).toBe(first);
     });
 

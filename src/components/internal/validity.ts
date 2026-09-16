@@ -59,10 +59,14 @@ export function useCustomValidity<Value, Element extends ValidatableElement>(
     // filling a `required` field flips `validity.valid`, and the message that
     // was held back must now be applied. Reading validity is not reactive, so
     // the model change is what tells us to look again.
-    watch([customMessage,
+    watch([
+        customMessage,
         elementRef,
-        model], ([message,
-        element], previous) => {
+        model
+    ], ([
+        message,
+        element
+    ], previous) => {
         if (!element) {
             return;
         }

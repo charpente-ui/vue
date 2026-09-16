@@ -10,8 +10,10 @@ test.beforeEach(async ({ page }) => {
 test('CSelect multiple lets several options be selected at once', async ({ page }) => {
     const select = page.getByLabel('Pick several');
 
-    await select.selectOption(['a',
-        'c']);
+    await select.selectOption([
+        'a',
+        'c'
+    ]);
 
     const value = page.getByText('Multiple:', { exact: false });
 
@@ -36,9 +38,11 @@ test('CSelect renders the options prop as optgroups, slot content first', async 
         return groups.map((group) => (group as HTMLOptGroupElement).label);
     });
 
-    expect(labels).toEqual(['Citrus',
+    expect(labels).toEqual([
+        'Citrus',
         'Berries',
-        'Unavailable']);
+        'Unavailable'
+    ]);
 
     // The slot placeholder must come before anything the options prop renders.
     await expect(select.locator('> *').first()).toHaveText('--');
@@ -52,10 +56,13 @@ test('CSelect renders the options prop as optgroups, slot content first', async 
 test('CSelect combines the slot placeholder with a flat options list', async ({ page }) => {
     const select = page.getByLabel('Pick a fruit');
 
-    await expect(select.locator('option')).toHaveText(['Choose a fruit…',
+    await expect(select.locator('option')).toHaveText([
+        'Choose a fruit…',
         'apple',
         'Banana',
-        'Cherry (out of stock)']);
+        'Cherry (out of stock)'
+    ]);
+
     await expect(select.locator('option', { hasText: 'Cherry' })).toBeDisabled();
 
     await select.selectOption('banana');

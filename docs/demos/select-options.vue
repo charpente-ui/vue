@@ -6,12 +6,14 @@ import type { SelectOptionItem } from '@charpente-ui/vue';
 const fruit = ref('');
 
 // A bare string is used as both label and value.
-const options: SelectOptionItem[] = ['apple',
+const options: SelectOptionItem[] = [
+    'apple',
     { label: 'Banana',
         value: 'banana' },
     { label: 'Cherry (out of stock)',
         value: 'cherry',
-        disabled: true }];
+        disabled: true }
+];
 </script>
 
 <template>

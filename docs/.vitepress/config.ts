@@ -32,44 +32,66 @@ export default defineConfigWithTheme<ThemeConfig>({
     sitemap: { hostname },
     // Underscore-prefixed files are partials pulled in with <!--@include: -->,
     // never pages of their own.
-    srcExclude: ['**/_*.md'],
+    srcExclude: [
+        '**/_*.md'
+    ],
     lastUpdated: true,
     titleTemplate: ':title | Charpente UI',
     // og:title, og:description, og:url and the canonical link are per-page:
     // see transformPageData below. Only site-wide tags belong here.
     head: [
-        ['link',
+        [
+            'link',
             { rel: 'icon',
                 type: 'image/svg+xml',
-                href: `${base}favicon.svg` }],
-        ['meta',
+                href: `${base}favicon.svg` }
+        ],
+        [
+            'meta',
             { name: 'theme-color',
-                content: '#b84277' }],
-        ['meta',
+                content: '#b84277' }
+        ],
+        [
+            'meta',
             { property: 'og:type',
-                content: 'website' }],
-        ['meta',
+                content: 'website' }
+        ],
+        [
+            'meta',
             { property: 'og:site_name',
-                content: title }],
+                content: title }
+        ],
         // PNG, not SVG: no social network renders an SVG preview.
-        ['meta',
+        [
+            'meta',
             { property: 'og:image',
-                content: `${hostname}/banner.png` }],
-        ['meta',
+                content: `${hostname}/banner.png` }
+        ],
+        [
+            'meta',
             { property: 'og:image:width',
-                content: '1200' }],
-        ['meta',
+                content: '1200' }
+        ],
+        [
+            'meta',
             { property: 'og:image:height',
-                content: '630' }],
-        ['meta',
+                content: '630' }
+        ],
+        [
+            'meta',
             { property: 'og:image:alt',
-                content: 'Charpente UI — headless component library for Vue 3' }],
-        ['meta',
+                content: 'Charpente UI — headless component library for Vue 3' }
+        ],
+        [
+            'meta',
             { name: 'twitter:card',
-                content: 'summary_large_image' }],
-        ['meta',
+                content: 'summary_large_image' }
+        ],
+        [
+            'meta',
             { name: 'twitter:image',
-                content: `${hostname}/banner.png` }]
+                content: `${hostname}/banner.png` }
+        ]
     ],
     transformPageData(pageData) {
         const path = pageData.relativePath
@@ -83,18 +105,26 @@ export default defineConfigWithTheme<ThemeConfig>({
 
         pageData.frontmatter.head ??= [];
         pageData.frontmatter.head.push(
-            ['link',
+            [
+                'link',
                 { rel: 'canonical',
-                    href: url }],
-            ['meta',
+                    href: url }
+            ],
+            [
+                'meta',
                 { property: 'og:url',
-                    content: url }],
-            ['meta',
+                    content: url }
+            ],
+            [
+                'meta',
                 { property: 'og:title',
-                    content: pageTitle }],
-            ['meta',
+                    content: pageTitle }
+            ],
+            [
+                'meta',
                 { property: 'og:description',
-                    content: pageData.description || description }]
+                    content: pageData.description || description }
+            ]
         );
     },
     themeConfig: {

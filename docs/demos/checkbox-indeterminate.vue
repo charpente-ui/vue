@@ -2,15 +2,21 @@
 import { computed, ref } from 'vue';
 import { CCheckbox, CField, CLabel } from '@charpente-ui/vue';
 
-const all = ['apple',
+const all = [
+    'apple',
     'banana',
-    'cherry'];
-const fruits = ref<string[]>(['banana']);
+    'cherry'
+];
+const fruits = ref<string[]>([
+    'banana'
+]);
 
 const allSelected = computed({
     get: () => fruits.value.length === all.length,
     set: (checked) => {
-        fruits.value = checked ? [...all] : [];
+        fruits.value = checked ? [
+            ...all
+        ] : [];
     }
 });
 

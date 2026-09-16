@@ -22,7 +22,9 @@ describe('BaseCheckboxGroup', () => {
         const wrapper = mount({
             components: { BaseCheckboxGroup,
                 BaseCheckbox },
-            data: () => ({ values: ['a'] }),
+            data: () => ({ values: [
+                'a'
+            ] }),
             template: `
                 <BaseCheckboxGroup v-model="values">
                     <BaseCheckbox value="a"/>
@@ -45,8 +47,10 @@ describe('BaseCheckboxGroup', () => {
         const wrapper = mount({
             components: { BaseCheckboxGroup,
                 BaseCheckbox },
-            data: () => ({ values: ['a',
-                'b'] }),
+            data: () => ({ values: [
+                'a',
+                'b'
+            ] }),
             template: `
                 <BaseCheckboxGroup v-model="values">
                     <BaseCheckbox value="a"/>
@@ -153,7 +157,9 @@ describe('BaseCheckboxGroup', () => {
 
         await wrapper.find('input').setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true]);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            true
+        ]);
     });
 
     it('describes the fieldset with the supporting texts of a wrapping field', async () => {

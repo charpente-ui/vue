@@ -2,7 +2,9 @@ import { configDefaults, defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    plugins: [vue()],
+    plugins: [
+        vue()
+    ],
     test: {
         watch: false,
         environment: 'jsdom',

@@ -280,6 +280,8 @@ describe('BaseRadioGroup', () => {
 
         await wrapper.find('input').setValue(true);
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'foo'
+        ]);
     });
 });

@@ -12,12 +12,16 @@ import type { Page } from '@playwright/test';
 // names, and the ARIA wiring between a label, a control and its hints.
 const scan = (page: Page) => {
     return new AxeBuilder({ page })
-        .withTags(['wcag2a',
+        .withTags([
+            'wcag2a',
             'wcag2aa',
             'wcag21a',
-            'wcag21aa'])
-        .disableRules(['color-contrast',
-            'scrollable-region-focusable'])
+            'wcag21aa'
+        ])
+        .disableRules([
+            'color-contrast',
+            'scrollable-region-focusable'
+        ])
         .analyze();
 };
 

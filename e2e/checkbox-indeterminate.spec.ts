@@ -30,9 +30,11 @@ test('the select-all checkbox checks every item in the sub-group', async ({ page
 
     await selectAll.check();
 
-    for (const name of ['apple',
+    for (const name of [
+        'apple',
         'banana',
-        'cherry']) {
+        'cherry'
+    ]) {
         await expect(card.getByRole('checkbox', { name })).toBeChecked();
     }
 

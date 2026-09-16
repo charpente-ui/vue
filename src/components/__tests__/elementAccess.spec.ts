@@ -20,58 +20,84 @@ import BaseTextarea from '../BaseTextarea.vue';
 // name, so a ref on any of them reaches the DOM the same way. `el` is the
 // documented surface: `$el` also works but is Vue's own untyped internal.
 const components: [string, Component, string, Record<string, unknown>][] = [
-    ['CButton',
+    [
+        'CButton',
         BaseButton,
         'BUTTON',
-        {}],
-    ['CInput',
+        {}
+    ],
+    [
+        'CInput',
         BaseInput,
         'INPUT',
-        {}],
-    ['CTextarea',
+        {}
+    ],
+    [
+        'CTextarea',
         BaseTextarea,
         'TEXTAREA',
-        {}],
-    ['CSelect',
+        {}
+    ],
+    [
+        'CSelect',
         BaseSelect,
         'SELECT',
-        {}],
-    ['CCheckbox',
+        {}
+    ],
+    [
+        'CCheckbox',
         BaseCheckbox,
         'INPUT',
-        {}],
-    ['CRadio',
+        {}
+    ],
+    [
+        'CRadio',
         BaseRadio,
         'INPUT',
-        { value: 'a' }],
-    ['CFile',
+        { value: 'a' }
+    ],
+    [
+        'CFile',
         BaseFile,
         'INPUT',
-        {}],
-    ['CForm',
+        {}
+    ],
+    [
+        'CForm',
         BaseForm,
         'FORM',
-        {}],
-    ['CField',
+        {}
+    ],
+    [
+        'CField',
         BaseField,
         'DIV',
-        {}],
-    ['CLabel',
+        {}
+    ],
+    [
+        'CLabel',
         BaseLabel,
         'LABEL',
-        {}],
-    ['CSupportingText',
+        {}
+    ],
+    [
+        'CSupportingText',
         BaseSupportingText,
         'P',
-        {}],
-    ['CCheckboxGroup',
+        {}
+    ],
+    [
+        'CCheckboxGroup',
         BaseCheckboxGroup,
         'FIELDSET',
-        {}],
-    ['CRadioGroup',
+        {}
+    ],
+    [
+        'CRadioGroup',
         BaseRadioGroup,
         'FIELDSET',
-        {}]
+        {}
+    ]
 ];
 
 describe('element access', () => {
@@ -117,8 +143,10 @@ describe('element access', () => {
 
     it('gives null when CButton renders a component without a single root element', () => {
         const Fragment: Component = {
-            setup: () => () => [h('span', 'one'),
-                h('span', 'two')]
+            setup: () => () => [
+                h('span', 'one'),
+                h('span', 'two')
+            ]
         };
 
         const wrapper = mount(BaseButton, { props: { as: Fragment } });

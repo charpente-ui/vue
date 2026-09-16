@@ -55,8 +55,10 @@ describe('BaseSupportingText', () => {
     it('wires the control aria-describedby to the text id inside a field', async () => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [BaseInput,
-                    BaseSupportingText]
+                default: [
+                    BaseInput,
+                    BaseSupportingText
+                ]
             }
         });
 
@@ -69,17 +71,23 @@ describe('BaseSupportingText', () => {
     });
 
     it.each([
-        ['select',
+        [
+            'select',
             BaseSelect,
-            'select'],
-        ['checkbox',
+            'select'
+        ],
+        [
+            'checkbox',
             BaseCheckbox,
-            'input']
+            'input'
+        ]
     ])('wires aria-describedby on a %s', async (_, component, selector) => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [component,
-                    BaseSupportingText]
+                default: [
+                    component,
+                    BaseSupportingText
+                ]
             }
         });
 
@@ -126,7 +134,9 @@ describe('BaseSupportingText', () => {
     it('does not set aria-describedby without a supporting text', () => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [BaseInput]
+                default: [
+                    BaseInput
+                ]
             }
         });
 
@@ -161,9 +171,11 @@ describe('BaseSupportingText', () => {
     it('references every supporting text of the field, in registration order', async () => {
         const wrapper = mount(BaseField, {
             slots: {
-                default: [BaseInput,
+                default: [
+                    BaseInput,
                     BaseSupportingText,
-                    BaseSupportingText]
+                    BaseSupportingText
+                ]
             }
         });
 

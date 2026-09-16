@@ -17,7 +17,9 @@ describe('BaseInput', () => {
 
         await element.setValue('bar');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['bar']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'bar'
+        ]);
     });
 
     it('renders without initial modelValue', () => {
@@ -66,7 +68,9 @@ describe('BaseInput', () => {
 
         await element.setValue('99');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['99']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            '99'
+        ]);
     });
 
     it('forwards native input event via $attrs', async () => {
@@ -114,7 +118,9 @@ describe('BaseInput', () => {
         const emitted = wrapper.emitted('update:modelValue')!;
 
         expect(emitted).toHaveLength(3);
-        expect(emitted[2]).toEqual(['abc']);
+        expect(emitted[2]).toEqual([
+            'abc'
+        ]);
     });
 
     it('supports the trim modifier', async () => {
@@ -130,7 +136,9 @@ describe('BaseInput', () => {
 
         await wrapper.find('input').setValue('  foo  ');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'foo'
+        ]);
     });
 
     // Trimming the model must not trim what the user is typing: writing the
@@ -152,14 +160,19 @@ describe('BaseInput', () => {
         input.element.value = 'Jean ';
         await input.trigger('input');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['Jean']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'Jean'
+        ]);
+
         expect(input.element.value).toBe('Jean ');
 
         input.element.value = 'Jean Dupont';
         await input.trigger('input');
 
         expect(input.element.value).toBe('Jean Dupont');
-        expect(wrapper.emitted('update:modelValue')?.[1]).toEqual(['Jean Dupont']);
+        expect(wrapper.emitted('update:modelValue')?.[1]).toEqual([
+            'Jean Dupont'
+        ]);
     });
 
     // What Vue's own directive does on `change`: the value left behind is the
@@ -203,8 +216,13 @@ describe('BaseInput', () => {
 
         const emitted = wrapper.emitted('update:modelValue')!;
 
-        expect(emitted[0]).toEqual([42.5]);
-        expect(emitted[1]).toEqual(['abc']);
+        expect(emitted[0]).toEqual([
+            42.5
+        ]);
+
+        expect(emitted[1]).toEqual([
+            'abc'
+        ]);
     });
 
     it('supports the lazy modifier', async () => {
@@ -227,6 +245,8 @@ describe('BaseInput', () => {
 
         await element.trigger('change');
 
-        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['foo']);
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            'foo'
+        ]);
     });
 });

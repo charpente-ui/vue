@@ -14,20 +14,25 @@ describe('BaseFile', () => {
             }
         });
 
-        const file = new File(['content'], 'test.txt', {
+        const file = new File([
+            'content'
+        ], 'test.txt', {
             type: 'text/plain'
         });
 
         const input = wrapper.find('input').element as HTMLInputElement;
 
         Object.defineProperty(input, 'files', {
-            value: [file],
+            value: [
+                file
+            ],
             configurable: true
         });
 
         await wrapper.find('input').trigger('change');
 
         const emitted = wrapper.emitted('update:modelValue');
+
         expect(emitted).toBeTruthy();
         expect((emitted![0][0] as ArrayLike<File>)[0]).toBe(file);
     });
@@ -55,6 +60,7 @@ describe('BaseFile', () => {
         });
 
         const input = wrapper.find('input').element as HTMLInputElement;
+
         Object.defineProperty(input, 'value', {
             value: 'C:\\fakepath\\test.txt',
             writable: true,

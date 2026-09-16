@@ -15,6 +15,7 @@ describe('BaseForm', () => {
 
         const event = new SubmitEvent('submit', { bubbles: true,
             cancelable: true });
+
         wrapper.element.dispatchEvent(event);
         await nextTick();
 
@@ -200,6 +201,7 @@ describe('BaseForm', () => {
         wrapper.element.dispatchEvent(new SubmitEvent('submit', { submitter,
             bubbles: true,
             cancelable: true }));
+
         await nextTick();
 
         expect(wrapper.emitted('submit')).toHaveLength(1);
@@ -220,6 +222,7 @@ describe('BaseForm', () => {
         wrapper.element.dispatchEvent(new SubmitEvent('submit', { submitter,
             bubbles: true,
             cancelable: true }));
+
         await nextTick();
 
         expect(wrapper.emitted('submit')).toBeUndefined();

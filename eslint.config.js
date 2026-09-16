@@ -22,6 +22,20 @@ export default defineConfig([
     ...vuePlugin.configs['flat/recommended'],
     ...frontFactoryConfig,
     {
+        // frontFactoryConfig re-enables the core no-undef/no-unused-vars rules, which
+        // don't understand TS-only constructs (lib globals, type-signature parameter
+        // names). Restore the typescript-eslint recommended behavior for TS-parsed files.
+        files: [
+            '**/*.ts',
+            '**/*.vue'
+        ],
+        rules: {
+            'no-undef': 'off',
+            'no-unused-vars': 'off',
+            '@typescript-eslint/no-unused-vars': 'error'
+        }
+    },
+    {
         files: [
             '**/*.vue'
         ],
@@ -30,7 +44,9 @@ export default defineConfig([
             parserOptions: {
                 parser: ts.parser,
                 sourceType: 'module',
-                extraFileExtensions: ['.vue']
+                extraFileExtensions: [
+                    '.vue'
+                ]
             }
         }
     },
