@@ -82,9 +82,8 @@ test('CFile reports the uploaded file name after selection', async ({ page }) =>
     await expect(page.getByText('File:', { exact: false })).toContainText('charpente-e2e-upload.txt');
 });
 
-// A file input cannot be assigned from JavaScript, so emptying the model has to
-// clear the element itself — otherwise the browser keeps showing a file the app
-// no longer holds.
+// Emptying the model has to clear the element itself — otherwise the browser
+// keeps showing a file the app no longer holds.
 test('CFile clears the native input when the model is emptied', async ({ page }) => {
     const filePath = join(tmpdir(), 'charpente-e2e-cleared.txt');
 
@@ -100,4 +99,22 @@ test('CFile clears the native input when the model is emptied', async ({ page })
 
     await expect(value).toContainText('none');
     await expect(fileInput).toHaveValue('');
+});
+
+// A list that never went through the picker — a drop zone, a restored draft —
+// must reach the element, or `required` and a native submission see nothing.
+test('CFile writes a list the app sets into the native input', async ({ page }) => {
+    const fileInput = page.getByLabel('Upload');
+
+    await page.getByRole('button', { name: 'Use a generated file' }).click();
+
+    await expect(page.getByText('File:', { exact: false })).toContainText('generated.txt');
+
+    const names = await fileInput.evaluate((input: HTMLInputElement) => {
+        return Array.from(input.files ?? [], (file) => file.name);
+    });
+
+    expect(names).toEqual([
+        'generated.txt'
+    ]);
 });

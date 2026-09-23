@@ -42,6 +42,27 @@ test('aria-describedby links the input to every supporting text of the field', a
     expect(describedBy).toBe(ids.join(' '));
 });
 
+// Screen readers read the descriptions in attribute order: a text that appears
+// later must still be read in the place it sits, not after the ones already there.
+test('a supporting text that appears above the others comes first in aria-describedby', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+
+    const input = page.getByLabel('Auto-linked label');
+    const field = page.locator('.field').filter({ has: input });
+
+    await page.getByRole('button', { name: 'Toggle the note' }).click();
+
+    const note = page.getByText('A note shown on demand', { exact: false });
+
+    await expect(note).toBeVisible();
+
+    const ids = await field.locator('p[id], span[id]').evaluateAll((texts) => texts.map((text) => text.id));
+
+    expect(ids).toHaveLength(4);
+    expect(ids[0]).toBe(await note.getAttribute('id'));
+    await expect(input).toHaveAttribute('aria-describedby', ids.join(' '));
+});
+
 // The tag is the app's to pick, and picking it must not cost the wiring.
 test('a supporting text rendered as another tag is still referenced by the control', async ({ page }) => {
     await page.getByRole('button', { name: 'Composition' }).click();

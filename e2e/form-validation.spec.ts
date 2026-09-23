@@ -66,6 +66,24 @@ test('resetting the form clears the validation messages', async ({ page }) => {
     await expect(nameHint).toHaveText('Your full name, as it should appear.');
 });
 
+// A value the app writes itself fires no input event, so nothing from the
+// control tells the field the error is gone — the model change has to.
+test('a value the app writes clears the error of a rejected field', async ({ page }) => {
+    const emailInput = page.getByPlaceholder('john@example.com');
+    const emailHint = page.locator('.field').filter({ has: emailInput }).locator('p.value');
+
+    await page.getByRole('button', { name: 'Submit' }).click();
+
+    await expect(emailInput).toHaveAttribute('aria-invalid', 'true');
+    await expect(emailHint).not.toHaveText('We never share your email.');
+
+    await page.getByRole('button', { name: 'Fill the email' }).click();
+
+    await expect(emailInput).toHaveValue('john@example.com');
+    await expect(emailInput).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(emailHint).toHaveText('We never share your email.');
+});
+
 test('applies a custom class directly on CField via a template ref when the name field is invalid', async ({ page }) => {
     const nameField = page.locator('.field').filter({ has: page.getByPlaceholder('John Doe') });
 

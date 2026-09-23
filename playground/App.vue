@@ -20,6 +20,7 @@ const number = ref(0);
 const lazyText = ref('');
 const trimmedText = ref('');
 const fieldText = ref('');
+const showFieldNote = ref(false);
 const nativeDate = ref('');
 const textarea = ref('');
 const checkbox = ref(false);
@@ -60,6 +61,17 @@ const groupedOptions: SelectOptionItem[] = [
         ] }
 ];
 const file = ref<FileList | null>(null);
+
+// What a drop zone would hand over: a FileList that never went through the picker.
+function useGeneratedFile() {
+    const transfer = new DataTransfer();
+
+    transfer.items.add(new File([
+        'hello'
+    ], 'generated.txt', { type: 'text/plain' }));
+
+    file.value = transfer.files;
+}
 
 const allFruits = [
     'apple',
@@ -533,7 +545,8 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         <p class="doc">
                             Native file inputs don't play well with <code>v-model</code> — <code>CFile</code>
                             bridges that gap, syncing the input's <code>FileList</code> to your model and clearing
-                            the native input whenever you reset that model programmatically.
+                            the native input whenever you reset that model programmatically. A list the app sets
+                            itself — a drop zone, a restored draft — lands in the native input too.
                         </p>
                         <div class="example">
                             <CField class="field">
@@ -542,6 +555,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             </CField>
                             <div class="row">
                                 <CButton @click="file = null">Clear</CButton>
+                                <CButton @click="useGeneratedFile">Use a generated file</CButton>
                             </div>
                             <p class="value">File: <code>{{ file?.[0]?.name ?? 'none' }}</code></p>
                             <div class="code-block">
@@ -568,12 +582,16 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     <code>for</code> and to the wrapped input as <code>id</code>, and wires
                     <code>aria-describedby</code> to every <code>CSupportingText</code> inside — all without you
                     writing <code>for</code>/<code>id</code>/<code>aria-describedby</code> anywhere yourself. Several
-                    texts in one field are all referenced, in mount order, so a permanent hint and a conditional
-                    error can coexist instead of one hiding the other.
+                    texts in one field are all referenced, in document order, so a permanent hint and a conditional
+                    error can coexist instead of one hiding the other — and a text that appears later is still read
+                    in the place it sits.
                 </p>
                 <div class="example">
                     <CField v-slot="{ id, describedBy }" class="field">
                         <CLabel>Auto-linked label</CLabel>
+                        <CSupportingText v-if="showFieldNote" class="value">
+                            A note shown on demand — above the input, so it comes first in the list.
+                        </CSupportingText>
                         <CInput v-model="fieldText" placeholder="Click the label to focus me..."/>
                         <CSupportingText class="value">
                             Supporting text — wired to the input via <code>aria-describedby</code>.
@@ -593,6 +611,9 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             space-separated list, one id per supporting text.
                         </p>
                     </CField>
+                    <div class="row">
+                        <CButton @click="showFieldNote = !showFieldNote">Toggle the note</CButton>
+                    </div>
                     <p class="value">No <code>for</code>/<code>id</code> written — the field links them automatically.</p>
                     <div class="code-block">
                         <div class="code-block__header">
@@ -623,7 +644,8 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     and focuses the first invalid control. <code>CSupportingText validation</code> then shows that
                     browser-localized message live, as each field's validity changes — as a
                     <code>role="alert"</code> live region, so screen readers announce the message instead of it
-                    changing silently. Resetting the form clears every message along with the values.
+                    changing silently. Resetting the form clears every message along with the values, and so does
+                    a value the app writes itself — "Fill the email" below fires no input event, yet the error goes.
                 </p>
                 <p class="doc">
                     The native escape hatches keep working: a submit button carrying
@@ -690,6 +712,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             <CButton type="submit">Submit</CButton>
                             <CButton type="submit" formnovalidate>Save draft</CButton>
                             <CButton type="reset">Reset</CButton>
+                            <CButton @click="form.email = 'john@example.com'">Fill the email</CButton>
                         </div>
                     </CForm>
                     <pre v-if="submitted" class="output">{{ submitted }}</pre>
