@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { describe, it, expect, vi } from 'vitest';
 import BaseField from '../BaseField.vue';
@@ -329,6 +329,39 @@ describe('BaseField', () => {
         expect(input.attributes('aria-invalid')).toBeUndefined();
 
         wrapper.unmount();
+    });
+
+    // An app filling a field itself — an address lookup, a restored draft —
+    // fires no input event. The field must still notice the value now passes.
+    it('clears the invalid state when the app fills a rejected control', async () => {
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput
+            },
+            data: () => ({
+                value: ''
+            }),
+            template: `
+                <BaseField v-slot="{ invalid, message }">
+                    <BaseInput v-model="value" required/>
+                    <span class="state">{{ invalid }}|{{ message }}</span>
+                </BaseField>
+            `
+        });
+
+        const input = wrapper.find('input');
+
+        input.element.dispatchEvent(new Event('invalid'));
+        await nextTick();
+
+        expect(input.attributes('aria-invalid')).toBe('true');
+
+        (wrapper.vm as unknown as { value: string }).value = 'filled';
+        await flushPromises();
+
+        expect(wrapper.find('.state').text()).toBe('false|');
+        expect(input.attributes('aria-invalid')).toBeUndefined();
     });
 
     // A rich text editor or a third-party widget sits inside a field like any

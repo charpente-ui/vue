@@ -72,11 +72,16 @@ export function useCustomValidity<Value, Element extends ValidatableElement>(
         }
 
         // A rule removed at runtime must not leave its last error behind.
+        //
+        // With no rule, the field is still told: a model changed by the app
+        // rather than typed fires no input event, and a field flagged invalid
+        // would otherwise keep its error on a value that now passes.
         if (message === undefined) {
             if (previous?.[0] !== undefined) {
                 element.setCustomValidity('');
-                field?.syncValidity(element);
             }
+
+            field?.syncValidity(element);
 
             return;
         }
