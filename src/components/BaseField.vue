@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, provide, ref, useAttrs, useTemplateRef } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, useAttrs, useTemplateRef } from 'vue';
 import { useGeneratedId } from './internal/id';
 import { fieldKey } from './internal/keys';
 import type { ValidatableElement } from '../types';
@@ -20,12 +20,40 @@ const fieldId = computed(() => {
 });
 
 // aria-describedby takes a list of ids, so every supporting text is referenced
-// rather than just one, in registration order. Unregistering drops that id and
+// rather than just one, in document order. Unregistering drops that id and
 // keeps the rest wired; an empty list removes the attribute altogether.
 const describedBy = computed(() => supportingTextIds.value.join(' ') || undefined);
 
+// Screen readers read the descriptions in attribute order, and registration
+// order is not document order: a text behind a `v-if` registers when it
+// appears, wherever it sits. Its element only exists once the render is
+// flushed, so the list is re-sorted then, against the field's own DOM. An id
+// found nowhere under the field keeps its place at the end.
+function sortSupportingTexts() {
+    const root = rootRef.value;
+
+    if (!root) {
+        return;
+    }
+
+    const ids = supportingTextIds.value;
+    const sorted = Array.from(root.querySelectorAll('[id]'), (element) => element.id)
+        .filter((id) => ids.includes(id));
+
+    for (const id of ids) {
+        if (!sorted.includes(id)) {
+            sorted.push(id);
+        }
+    }
+
+    if (sorted.join(' ') !== ids.join(' ')) {
+        supportingTextIds.value = sorted;
+    }
+}
+
 function registerSupportingText(id: string) {
     supportingTextIds.value.push(id);
+    nextTick(sortSupportingTexts);
 }
 
 function unregisterSupportingText(id: string) {

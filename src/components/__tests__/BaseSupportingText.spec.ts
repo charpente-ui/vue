@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { describe, it, expect } from 'vitest';
 import BaseField from '../BaseField.vue';
@@ -168,7 +168,7 @@ describe('BaseSupportingText', () => {
         expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined();
     });
 
-    it('references every supporting text of the field, in registration order', async () => {
+    it('references every supporting text of the field, in document order', async () => {
         const wrapper = mount(BaseField, {
             slots: {
                 default: [
@@ -185,6 +185,80 @@ describe('BaseSupportingText', () => {
 
         expect(ids).toHaveLength(2);
         expect(wrapper.find('input').attributes('aria-describedby')).toBe(ids.join(' '));
+    });
+
+    // Screen readers follow the attribute, not the page: a text that appears
+    // later must still be read in the place it sits.
+    it('keeps document order when an earlier text appears after a later one', async () => {
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput,
+                BaseSupportingText
+            },
+            data: () => ({ showFirst: false }),
+            template: `
+                <BaseField>
+                    <BaseSupportingText v-if="showFirst" id="first">First</BaseSupportingText>
+                    <BaseInput/>
+                    <BaseSupportingText id="second">Second</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('second');
+
+        await wrapper.setData({ showFirst: true });
+        await flushPromises();
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('first second');
+    });
+
+    it('keeps a text rendered outside the field at the end of the list', async () => {
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput,
+                BaseSupportingText
+            },
+            template: `
+                <BaseField>
+                    <BaseInput/>
+                    <Teleport to="body">
+                        <BaseSupportingText id="outside">Outside</BaseSupportingText>
+                    </Teleport>
+                    <BaseSupportingText id="inside">Inside</BaseSupportingText>
+                </BaseField>
+            `
+        }, {
+            attachTo: document.body
+        });
+
+        await flushPromises();
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('inside outside');
+
+        wrapper.unmount();
+    });
+
+    it('does not sort the texts of a field unmounted before the render settles', async () => {
+        const wrapper = mount(BaseField, {
+            slots: {
+                default: [
+                    BaseInput,
+                    BaseSupportingText
+                ]
+            }
+        });
+
+        // The sort is already queued; reaching into a field that is gone would
+        // throw inside it, and Vitest fails the run on that unhandled error.
+        wrapper.unmount();
+        await flushPromises();
+
+        expect(wrapper.exists()).toBe(false);
     });
 
     it('keeps aria-describedby on the remaining text when another one unmounts', async () => {
