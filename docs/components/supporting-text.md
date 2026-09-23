@@ -101,5 +101,9 @@ control.value?.el?.focus();
 A `validation` text becomes a `role="alert"` live region, so a screen reader announces the message when it swaps in.
 Pass an explicit `role` — `role="status"` for a gentler, polite announcement — to override that.
 
+Once the value is fixed, the hint swaps back into that same region. Tested with Windows Narrator in Edge, the error is
+announced and the returning hint is not. The ARIA spec leaves room for a screen reader to read it out as well, so
+check yours on the flows that matter.
+
 Being referenced by `aria-describedby` rather than being merely adjacent is what makes the hint reachable: a screen
 reader reads it as part of the control, not as stray text somewhere on the page.
