@@ -81,6 +81,9 @@ touches the DOM during setup.
 <label for="cui-v-0">   <!-- identical on the server and in the browser -->
 ```
 
+`aria-describedby` is the exception: it reaches a control on hydration rather than in the server HTML —
+[Ids › Server-side rendering](/guide/ids#server-side-rendering) explains why, and how to have it from the start.
+
 Nuxt needs no plugin and no configuration — import the components where you use them.
 
 ## TypeScript

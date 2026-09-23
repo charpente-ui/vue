@@ -138,9 +138,25 @@ too: it picks up an id that ends up on no element.
 
 ## Server-side rendering
 
-Generated ids are stable across server and client, so nothing changes on hydration. Do not derive ids from a counter,
-`Math.random()` or `crypto.randomUUID()` in your own components — that is exactly the mismatch `useId()` exists to
-avoid.
+Generated ids are stable across server and client, so hydration never reports a mismatch. Do not derive ids from a
+counter, `Math.random()` or `crypto.randomUUID()` in your own components — that is exactly the mismatch `useId()`
+exists to avoid.
+
+One piece of wiring does arrive late: `aria-describedby`. A supporting text registers with its field when it is set
+up, and the server renders a control before it sets up the texts that follow it — in one pass, with no going back. So
+the server HTML carries the `for`/`id` pair but not the description, which the control picks up once the page
+hydrates. Hydration itself stays clean: the browser renders the same markup first, then adds the attribute.
+
+Nothing is lost for a hydrated page. If the description has to be in the HTML the server sends — a page read before
+its JavaScript runs — name the text yourself, and the control carries it from the first byte:
+
+```vue
+<CField>
+    <CLabel>Email</CLabel>
+    <CInput aria-describedby="email-hint"/>
+    <CSupportingText id="email-hint">We never share your email.</CSupportingText>
+</CField>
+```
 
 ## See also
 
