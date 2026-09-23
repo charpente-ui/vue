@@ -102,7 +102,7 @@ accessible automatically — and every class lands on the native element, ready 
 | CheckboxGroup  | **Group:** Shared v-model and opt-in name across checkboxes inside a fieldset.   | `CCheckboxGroup`  | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 | Field          | **Wrapper:** Auto-links a label and an input via a shared generated id.          | `CField`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 | File           | **File Input:** Reactive file selection with `v-model` support.                  | `CFile`           | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
-| Form           | **Auto-Submit:** `preventDefault` handling and opt-in native validation.         | `CForm`           | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
+| Form           | **No Reload:** Calls `preventDefault` for you, with opt-in native validation.    | `CForm`           | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 | Input          | **Auto-ID:** Auto-links to labels via `useId()` and full attributes inheritance. | `CInput`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 | Label          | **Context-Aware:** Simple, accessible binding for any input.                     | `CLabel`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 | Radio          | **Selection:** Minimalist wrapper for native radio input.                        | `CRadio`          | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
