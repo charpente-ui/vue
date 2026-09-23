@@ -22,9 +22,22 @@ function handleChange(event: Event) {
     model.value = (event.target as HTMLInputElement).files;
 }
 
+// The element only fills `files` from the picker, so a list set by the app —
+// a drop zone, a restored draft — is written back, or the native `required`
+// and a native submission would both see an empty input.
 watch(model, (value) => {
-    if (!value && inputRef.value) {
+    // Defensive null guard required by the `HTMLInputElement | null` ref type.
+    // The watcher stops at unmount, so the model never changes without the
+    // element — excluded from coverage rather than fake-tested.
+    /* v8 ignore next 3 */
+    if (!inputRef.value) {
+        return;
+    }
+
+    if (!value) {
         inputRef.value.value = '';
+    } else if (inputRef.value.files !== value) {
+        inputRef.value.files = value;
     }
 });
 

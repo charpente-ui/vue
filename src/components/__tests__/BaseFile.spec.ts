@@ -3,6 +3,16 @@ import { nextTick } from 'vue';
 import { describe, it, expect } from 'vitest';
 import BaseFile from '../BaseFile.vue';
 
+// A real FileList can only come from a DataTransfer, which jsdom lacks. Borrowing
+// its prototype keeps Vue from wrapping the list in a reactive proxy, which it
+// never does to the real one — a plain array would be, and would no longer be
+// the list the input holds.
+function fileList(...files: File[]): FileList {
+    return Object.defineProperty(Object.assign(Object.create(FileList.prototype), files), 'length', {
+        value: files.length
+    });
+}
+
 describe('BaseFile', () => {
     it('updates model with FileList on change', async () => {
         const wrapper = mount(BaseFile, {
@@ -23,9 +33,7 @@ describe('BaseFile', () => {
         const input = wrapper.find('input').element as HTMLInputElement;
 
         Object.defineProperty(input, 'files', {
-            value: [
-                file
-            ],
+            value: fileList(file),
             configurable: true
         });
 
@@ -74,6 +82,60 @@ describe('BaseFile', () => {
         await nextTick();
 
         expect(input.value).toBe('');
+    });
+
+    it('writes a list set by the app into the input', async () => {
+        const wrapper = mount(BaseFile, {
+            props: {
+                modelValue: null
+            }
+        });
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+        const list = fileList(new File([
+            'content'
+        ], 'test.txt'));
+        let written: FileList | null = null;
+
+        Object.defineProperty(input, 'files', {
+            get: () => written,
+            set: (value: FileList) => {
+                written = value;
+            },
+            configurable: true
+        });
+
+        await wrapper.setProps({
+            modelValue: list
+        });
+
+        expect(input.files).toBe(list);
+    });
+
+    it('does not write back the list the input already holds', async () => {
+        const wrapper = mount(BaseFile, {
+            props: {
+                modelValue: null
+            }
+        });
+
+        const input = wrapper.find('input').element as HTMLInputElement;
+        const list = fileList();
+        let writes = 0;
+
+        Object.defineProperty(input, 'files', {
+            get: () => list,
+            set: () => {
+                writes++;
+            },
+            configurable: true
+        });
+
+        await wrapper.setProps({
+            modelValue: list
+        });
+
+        expect(writes).toBe(0);
     });
 
     it('passes native attributes through', () => {
