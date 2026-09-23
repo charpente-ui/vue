@@ -102,11 +102,27 @@ export function useCustomValidity<Value, Element extends ValidatableElement>(
     // a re-render, and `onUpdated` runs once the patched attributes are on the
     // element. Re-applying is idempotent, so a re-render that changed nothing
     // relevant costs one read and writes the same value back.
+    //
+    // It also covers what the watch reads too early: `v-model` on a `<select>`
+    // picks the option in its `updated` hook, after post-flush watchers, so a
+    // select whose model the app changed still shows the old option to the
+    // watch. By `onUpdated` it no longer does — which is why the field is told
+    // here as well when there is no rule.
     onUpdated(() => {
         const element = elementRef.value;
         const message = customMessage.value;
 
-        if (!element || message === undefined) {
+        // Defensive null guard required by the ref type. An update only
+        // follows a mount, and the element is resolved by then — excluded from
+        // coverage rather than fake-tested.
+        /* v8 ignore next 3 */
+        if (!element) {
+            return;
+        }
+
+        if (message === undefined) {
+            field?.syncValidity(element);
+
             return;
         }
 

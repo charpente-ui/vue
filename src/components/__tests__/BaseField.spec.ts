@@ -332,36 +332,78 @@ describe('BaseField', () => {
     });
 
     // An app filling a field itself — an address lookup, a restored draft —
-    // fires no input event. The field must still notice the value now passes.
-    it('clears the invalid state when the app fills a rejected control', async () => {
+    // fires no input event. The field must still notice the value now passes,
+    // whichever control it holds.
+    it.each([
+        [
+            'input',
+            '<BaseInput v-model="value" required/>',
+            'input',
+            '',
+            'filled'
+        ],
+        [
+            'textarea',
+            '<BaseTextarea v-model="value" required/>',
+            'textarea',
+            '',
+            'filled'
+        ],
+        [
+            'select',
+            '<BaseSelect v-model="value" required :options="[\'a\']"><option value="">--</option></BaseSelect>',
+            'select',
+            '',
+            'a'
+        ],
+        [
+            'checkbox',
+            '<BaseCheckbox v-model="value" required/>',
+            'input',
+            false,
+            true
+        ],
+        [
+            'radio',
+            '<BaseRadio v-model="value" value="a" required/>',
+            'input',
+            '',
+            'a'
+        ]
+    ])('clears the invalid state when the app fills a rejected %s', async (_, control, selector, empty, filled) => {
         const wrapper = mount({
             components: {
                 BaseField,
-                BaseInput
+                BaseInput,
+                BaseTextarea,
+                BaseSelect,
+                BaseCheckbox,
+                BaseRadio
             },
             data: () => ({
-                value: ''
+                value: empty
             }),
             template: `
                 <BaseField v-slot="{ invalid, message }">
-                    <BaseInput v-model="value" required/>
+                    ${control}
                     <span class="state">{{ invalid }}|{{ message }}</span>
                 </BaseField>
             `
         });
 
-        const input = wrapper.find('input');
+        const element = wrapper.find(selector);
 
-        input.element.dispatchEvent(new Event('invalid'));
+        element.element.dispatchEvent(new Event('invalid'));
         await nextTick();
 
-        expect(input.attributes('aria-invalid')).toBe('true');
+        expect(element.attributes('aria-invalid')).toBe('true');
 
-        (wrapper.vm as unknown as { value: string }).value = 'filled';
+        (wrapper.vm as unknown as { value: unknown }).value = filled;
         await flushPromises();
 
+        expect((element.element as HTMLInputElement).validity.valid).toBe(true);
         expect(wrapper.find('.state').text()).toBe('false|');
-        expect(input.attributes('aria-invalid')).toBeUndefined();
+        expect(element.attributes('aria-invalid')).toBeUndefined();
     });
 
     // A rich text editor or a third-party widget sits inside a field like any
