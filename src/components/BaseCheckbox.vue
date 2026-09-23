@@ -2,6 +2,7 @@
 import { computed, inject, useAttrs, useTemplateRef, watchPostEffect } from 'vue';
 import { checkboxGroupKey } from './internal/keys';
 import { useFieldControl } from './internal/field';
+import { hasOwnVModel } from './internal/model';
 import { useCustomValidity } from './internal/validity';
 import type { ValidationRule } from '../types';
 
@@ -18,6 +19,13 @@ const props = defineProps<{
 const localModel = defineModel<boolean | unknown[]>();
 const group = inject(checkboxGroupKey, null);
 const model = group ? group.model : localModel;
+
+// Inside a group the group's model is the one bound, so an item's own v-model
+// would be dropped without a word.
+if (process.env.NODE_ENV !== 'production' && group && hasOwnVModel()) {
+    console.warn('[Charpente] CCheckbox inside a CCheckboxGroup ignores its own v-model: bind v-model on the '
+        + 'group and give the checkbox a `value`.');
+}
 
 const attrs = useAttrs();
 const inputRef = useTemplateRef('input');

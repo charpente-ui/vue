@@ -2,6 +2,7 @@
 import { computed, inject, useAttrs, useTemplateRef } from 'vue';
 import { radioGroupKey } from './internal/keys';
 import { useFieldControl } from './internal/field';
+import { hasOwnVModel } from './internal/model';
 import { useCustomValidity } from './internal/validity';
 import type { ValidationRule } from '../types';
 
@@ -17,6 +18,12 @@ const props = defineProps<{
 const localModel = defineModel<unknown>();
 const group = inject(radioGroupKey, null);
 const model = group ? group.model : localModel;
+
+// Inside a group the group's model is the one bound, so an item's own v-model
+// would be dropped without a word.
+if (process.env.NODE_ENV !== 'production' && group && hasOwnVModel()) {
+    console.warn('[Charpente] CRadio inside a CRadioGroup ignores its own v-model: bind v-model on the group.');
+}
 
 const attrs = useAttrs();
 const inputRef = useTemplateRef('input');

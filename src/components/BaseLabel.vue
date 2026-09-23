@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, useTemplateRef } from 'vue';
-import { fieldKey } from './internal/keys';
+import { computed, inject, onMounted, useTemplateRef } from 'vue';
+import { checkboxGroupKey, fieldKey, radioGroupKey } from './internal/keys';
 
 defineOptions({
     inheritAttrs: false
@@ -18,6 +18,21 @@ const labelRef = useTemplateRef('label');
 const labelFor = computed(() => {
     return props.for || field?.id.value;
 });
+
+// A group hands its items no field id, so a label that neither wraps its
+// control nor names it renders without `for` and labels nothing — silently.
+// `control` is the browser's own answer to "what does this label label", so
+// wrapping, `for` and an item-level CField are all recognised as they are.
+if (process.env.NODE_ENV !== 'production') {
+    const inGroup = !!inject(radioGroupKey, null) || !!inject(checkboxGroupKey, null);
+
+    onMounted(() => {
+        if (inGroup && !labelRef.value?.control) {
+            console.warn('[Charpente] CLabel inside a CRadioGroup or CCheckboxGroup is not associated with any '
+                + 'control. Wrap the control in the label, pass `for`, or wrap the item in its own CField.');
+        }
+    });
+}
 
 // The native element, kept consistent with the form controls so a ref on any
 // Charpente component reaches its DOM node the same way.
