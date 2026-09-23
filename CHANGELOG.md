@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.0](https://github.com/charpente-ui/vue/compare/v2.11.0...v2.12.0) (2026-09-23)
+
+### Features
+
+* **file:** write a file list set by the app into the input ([9db8349](https://github.com/charpente-ui/vue/commit/9db83492532bb07f362918817001742c6e3fcc14))
+* warn in development about labels and item v-models a group drops ([0b4fac3](https://github.com/charpente-ui/vue/commit/0b4fac34fbf0937c1129cace2f5dd4e4188259a7))
+
+### Bug Fixes
+
+* **field:** clear a rejected field when the app changes its value ([10fb8c7](https://github.com/charpente-ui/vue/commit/10fb8c795d3c781b7dd4a28b0933cc7f4f99a7d0))
+* **field:** clear a rejected select when the app changes its value ([41ee6fc](https://github.com/charpente-ui/vue/commit/41ee6fcfb2a4f5cba2d7859fba67a29a6cd53ff9))
+* **field:** order aria-describedby by document position ([93a0c8f](https://github.com/charpente-ui/vue/commit/93a0c8f6cc113796a3a124f97b7173ed8e0d093a))
+
 ## [2.11.0](https://github.com/charpente-ui/vue/compare/v2.10.1...v2.11.0) (2026-09-16)
 
 ### Features
