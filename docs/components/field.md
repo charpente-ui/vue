@@ -10,16 +10,27 @@ The wrapper that links a label, a control and its hints — one generated id, no
 import { CField } from '@charpente-ui/vue';
 ```
 
+Inside a field, three things are wired for you:
+
+- the `CLabel` points at the control (`for`/`id`);
+- every `CSupportingText` is referenced by the control's `aria-describedby`;
+- a control the browser rejects gets `aria-invalid`.
+
+`CField` itself is a plain `<div>`: it places nothing and styles nothing, so the layout is yours.
+
 ## Examples
 
 <script setup>
 import Basic from '../demos/field-basic.vue';
 import SupportingText from '../demos/field-supporting-text.vue';
 import Slot from '../demos/field-slot.vue';
+import Configurations from '../demos/field-configurations.vue';
 import Foreign from '../demos/field-foreign-control.vue';
 </script>
 
-### Basic
+### Label, control and hint
+
+Click the label and the input takes focus. A screen reader reads the hint as part of the control.
 
 <Demo><Basic/></Demo>
 
@@ -27,7 +38,8 @@ import Foreign from '../demos/field-foreign-control.vue';
 
 ### Hints that come and go
 
-`aria-describedby` follows the supporting texts as they mount and unmount.
+Any number of `CSupportingText` can live in the same field. `aria-describedby` lists them in document order and follows
+them as they mount and unmount.
 
 <Demo><SupportingText/></Demo>
 
@@ -35,13 +47,18 @@ import Foreign from '../demos/field-foreign-control.vue';
 
 ### Reading the invalid state
 
-`CField` never applies a class of its own. It hands you the state instead.
+Inside a [`CForm validate`](/components/form), `CSupportingText validation` shows the browser's message while the
+control is invalid, and its own content otherwise. The message needs nothing from the field: it is already wired.
+
+What `CField` never does is apply a class of its own. When something else must react — a label, an icon, a border —
+it hands you the state through its default slot: `invalid` and `message`.
 
 <Demo><Slot/></Demo>
 
 <<< ../demos/field-slot.vue
 
-A template ref works too, when you want to style the field's own wrapper rather than a child:
+The control carries `aria-invalid="true"` while it fails, so plain CSS can reach it without any slot:
+`input[aria-invalid='true']`. To style the field's own wrapper, use a template ref instead:
 
 ```vue
 <CField ref="fieldRef" :class="{ 'is-invalid': fieldRef?.invalid }">
@@ -49,6 +66,29 @@ A template ref works too, when you want to style the field's own wrapper rather 
     <CInput v-model="email" type="email" required/>
 </CField>
 ```
+
+The slot only reaches the field's direct children. A component nested deeper receives nothing automatically: pass
+`invalid` and `message` down as props. The [validation guide](/guide/validation) covers the rest.
+
+### Checkbox, switch, radio and lists
+
+A checkbox puts the control before its label. A switch is a `CCheckbox` with `role="switch"`, and can carry a hint
+under its label. A list of radios or checkboxes wraps its group in a `CField`: the `<legend>` on top, the hint last,
+and each item in a `CField` of its own.
+
+<Demo><Configurations/></Demo>
+
+<<< ../demos/field-configurations.vue
+
+::: tip
+Keep the DOM order equal to the visual order. Reversing it with `flex-direction: row-reverse` leaves the tab and
+screen-reader order out of step with what the eye sees.
+:::
+
+::: warning
+The global label of a list is a `<legend>`, not a `CLabel`: a `<label for>` cannot point at a `<fieldset>`. See
+[Groups](#groups).
+:::
 
 ### A control the field doesn't own
 

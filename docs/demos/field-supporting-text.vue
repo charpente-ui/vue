@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { CField, CInput, CLabel, CSupportingText } from '@charpente-ui/vue';
+import { CButton, CField, CInput, CLabel, CSupportingText } from '@charpente-ui/vue';
 
 const email = ref('');
-const error = ref('');
+const taken = ref(false);
 </script>
 
 <template>
@@ -12,12 +12,8 @@ const error = ref('');
         <CInput v-model="email" type="email"/>
 
         <CSupportingText>We never share your email.</CSupportingText>
-        <CSupportingText v-if="error">{{ error }}</CSupportingText>
+        <CSupportingText v-if="taken">That address is already taken.</CSupportingText>
     </CField>
 
-    <button type="button" @click="error = error ? '' : 'That address is already taken.'">
-        Toggle the second hint
-    </button>
-
-    <p class="value">Both hints are referenced by aria-describedby, in mount order.</p>
+    <CButton type="button" @click="taken = !taken">Toggle the second hint</CButton>
 </template>

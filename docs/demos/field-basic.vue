@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { CField, CInput, CLabel } from '@charpente-ui/vue';
+import { CField, CInput, CLabel, CSupportingText } from '@charpente-ui/vue';
 
 const email = ref('');
 </script>
@@ -9,7 +9,6 @@ const email = ref('');
     <CField>
         <CLabel>Email</CLabel>
         <CInput v-model="email" type="email"/>
+        <CSupportingText>We never share your email.</CSupportingText>
     </CField>
-
-    <p class="value">No for/id wiring — click the label to focus the input.</p>
 </template>

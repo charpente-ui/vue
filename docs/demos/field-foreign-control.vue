@@ -14,6 +14,4 @@ const date = ref('');
 
         <CSupportingText>DD/MM/YYYY</CSupportingText>
     </CField>
-
-    <p class="value">{{ date || 'empty' }}</p>
 </template>
