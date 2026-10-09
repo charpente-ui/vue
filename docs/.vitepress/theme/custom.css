@@ -112,8 +112,9 @@
     gap: .4rem;
 }
 
-/* The supporting text, hint and error alike. */
-.demo__preview p {
+/* The supporting text, hint and error alike. The doc theme gives every `p` a
+   top margin through `.ff-theme .vp-doc p`, so the reset has to outweigh it. */
+.ff-theme .vp-doc .demo__preview p {
     margin: 0;
     font-size: .8rem;
     line-height: 1.4;
@@ -140,7 +141,13 @@
     flex-wrap: wrap;
 }
 
-.demo__preview .value {
+/* The readout of the demo's state: not part of the field, so it is set apart
+   from it by a dashed rule and a monospace face. */
+.ff-theme .vp-doc .demo__preview p.value {
+    width: 100%;
+    margin-top: .4rem;
+    padding-top: .7rem;
+    border-top: 1px dashed var(--vp-c-divider);
     font-family: var(--vp-font-family-mono);
     font-size: .8rem;
     color: var(--vp-c-text-2);
