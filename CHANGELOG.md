@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/charpente-ui/vue/compare/v2.12.0...v2.12.1) (2026-10-09)
+
+### Bug Fixes
+
+* **docs:** reset the doc theme's paragraph margin and set the value readout apart in demo previews ([7134ea7](https://github.com/charpente-ui/vue/commit/7134ea7893dbe3270902c306eb5862b6ee853b23))
+
 ## [2.12.0](https://github.com/charpente-ui/vue/compare/v2.11.0...v2.12.0) (2026-09-23)
 
 ### Features
