@@ -10,7 +10,7 @@ const { version } = createRequire(import.meta.url)('../../package.json');
 // outlives its first one.
 const startYear = 2026;
 const thisYear = new Date().getFullYear();
-const years = thisYear > startYear ? `${startYear}–${thisYear}` : `${startYear}`;
+const years = thisYear > startYear ? `${ startYear }–${ thisYear }` : `${ startYear }`;
 
 // Served at the root of https://charpente.frontfactory.dev (Vercel).
 // Moving back to a GitHub project page? Set base to '/vue/'.
@@ -28,6 +28,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     base,
     title,
     description,
+    lang: 'en-US',
     cleanUrls: true,
     sitemap: { hostname },
     // Underscore-prefixed files are partials pulled in with <!--@include: -->,
@@ -35,121 +36,209 @@ export default defineConfigWithTheme<ThemeConfig>({
     srcExclude: [
         '**/_*.md'
     ],
-    lastUpdated: true,
     titleTemplate: ':title | Charpente UI',
     // og:title, og:description, og:url and the canonical link are per-page:
     // see transformPageData below. Only site-wide tags belong here.
     head: [
         [
             'link',
-            { rel: 'icon',
+            {
+                rel: 'icon',
                 type: 'image/svg+xml',
-                href: `${base}favicon.svg` }
+                href: `${ base }favicon.svg`
+            }
         ],
         [
             'meta',
-            { name: 'theme-color',
-                content: '#b84277' }
+            {
+                name: 'theme-color',
+                content: '#b84277'
+            }
         ],
         [
             'meta',
-            { property: 'og:type',
-                content: 'website' }
+            {
+                property: 'og:type',
+                content: 'website'
+            }
         ],
         [
             'meta',
-            { property: 'og:site_name',
-                content: title }
+            {
+                property: 'og:site_name',
+                content: title
+            }
         ],
         // PNG, not SVG: no social network renders an SVG preview.
         [
             'meta',
-            { property: 'og:image',
-                content: `${hostname}/banner.png` }
+            {
+                property: 'og:image',
+                content: `${ hostname }/banner.png`
+            }
         ],
         [
             'meta',
-            { property: 'og:image:width',
-                content: '1200' }
+            {
+                property: 'og:image:width',
+                content: '1200'
+            }
         ],
         [
             'meta',
-            { property: 'og:image:height',
-                content: '630' }
+            {
+                property: 'og:image:height',
+                content: '630'
+            }
         ],
         [
             'meta',
-            { property: 'og:image:alt',
-                content: 'Charpente UI — headless component library for Vue 3' }
+            {
+                property: 'og:image:alt',
+                content: 'Charpente UI — headless component library for Vue 3'
+            }
         ],
         [
             'meta',
-            { name: 'twitter:card',
-                content: 'summary_large_image' }
+            {
+                name: 'twitter:card',
+                content: 'summary_large_image'
+            }
         ],
         [
             'meta',
-            { name: 'twitter:image',
-                content: `${hostname}/banner.png` }
+            {
+                name: 'twitter:image',
+                content: `${ hostname }/banner.png`
+            }
         ]
     ],
+    // The 404 page is built from static page data that skips transformPageData.
+    transformHead({ pageData }) {
+        return pageData.isNotFound
+            ? [
+                [
+                    'meta',
+                    {
+                        name: 'robots',
+                        content: 'noindex'
+                    }
+                ]
+            ]
+            : [];
+    },
     transformPageData(pageData) {
         const path = pageData.relativePath
             .replace(/(^|\/)index\.md$/, '$1')
             .replace(/\.md$/, '');
-        const url = `${hostname}/${path}`;
+        const url = `${ hostname }/${ path }`;
         // Mirrors titleTemplate: the home page keeps the bare site title.
         const pageTitle = pageData.title && pageData.title !== title
-            ? `${pageData.title} | ${title}`
+            ? `${ pageData.title } | ${ title }`
             : title;
 
         pageData.frontmatter.head ??= [];
         pageData.frontmatter.head.push(
             [
                 'link',
-                { rel: 'canonical',
-                    href: url }
+                {
+                    rel: 'canonical',
+                    href: url
+                }
             ],
             [
                 'meta',
-                { property: 'og:url',
-                    content: url }
+                {
+                    property: 'og:url',
+                    content: url
+                }
             ],
             [
                 'meta',
-                { property: 'og:title',
-                    content: pageTitle }
+                {
+                    property: 'og:title',
+                    content: pageTitle
+                }
             ],
             [
                 'meta',
-                { property: 'og:description',
-                    content: pageData.description || description }
+                {
+                    property: 'og:description',
+                    content: pageData.description || description
+                }
+            ],
+            [
+                'meta',
+                {
+                    name: 'twitter:title',
+                    content: pageTitle
+                }
+            ],
+            [
+                'meta',
+                {
+                    name: 'twitter:description',
+                    content: pageData.description || description
+                }
             ]
         );
+
+        if (pageData.relativePath === 'index.md') {
+            pageData.frontmatter.head.push(
+                [
+                    'script',
+                    { type: 'application/ld+json' },
+                    JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'SoftwareSourceCode',
+                        name: title,
+                        description,
+                        url: hostname,
+                        codeRepository: 'https://github.com/charpente-ui/vue',
+                        programmingLanguage: 'TypeScript',
+                        runtimePlatform: 'Vue 3',
+                        license: 'https://opensource.org/licenses/MIT',
+                        version
+                    })
+                ]
+            );
+        }
     },
     themeConfig: {
         // Decorative: the mark sits inside the same link as the site title, so
         // an alt would make a screen reader announce the name twice.
-        logo: { light: '/logo-light.svg',
+        logo: {
+            light: '/logo-light.svg',
             dark: '/logo-dark.svg',
-            alt: '' },
+            alt: ''
+        },
         search: { provider: 'local' },
         nav: [
-            { text: 'Guide',
-                link: '/guide/getting-started',
-                activeMatch: '/guide/' },
-            { text: 'Components',
-                link: '/components/',
-                activeMatch: '/components/' },
             {
-                text: `v${version}`,
+                text: 'Guide',
+                link: '/guide/getting-started',
+                activeMatch: '/guide/'
+            },
+            {
+                text: 'Components',
+                link: '/components/',
+                activeMatch: '/components/'
+            },
+            {
+                text: `v${ version }`,
                 items: [
-                    { text: 'Changelog',
-                        link: '/guide/changelog' },
-                    { text: 'Releases',
-                        link: 'https://github.com/charpente-ui/vue/releases' },
-                    { text: 'npm',
-                        link: 'https://www.npmjs.com/package/@charpente-ui/vue' }
+                    {
+                        text: 'Changelog',
+                        link: '/guide/changelog'
+                    },
+                    {
+                        text: 'Releases',
+                        link: 'https://github.com/charpente-ui/vue/releases'
+                    },
+                    {
+                        text: 'npm',
+                        link: 'https://www.npmjs.com/package/@charpente-ui/vue'
+                    }
                 ]
             }
         ],
@@ -157,100 +246,156 @@ export default defineConfigWithTheme<ThemeConfig>({
             {
                 text: 'Overview',
                 items: [
-                    { text: 'Introduction',
-                        link: '/guide/introduction' },
-                    { text: 'Getting started',
-                        link: '/guide/getting-started' },
-                    { text: 'Comparison',
-                        link: '/guide/comparison' },
-                    { text: 'Accessibility',
-                        link: '/guide/accessibility' },
-                    { text: 'Changelog',
-                        link: '/guide/changelog' }
+                    {
+                        text: 'Introduction',
+                        link: '/guide/introduction'
+                    },
+                    {
+                        text: 'Getting started',
+                        link: '/guide/getting-started'
+                    },
+                    {
+                        text: 'Comparison',
+                        link: '/guide/comparison'
+                    },
+                    {
+                        text: 'Accessibility',
+                        link: '/guide/accessibility'
+                    },
+                    {
+                        text: 'Changelog',
+                        link: '/guide/changelog'
+                    }
                 ]
             },
             {
                 text: 'Guides',
                 items: [
-                    { text: 'Ids',
-                        link: '/guide/ids' },
-                    { text: 'Native validation',
-                        link: '/guide/validation' },
-                    { text: 'Wrapping components',
-                        link: '/guide/wrapping' }
+                    {
+                        text: 'Ids',
+                        link: '/guide/ids'
+                    },
+                    {
+                        text: 'Native validation',
+                        link: '/guide/validation'
+                    },
+                    {
+                        text: 'Wrapping components',
+                        link: '/guide/wrapping'
+                    }
                 ]
             },
             {
                 text: 'Components',
                 items: [
-                    { text: 'Overview',
-                        link: '/components/' },
-                    { text: 'Button',
-                        link: '/components/button' },
-                    { text: 'Checkbox',
-                        link: '/components/checkbox' },
-                    { text: 'Field',
-                        link: '/components/field' },
-                    { text: 'File',
-                        link: '/components/file' },
-                    { text: 'Form',
-                        link: '/components/form' },
-                    { text: 'Input',
-                        link: '/components/input' },
-                    { text: 'Label',
-                        link: '/components/label' },
-                    { text: 'Radio',
-                        link: '/components/radio' },
-                    { text: 'Select',
-                        link: '/components/select' },
-                    { text: 'SupportingText',
-                        link: '/components/supporting-text' },
-                    { text: 'Textarea',
-                        link: '/components/textarea' }
+                    {
+                        text: 'Overview',
+                        link: '/components/'
+                    },
+                    {
+                        text: 'Button',
+                        link: '/components/button'
+                    },
+                    {
+                        text: 'Checkbox',
+                        link: '/components/checkbox'
+                    },
+                    {
+                        text: 'Field',
+                        link: '/components/field'
+                    },
+                    {
+                        text: 'File',
+                        link: '/components/file'
+                    },
+                    {
+                        text: 'Form',
+                        link: '/components/form'
+                    },
+                    {
+                        text: 'Input',
+                        link: '/components/input'
+                    },
+                    {
+                        text: 'Label',
+                        link: '/components/label'
+                    },
+                    {
+                        text: 'Radio',
+                        link: '/components/radio'
+                    },
+                    {
+                        text: 'Select',
+                        link: '/components/select'
+                    },
+                    {
+                        text: 'SupportingText',
+                        link: '/components/supporting-text'
+                    },
+                    {
+                        text: 'Textarea',
+                        link: '/components/textarea'
+                    }
                 ]
             }
         ],
         socialLinks: [
-            { icon: 'github',
-                link: 'https://github.com/charpente-ui/vue' }
+            {
+                icon: 'github',
+                link: 'https://github.com/charpente-ui/vue'
+            }
         ],
-        editLink: {
-            pattern: 'https://github.com/charpente-ui/vue/edit/main/docs/:path',
-            text: 'Edit this page on GitHub'
-        },
         ff: {
+            meta: {
+                readingTime: false,
+                lastUpdated: false
+            },
             navOrder: 'menu-first',
             footerColumns: [
                 {
                     title: 'Guide',
                     items: [
-                        { text: 'Getting started',
-                            link: '/guide/getting-started' },
-                        { text: 'Components',
-                            link: '/components/' },
-                        { text: 'Accessibility',
-                            link: '/guide/accessibility' },
-                        { text: 'Changelog',
-                            link: '/guide/changelog' }
+                        {
+                            text: 'Getting started',
+                            link: '/guide/getting-started'
+                        },
+                        {
+                            text: 'Components',
+                            link: '/components/'
+                        },
+                        {
+                            text: 'Accessibility',
+                            link: '/guide/accessibility'
+                        },
+                        {
+                            text: 'Changelog',
+                            link: '/guide/changelog'
+                        }
                     ]
                 },
                 {
                     title: 'Project',
                     items: [
                         // The repo link itself now lives in the native footerSocial column below.
-                        { text: 'Releases',
-                            link: 'https://github.com/charpente-ui/vue/releases' },
-                        { text: 'Issues',
-                            link: 'https://github.com/charpente-ui/vue/issues' },
-                        { text: 'npm',
-                            link: 'https://www.npmjs.com/package/@charpente-ui/vue' }
+                        {
+                            text: 'Releases',
+                            link: 'https://github.com/charpente-ui/vue/releases'
+                        },
+                        {
+                            text: 'Issues',
+                            link: 'https://github.com/charpente-ui/vue/issues'
+                        },
+                        {
+                            text: 'npm',
+                            link: 'https://www.npmjs.com/package/@charpente-ui/vue'
+                        }
                     ]
                 }
             ]
         },
         footer: {
             message: 'Released under the MIT License.',
-            copyright: `Copyright © ${years} <a href="https://frontfactory.dev">Front Factory</a>.`
+            copyright: `Copyright © ${ years } <a href="https://frontfactory.dev">Front Factory</a> - <a href="https://damev.in">Boris Damevin</a>.`
         }
     },
     vite: {
