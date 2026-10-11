@@ -42,9 +42,8 @@ Concretely, this:
 renders one `<input>` carrying `type`, `required` and `class`, plus a generated `id` linked to its label. No wrapper
 `<div>`, no `<Field.Root>`, no slot to destructure.
 
-The size follows from that rather than from optimisation work: the published bundle is **16.7 kB, 4.4 kB
-gzipped**, with no runtime dependency at all and Vue kept external. There is no widget code in it because there are no
-widgets.
+The size follows from that rather than from optimisation work: the library has no runtime dependency at all, with Vue
+kept external. There is no widget code in it because there are no widgets.
 
 ::: tip They are not alternatives.
 Nothing stops you using Charpente for the fields and Reka UI for the combobox in the same form. `CField` hands its id and description to a foreign control through its slot —
