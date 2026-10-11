@@ -1,5 +1,5 @@
 ---
-description: CSupportingText — hint and error text wired to its control through aria-describedby.
+description: "CSupportingText — hint and error text for a Vue 3 form, wired to its control through aria-describedby and announced as a live region."
 ---
 
 # SupportingText

@@ -1,5 +1,5 @@
 ---
-description: CTextarea — a native Vue 3 textarea with the same id generation and label wiring as CInput.
+description: "CTextarea — a native Vue 3 textarea with the same generated id, label wiring, v-model modifiers and custom rules as CInput."
 ---
 
 # Textarea

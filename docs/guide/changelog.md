@@ -1,5 +1,5 @@
 ---
-description: Release history and changelog for the @charpente-ui/vue package.
+description: "Release history of @charpente-ui/vue: where to find every version, and what a patch, minor or major bump means for your code."
 ---
 
 # Changelog

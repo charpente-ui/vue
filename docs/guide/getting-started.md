@@ -1,5 +1,5 @@
 ---
-description: Install @charpente-ui/vue and build your first headless form in a few lines.
+description: "Install @charpente-ui/vue with npm, pnpm, yarn or bun, then build your first accessible, natively validated Vue 3 form in a few lines."
 ---
 
 # Getting started

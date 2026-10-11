@@ -1,5 +1,5 @@
 ---
-description: The two rules for building your own AppInput on top of Charpente UI components.
+description: "Build your own AppInput on top of Charpente UI: the two rules, inheritAttrs and $attrs, that keep ids, labels and hints wired."
 ---
 
 # Wrapping components

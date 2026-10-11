@@ -1,5 +1,5 @@
 ---
-description: CLabel — a headless Vue 3 label that resolves its for attribute on its own.
+description: "CLabel — a headless Vue 3 label that finds its for attribute from the surrounding CField, or takes an explicit id when used alone."
 ---
 
 # Label

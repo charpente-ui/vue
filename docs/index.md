@@ -1,5 +1,6 @@
 ---
 layout: home
+description: "Charpente UI — headless Vue 3 form components with no CSS: generated ids, accessible labels and hints, and the browser's native, localized validation."
 # Without this, titleTemplate turns the home title into "Charpente UI | Charpente UI".
 titleTemplate: false
 
