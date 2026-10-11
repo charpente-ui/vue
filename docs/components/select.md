@@ -61,9 +61,8 @@ const options = computed<SelectOptionItem[]>(() => {
 
 <<< ../demos/select-groups.vue
 
-::: tip Values are bound with `:value`, not stringified into the DOM. A numeric `value` comes back as a **number** in
-your
-`v-model` — no `Number()` on the way out. The demo prints its `typeof` to prove it.
+::: tip
+Values are bound with `:value`, not stringified into the DOM. A numeric `value` comes back as a **number** in your `v-model` — no `Number()` on the way out. The demo prints its `typeof` to prove it.
 :::
 
 ### Placeholder
@@ -82,14 +81,14 @@ Each attribute earns its place:
 - `hidden` removes it from the dropdown once a real choice is made.
 - `selected` covers a model that starts as `undefined`.
 
-::: warning The placeholder only works in **first** position. An empty-valued option placed later is an ordinary option
-and
-`required` accepts it — verified in Chrome: first position gives `validity.valueMissing === true`, second gives
+::: warning
+The placeholder only works in **first** position. An empty-valued option placed later is an ordinary option and `required` accepts it — verified in Chrome: first position gives `validity.valueMissing === true`, second gives
 `false`. Since the slot renders before the `options` prop, putting the placeholder in the slot puts it where the spec
 needs it.
 :::
 
-::: tip Initialise your model to `''`, not `undefined`. With `undefined` no option matches, the browser still displays
+::: tip
+Initialise your model to `''`, not `undefined`. With `undefined` no option matches, the browser still displays
 the first one, and your model silently disagrees with the screen.
 :::
 

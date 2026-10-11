@@ -116,8 +116,8 @@ None.
 |-----------|-----------------------------------------|
 | `default` | A `<legend>` followed by the checkboxes |
 
-::: tip Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. Vue compares by reference,
-exactly as it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
+::: tip
+Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. Vue compares by reference, exactly as it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
 :::
 
 #### Exposed

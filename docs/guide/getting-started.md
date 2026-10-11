@@ -88,9 +88,11 @@ Nuxt needs no plugin and no configuration — import the components where you us
 
 ## TypeScript
 
-Types are generated from source and shipped with the package. The only exported helper types today are the ones
-[`CSelect`](/components/select) needs for its `options` prop:
+Types are generated from source and shipped with the package. The exported helper types are the ones
+[`CSelect`](/components/select) needs for its `options` prop, and the ones behind
+[custom rules](/guide/validation#rules-of-your-own):
 
 ```ts
 import type { SelectOption, SelectOptionGroup, SelectOptionItem } from '@charpente-ui/vue';
+import type { ValidatableElement, ValidationRule } from '@charpente-ui/vue';
 ```

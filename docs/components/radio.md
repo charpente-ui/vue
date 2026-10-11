@@ -103,8 +103,8 @@ None.
 |-----------|-------------------------------------|
 | `default` | A `<legend>` followed by the radios |
 
-::: tip Standalone, `CRadio` accepts any `value` — Vue compares by reference, exactly as it does natively. Inside a
-group the model is typed `string | number`; stick to those types there, as TypeScript cannot enforce it on the `value`
+::: tip
+Standalone, `CRadio` accepts any `value` — Vue compares by reference, exactly as it does natively. Inside a group the model is typed `string | number`; stick to those types there, as TypeScript cannot enforce it on the `value`
 prop without dropping standalone object support.
 :::
 

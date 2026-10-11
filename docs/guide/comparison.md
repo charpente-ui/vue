@@ -42,12 +42,12 @@ Concretely, this:
 renders one `<input>` carrying `type`, `required` and `class`, plus a generated `id` linked to its label. No wrapper
 `<div>`, no `<Field.Root>`, no slot to destructure.
 
-The size follows from that rather than from optimisation work: the published bundle is **15.3 kB minified, 4.0 kB
+The size follows from that rather than from optimisation work: the published bundle is **16.7 kB, 4.4 kB
 gzipped**, with no runtime dependency at all and Vue kept external. There is no widget code in it because there are no
 widgets.
 
-::: tip They are not alternatives. Nothing stops you using Charpente for the fields and Reka UI for the combobox in the
-same form. `CField` hands its id and description to a foreign control through its slot —
+::: tip They are not alternatives.
+Nothing stops you using Charpente for the fields and Reka UI for the combobox in the same form. `CField` hands its id and description to a foreign control through its slot —
 see [Controls the field doesn't own](/guide/ids#controls-the-field-doesn-t-own).
 :::
 
@@ -73,15 +73,14 @@ truth.
 The trade is straightforward. You get localized messages for free and no state to keep in sync; you give up everything
 that requires remembering what the user did.
 
-::: warning The localization argument cuts both ways. Native messages come localized. **Yours do not.** A message
-returned by a [`rule`](/guide/validation#rules-of-your-own)
-is a string you wrote, in one language — run it through your `t()` in a multilingual app. Charpente saves you the
+::: warning The localization argument cuts both ways.
+Native messages come localized. **Yours do not.** A message returned by a [`rule`](/guide/validation#rules-of-your-own) is a string you wrote, in one language — run it through your `t()` in a multilingual app. Charpente saves you the
 translation work only for the constraints the browser understands.
 :::
 
 ### They compose
 
-Charpente is a lower layer, not a rival. Without `validate`, `CForm` intercepts nothing and another library can own the
+Charpente is a lower layer, not a rival. Without `validate`, `CForm` leaves validation alone and another library can own the
 validation entirely. And if you want both, a `rule` that returns that library's message feeds it into native
 validation — so `aria-invalid`, the supporting text and the blocked submit keep working on top of it. That is the same
 shape as the [server-side recipe](/guide/validation#server-side-and-async-checks).
@@ -103,7 +102,7 @@ migrate.
 |--------------------------------------------------------------|----------------------------------------------------------------------------------|
 | Accessible forms, your own design system                     | **Charpente UI**                                                                 |
 | The browser's localized validation messages                  | **Charpente UI**                                                                 |
-| A design system's components as a base for your own wrappers | **Charpente UI** — see [Wrapping](/guide/wrapping)                               |
+| Native controls to wrap into your own design system's components | **Charpente UI** — see [Wrapping](/guide/wrapping)                               |
 | `dirty`, `touched`, `isSubmitting`, field arrays             | [VeeValidate], [FormKit]                                                         |
 | One Zod or Yup schema for a whole form                       | [VeeValidate], [FormKit]                                                         |
 | A form generated from a schema                               | [FormKit]                                                                        |

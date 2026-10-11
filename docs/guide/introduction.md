@@ -69,8 +69,8 @@ Your own error messages are worth their own line: the browser's are localized fo
 a multilingual app runs them through its own `t()`. See [Native validation](/guide/validation#rules-of-your-own).
 
 ::: tip They compose.
-Charpente is not an alternative to those libraries so much as a lower layer. Without `validate`, `CForm` intercepts
-nothing, so another library can own the validation entirely — and if you want the two to work together, a `rule` that
+Charpente is not an alternative to those libraries so much as a lower layer. Without `validate`, `CForm` leaves
+validation alone, so another library can own the validation entirely — and if you want the two to work together, a `rule` that
 returns that library's message feeds it into native validation, so `aria-invalid`, the supporting text and the blocked
 submit all keep working. That is the same shape as the
 [server-side recipe](/guide/validation#server-side-and-async-checks).
@@ -84,9 +84,9 @@ trades away, and where Charpente loses.
 | Requirement | Constraint                                                                         |
 |-------------|------------------------------------------------------------------------------------|
 | Vue         | **3.5 or newer** — the library builds its ids on Vue's own `useId()`, added in 3.5 |
-| Node        | **20 or newer** — declared in `engines`, so it is checked when you install         |
+| Node        | **22 or newer** — declared in `engines`, so it is checked when you install         |
 | Modules     | ESM only — a single `import` entry, no CommonJS build                              |
 
 Vue is a peer dependency: the library never bundles its own copy. Nothing here constrains the browser at runtime, since
-the components render native elements and call no Node API — but `engines` is published on the package, so on Node 18
+the components render native elements and call no Node API — but `engines` is published on the package, so on an older Node
 pnpm refuses the installation outright and npm warns with `EBADENGINE`.

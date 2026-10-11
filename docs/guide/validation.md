@@ -33,7 +33,7 @@ That is the whole setup. Everything below is a detail on top of it.
   an error summary or an analytics call.
 - Restores the pre-submit state on reset (`<button type="reset">` or `form.reset()`).
 
-Without `validate` nothing is intercepted, and you can bring your own validation library. Note that the browser still
+Without `validate` nothing is validated for you, and you can bring your own validation library. Note that the browser still
 validates on its own in that case, bubbles included — `validate` is what replaces them, not what enables them.
 
 ## When the error appears
@@ -292,7 +292,7 @@ const rule = () => pending.value ? 'Checking availability…' : serverError.valu
 
 Two details carry it:
 
-- **Pending counts as invalid.** Returning a message while the check runs is what stops a submitting fired before the answer
+- **Pending counts as invalid.** Returning a message while the check runs is what stops a submission fired before the answer
   arrives. Leave it out and an unverified value slips through.
 - **`role="status"` while pending**, so the wait is announced politely, and only the error is assertive.
 
