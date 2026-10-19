@@ -22,3 +22,7 @@ junit.xml
 docs/.vitepress/cache
 docs/.vitepress/dist
 /.vitepress/cache
+.claude/settings.local.json
+CLAUDE.local.md
+.env*
+!.env.example

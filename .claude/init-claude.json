@@ -1,0 +1,15 @@
+{
+    "kitVersion": 2,
+    "answers": {
+        "base": "develop",
+        "packageManager": "npm",
+        "typecheck": false,
+        "e2e": true,
+        "replyLanguage": "French",
+        "codeLanguage": "English",
+        "docsLanguage": "English",
+        "autoCommit": false,
+        "commitConvention": "conventional",
+        "commitFormat": ""
+    }
+}
