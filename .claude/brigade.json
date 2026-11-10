@@ -1,0 +1,34 @@
+{
+    "version": "1.11.0",
+    "stack": "web",
+    "answers": {
+        "defaultBranch": "main",
+        "baseBranch": "main",
+        "packageManager": "npm",
+        "commitConvention": "conventional",
+        "replyLanguage": "English",
+        "codeLanguage": "English",
+        "docsLanguage": "English"
+    },
+    "files": {
+        ".claude/agents/git-operator.md": "0e88ab53ca511e343ec1cc6fb8748ca5bc6be0b7001846d421685f4b6914ede5",
+        ".claude/agents/implementer.md": "a0f83211245a992514e72fa9bf091e5997457ad806e270e383aaab33f90ea6ab",
+        ".claude/commands/brigade-effort.md": "95250fce81b53018293146dc2566cdd8a19c9b6a05b23022ca49aa82d266bee8",
+        ".claude/commands/brigade-language.md": "838fab3e4c8748ca9ac143ccd54619a72f6208196e2ea15eb0d7d863326a1f31",
+        ".claude/commands/brigade-reference-branch.md": "2dd4e06a7a1c3a29f554337c5c172607addaac6d994449e9a4551007b9d6639d",
+        ".claude/commands/brigade-settings.md": "e9e3fd07a1f0d05044541297eec2f39c750e6d6c453931dd6c141cacf0d10cff",
+        ".claude/context/audits/_template.md": "027b0ceb32d0a111435950f851c83a93ed34200df820a55f9d22c724605b5e28",
+        ".claude/context/features/_template.md": "8fb4f614cb6118b0f43d84668e78929a7fb4c2e1f5d3370caaf44be3a05986f1",
+        ".claude/context/local-template.md": "bdea68450046615e857470be7a2992f365c15cde98d2372a88221ff753ea0046",
+        ".claude/hooks/git-guard.mjs": "28f48d700980575d1348cba0218e5cf9044dd348be359c69f52f8cf1b0d5f3af",
+        ".claude/hooks/run-node.sh": "b791da5ebc6104c4fcf087f3a176fa2ca7a094364bdfb8531840c285b9435bda",
+        ".claude/hooks/session-start.mjs": "3fdd0895f9ff93b592b51b69b03dbc6e755e46e6094c8ab8e93d7d52d337de5b",
+        ".claude/hooks/statusline.mjs": "37ed6960cf3e85cd3d2c509c0e80854bdc53c0884f03ddd8447dbb7394f21da6",
+        ".claude/rules/brigade.md": "be1279bfb28dda425e59ce318a50ae57c7cbca774c15e18d232b799e4bf755d9",
+        ".claude/settings.json": "0a7bb1ca35ffd10213c01f78a6d2b8ff46a96368ad08b910752c3330307f736b",
+        ".claude/skills/audit/SKILL.md": "0faa3f1d7cb07520052e116d2f33dfe0d44c2972118c4f35ac149d165b761997",
+        ".claude/skills/debug/SKILL.md": "55dc4b312092207f4cde4cb6ced5a3ab6079048a3f9d04e1414b7d4c31d34edf",
+        ".claude/skills/feature/SKILL.md": "e2bf32d0d9c6d35f6304ca02200a65b9099ec1be227d8d2b7665efc0f12ddae3",
+        ".claude/skills/session-start/SKILL.md": "b758a37bc84d1f7b211720d2f67f26cc8571d5335f45b95f8d4eb570751bc076"
+    }
+}
