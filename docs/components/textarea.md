@@ -16,11 +16,21 @@ import { CTextarea } from '@charpente-ui/vue';
 
 <script setup>
 import Basic from '../demos/textarea-basic.vue';
+import Validation from '../demos/textarea-validation.vue';
 </script>
 
 <Demo><Basic/></Demo>
 
 <<< ../demos/textarea-basic.vue
+
+### Validation
+
+`required`, `minlength` and `maxlength` are native constraints: inside a `<CForm validate>`, the browser checks them and
+`CSupportingText` shows its localized message. See the [validation guide](/guide/validation).
+
+<Demo><Validation/></Demo>
+
+<<< ../demos/textarea-validation.vue
 
 ## API Reference
 
