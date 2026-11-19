@@ -27,6 +27,8 @@ const checkbox = ref(false);
 const checkboxGroup = ref<string[]>([]);
 const radioStandalone = ref('');
 const radio = ref('');
+const selfPlan = ref('');
+const selfTags = ref<string[]>([]);
 const select = ref('');
 const selectMultiple = ref<string[]>([]);
 const selectOptions = ref('');
@@ -106,6 +108,12 @@ const submitted = ref<string | null>(null);
 // actually diverge.
 function matchPassword(value: string | number | undefined) {
     return value === form.value.password ? '' : 'Both passwords must match.';
+}
+
+// Inside a group the value is the group's array: it is what narrows the
+// checkbox's wider type.
+function atLeastOne(value: boolean | unknown[] | undefined) {
+    return Array.isArray(value) && value.length >= 1 ? '' : 'Pick at least one.';
 }
 
 // On a field that is also `required`, to show the rule waiting its turn: while
@@ -800,6 +808,45 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
   <span class="punc">&lt;/</span><span class="tag">CSupportingText</span><span class="punc">&gt;</span>
 <span class="punc">&lt;/</span><span class="tag">CField</span><span class="punc">&gt;</span></code></pre>
                     </div>
+                </div>
+            </section>
+            <section class="section">
+                <h2>Self-wired groups</h2>
+                <p>
+                    <code>CRadioGroup</code> and <code>CCheckboxGroup</code> need no <code>CField</code> around
+                    them: the <code>&lt;fieldset&gt;</code> is described and flagged by itself.
+                </p>
+                <div class="example">
+                    <CForm validate>
+                        <CRadioGroup v-model="selfPlan" class="self-radio">
+                            <legend>Plan</legend>
+                            <CField class="check-row">
+                                <CRadio value="free" required/>
+                                <CLabel>Free</CLabel>
+                            </CField>
+                            <CField class="check-row">
+                                <CRadio value="pro" required/>
+                                <CLabel>Pro</CLabel>
+                            </CField>
+                            <CSupportingText validation class="value">Change it whenever you want.</CSupportingText>
+                        </CRadioGroup>
+                        <div class="row">
+                            <CButton type="submit">Validate the plan</CButton>
+                            <CButton type="reset">Clear the plan</CButton>
+                        </div>
+                    </CForm>
+                    <CForm validate>
+                        <CCheckboxGroup v-model="selfTags" class="self-checkbox" name="self-tags">
+                            <legend>Tags</legend>
+                            <CLabel class="check-row"><CCheckbox value="a" :rule="atLeastOne"/> Alpha</CLabel>
+                            <CLabel class="check-row"><CCheckbox value="b"/> Beta</CLabel>
+                            <CSupportingText validation class="value">Choose the tags that apply.</CSupportingText>
+                        </CCheckboxGroup>
+                        <div class="row">
+                            <CButton type="submit">Validate the tags</CButton>
+                            <CButton type="reset">Clear the tags</CButton>
+                        </div>
+                    </CForm>
                 </div>
             </section>
         </main>

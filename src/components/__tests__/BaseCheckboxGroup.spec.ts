@@ -240,4 +240,113 @@ describe('BaseCheckboxGroup', () => {
 
         expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
     });
+
+    describe('self-wired, without a CField', () => {
+        const components = {
+            BaseCheckboxGroup,
+            BaseCheckbox,
+            BaseField,
+            BaseSupportingText
+        };
+
+        function mountStandalone(template: string, data: () => Record<string, unknown> = () => ({})) {
+            return mount({
+                components,
+                data,
+                template
+            }, {
+                attachTo: document.body
+            });
+        }
+
+        const standalone = `
+            <form>
+                <BaseCheckboxGroup>
+                    <legend>Group</legend>
+                    <BaseCheckbox value="a" required/>
+                    <BaseSupportingText validation>Hint</BaseSupportingText>
+                </BaseCheckboxGroup>
+            </form>
+        `;
+
+        it('describes the fieldset with a supporting text written inside', async () => {
+            const wrapper = mountStandalone(standalone);
+
+            await nextTick();
+            await nextTick();
+
+            const text = wrapper.find('p');
+
+            expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(text.attributes('id'));
+            expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined();
+
+            wrapper.unmount();
+        });
+
+        it('flags the fieldset and shows the message after a rejected submit, then clears it on fix and reset', async () => {
+            const wrapper = mountStandalone(standalone);
+            const form = wrapper.find('form').element;
+            const input = wrapper.find('input');
+
+            form.checkValidity();
+            await nextTick();
+
+            expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
+            expect(input.attributes('aria-invalid')).toBeUndefined();
+            expect(wrapper.find('p').text()).not.toBe('Hint');
+            expect(wrapper.find('p').text()).not.toBe('');
+
+            await input.setValue(true);
+
+            expect(wrapper.find('fieldset').attributes('aria-invalid')).toBeUndefined();
+            expect(wrapper.find('p').text()).toBe('Hint');
+
+            input.element.checked = false;
+            form.checkValidity();
+            await nextTick();
+
+            expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
+
+            form.reset();
+            await nextTick();
+
+            expect(wrapper.find('fieldset').attributes('aria-invalid')).toBeUndefined();
+            expect(wrapper.find('p').text()).toBe('Hint');
+
+            wrapper.unmount();
+        });
+
+        it('exposes its invalid state and message', async () => {
+            const wrapper = mountStandalone('<form><BaseCheckboxGroup ref="group"><BaseCheckbox value="a" required/></BaseCheckboxGroup></form>');
+            const group = (wrapper.vm.$refs.group as { invalid: boolean,
+                message: string });
+
+            wrapper.find('form').element.checkValidity();
+            await nextTick();
+
+            expect(group.invalid).toBe(true);
+            expect(group.message).not.toBe('');
+
+            wrapper.unmount();
+        });
+
+        it('handles an invalid event once when wrapped in a CField', async () => {
+            const wrapper = mountStandalone(`
+                <form>
+                    <BaseField>
+                        <BaseCheckboxGroup>
+                            <BaseCheckbox value="a" required/>
+                        </BaseCheckboxGroup>
+                    </BaseField>
+                </form>
+            `);
+
+            wrapper.find('form').element.checkValidity();
+            await nextTick();
+
+            expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
+
+            wrapper.unmount();
+        });
+    });
 });

@@ -6,23 +6,21 @@ const channels = ref<string[]>([]);
 </script>
 
 <template>
-    <CField>
-        <CCheckboxGroup v-model="channels" name="channels">
-            <legend>Notifications</legend>
+    <CCheckboxGroup v-model="channels" name="channels">
+        <legend>Notifications</legend>
 
-            <CField class="row">
-                <CCheckbox value="email"/>
-                <CLabel>Email</CLabel>
-            </CField>
+        <CField class="row">
+            <CCheckbox value="email"/>
+            <CLabel>Email</CLabel>
+        </CField>
 
-            <CField class="row">
-                <CCheckbox value="sms"/>
-                <CLabel>SMS</CLabel>
-            </CField>
+        <CField class="row">
+            <CCheckbox value="sms"/>
+            <CLabel>SMS</CLabel>
+        </CField>
 
-            <CSupportingText>Announced once on the fieldset, not on every box.</CSupportingText>
-        </CCheckboxGroup>
-    </CField>
+        <CSupportingText>Announced once on the fieldset, not on every box.</CSupportingText>
+    </CCheckboxGroup>
 
     <p class="value">{{ JSON.stringify(channels) }}</p>
 </template>

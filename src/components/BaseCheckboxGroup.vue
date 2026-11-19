@@ -13,7 +13,16 @@ const model = defineModel<(string | number)[]>({
 
 const attrs = useAttrs();
 const fieldsetRef = useTemplateRef('fieldset');
-const { describedBy, ariaInvalid, itemField } = useFieldGroup();
+const {
+    describedBy,
+    ariaInvalid,
+    itemField,
+    standalone,
+    invalid,
+    message,
+    onInvalid,
+    onInput
+} = useFieldGroup(fieldsetRef);
 
 // Unlike radios, a shared name buys checkboxes no native behaviour (no mutual
 // exclusion, no arrow-key navigation, no group-level required). Generating one
@@ -36,12 +45,16 @@ provide(fieldKey, itemField);
 // The native element, kept consistent with the form controls so a ref on any
 // Charpente component reaches its DOM node the same way.
 defineExpose({
-    el: fieldsetRef
+    el: fieldsetRef,
+    invalid,
+    message
 });
 </script>
 
 <template>
-    <fieldset ref="fieldset" v-bind="$attrs" :aria-describedby="describedBy" :aria-invalid="ariaInvalid">
+    <fieldset ref="fieldset" v-bind="$attrs" :aria-describedby="describedBy"
+              :aria-invalid="ariaInvalid" @invalid.capture="standalone && onInvalid($event)"
+              @input.capture="standalone && onInput($event)" @change.capture="standalone && onInput($event)">
         <slot/>
     </fieldset>
 </template>

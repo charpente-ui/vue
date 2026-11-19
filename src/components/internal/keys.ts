@@ -17,7 +17,7 @@ export const checkboxGroupKey: InjectionKey<CheckboxGroupContext> = Symbol('CChe
 export interface FieldContext {
     // Undefined inside a group: the field id belongs to a single control, so a
     // group hands its items a context without one.
-    id: ComputedRef<string | undefined>
+    id: Readonly<Ref<string | undefined>>
     describedBy: ComputedRef<string | undefined>
     invalid: Ref<boolean>
     validationMessage: Ref<string>

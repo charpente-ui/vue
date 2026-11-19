@@ -73,7 +73,7 @@ The slot only reaches the field's direct children. A component nested deeper rec
 ### Checkbox, switch, radio and lists
 
 A checkbox puts the control before its label. A switch is a `CCheckbox` with `role="switch"`, and can carry a hint
-under its label. A list of radios or checkboxes wraps its group in a `CField`: the `<legend>` on top, the hint last,
+under its label. A list of radios or checkboxes needs no `CField` around the group: the `<legend>` on top, the hint last,
 and each item in a `CField` of its own.
 
 <Demo><Configurations/></Demo>
@@ -156,9 +156,11 @@ referenced through `aria-describedby`, and `aria-invalid` on a rejected control.
 
 ### Groups
 
-A `CField` wrapping a whole group describes the group as a whole: the `<fieldset>` carries `aria-describedby` and
-`aria-invalid`, the items carry neither and receive no field id — one id must not land on every input. Wrap each item
-in its own `CField` when it needs its own label. See
+`CRadioGroup` and `CCheckboxGroup` are self-wired: without a `CField` around them, the `<fieldset>` tracks its own
+supporting texts and validation state. A `CField` wrapping a whole group keeps working as it always did and then owns
+that state. Either way, the `<fieldset>` carries `aria-describedby` and `aria-invalid`, the items carry neither and
+receive no field id — one id must not land on every input. Wrap each item in its own `CField` when it needs its own
+label. See
 [`RadioGroup`](/components/radio#describing-the-group).
 
 ::: warning

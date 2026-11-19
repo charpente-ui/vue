@@ -22,41 +22,37 @@ const channels = ref<string[]>([]);
         </CField>
 
         <!-- A list: the legend on top, the items, the hint at the bottom. -->
-        <CField>
-            <CRadioGroup v-model="plan" class="group">
-                <legend>Plan</legend>
+        <CRadioGroup v-model="plan" class="group">
+            <legend>Plan</legend>
 
-                <CField class="choice">
-                    <CRadio value="free"/>
-                    <CLabel>Free</CLabel>
-                </CField>
+            <CField class="choice">
+                <CRadio value="free"/>
+                <CLabel>Free</CLabel>
+            </CField>
 
-                <CField class="choice">
-                    <CRadio value="pro"/>
-                    <CLabel>Pro</CLabel>
-                </CField>
+            <CField class="choice">
+                <CRadio value="pro"/>
+                <CLabel>Pro</CLabel>
+            </CField>
 
-                <CSupportingText>Change it whenever you want.</CSupportingText>
-            </CRadioGroup>
-        </CField>
+            <CSupportingText>Change it whenever you want.</CSupportingText>
+        </CRadioGroup>
 
-        <CField>
-            <CCheckboxGroup v-model="channels" class="group">
-                <legend>Notifications</legend>
+        <CCheckboxGroup v-model="channels" class="group">
+            <legend>Notifications</legend>
 
-                <CField class="choice">
-                    <CCheckbox value="email"/>
-                    <CLabel>Email</CLabel>
-                </CField>
+            <CField class="choice">
+                <CCheckbox value="email"/>
+                <CLabel>Email</CLabel>
+            </CField>
 
-                <CField class="choice">
-                    <CCheckbox value="sms"/>
-                    <CLabel>SMS</CLabel>
-                </CField>
+            <CField class="choice">
+                <CCheckbox value="sms"/>
+                <CLabel>SMS</CLabel>
+            </CField>
 
-                <CSupportingText>Pick at least one channel.</CSupportingText>
-            </CCheckboxGroup>
-        </CField>
+            <CSupportingText>Pick at least one channel.</CSupportingText>
+        </CCheckboxGroup>
     </div>
 </template>
 

@@ -7,23 +7,20 @@ const shipping = ref('');
 
 <template>
     <CForm validate>
-        <CField>
-            <CRadioGroup v-model="shipping" name="shipping">
-                <legend>Delivery</legend>
+        <CRadioGroup v-model="shipping" name="shipping">
+            <legend>Delivery</legend>
 
-                <CField class="row">
-                    <CRadio value="standard" required/>
-                    <CLabel>Standard</CLabel>
-                </CField>
+            <CField class="row">
+                <CRadio value="standard" required/>
+                <CLabel>Standard</CLabel>
+            </CField>
 
-                <CField class="row">
-                    <CRadio value="express" required/>
-                    <CLabel>Express</CLabel>
-                </CField>
-            </CRadioGroup>
-
+            <CField class="row">
+                <CRadio value="express" required/>
+                <CLabel>Express</CLabel>
+            </CField>
             <CSupportingText validation>Express adds two working days of tracking.</CSupportingText>
-        </CField>
+        </CRadioGroup>
 
         <CButton type="submit">Continue</CButton>
     </CForm>
