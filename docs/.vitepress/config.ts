@@ -213,6 +213,9 @@ export default defineConfigWithTheme<ThemeConfig>({
             alt: ''
         },
         search: { provider: 'local' },
+        // h2 and h3: the examples and API sections are h3, so an h2-only
+        // outline hides most of what a reader jumps to.
+        outline: { level: [2, 3] },
         nav: [
             {
                 text: 'Guide',

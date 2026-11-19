@@ -19,6 +19,12 @@ are documented here because a radio on its own is the exception, not the rule.
 import Basic from '../demos/radio-basic.vue';
 import Group from '../demos/radio-group.vue';
 import Described from '../demos/group-described.vue';
+import GroupHint from '../demos/radio-group-hint.vue';
+import GroupRequired from '../demos/radio-group-required.vue';
+import GroupRule from '../demos/radio-group-rule.vue';
+import ItemHint from '../demos/radio-item-hint.vue';
+import Disabled from '../demos/radio-disabled.vue';
+import LabelWrap from '../demos/radio-label-wrap.vue';
 </script>
 
 ### Standalone
@@ -36,6 +42,54 @@ Inside a `CRadioGroup`, drop both the `v-model` and the `name`: the group owns t
 <Demo><Group/></Demo>
 
 <<< ../demos/radio-group.vue
+
+### With a hint
+
+A `CSupportingText` inside the group is announced once, when the fieldset is entered.
+
+<Demo><GroupHint/></Demo>
+
+<<< ../demos/radio-group-hint.vue
+
+### Required, with validation
+
+`required` on the radios and a `CSupportingText validation` in the group: the error shows after a rejected submit and clears on a choice. Reset the model with the form.
+
+<Demo><GroupRequired/></Demo>
+
+<<< ../demos/radio-group-required.vue
+
+### A rule on an item
+
+Put a `rule` on one radio: the model is shared, so it sees the whole selection. Here one choice is refused.
+
+<Demo><GroupRule/></Demo>
+
+<<< ../demos/radio-group-rule.vue
+
+### An item with its own hint
+
+Wrap an item in its own `CField` to give it a label and a hint of its own.
+
+<Demo><ItemHint/></Demo>
+
+<<< ../demos/radio-item-hint.vue
+
+### Disabled group and item
+
+`disabled` on the group disables every radio; on a radio it disables that one only.
+
+<Demo><Disabled/></Demo>
+
+<<< ../demos/radio-disabled.vue
+
+### Wrapping label
+
+A `CLabel` that wraps its radio needs no `CField` and no `for`.
+
+<Demo><LabelWrap/></Demo>
+
+<<< ../demos/radio-label-wrap.vue
 
 ### Setting the name
 

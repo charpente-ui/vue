@@ -20,6 +20,14 @@ import Basic from '../demos/checkbox-basic.vue';
 import Indeterminate from '../demos/checkbox-indeterminate.vue';
 import Group from '../demos/checkbox-group.vue';
 import Described from '../demos/checkbox-group-described.vue';
+import Terms from '../demos/checkbox-terms.vue';
+import Switch from '../demos/checkbox-switch.vue';
+import GroupHint from '../demos/checkbox-group-hint.vue';
+import GroupMin from '../demos/checkbox-group-min.vue';
+import GroupMax from '../demos/checkbox-group-max.vue';
+import ItemHint from '../demos/checkbox-item-hint.vue';
+import Disabled from '../demos/checkbox-disabled.vue';
+import SelectAll from '../demos/checkbox-select-all.vue';
 </script>
 
 ### Boolean and array models
@@ -46,6 +54,70 @@ Inside a `CCheckboxGroup`, drop the `v-model`: the group collects every checked 
 <Demo><Group/></Demo>
 
 <<< ../demos/checkbox-group.vue
+
+### Single required checkbox
+
+A boolean checkbox with `required` blocks the submit until it is ticked; the message lands in the `CSupportingText validation`.
+
+<Demo><Terms/></Demo>
+
+<<< ../demos/checkbox-terms.vue
+
+### Switch
+
+`role="switch"` turns the checkbox into a switch for assistive technology; a hint sits next to it.
+
+<Demo><Switch/></Demo>
+
+<<< ../demos/checkbox-switch.vue
+
+### Group with a hint
+
+A `CSupportingText` inside the group is announced once, when the fieldset is entered.
+
+<Demo><GroupHint/></Demo>
+
+<<< ../demos/checkbox-group-hint.vue
+
+### At least one
+
+A group has no validity of its own: put a `rule` on one checkbox. See [Rules on a group](/guide/validation#rules-on-a-group).
+
+<Demo><GroupMin/></Demo>
+
+<<< ../demos/checkbox-group-min.vue
+
+### At most N
+
+The same pattern, reversed: the rule rejects a selection that grows past the limit.
+
+<Demo><GroupMax/></Demo>
+
+<<< ../demos/checkbox-group-max.vue
+
+### An item with its own hint
+
+Wrap an item in its own `CField` to give it a label and a hint of its own.
+
+<Demo><ItemHint/></Demo>
+
+<<< ../demos/checkbox-item-hint.vue
+
+### Disabled group and item
+
+`disabled` on the group disables every checkbox; on a checkbox it disables that one only.
+
+<Demo><Disabled/></Demo>
+
+<<< ../demos/checkbox-disabled.vue
+
+### Select all
+
+A parent checkbox with `indeterminate` drives the group: partially selected shows the mixed state.
+
+<Demo><SelectAll/></Demo>
+
+<<< ../demos/checkbox-select-all.vue
 
 ### Setting the name
 

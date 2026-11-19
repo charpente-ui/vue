@@ -157,9 +157,12 @@ The control also gets `aria-invalid` while it fails. Pass an explicit `role` (`r
 `role="alert"`, as the [async recipe](#server-side-and-async-checks) does.
 :::
 
-When the field wraps a [`CRadioGroup`](/components/radio#describing-the-group) or a
-[`CCheckboxGroup`](/components/checkbox#describing-the-group), `aria-invalid` and `aria-describedby` land on the
-`<fieldset>`, so the error is announced once for the whole group.
+A [`CRadioGroup`](/components/radio#describing-the-group) or a
+[`CCheckboxGroup`](/components/checkbox#describing-the-group) needs no `CField`: it tracks the state itself, and
+`aria-invalid` and `aria-describedby` land on the `<fieldset>`, so the error is announced once for the whole group. A
+group wrapped in a `CField` behaves the same. Live examples: a
+[required radio group](/components/radio#required-with-validation), with its reset, and a
+[single required checkbox](/components/checkbox#single-required-checkbox).
 
 ## Rules of your own
 
@@ -307,14 +310,12 @@ A `<fieldset>` has no validity state of its own, so `CRadioGroup` and `CCheckbox
 item; the group's model is shared, so the rule sees the whole selection:
 
 ```vue
-<CField>
-    <CCheckboxGroup v-model="tags">
-        <legend>Tags</legend>
-        <CCheckbox value="vue" :rule="atLeastTwo"/>
-        <CCheckbox value="headless"/>
-        <CSupportingText validation/>
-    </CCheckboxGroup>
-</CField>
+<CCheckboxGroup v-model="tags">
+    <legend>Tags</legend>
+    <CCheckbox value="vue" :rule="atLeastTwo"/>
+    <CCheckbox value="headless"/>
+    <CSupportingText validation/>
+</CCheckboxGroup>
 ```
 
 ```ts
@@ -329,6 +330,9 @@ const atLeastTwo: ValidationRule<boolean | unknown[] | undefined> = (value) => {
 ```
 
 The message still lands on the group: `aria-invalid` goes on the `<fieldset>` and the text appears once, not per item.
+
+Live examples: [at least one](/components/checkbox#at-least-one), [at most N](/components/checkbox#at-most-n) and
+[a refused radio choice](/components/radio#a-rule-on-an-item).
 
 ### Rules and `reset`
 
@@ -347,6 +351,10 @@ function onReset() {
 
 The error is deliberately not cleared on reset: doing so would let the invalid value submit unchallenged.
 :::
+
+The group demos reset their model the same way: see the
+[required radio group](/components/radio#required-with-validation) and
+[at least one](/components/checkbox#at-least-one).
 
 ### The "save draft" escape hatch
 
