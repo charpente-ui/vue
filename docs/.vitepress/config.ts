@@ -224,7 +224,7 @@ export default defineConfigWithTheme<ThemeConfig>({
             },
             {
                 text: 'Components',
-                link: '/components/',
+                link: '/components/button',
                 activeMatch: '/components/'
             },
             {
@@ -291,10 +291,6 @@ export default defineConfigWithTheme<ThemeConfig>({
             {
                 text: 'Components',
                 items: [
-                    {
-                        text: 'Overview',
-                        link: '/components/'
-                    },
                     {
                         text: 'Button',
                         link: '/components/button'
@@ -364,7 +360,7 @@ export default defineConfigWithTheme<ThemeConfig>({
                         },
                         {
                             text: 'Components',
-                            link: '/components/'
+                            link: '/components/button'
                         },
                         {
                             text: 'Accessibility',

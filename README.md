@@ -111,7 +111,7 @@ accessible automatically — and every class lands on the native element, ready 
 | SupportingText | **Field Text:** Hint or error text wired to its input via `aria-describedby`.    | `CSupportingText` | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 | Textarea       | **Flexible Binding:** Auto-ID and reactive model management.                     | `CTextarea`       | ![Ready](https://flat.badgen.net/badge/status/ready/green) |
 
-[Component reference →](https://charpente.frontfactory.dev/components/)
+[Component reference →](https://charpente.frontfactory.dev/components/button)
 
 ## Guides
 
