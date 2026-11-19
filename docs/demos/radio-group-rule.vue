@@ -12,9 +12,7 @@ function noMiddle(value: unknown) {
 
 <template>
     <CForm validate>
-        <CRadioGroup v-model="seat" name="seat">
-            <legend>Seat</legend>
-
+        <CRadioGroup v-model="seat" name="seat" legend="Seat">
             <CField class="row">
                 <CRadio value="window" :rule="noMiddle"/>
                 <CLabel>Window</CLabel>

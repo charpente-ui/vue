@@ -86,3 +86,15 @@ for (const kind of [
         });
     });
 }
+
+test('the legend prop names a radio group', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+    await expect(page.getByRole('group', { name: 'Plan' })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Plan' }).getByRole('radio').first()).toBeVisible();
+});
+
+test('the legend prop names a checkbox group', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+    await expect(page.getByRole('group', { name: 'Tags' })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Tags' }).getByRole('checkbox').first()).toBeVisible();
+});

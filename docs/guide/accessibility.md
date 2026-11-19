@@ -47,7 +47,7 @@ The library is headless, which means some accessibility decisions are yours by c
 
 - **Names.** A control without a label has no accessible name. Wrap it in a [`Field`](/components/field) with a
   [`Label`](/components/label), or pass `aria-label`. Charpente never invents a name.
-- **Group names.** A `<fieldset>` is named by its `<legend>` — never by a `<label>`. `CLabel` cannot name a group: a
+- **Group names.** A `<fieldset>` is named by its `<legend>` (the `legend` prop of the groups) — never by a `<label>`. `CLabel` cannot name a group: a
   `<label for>` only points at a labelable element, and inside a group `CLabel` finds no id to bind, so it silently
   renders a label attached to nothing. See [`CheckboxGroup`](/components/checkbox#naming-the-group).
 - **One control per field.** `CField` tracks a single validation message, so two controls in the same field overwrite

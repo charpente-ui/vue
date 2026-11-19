@@ -116,8 +116,7 @@ A single id cannot name a set of radios, so [`CRadioGroup`](/components/radio) g
 that is what keeps native arrow-key navigation working. Same cascade: your `name` wins.
 
 ```vue
-<CRadioGroup v-model="plan" name="plan">
-    <legend>Plan</legend>
+<CRadioGroup v-model="plan" name="plan" legend="Plan">
     <!-- … -->
 </CRadioGroup>
 ```
@@ -132,7 +131,7 @@ wrapping it — so the `<fieldset>` carries `aria-describedby` and `aria-invalid
 
 ::: warning
 Because there is no field id inside a group, `CLabel` has nothing to bind to and renders a `<label>` attached to
-nothing — silently. Name a group with `<legend>`. This applies to a `CLabel` placed between the `CField` and the group
+nothing — silently. Name a group with its `legend` prop. This applies to a `CLabel` placed between the `CField` and the group
 too: it picks up an id that ends up on no element.
 :::
 

@@ -12,9 +12,7 @@ const atMostTwo: ValidationRule<boolean | unknown[] | undefined> = (value) => {
 
 <template>
     <CForm validate>
-        <CCheckboxGroup v-model="perks" name="perks">
-            <legend>Perks</legend>
-
+        <CCheckboxGroup v-model="perks" name="perks" legend="Perks">
             <CField v-for="perk in ['gym', 'transit', 'lunch']" :key="perk" class="row">
                 <CCheckbox :value="perk" :rule="perk === 'gym' ? atMostTwo : undefined"/>
                 <CLabel>{{ perk }}</CLabel>

@@ -17,9 +17,7 @@ function onReset() {
 
 <template>
     <CForm validate @reset="onReset">
-        <CCheckboxGroup v-model="topics" name="topics">
-            <legend>Topics</legend>
-
+        <CCheckboxGroup v-model="topics" name="topics" legend="Topics">
             <CField class="row">
                 <CCheckbox value="news" :rule="atLeastOne"/>
                 <CLabel>News</CLabel>

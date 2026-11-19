@@ -6,9 +6,7 @@ const selected = ref<string[]>([]);
 </script>
 
 <template>
-    <CCheckboxGroup v-model="selected">
-        <legend>Favorite fruits</legend>
-
+    <CCheckboxGroup v-model="selected" legend="Favorite fruits">
         <CField class="row">
             <CCheckbox value="apple"/>
             <CLabel>Apple</CLabel>

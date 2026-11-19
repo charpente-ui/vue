@@ -6,9 +6,7 @@ const size = ref('m');
 </script>
 
 <template>
-    <CRadioGroup v-model="size" name="size">
-        <legend>Size</legend>
-
+    <CRadioGroup v-model="size" name="size" legend="Size">
         <CField class="row">
             <CRadio value="s"/>
             <CLabel>Small</CLabel>

@@ -8,6 +8,10 @@ defineOptions({
     inheritAttrs: false
 });
 
+defineProps<{
+    legend?: string;
+}>();
+
 const model = defineModel<string | number>();
 const attrs = useAttrs();
 const fieldsetRef = useTemplateRef('fieldset');
@@ -50,6 +54,7 @@ defineExpose({
     <fieldset ref="fieldset" v-bind="$attrs" :aria-describedby="describedBy"
               :aria-invalid="ariaInvalid" @invalid.capture="standalone && onInvalid($event)"
               @input.capture="standalone && onInput($event)" @change.capture="standalone && onInput($event)">
+        <legend v-if="legend">{{ legend }}</legend>
         <slot/>
     </fieldset>
 </template>

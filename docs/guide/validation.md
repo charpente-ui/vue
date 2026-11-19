@@ -310,8 +310,7 @@ A `<fieldset>` has no validity state of its own, so `CRadioGroup` and `CCheckbox
 item; the group's model is shared, so the rule sees the whole selection:
 
 ```vue
-<CCheckboxGroup v-model="tags">
-    <legend>Tags</legend>
+<CCheckboxGroup v-model="tags" legend="Tags">
     <CCheckbox value="vue" :rule="atLeastTwo"/>
     <CCheckbox value="headless"/>
     <CSupportingText validation/>

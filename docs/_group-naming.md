@@ -1,5 +1,6 @@
-A `<fieldset>` takes its accessible name from its `<legend>`, so pass one as the first child. There is no `CLegend`:
-the native element already works.
+A `<fieldset>` takes its accessible name from its `<legend>`: pass the `legend` prop and the group renders it as its
+first child. When the name needs rich content (markup, an icon), write a `<legend>` as the first child of the slot
+instead, and leave the prop out.
 
 ::: warning
 Do **not** use `CLabel` to name a group. A `<label for>` can only point at a labelable element, and a `<fieldset>` is

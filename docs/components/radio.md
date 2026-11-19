@@ -143,7 +143,9 @@ control.value?.el?.focus();
 
 #### Props
 
-None.
+| Prop     | Type     | Default | Description                                           |
+|----------|----------|---------|-------------------------------------------------------|
+| `legend` | `string` | none    | Text of the `<legend>` rendered first, naming the group |
 
 #### Model
 
@@ -155,7 +157,7 @@ None.
 
 | Slot      | Description                         |
 |-----------|-------------------------------------|
-| `default` | A `<legend>` followed by the radios |
+| `default` | The radios, after the `legend` prop if set |
 
 ::: tip
 Standalone, `CRadio` accepts any `value` — Vue compares by reference, exactly as it does natively. Inside a group the model is typed `string | number`; stick to those types there, as TypeScript cannot enforce it on the `value`

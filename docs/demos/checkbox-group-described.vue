@@ -6,9 +6,7 @@ const channels = ref<string[]>([]);
 </script>
 
 <template>
-    <CCheckboxGroup v-model="channels" name="channels">
-        <legend>Notifications</legend>
-
+    <CCheckboxGroup v-model="channels" name="channels" legend="Notifications">
         <CField class="row">
             <CCheckbox value="email"/>
             <CLabel>Email</CLabel>

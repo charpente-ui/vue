@@ -349,4 +349,41 @@ describe('BaseCheckboxGroup', () => {
             wrapper.unmount();
         });
     });
+
+    describe('legend prop', () => {
+        it('renders the legend as the first child of the fieldset', () => {
+            const wrapper = mount(BaseCheckboxGroup, {
+                props: { legend: 'Plan' },
+                slots: { default: '<span class="child">child</span>' }
+            });
+            const fieldset = wrapper.find('fieldset').element;
+
+            expect(fieldset.firstElementChild?.tagName).toBe('LEGEND');
+            expect(fieldset.firstElementChild?.textContent).toBe('Plan');
+            expect(fieldset.children[1].className).toBe('child');
+        });
+
+        it('renders no legend without the prop', () => {
+            const wrapper = mount(BaseCheckboxGroup, {
+                slots: { default: '<span class="child">child</span>' }
+            });
+
+            expect(wrapper.find('legend').exists()).toBe(false);
+        });
+
+        it('keeps a slotted legend working without the prop', () => {
+            const wrapper = mount(BaseCheckboxGroup, {
+                slots: { default: '<legend>Slotted</legend><input type="checkbox" value="a"/>' }
+            });
+
+            expect(wrapper.findAll('legend')).toHaveLength(1);
+            expect(wrapper.find('fieldset').element.firstElementChild?.textContent).toBe('Slotted');
+        });
+
+        it('does not leak the prop as an attribute', () => {
+            const wrapper = mount(BaseCheckboxGroup, { props: { legend: 'Plan' } });
+
+            expect(wrapper.find('fieldset').attributes('legend')).toBeUndefined();
+        });
+    });
 });

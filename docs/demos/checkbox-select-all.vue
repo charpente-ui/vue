@@ -31,9 +31,7 @@ const someSelected = computed(() => {
         <CLabel>All rights</CLabel>
     </CField>
 
-    <CCheckboxGroup v-model="rights" name="rights">
-        <legend>Rights</legend>
-
+    <CCheckboxGroup v-model="rights" name="rights" legend="Rights">
         <CField v-for="right in all" :key="right" class="row">
             <CCheckbox :value="right"/>
             <CLabel>{{ right }}</CLabel>

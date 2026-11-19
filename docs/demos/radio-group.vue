@@ -6,9 +6,7 @@ const plan = ref('free');
 </script>
 
 <template>
-    <CRadioGroup v-model="plan">
-        <legend>Plan</legend>
-
+    <CRadioGroup v-model="plan" legend="Plan">
         <CField class="row">
             <CRadio value="free"/>
             <CLabel>Free</CLabel>

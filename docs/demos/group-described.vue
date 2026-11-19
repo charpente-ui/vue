@@ -7,9 +7,7 @@ const shipping = ref('');
 
 <template>
     <CForm validate>
-        <CRadioGroup v-model="shipping" name="shipping">
-            <legend>Delivery</legend>
-
+        <CRadioGroup v-model="shipping" name="shipping" legend="Delivery">
             <CField class="row">
                 <CRadio value="standard" required/>
                 <CLabel>Standard</CLabel>

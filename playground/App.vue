@@ -818,8 +818,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                 </p>
                 <div class="example">
                     <CForm validate>
-                        <CRadioGroup v-model="selfPlan" class="self-radio">
-                            <legend>Plan</legend>
+                        <CRadioGroup v-model="selfPlan" class="self-radio" legend="Plan">
                             <CField class="check-row">
                                 <CRadio value="free" required/>
                                 <CLabel>Free</CLabel>
@@ -836,8 +835,7 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                         </div>
                     </CForm>
                     <CForm validate>
-                        <CCheckboxGroup v-model="selfTags" class="self-checkbox" name="self-tags">
-                            <legend>Tags</legend>
+                        <CCheckboxGroup v-model="selfTags" class="self-checkbox" name="self-tags" legend="Tags">
                             <CLabel class="check-row"><CCheckbox value="a" :rule="atLeastOne"/> Alpha</CLabel>
                             <CLabel class="check-row"><CCheckbox value="b"/> Beta</CLabel>
                             <CSupportingText validation class="value">Choose the tags that apply.</CSupportingText>

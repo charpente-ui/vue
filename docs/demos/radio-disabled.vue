@@ -7,9 +7,7 @@ const partial = ref('a');
 </script>
 
 <template>
-    <CRadioGroup v-model="whole" name="whole" disabled>
-        <legend>Disabled group</legend>
-
+    <CRadioGroup v-model="whole" name="whole" disabled legend="Disabled group">
         <CField class="row">
             <CRadio value="a"/>
             <CLabel>Option A</CLabel>
@@ -21,9 +19,7 @@ const partial = ref('a');
         </CField>
     </CRadioGroup>
 
-    <CRadioGroup v-model="partial" name="partial">
-        <legend>Disabled item</legend>
-
+    <CRadioGroup v-model="partial" name="partial" legend="Disabled item">
         <CField class="row">
             <CRadio value="a"/>
             <CLabel>Option A</CLabel>

@@ -6,9 +6,7 @@ const toppings = ref<string[]>([]);
 </script>
 
 <template>
-    <CCheckboxGroup v-model="toppings" name="toppings">
-        <legend>Toppings</legend>
-
+    <CCheckboxGroup v-model="toppings" name="toppings" legend="Toppings">
         <CField class="row">
             <CCheckbox value="cheese"/>
             <CLabel>Cheese</CLabel>

@@ -6,9 +6,7 @@ const color = ref('red');
 </script>
 
 <template>
-    <CRadioGroup v-model="color" name="color">
-        <legend>Color</legend>
-
+    <CRadioGroup v-model="color" name="color" legend="Color">
         <CLabel class="row">
             <CRadio value="red"/>
             Red

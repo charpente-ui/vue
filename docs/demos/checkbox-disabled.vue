@@ -11,9 +11,7 @@ const partial = ref<string[]>([
 </script>
 
 <template>
-    <CCheckboxGroup v-model="whole" name="whole" disabled>
-        <legend>Disabled group</legend>
-
+    <CCheckboxGroup v-model="whole" name="whole" disabled legend="Disabled group">
         <CField class="row">
             <CCheckbox value="a"/>
             <CLabel>Option A</CLabel>
@@ -25,9 +23,7 @@ const partial = ref<string[]>([
         </CField>
     </CCheckboxGroup>
 
-    <CCheckboxGroup v-model="partial" name="partial">
-        <legend>Disabled item</legend>
-
+    <CCheckboxGroup v-model="partial" name="partial" legend="Disabled item">
         <CField class="row">
             <CCheckbox value="a"/>
             <CLabel>Option A</CLabel>

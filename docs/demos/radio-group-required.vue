@@ -14,9 +14,7 @@ function onReset() {
 
 <template>
     <CForm validate @submit="submitted = true" @reset="onReset">
-        <CRadioGroup v-model="payment" name="payment">
-            <legend>Payment</legend>
-
+        <CRadioGroup v-model="payment" name="payment" legend="Payment">
             <CField class="row">
                 <CRadio value="card" required/>
                 <CLabel>Card</CLabel>

@@ -22,9 +22,7 @@ const channels = ref<string[]>([]);
         </CField>
 
         <!-- A list: the legend on top, the items, the hint at the bottom. -->
-        <CRadioGroup v-model="plan" class="group">
-            <legend>Plan</legend>
-
+        <CRadioGroup v-model="plan" class="group" legend="Plan">
             <CField class="choice">
                 <CRadio value="free"/>
                 <CLabel>Free</CLabel>
@@ -38,9 +36,7 @@ const channels = ref<string[]>([]);
             <CSupportingText>Change it whenever you want.</CSupportingText>
         </CRadioGroup>
 
-        <CCheckboxGroup v-model="channels" class="group">
-            <legend>Notifications</legend>
-
+        <CCheckboxGroup v-model="channels" class="group" legend="Notifications">
             <CField class="choice">
                 <CCheckbox value="email"/>
                 <CLabel>Email</CLabel>
