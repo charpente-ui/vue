@@ -306,6 +306,9 @@ function symbolicRefWrites(rest) {
 // True when `rest` holds one of the flags (a regex source), as a whole word.
 const flag = (rest, names, end = '\\s|$') => new RegExp(`(^|\\s)(${names})(${end})`).test(rest);
 
+// `rest` without the separate-token value of `--sort <key>` / `--format <fmt>`, which is not a name.
+const withoutListValues = (rest) => rest.replace(/(^|\s)--(sort|format)\s+\S+/g, '$1');
+
 // Subcommands read when their arguments match; any other form is a write.
 const READ_FORMS = {
     reflog: /^(?!(expire|delete)\b)/,
@@ -325,7 +328,7 @@ function writes({ sub, rest }) {
             return true;
         }
 
-        return !flag(rest, '-l|-a|-r|-v+|--list|--all|--remotes|--verbose|--show-current|--contains|--merged|--no-merged|--points-at') && /(^|\s)[^-\s]/.test(rest);
+        return !flag(rest, '-l|-a|-r|-v+|--list|--all|--remotes|--verbose|--show-current|--contains|--merged|--no-merged|--points-at') && /(^|\s)[^-\s]/.test(withoutListValues(rest));
     }
 
     if (sub === 'tag') {
@@ -333,7 +336,7 @@ function writes({ sub, rest }) {
             return true;
         }
 
-        return rest !== '' && !flag(rest, '-l|-n\\d*|--list|--contains|--points-at|--merged|--no-merged');
+        return !flag(rest, '-l|-n\\d*|--list|--contains|--points-at|--merged|--no-merged') && /(^|\s)[^-\s]/.test(withoutListValues(rest));
     }
 
     if (Object.hasOwn(READ_FORMS, sub)) {
@@ -351,22 +354,27 @@ function writes({ sub, rest }) {
     return true;
 }
 
-function destructive({ sub, rest }) {
+// Commands that cannot be undone: always denied.
+function irreversible({ sub, rest }) {
     return (sub === 'reset' && /--hard/.test(rest))
         || (sub === 'push' && /(^|\s)(--force|--force-with-lease|-f)\b/.test(rest))
         || (sub === 'clean' && /(^|\s)-\w*f/.test(rest))
-        || (sub === 'branch' && /(^|\s)-D\b/.test(rest))
+        // Commands that delete refs or history for good.
+        || (sub === 'update-ref' && /(^|\s)-d\b/.test(rest))
+        || sub === 'filter-branch'
+        || (sub === 'reflog' && /^(expire|delete)\b/.test(rest))
+        || (sub === 'gc' && /--prune/.test(rest));
+}
+
+// Commands that discard work or delete a ref, but can be recovered: the user confirms.
+function discards({ sub, rest }) {
+    return (sub === 'branch' && /(^|\s)-D\b/.test(rest))
         // Commands that destroy uncommitted work.
         || (sub === 'checkout' && flag(rest, '--|-f|--force|\\.'))
         || (sub === 'restore' && (!flag(rest, '--staged|-S') || flag(rest, '--worktree|-W')))
         || (sub === 'switch' && flag(rest, '--discard-changes|-f|--force'))
         || (sub === 'stash' && /^(drop|clear)\b/.test(rest))
-        // Commands that delete refs or history for good.
-        || (sub === 'tag' && flag(rest, '-\\w*d\\w*|--delete'))
-        || (sub === 'update-ref' && /(^|\s)-d\b/.test(rest))
-        || sub === 'filter-branch'
-        || (sub === 'reflog' && /^(expire|delete)\b/.test(rest))
-        || (sub === 'gc' && /--prune/.test(rest));
+        || (sub === 'tag' && flag(rest, '-\\w*d\\w*|--delete'));
 }
 
 // Branches the next commands may write on after a `switch` or `checkout`: the created branch, otherwise null (unknown).
@@ -419,8 +427,10 @@ export function decide({ command, agent, branch: initial, protectedBranches }) {
 
         if (agent !== 'git-operator') {
             raise('deny', 'Only git-operator writes to git: delegate to it, after the user\'s go.');
-        } else if (destructive(git)) {
-            raise('deny', `git ${git.sub}: destructive command, not allowed.`);
+        } else if (irreversible(git)) {
+            raise('deny', `git ${git.sub}: irreversible command, not allowed.`);
+        } else if (discards(git)) {
+            raise('ask', `git ${git.sub}: discards work or deletes a ref, confirm.`);
         } else if (git.sub === '?') {
             raise('ask', 'Nested git command that cannot be analysed: confirm.');
         } else if (ASK.has(git.sub)) {
@@ -478,7 +488,13 @@ export function protectedBranches(root, env = process.env) {
     }
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+// BRIGADE_GIT_GUARD=off (personal, in .claude/settings.local.json) turns the guard off: only the permissions of Claude Code apply.
+// The deny rules of settings.json (reset --hard, force push, clean -f) still apply.
+export function guardOff(env = process.env) {
+    return env.BRIGADE_GIT_GUARD === 'off';
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href && !guardOff()) {
     let parsed;
 
     try {

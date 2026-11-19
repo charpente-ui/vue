@@ -82,7 +82,8 @@
             "Bash(npx *)",
             "Bash(git push:*)",
             "Bash(git merge:*)",
-            "Bash(git rebase:*)"
+            "Bash(git rebase:*)",
+            "Bash(git branch -D:*)"
         ],
         "deny": [
             "Bash(git push *)",

@@ -5,9 +5,9 @@
 Options of this project, referred to by `.claude/rules/brigade.md`.
 
 - Default branch: `main`.
-- Reference branch of the work: `main`.
+- Reference branch of the work: `develop`.
 - Package manager: `npm`.
 - Commit format: Conventional Commits: `type(scope): description` with the types `feat` (new feature), `fix` (bug fix), `build`, `chore`, `ci`, `docs`, `perf`, `refactor`, `revert`, `style`, `test`; the scope is optional, a noun naming a section of the codebase; breaking change (major): `!` before the colon (`feat(api)!: description`) or a footer `BREAKING CHANGE: <description>`; the body starts after one blank line; footers come after a blank line, each token with `-` instead of spaces (`Refs: #12`); imperative mood, 72 characters max.
 - Code, comments and commit messages language: English.
 - Documentation language: English.
-- Reply language, project default: English.
+- Reply language, project default: French.

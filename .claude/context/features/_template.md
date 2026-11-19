@@ -10,10 +10,15 @@ Uncommitted / stash: <WIP description> (only if any)
 
 <one or two sentences>
 
+## Design
+
+Chosen approach: <approach and why>
+Out of scope: <what is left out>
+
 ## Steps
 
-- [x] done step
-- [ ] remaining step
+- [x] done step — files: <paths> — check: <command or result>
+- [ ] remaining step — files: <paths> — check: <command or result>
 
 ## Decisions and open questions
 
