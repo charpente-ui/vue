@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DefaultTheme from '@frontfactory/vitepress-theme';
 import { useData } from 'vitepress';
-import HeroCanvas from './HeroCanvas.vue';
+import HeroIllustration from './HeroIllustration.vue';
 
 const { frontmatter } = useData();
 </script>
@@ -9,7 +9,7 @@ const { frontmatter } = useData();
 <template>
     <DefaultTheme.Layout>
         <template #home-hero-image>
-            <HeroCanvas v-if="frontmatter.layout === 'home'"/>
+            <HeroIllustration v-if="frontmatter.layout === 'home'"/>
         </template>
     </DefaultTheme.Layout>
 </template>
