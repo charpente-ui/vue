@@ -58,7 +58,7 @@ falls back to its slot content otherwise. One element, two jobs — see the
 | `as`         | `string \| Component` | `'p'`   | Tag or component to render in place of `<p>`                                |
 | `validation` | `boolean`             | `false` | Show the browser's validation message while invalid, slot content otherwise |
 
-`<p>` is the one tag in the library that semantics does not impose, so it is the one you can change. Two cases call
+`<p>` is not imposed by semantics, so you can change it. Two cases call
 for it: a `<label>` may only contain phrasing content, which a `<p>` is not, and a hint sitting inline next to a
 character counter reads better as a `<span>`.
 
@@ -93,7 +93,7 @@ over the `role="alert"` that `validation` would otherwise set.
 ```js
 const control = useTemplateRef('control');
 
-control.value?.el?.focus();
+control.value?.el?.scrollIntoView();
 ```
 
 ## Accessibility

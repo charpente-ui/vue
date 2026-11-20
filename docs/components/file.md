@@ -4,7 +4,7 @@ description: CFile — a headless Vue 3 file input with a v-model that actually 
 
 # File
 
-A file input with a `v-model` that actually works, including resetting it.
+A file input with a `v-model` that actually works, including resetting it and setting it from your app.
 
 ```ts
 import { CFile } from '@charpente-ui/vue';
@@ -18,7 +18,7 @@ import { CFile } from '@charpente-ui/vue';
 import Basic from '../demos/file-basic.vue';
 </script>
 
-Set the model back to `null` and the native input clears with it — try the button.
+Set the model back to `null` and the native input clears with it — try the button. Set it to a `FileList` and the native input receives it too.
 
 <Demo><Basic/></Demo>
 
@@ -51,6 +51,24 @@ A file input cannot be controlled: assigning to `input.value` is forbidden for s
 machinery does not apply. `CFile` syncs the `FileList` into your model on `change`, and — the part people miss — clears
 the native input when you set the model back to `null`. Without that, the file name stays on screen after a "remove"
 button has already emptied your state.
+
+The other direction works as well. When your app sets the model to a `FileList` — a drop zone, a restored draft — `CFile`
+writes it into the native input. Without that, the input would stay empty: `required` would reject the form and a native
+submission would send no file.
+
+```ts
+const files = ref<FileList | null>(null);
+
+function onDrop(event: DragEvent) {
+    const dt = new DataTransfer();
+
+    for (const file of event.dataTransfer?.files ?? []) {
+        dt.items.add(file);
+    }
+
+    files.value = dt.files;
+}
+```
 
 ### Exposed
 

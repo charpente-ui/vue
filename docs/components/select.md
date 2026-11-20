@@ -55,15 +55,17 @@ const options = computed<SelectOptionItem[]>(() => {
 });
 ```
 
+::: tip
+Values are bound with `:value`, not stringified into the DOM. A numeric `value` comes back as a **number** in your `v-model` — no `Number()` on the way out. The demo prints its `typeof` to prove it.
+:::
+
 ### Groups
+
+An entry with `options` renders an `<optgroup>`, which the browser draws as a labeled section of the dropdown.
 
 <Demo><Groups/></Demo>
 
 <<< ../demos/select-groups.vue
-
-::: tip
-Values are bound with `:value`, not stringified into the DOM. A numeric `value` comes back as a **number** in your `v-model` — no `Number()` on the way out. The demo prints its `typeof` to prove it.
-:::
 
 ### Placeholder
 
@@ -79,7 +81,7 @@ Each attribute earns its place:
 - `value=""` makes it the HTML **placeholder label option**, which is what lets `required` reject it.
 - `disabled` stops the user coming back to it.
 - `hidden` removes it from the dropdown once a real choice is made.
-- `selected` covers a model that starts as `undefined`.
+- `selected` keeps it displayed until a choice is made.
 
 ::: warning
 The placeholder only works in **first** position. An empty-valued option placed later is an ordinary option and `required` accepts it — verified in Chrome: first position gives `validity.valueMissing === true`, second gives
@@ -88,7 +90,7 @@ needs it.
 :::
 
 ::: tip
-Initialise your model to `''`, not `undefined`. With `undefined` no option matches, the browser still displays
+Initialize your model to `''`, as the demo does, not `undefined`. With `undefined` no option matches, the browser still displays
 the first one, and your model silently disagrees with the screen.
 :::
 
@@ -104,7 +106,7 @@ the first one, and your model silently disagrees with the screen.
 
 | Prop      | Type                                                                    | Default     | Description                                                                                                                                                                  |
 |-----------|-------------------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `options` | `SelectOptionItem[]`                                                    | `[]`        | Options rendered **after** the default slot                                                                                                                                  |
+| `options` | `SelectOptionItem[]`                                                    | `undefined` | Options rendered **after** the default slot                                                                                                                                  |
 | `rule`    | `ValidationRule<string \| number \| (string \| number)[] \| undefined>` | `undefined` | See [Rules of your own](/guide/validation#rules-of-your-own). The type covers single and `multiple` — [narrow it](/guide/validation#the-value-type-is-wider-than-your-field) |
 
 ### Model

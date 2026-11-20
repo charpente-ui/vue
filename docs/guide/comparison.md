@@ -13,7 +13,7 @@ This page places it against the three families it gets compared to, and says pla
 
 | Family                                                      | What it gives you                                                   | What it costs                                           |
 |-------------------------------------------------------------|---------------------------------------------------------------------|---------------------------------------------------------|
-| **Headless widgets** — [Reka UI], [Ark UI], [Headless UI]   | Widgets the platform lacks: combobox, date picker, dialog           | Composed markup, keyboard behaviour reimplemented in JS |
+| **Headless widgets** — [Reka UI], [Ark UI], [Headless UI]   | Widgets the platform lacks: combobox, date picker, dialog           | Composed markup, keyboard behavior reimplemented in JS |
 | **Form frameworks** — [VeeValidate], [FormKit], [Vuelidate] | Validation state: `dirty`, `touched`, schemas, submission lifecycle | A second source of truth beside the browser's           |
 | **Styled libraries** — [PrimeVue], [Vuetify], [Naive UI]    | A finished look, out of the box                                     | A theme to override, CSS you did not choose             |
 | **Charpente UI**                                            | The wiring around native controls, and nothing else                 | No widgets, no form state, no styles                    |
@@ -29,7 +29,7 @@ Charpente builds none of it, because a `<select>`, a `<input type="checkbox">` a
 |                            | Charpente                        | Headless widget libraries                                 |
 |----------------------------|----------------------------------|-----------------------------------------------------------|
 | Markup rendered            | The native element, alone        | A composition of parts (root, trigger, content…)          |
-| Keyboard behaviour         | The browser's                    | Reimplemented in JavaScript, tested across screen readers |
+| Keyboard behavior         | The browser's                    | Reimplemented in JavaScript, tested across screen readers |
 | API surface                | HTML attributes you already know | A component API to learn per widget                       |
 | Widgets the platform lacks | **None**                         | Their entire reason to exist                              |
 
@@ -42,7 +42,7 @@ Concretely, this:
 renders one `<input>` carrying `type`, `required` and `class`, plus a generated `id` linked to its label. No wrapper
 `<div>`, no `<Field.Root>`, no slot to destructure.
 
-The size follows from that rather than from optimisation work: the library has no runtime dependency at all, with Vue
+The size follows from that rather than from optimization work: the library has no runtime dependency at all, with Vue
 kept external. There is no widget code in it because there are no widgets.
 
 ::: tip They are not alternatives.

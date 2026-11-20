@@ -67,17 +67,15 @@ id when you omit it.
 ```js
 const control = useTemplateRef('control');
 
-control.value?.el?.focus();
+control.value?.el?.scrollIntoView();
 ```
 
 ## Accessibility
 
 A correctly associated label does two things: it names the control for assistive technology, and it makes the label
 itself a click target that focuses the control. Both come from `for` matching an `id` — which is the entire reason
-[`Field`](/components/field) exists.
+[`CField`](/components/field) exists.
 
 ::: warning
-Never use `CLabel` to name a `<fieldset>`. A `<label for>` can only point at a labelable element, and a fieldset is not
-one — use `<legend>`. Inside a group, `CLabel` finds no field id at all and renders a `<label>` attached to nothing,
-silently.
+Never use `CLabel` to name a `<fieldset>`: see [Naming the group](/components/checkbox#naming-the-group).
 :::

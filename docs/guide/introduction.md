@@ -84,7 +84,7 @@ trades away, and where Charpente loses.
 | Requirement | Constraint                                                                         |
 |-------------|------------------------------------------------------------------------------------|
 | Vue         | **3.5 or newer** — the library builds its ids on Vue's own `useId()`, added in 3.5 |
-| Node        | **22 or newer** — declared in `engines`, so it is checked when you install         |
+| Node        | **22.22.2 or newer** (`>=22.22.2`) — declared in `engines`, so it is checked when you install |
 | Modules     | ESM only — a single `import` entry, no CommonJS build                              |
 
 Vue is a peer dependency: the library never bundles its own copy. Nothing here constrains the browser at runtime, since

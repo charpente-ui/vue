@@ -122,7 +122,7 @@ that is what keeps native arrow-key navigation working. Same cascade: your `name
 ```
 
 [`CCheckboxGroup`](/components/checkbox#why-no-name-is-generated) generates nothing: a `name` is the key the data is
-submitted under, no native behaviour depends on it for checkboxes, and the library cannot guess your server's schema.
+submitted under, no native behavior depends on it for checkboxes, and the library cannot guess your server's schema.
 Pass one, and it reaches every box; leave it out, and they are simply not submitted.
 
 Inside a group, the items receive **no** field id: the group describes itself as a whole — with or without a `CField`
@@ -130,9 +130,7 @@ wrapping it — so the `<fieldset>` carries `aria-describedby` and `aria-invalid
 `CField` when it needs its own label.
 
 ::: warning
-Because there is no field id inside a group, `CLabel` has nothing to bind to and renders a `<label>` attached to
-nothing — silently. Name a group with its `legend` prop. This applies to a `CLabel` placed between the `CField` and the group
-too: it picks up an id that ends up on no element.
+Never name a group with `CLabel`: see [Naming the group](/components/checkbox#naming-the-group).
 :::
 
 ## Server-side rendering

@@ -194,11 +194,17 @@ control.value?.el?.focus();
 Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. Vue compares by reference, exactly as it does natively. Inside a group the model is typed `(string | number)[]`; stick to those types there.
 :::
 
+#### Attributes
+
+Attributes land on the `<fieldset>`: `id`, `class`, `aria-*`, `name`, `disabled`… `name` also reaches every item, and `disabled` disables every item natively. An explicit `aria-describedby` or `aria-invalid` wins over the generated one, see [Describing the group](#describing-the-group).
+
 #### Exposed
 
 | Property | Type                          | Description                              |
 |----------|-------------------------------|------------------------------------------|
 | `el`     | `HTMLFieldSetElement \| null` | The `<fieldset>`, through a template ref |
+| `invalid` | `boolean`                    | The same state, through a template ref   |
+| `message` | `string`                     | The same message, through a template ref |
 
 ## Accessibility
 
@@ -207,7 +213,7 @@ Standalone, `CCheckbox` accepts any value: strings, numbers, booleans, objects. 
 | Key              | Behavior                        |
 |------------------|---------------------------------|
 | <kbd>Space</kbd> | Toggles the focused checkbox    |
-| <kbd>Tab</kbd>   | Moves focus to the next control |
+| <kbd>Tab</kbd>   | Moves focus in and out         |
 
 Each checkbox is its own tab stop — unlike radios, which share one.
 

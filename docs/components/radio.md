@@ -53,7 +53,7 @@ A `CSupportingText` inside the group is announced once, when the fieldset is ent
 
 ### Required, with validation
 
-`required` on the radios and a `CSupportingText validation` in the group: the error shows after a rejected submit and clears on a choice. Reset the model with the form.
+`required` on the radios and a `CSupportingText validation` in the group: the error shows after a rejected submit and clears on a choice. The demo resets its model on the form's `reset` event, because `form.reset()` does not touch a Vue model: see [Rules and reset](/guide/validation#rules-and-reset).
 
 <Demo><GroupRequired/></Demo>
 
@@ -164,11 +164,17 @@ Standalone, `CRadio` accepts any `value` — Vue compares by reference, exactly 
 prop without dropping standalone object support.
 :::
 
+#### Attributes
+
+Attributes land on the `<fieldset>`: `id`, `class`, `aria-*`, `name`, `disabled`… `name` also reaches every item (generated for radios when omitted), and `disabled` disables every item natively. An explicit `aria-describedby` or `aria-invalid` wins over the generated one, see [Describing the group](#describing-the-group).
+
 #### Exposed
 
 | Property | Type                          | Description                              |
 |----------|-------------------------------|------------------------------------------|
 | `el`     | `HTMLFieldSetElement \| null` | The `<fieldset>`, through a template ref |
+| `invalid` | `boolean`                    | The same state, through a template ref   |
+| `message` | `string`                     | The same message, through a template ref |
 
 ## Accessibility
 

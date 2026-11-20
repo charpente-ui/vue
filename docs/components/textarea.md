@@ -4,7 +4,7 @@ description: "CTextarea — a native Vue 3 textarea with the same generated id, 
 
 # Textarea
 
-A native textarea with the same wiring as [`Input`](/components/input).
+A native textarea with the same wiring as [`CInput`](/components/input).
 
 ```ts
 import { CTextarea } from '@charpente-ui/vue';
@@ -52,15 +52,15 @@ Each one is opt-in, and they behave exactly as on a plain `<textarea>` — and e
 [`CInput`](/components/input#model), where they are described in full: a plain `v-model` touches nothing, and a
 modifier changes what your app receives, never what the user is typing.
 
-### Attributes
-
-All of them land on the `<textarea>`: `rows`, `cols`, `maxlength`, `required`, `placeholder`, `class`… An explicit `id`
-or `aria-describedby` wins over the generated one.
-
 ::: tip
 `.lazy` is the useful one here: it updates the model on `change` rather than on every keystroke, which matters far
 more on a long text field than on a single-line input.
 :::
+
+### Attributes
+
+All of them land on the `<textarea>`: `rows`, `cols`, `maxlength`, `required`, `placeholder`, `class`… An explicit `id`
+or `aria-describedby` wins over the generated one.
 
 ### Exposed
 

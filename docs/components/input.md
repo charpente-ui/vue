@@ -79,7 +79,7 @@ the field while the model holds the number. On `type="number"` the browser polic
 [validation guide](/guide/validation#required-or-optional) covers.
 
 ::: tip
-This is the one behaviour a component cannot inherit for free. Vue applies modifiers written in a template
+This is the one behavior a component cannot inherit for free. Vue applies modifiers written in a template
 (`v-model.trim` on a real `<input>`) inside its own directive; a component receives them at runtime instead, as a
 `modelModifiers` prop, and has to implement them — which is why the same `.trim` can behave differently from one
 library to the next. Charpente implements them to match the native input.

@@ -67,8 +67,8 @@ The control carries `aria-invalid="true"` while it fails, so plain CSS can reach
 </CField>
 ```
 
-The slot only reaches the field's direct children. A component nested deeper receives nothing automatically: pass
-`invalid` and `message` down as props. The [validation guide](/guide/validation) covers the rest.
+Slot props are available to everything written inside the slot, but a component does not receive them unless you pass
+`invalid` and `message` as props. The [validation guide](/guide/validation) covers the rest.
 
 ### Checkbox, switch, radio and lists
 
@@ -86,8 +86,7 @@ screen-reader order out of step with what the eye sees.
 :::
 
 ::: warning
-The global label of a list is a `<legend>`, not a `CLabel`: a `<label for>` cannot point at a `<fieldset>`. See
-[Groups](#groups).
+The global label of a list is a `<legend>`, not a `CLabel`: see [Naming the group](/components/checkbox#naming-the-group).
 :::
 
 ### A control the field doesn't own
@@ -161,10 +160,8 @@ supporting texts and validation state. A `CField` wrapping a whole group keeps w
 that state. Either way, the `<fieldset>` carries `aria-describedby` and `aria-invalid`, the items carry neither and
 receive no field id — one id must not land on every input. Wrap each item in its own `CField` when it needs its own
 label. See
-[`RadioGroup`](/components/radio#describing-the-group).
+[`CRadioGroup`](/components/radio#describing-the-group).
 
 ::: warning
-Name the group with a `<legend>`, never with `CLabel`. A `<label for>` can only point at a labelable element, and a
-`<fieldset>` is not one — so inside a group `CLabel` finds no field id to pick up and renders a `<label>` attached to
-nothing, silently.
+Name a group with a `<legend>`, never with `CLabel`: see [Naming the group](/components/checkbox#naming-the-group).
 :::

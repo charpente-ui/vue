@@ -45,16 +45,15 @@ generated ids holding it together are yours to take over too — see [Ids](/guid
 
 The library is headless, which means some accessibility decisions are yours by construction:
 
-- **Names.** A control without a label has no accessible name. Wrap it in a [`Field`](/components/field) with a
-  [`Label`](/components/label), or pass `aria-label`. Charpente never invents a name.
-- **Group names.** A `<fieldset>` is named by its `<legend>` (the `legend` prop of the groups) — never by a `<label>`. `CLabel` cannot name a group: a
-  `<label for>` only points at a labelable element, and inside a group `CLabel` finds no id to bind, so it silently
-  renders a label attached to nothing. See [`CheckboxGroup`](/components/checkbox#naming-the-group).
+- **Names.** A control without a label has no accessible name. Wrap it in a [`CField`](/components/field) with a
+  [`CLabel`](/components/label), or pass `aria-label`. Charpente never invents a name.
+- **Group names.** A `<fieldset>` is named by its `<legend>` (the `legend` prop of the groups), never by a `CLabel`. See
+  [`CCheckboxGroup`](/components/checkbox#naming-the-group).
 - **One control per field.** `CField` tracks a single validation message, so two controls in the same field overwrite
   each other's — the last one to fire `invalid` wins. Wrap each control in its own field; use
   [`CRadioGroup`](/components/radio) or [`CCheckboxGroup`](/components/checkbox) for a set of related
   items, which is handled as a single control on purpose.
-- **`as` on [`Button`](/components/button).** With `as="button"` you get everything natively. With `as="div"` or
+- **`as` on [`CButton`](/components/button).** With `as="button"` you get everything natively. With `as="div"` or
   `as="span"` you get an element with no role, no `tabindex` and no keyboard activation — invisible to assistive
   technology. And `disabled` is inert on anything that is not a form control, so `<CButton as="a" disabled>` stays
   focusable and clickable. Pass the ARIA yourself, or keep a real `<button>`.
@@ -62,7 +61,7 @@ The library is headless, which means some accessibility decisions are yours by c
   `aria-current` on a nav link: the library never guesses these, because it does not know what you are building.
 - **Focus visibility.** No CSS ships with the library, so the focus ring is the browser's default. If you reset it,
   put one back.
-- **Colour and contrast.** Entirely yours.
+- **Color and contrast.** Entirely yours.
 
 ## Testing
 

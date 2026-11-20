@@ -111,7 +111,8 @@ from the label, either keep a hint in the supporting text, or replace the constr
 [`rule`](#rules-of-your-own) that returns your own wording.
 
 ::: warning
-A [`rule`](#rules-of-your-own) is the exception: it runs on every value, empty included. Rejecting `''` in a rule makes
+A [`rule`](#rules-of-your-own) is the exception: it runs once the native constraints pass, which on an optional field
+includes the empty value. Rejecting `''` in a rule makes
 the field required in practice — but with your message instead of the browser's localized one, and with no `required`
 attribute to announce it to assistive technology.
 
@@ -129,10 +130,10 @@ const noSpaces = (value) => {
 :::
 
 Marking a field required is just the attribute — screen readers announce it from there, so `aria-required` is
-redundant. The asterisk convention lives in the label:
+redundant. The asterisk convention lives in the label, hidden from screen readers so they do not read it as "star":
 
 ```vue
-<CLabel>Email *</CLabel>
+<CLabel>Email <span aria-hidden="true">*</span></CLabel>
 <CInput v-model="email" type="email" required/>
 ```
 
@@ -237,7 +238,8 @@ dependency. In the demo above, editing the first password re-checks the second �
 `revalidate()` call. That applies to any reactive source: a store, a computed, an injected value.
 
 **Native constraints win.** A rule only runs once the HTML constraints already pass, so an empty `required` field keeps
-the browser's own localized message instead of your single-language string.
+the browser's own localized message instead of your single-language string. On an optional field the empty value passes
+them, so your rule sees it.
 
 The consequence is worth stating plainly: **native messages come localized, yours do not.** Run custom messages through
 your `t()` in a multilingual app.
@@ -250,14 +252,13 @@ at moments you do not control. Put side effects in a watcher and have the rule r
 
 ### Why not call `setCustomValidity()` yourself
 
-It is a plain DOM method, so doing it by hand looks reasonable — and fails three ways, none of them visibly while you
+It is a plain DOM method, so doing it by hand looks reasonable — and fails two ways, none of them visibly while you
 develop:
 
 1. **It validates the previous value.** A `watchEffect` runs before Vue updates the DOM, so a model changed from code is
    checked against the value the input still shows. `rule` applies after the update.
 2. **It overwrites the native message.** On an empty `required` field, the browser's localized text becomes your own
    string, in one language. `rule` waits for native constraints to pass first.
-3. **There is no element to reach.** A `ref` on `CInput` gives you the component, not the `<input>`.
 
 ## Recipes
 
@@ -359,7 +360,7 @@ The group demos reset their model the same way: see the
 
 Per the HTML spec, the no-validate state belongs to the submitter as much as to the form. A submit button carrying
 `formnovalidate` skips validation for its own submission — what a "save draft" button next to "publish" relies on.
-`validate` honours it.
+`validate` honors it.
 
 <Demo><Draft/></Demo>
 
@@ -373,8 +374,8 @@ Per the HTML spec, the no-validate state belongs to the submitter as much as to 
 ### Styling the invalid state
 
 `CField` never applies a class of its own. It hands you `invalid` and `message`, through its default slot or a template
-ref — both shown on the [`Field` page](/components/field#reading-the-invalid-state). A component nested deeper than the
-field's direct children receives nothing automatically: pass them down as props.
+ref — both shown on the [`CField` page](/components/field#reading-the-invalid-state). Slot props are available to
+everything written inside the slot, but a component does not receive them unless you pass them as props.
 
 ## Under the hood
 
@@ -392,3 +393,5 @@ listener onto every control.
 `invalid` is therefore the only thing that can *show* an error — which is why a rule violated before any submit stays
 silent. A control carrying a rule reports its state to the field directly, because custom validity is set by JavaScript
 after the triggering event has already been dispatched.
+
+A `CRadioGroup` or `CCheckboxGroup` without a `CField` around it listens the same way, on its `<fieldset>`: `invalid`, `input` and `change`, in the capture phase.
