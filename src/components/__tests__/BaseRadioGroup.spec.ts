@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { nextTick } from 'vue';
 import BaseRadioGroup from '../BaseRadioGroup.vue';
 import BaseRadio from '../BaseRadio.vue';
@@ -429,5 +429,33 @@ describe('BaseRadioGroup', () => {
 
             expect(wrapper.find('fieldset').attributes('legend')).toBeUndefined();
         });
+    });
+
+    it('does not add its own reset listener on the form when inside a CField', () => {
+        const spy = vi.spyOn(HTMLFormElement.prototype, 'addEventListener');
+        const countResets = (template: string) => {
+            spy.mockClear();
+
+            const wrapper = mount({
+                components: { BaseRadioGroup,
+                    BaseRadio,
+                    BaseField },
+                template
+            }, { attachTo: document.body });
+            const count = spy.mock.calls.filter(([
+                type
+            ]) => type === 'reset').length;
+
+            wrapper.unmount();
+
+            return count;
+        };
+
+        const withGroup = countResets('<form><BaseField><BaseRadioGroup><BaseRadio value="a"/></BaseRadioGroup></BaseField></form>');
+        const withoutGroup = countResets('<form><BaseField><BaseRadio value="a"/></BaseField></form>');
+
+        spy.mockRestore();
+
+        expect(withGroup).toBe(withoutGroup);
     });
 });

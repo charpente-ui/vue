@@ -190,6 +190,10 @@ export function useFieldControl() {
     };
 }
 
+// Never called: the group templates only call the handlers when standalone.
+/* v8 ignore next */
+const noop = () => {};
+
 // Wiring for CRadioGroup/CCheckboxGroup: a group is described and flagged as a
 // whole, so the fieldset carries aria-describedby/aria-invalid and the items
 // inside must not repeat them. Inside a CField the group follows it as before;
@@ -202,17 +206,18 @@ export function useFieldControl() {
 export function useFieldGroup(fieldsetRef: Readonly<Ref<HTMLElement | null>>) {
     const attrs = useAttrs();
     const outer = inject(fieldKey, null);
-    const own = useFieldState(fieldsetRef);
     const standalone = !outer;
+    // Only own the state (form reset listener, mount hooks) when no CField does.
+    const own = outer ? null : useFieldState(fieldsetRef);
     const noId = ref<string | undefined>();
     const field: FieldContext = outer ?? {
         id: noId,
-        describedBy: own.describedBy,
-        invalid: own.invalid,
-        validationMessage: own.validationMessage,
-        registerSupportingText: own.registerSupportingText,
-        unregisterSupportingText: own.unregisterSupportingText,
-        syncValidity: own.syncValidity
+        describedBy: own!.describedBy,
+        invalid: own!.invalid,
+        validationMessage: own!.validationMessage,
+        registerSupportingText: own!.registerSupportingText,
+        unregisterSupportingText: own!.unregisterSupportingText,
+        syncValidity: own!.syncValidity
     };
 
     const describedBy = computed(() => {
@@ -241,7 +246,7 @@ export function useFieldGroup(fieldsetRef: Readonly<Ref<HTMLElement | null>>) {
         standalone,
         invalid: field.invalid,
         message: field.validationMessage,
-        onInvalid: own.onInvalid,
-        onInput: own.onInput
+        onInvalid: own?.onInvalid ?? noop,
+        onInput: own?.onInput ?? noop
     };
 }
