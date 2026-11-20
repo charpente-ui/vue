@@ -67,7 +67,7 @@ character counter reads better as a `<span>`.
 ```
 
 Everything else is unchanged by the tag: the generated id, the registration with the field, `aria-describedby`, and
-the `role="alert"` a `validation` text carries.
+the `aria-live="polite"` a `validation` text carries.
 
 ### Slots
 
@@ -77,8 +77,8 @@ the `role="alert"` a `validation` text carries.
 
 ### Attributes
 
-All of them land on the rendered element. An explicit `id` wins over the generated one, and an explicit `role` wins
-over the `role="alert"` that `validation` would otherwise set.
+All of them land on the rendered element. An explicit `id` wins over the generated one, and an explicit `aria-live` wins
+over the `aria-live="polite"` that `validation` would otherwise set.
 
 ### Exposed
 
@@ -98,8 +98,9 @@ control.value?.el?.scrollIntoView();
 
 ## Accessibility
 
-A `validation` text becomes a `role="alert"` live region, so a screen reader announces the message when it swaps in.
-Pass an explicit `role` — `role="status"` for a gentler, polite announcement — to override that.
+A `validation` text becomes a polite `aria-live` region, so a screen reader announces the message when it swaps in
+without interrupting typing on every keystroke. Pass an explicit `role="alert"` for an assertive announcement, or
+`aria-live` to override it.
 
 Once the value is fixed, the hint swaps back into that same region. Tested with Windows Narrator in Edge, the error is
 announced and the returning hint is not. The ARIA spec leaves room for a screen reader to read it out as well, so

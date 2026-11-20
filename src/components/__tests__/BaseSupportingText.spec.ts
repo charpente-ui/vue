@@ -48,7 +48,7 @@ describe('BaseSupportingText', () => {
 
         expect(text.exists()).toBe(true);
         expect(wrapper.find('p').exists()).toBe(false);
-        expect(text.attributes('role')).toBe('alert');
+        expect(text.attributes('aria-live')).toBe('polite');
         expect(wrapper.find('input').attributes('aria-describedby')).toBe(text.attributes('id'));
     });
 
@@ -401,7 +401,8 @@ describe('BaseSupportingText', () => {
             }
         });
 
-        expect(wrapper.attributes('role')).toBe('alert');
+        expect(wrapper.attributes('aria-live')).toBe('polite');
+        expect(wrapper.attributes('role')).toBeUndefined();
     });
 
     it('leaves a plain hint out of the live regions', () => {
@@ -412,6 +413,23 @@ describe('BaseSupportingText', () => {
         });
 
         expect(wrapper.attributes('role')).toBeUndefined();
+        expect(wrapper.attributes('aria-live')).toBeUndefined();
+    });
+
+    it('lets an explicit aria-live on the text win', () => {
+        const wrapper = mount(BaseSupportingText, {
+            props: {
+                validation: true
+            },
+            attrs: {
+                'aria-live': 'off'
+            },
+            slots: {
+                default: 'Hint'
+            }
+        });
+
+        expect(wrapper.attributes('aria-live')).toBe('off');
     });
 
     it('lets an explicit role on the text win', () => {
@@ -428,6 +446,7 @@ describe('BaseSupportingText', () => {
         });
 
         expect(wrapper.attributes('role')).toBe('status');
+        expect(wrapper.attributes('aria-live')).toBe('polite');
     });
 
     it('lets an explicit aria-invalid on the control win', () => {

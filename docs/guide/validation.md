@@ -147,15 +147,15 @@ otherwise. The slot is the hint, and it is optional — leave it empty and the e
 <<< ../demos/validation-error-only.vue
 
 The element stays in the DOM either way, empty, which is what makes it work: `aria-describedby` keeps pointing at a
-stable id, and the `role="alert"` live region already exists when the message arrives — a live region inserted at the
+stable id, and the polite `aria-live` region already exists when the message arrives — a live region inserted at the
 same time as its content is unreliably announced.
 
 An empty `<p>` has no line box, so it measures zero high and the form shifts when a message appears. That is yours to
 handle: a `min-height`, or a reserved row in the field's grid.
 
 ::: tip
-The control also gets `aria-invalid` while it fails. Pass an explicit `role` (`role="status"`) to override the
-`role="alert"`, as the [async recipe](#server-side-and-async-checks) does.
+The control also gets `aria-invalid` while it fails. The text is a polite live region (`aria-live="polite"`), so
+typing is not interrupted. Pass an explicit `role` (`role="alert"` to announce at once) or `aria-live` to change that.
 :::
 
 A [`CRadioGroup`](/components/radio#describing-the-group) or a
@@ -289,7 +289,7 @@ const rule = () => pending.value ? 'Checking availability…' : serverError.valu
     <CField>
         <CLabel>Username</CLabel>
         <CInput v-model="username" required :rule="rule"/>
-        <CSupportingText validation :role="pending ? 'status' : 'alert'"/>
+        <CSupportingText validation :role="pending ? 'status' : undefined"/>
     </CField>
 </template>
 ```

@@ -44,14 +44,16 @@ test('the compositions have no accessibility violation', async ({ page }) => {
 });
 
 // The state worth scanning most: this is where the library adds aria-invalid,
-// swaps the hint for a validation message and turns it into a role="alert"
-// live region. A violation here would mean the error is announced wrong — the
+// swaps the hint for a validation message and keeps it in a polite
+// aria-live region. A violation here would mean the error is announced wrong — the
 // one thing the wiring exists to get right.
 test('a rejected form has no accessibility violation', async ({ page }) => {
     await page.getByRole('button', { name: 'Composition' }).click();
     await page.getByRole('button', { name: 'Submit' }).click();
 
     await expect(page.locator('[aria-invalid="true"]').first()).toBeVisible();
+    await expect(page.locator('[aria-live="polite"]').first()).toBeVisible();
+    await expect(page.locator('[role="alert"]')).toHaveCount(0);
 
     const { violations } = await scan(page);
 

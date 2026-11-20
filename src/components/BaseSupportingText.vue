@@ -36,14 +36,19 @@ const validationMessage = computed(() => {
 });
 
 // A validation message swaps in over the hint in place, so without a live
-// region the change is silent for screen readers. Only wired when `validation`
-// is set: a plain hint must not become one. An explicit role always wins.
-const textRole = computed(() => {
-    if (typeof attrs.role === 'string') {
-        return attrs.role;
+// region the change is silent for screen readers. Polite rather than
+// role="alert": once the field is invalid the message is re-synced on every
+// keystroke (native messages can embed live counts), and an assertive region
+// would interrupt typing at each key. Set permanently, not only while a message
+// shows: a live region created together with its content is often not
+// announced. Only wired when `validation` is set: a plain hint must not become
+// one. An explicit `aria-live` wins.
+const textLive = computed(() => {
+    if (typeof attrs['aria-live'] === 'string') {
+        return attrs['aria-live'];
     }
 
-    return props.validation ? 'alert' : undefined;
+    return props.validation ? 'polite' : undefined;
 });
 
 watch(textId, (id, previousId) => {
@@ -74,7 +79,7 @@ defineExpose({
 </script>
 
 <template>
-    <component :is="as" v-bind="$attrs" :id="textId" ref="text" :role="textRole">
+    <component :is="as" v-bind="$attrs" :id="textId" ref="text" :aria-live="textLive">
         <template v-if="validationMessage">{{ validationMessage }}</template>
         <slot v-else/>
     </component>

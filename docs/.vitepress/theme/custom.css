@@ -139,7 +139,7 @@
     border-radius: 2px;
 }
 
-.demo__preview :is(div, fieldset):has([aria-invalid='true']) > p[role='alert'] {
+.demo__preview :is(div, fieldset):has([aria-invalid='true']) > p[aria-live='polite'] {
     color: var(--vp-c-danger-1);
     font-weight: 500;
 }

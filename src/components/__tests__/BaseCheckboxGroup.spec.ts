@@ -211,7 +211,7 @@ describe('BaseCheckboxGroup', () => {
         const message = wrapper.find('p');
 
         expect(message.text()).toBe('Pick at least one');
-        expect(message.attributes('role')).toBe('alert');
+        expect(message.attributes('aria-live')).toBe('polite');
         expect(wrapper.find('fieldset').attributes('aria-describedby')).toBe(message.attributes('id'));
         expect(wrapper.find('fieldset').attributes('aria-invalid')).toBe('true');
     });

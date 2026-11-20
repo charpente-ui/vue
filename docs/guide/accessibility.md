@@ -32,7 +32,7 @@ All of it is wiring that is easy to forget and invisible when missing:
 | Label ↔ control pairing    | [`CField`](/components/field) shares a generated id, `CLabel` picks it up as `for`.            |
 | Hint and error association | [`CSupportingText`](/components/supporting-text) registers its id, controls expose it as `aria-describedby`. |
 | Invalid state              | `aria-invalid` follows native constraint validation, and clears as the user types.             |
-| Error announcement         | `CSupportingText validation` becomes a `role="alert"` live region.                             |
+| Error announcement         | `CSupportingText validation` becomes a polite `aria-live` region.                            |
 | Group description          | The `<fieldset>` carries the wiring once, not each item. [Details](/components/radio#describing-the-group) |
 | Radio group keyboard nav   | A shared `name` keeps native arrow-key navigation working. [Details](/components/radio#why-the-name-is-generated) |
 | Focus on submit            | [`CForm validate`](/components/form) focuses the first invalid control instead of failing silently. |
