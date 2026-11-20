@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.0](https://github.com/charpente-ui/vue/compare/v2.12.1...v2.13.0) (2026-11-20)
+
+### Features
+
+* **group:** add an optional legend prop to radio and checkbox groups ([c2fd938](https://github.com/charpente-ui/vue/commit/c2fd938c99f4647f887585c89e17bbd6f0dd0a40))
+* **group:** wire radio and checkbox groups without a surrounding CField ([a5f0920](https://github.com/charpente-ui/vue/commit/a5f0920a8388d33c329b957065904c7ad4ad2f7a))
+
 ## [2.12.1](https://github.com/charpente-ui/vue/compare/v2.12.0...v2.12.1) (2026-10-09)
 
 ### Bug Fixes
