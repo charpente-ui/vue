@@ -33,7 +33,10 @@ export function useFieldState(rootRef: Readonly<Ref<HTMLElement | null>>) {
     // aria-describedby takes a list of ids, so every supporting text is referenced
     // rather than just one, in document order. Unregistering drops that id and
     // keeps the rest wired; an empty list removes the attribute altogether.
-    const describedBy = computed(() => supportingTextIds.value.join(' ') || undefined);
+    // Ids are deduped here only, so two texts sharing an id stay referenced until both unmount.
+    const describedBy = computed(() => [
+        ...new Set(supportingTextIds.value)
+    ].join(' ') || undefined);
 
     // Screen readers read the descriptions in attribute order, and registration
     // order is not document order: a text behind a `v-if` registers when it

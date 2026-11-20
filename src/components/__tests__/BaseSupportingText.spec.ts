@@ -287,6 +287,32 @@ describe('BaseSupportingText', () => {
         expect(wrapper.find('input').attributes('aria-describedby')).toBe(hintId);
     });
 
+    it('references a shared id once and keeps it while one of the texts remains', async () => {
+        const wrapper = mount({
+            components: {
+                BaseField,
+                BaseInput,
+                BaseSupportingText
+            },
+            data: () => ({ showSecond: true }),
+            template: `
+                <BaseField>
+                    <BaseInput/>
+                    <BaseSupportingText id="hint">One</BaseSupportingText>
+                    <BaseSupportingText v-if="showSecond" id="hint">Two</BaseSupportingText>
+                </BaseField>
+            `
+        });
+
+        await nextTick();
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('hint');
+
+        await wrapper.setData({ showSecond: false });
+
+        expect(wrapper.find('input').attributes('aria-describedby')).toBe('hint');
+    });
+
     it('re-wires aria-describedby when the text id changes after mount', async () => {
         const wrapper = mount({
             components: {
