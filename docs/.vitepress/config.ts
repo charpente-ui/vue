@@ -215,7 +215,10 @@ export default defineConfigWithTheme<ThemeConfig>({
         search: { provider: 'local' },
         // h2 and h3: the examples and API sections are h3, so an h2-only
         // outline hides most of what a reader jumps to.
-        outline: { level: [2, 3] },
+        outline: { level: [
+            2,
+            3
+        ] },
         nav: [
             {
                 text: 'Guide',
@@ -226,23 +229,6 @@ export default defineConfigWithTheme<ThemeConfig>({
                 text: 'Components',
                 link: '/components/button',
                 activeMatch: '/components/'
-            },
-            {
-                text: `v${ version }`,
-                items: [
-                    {
-                        text: 'Changelog',
-                        link: '/guide/changelog'
-                    },
-                    {
-                        text: 'Releases',
-                        link: 'https://github.com/charpente-ui/vue/releases'
-                    },
-                    {
-                        text: 'npm',
-                        link: 'https://www.npmjs.com/package/@charpente-ui/vue'
-                    }
-                ]
             }
         ],
         sidebar: [
@@ -264,10 +250,6 @@ export default defineConfigWithTheme<ThemeConfig>({
                     {
                         text: 'Accessibility',
                         link: '/guide/accessibility'
-                    },
-                    {
-                        text: 'Changelog',
-                        link: '/guide/changelog'
                     }
                 ]
             },
@@ -350,6 +332,24 @@ export default defineConfigWithTheme<ThemeConfig>({
                 lastUpdated: false
             },
             navOrder: 'menu-first',
+            version: '1.0.0',
+            versions: {
+                current: `v${ version }`,
+                items: [
+                    {
+                        text: 'Changelog',
+                        link: 'https://github.com/charpente-ui/vue/blob/main/CHANGELOG.md'
+                    },
+                    {
+                        text: 'Releases',
+                        link: 'https://github.com/charpente-ui/vue/releases'
+                    },
+                    {
+                        text: 'npm',
+                        link: 'https://www.npmjs.com/package/@charpente-ui/vue'
+                    }
+                ]
+            },
             footerColumns: [
                 {
                     title: 'Guide',
@@ -368,7 +368,7 @@ export default defineConfigWithTheme<ThemeConfig>({
                         },
                         {
                             text: 'Changelog',
-                            link: '/guide/changelog'
+                            link: 'https://github.com/charpente-ui/vue/blob/main/CHANGELOG.md'
                         }
                     ]
                 },
