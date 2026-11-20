@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import BaseSelect from '../BaseSelect.vue';
 
 describe('BaseSelect', () => {
@@ -328,5 +328,66 @@ describe('BaseSelect', () => {
         });
 
         expect(wrapper.find('select').attributes('id')).toBe('custom-select');
+    });
+
+    it('accepts multiple without a model and emits an array', async () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const wrapper = mount(BaseSelect, {
+            attrs: { multiple: '' },
+            slots: {
+                default: '<option value="a">A</option><option value="b">B</option>'
+            }
+        });
+
+        await wrapper.find('select').setValue([
+            'a',
+            'b'
+        ]);
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([
+            [
+                'a',
+                'b'
+            ]
+        ]);
+
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    });
+
+    it('renders 1 and \'1\' as two options without a duplicate-key warning', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const wrapper = mount(BaseSelect, { props: { options: [
+            1,
+            '1'
+        ] } });
+
+        expect(wrapper.findAll('option')).toHaveLength(2);
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    });
+
+    it('renders two groups with the same label without a warning', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const wrapper = mount(BaseSelect, {
+            props: {
+                options: [
+                    { label: 'Same',
+                        options: [
+                            'a'
+                        ] },
+                    { label: 'Same',
+                        options: [
+                            'b',
+                            'b'
+                        ] }
+                ]
+            }
+        });
+
+        expect(wrapper.findAll('optgroup')).toHaveLength(2);
+        expect(wrapper.findAll('option')).toHaveLength(3);
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
     });
 });

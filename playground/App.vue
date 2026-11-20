@@ -31,6 +31,7 @@ const selfPlan = ref('');
 const selfTags = ref<string[]>([]);
 const select = ref('');
 const selectMultiple = ref<string[]>([]);
+const selectMultipleUnset = ref<string[]>();
 const selectOptions = ref('');
 const selectGrouped = ref<string | number>('');
 
@@ -481,8 +482,16 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                                     <option value="c">Option C</option>
                                 </CSelect>
                             </CField>
+                            <CField class="field">
+                                <CLabel>Pick with no initial value</CLabel>
+                                <CSelect v-model="selectMultipleUnset" multiple>
+                                    <option value="a">Option A</option>
+                                    <option value="b">Option B</option>
+                                </CSelect>
+                            </CField>
                             <p class="value">Single: <code>{{ select }}</code></p>
                             <p class="value">Multiple: <code>{{ selectMultiple }}</code></p>
+                            <p class="value">Without model: <code>{{ selectMultipleUnset }}</code></p>
                             <div class="code-block">
                                 <div class="code-block__header">
                                     <span class="code-block__label">Example</span>

@@ -22,6 +22,29 @@ test('CSelect multiple lets several options be selected at once', async ({ page 
     await expect(value).not.toContainText('"b"');
 });
 
+test('CSelect multiple works without an initial model and logs no Vue warning', async ({ page }) => {
+    const warnings: string[] = [];
+
+    page.on('console', (message) => {
+        if (message.type() === 'warning') {
+            warnings.push(message.text());
+        }
+    });
+
+    await page.goto('/');
+
+    await page.getByLabel('Pick with no initial value').selectOption([
+        'a',
+        'b'
+    ]);
+
+    const value = page.getByText('Without model:', { exact: false });
+
+    await expect(value).toContainText('"a"');
+    await expect(value).toContainText('"b"');
+    expect(warnings.filter((text) => text.includes('Vue warn'))).toEqual([]);
+});
+
 test('CSelect keeps a numeric option value a number through a real select', async ({ page }) => {
     const select = page.getByLabel('Pick from a group');
 
