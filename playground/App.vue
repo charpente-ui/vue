@@ -856,6 +856,29 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                     </CForm>
                 </div>
             </section>
+
+            <section class="card">
+                <h2>CField — several controls</h2>
+                <p class="doc">
+                    A field can hold more than one control, like a date range. It stays invalid until every
+                    control it flagged is valid again.
+                </p>
+                <div class="example">
+                    <CForm validate>
+                        <CField v-slot="{ invalid }" class="field range-field">
+                            <CLabel>Stay</CLabel>
+                            <CInput placeholder="From" required :class="{ 'is-invalid': invalid }"/>
+                            <CInput placeholder="To" required :class="{ 'is-invalid': invalid }"/>
+                            <CSupportingText validation class="value">
+                                Both dates are required.
+                            </CSupportingText>
+                        </CField>
+                        <div class="row">
+                            <CButton type="submit">Book</CButton>
+                        </div>
+                    </CForm>
+                </div>
+            </section>
         </main>
     </div>
 </template>

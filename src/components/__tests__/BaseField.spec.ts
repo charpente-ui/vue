@@ -331,6 +331,94 @@ describe('BaseField', () => {
         wrapper.unmount();
     });
 
+    describe('with several controls', () => {
+        function mountRange() {
+            return mount({
+                components: {
+                    BaseForm,
+                    BaseField,
+                    BaseInput
+                },
+                template: `
+                    <BaseForm validate>
+                        <BaseField v-slot="{ invalid, message }">
+                            <BaseInput class="from" required/>
+                            <BaseInput class="to" required/>
+                            <span class="state">{{ invalid }}|{{ message }}</span>
+                        </BaseField>
+                    </BaseForm>
+                `
+            }, { attachTo: document.body });
+        }
+
+        it('stays invalid until every flagged control is valid', async () => {
+            const wrapper = mountRange();
+            const from = wrapper.find<HTMLInputElement>('.from');
+            const to = wrapper.find<HTMLInputElement>('.to');
+
+            await wrapper.find('form').trigger('submit');
+
+            expect(wrapper.find('.state').text()).toMatch(/^true\|.+/);
+
+            await from.setValue('a');
+
+            expect(wrapper.find('.state').text()).toBe(`true|${to.element.validationMessage}`);
+
+            await to.setValue('b');
+
+            expect(wrapper.find('.state').text()).toBe('false|');
+
+            wrapper.unmount();
+        });
+
+        it('stops counting a control removed from the field', async () => {
+            const wrapper = mount({
+                components: {
+                    BaseForm,
+                    BaseField,
+                    BaseInput
+                },
+                data: () => ({ showTo: true }),
+                template: `
+                    <BaseForm validate>
+                        <BaseField v-slot="{ invalid }">
+                            <BaseInput class="from" required/>
+                            <BaseInput v-if="showTo" class="to" required/>
+                            <span class="state">{{ invalid }}</span>
+                        </BaseField>
+                    </BaseForm>
+                `
+            }, { attachTo: document.body });
+
+            await wrapper.find('form').trigger('submit');
+
+            wrapper.vm.showTo = false;
+            await nextTick();
+            await wrapper.find('.from').setValue('a');
+
+            expect(wrapper.find('.state').text()).toBe('false');
+
+            wrapper.unmount();
+        });
+
+        it('clears the tracked controls on reset', async () => {
+            const wrapper = mountRange();
+
+            await wrapper.find('form').trigger('submit');
+            wrapper.find('form').element.reset();
+            await nextTick();
+
+            expect(wrapper.find('.state').text()).toBe('false|');
+
+            // Fixing a control after the reset must not resurrect the old state.
+            await wrapper.find('.from').setValue('a');
+
+            expect(wrapper.find('.state').text()).toBe('false|');
+
+            wrapper.unmount();
+        });
+    });
+
     // An app filling a field itself — an address lookup, a restored draft —
     // fires no input event. The field must still notice the value now passes,
     // whichever control it holds.

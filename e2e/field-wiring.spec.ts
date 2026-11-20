@@ -107,3 +107,28 @@ test('flags a native control as invalid through the scoped slot', async ({ page 
     await expect(input).toHaveAttribute('aria-invalid', 'true');
     await expect(message).not.toHaveText(/Not a Charpente component/);
 });
+
+// A field holding several controls (a date range) stays invalid until every
+// control it flagged is valid again.
+test('a field with two controls stays invalid until both are fixed', async ({ page }) => {
+    await page.getByRole('button', { name: 'Composition' }).click();
+
+    const from = page.getByPlaceholder('From', { exact: true });
+    const to = page.getByPlaceholder('To', { exact: true });
+    const hint = page.locator('.range-field p.value');
+
+    await page.getByRole('button', { name: 'Book' }).click();
+
+    await expect(from).toHaveAttribute('aria-invalid', 'true');
+    await expect(to).toHaveAttribute('aria-invalid', 'true');
+
+    await from.fill('2026-01-01');
+
+    await expect(hint).not.toHaveText('Both dates are required.');
+
+    await to.fill('2026-01-02');
+
+    await expect(hint).toHaveText('Both dates are required.');
+    await expect(from).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(to).not.toHaveAttribute('aria-invalid', 'true');
+});

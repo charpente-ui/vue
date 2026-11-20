@@ -78,22 +78,48 @@ export function useFieldState(rootRef: Readonly<Ref<HTMLElement | null>>) {
         }
     }
 
+    // A field can hold several controls (a date range). Tracking only the last
+    // control to speak would let one fixed control clear the field while another is
+    // still invalid, so the controls flagged invalid are remembered. Plain Set, not
+    // reactive: only `invalidated` and `validationMessage` drive rendering.
+    const invalidControls = new Set<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>();
+
     // The invalid event does not bubble but crosses the field during the capture
     // phase, whichever control is inside.
     function onInvalid(event: Event) {
+        const control = event.target as HTMLInputElement;
+
+        invalidControls.add(control);
         invalidated.value = true;
-        validationMessage.value = (event.target as HTMLInputElement).validationMessage;
+        validationMessage.value = control.validationMessage;
     }
 
     // Once a control has been flagged invalid, follow its validity live so the
     // message and invalid state clear as soon as the user fixes the value. Nothing
     // happens before that first rejection: a field must not shout at a value the
-    // user has not finished typing.
+    // user has not finished typing. The field stays invalid while any flagged
+    // control still is; a control no longer inside the field no longer counts.
     function syncValidity(control: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
-        if (invalidated.value) {
-            invalidated.value = !control.validity.valid;
-            validationMessage.value = control.validationMessage;
+        if (!invalidated.value) {
+            return;
         }
+
+        if (!control.validity.valid) {
+            invalidControls.add(control);
+        }
+
+        // Every flagged control is re-read, not only the one that fired: fixing a
+        // radio makes its whole group valid without the others firing any event.
+        for (const flagged of invalidControls) {
+            if (flagged.validity.valid || !rootRef.value?.contains(flagged)) {
+                invalidControls.delete(flagged);
+            }
+        }
+
+        invalidated.value = invalidControls.size > 0;
+        validationMessage.value = control.validity.valid
+            ? (invalidControls.values().next().value?.validationMessage ?? '')
+            : control.validationMessage;
     }
 
     // A field is not limited to form controls: a contenteditable editor or a
@@ -115,6 +141,7 @@ export function useFieldState(rootRef: Readonly<Ref<HTMLElement | null>>) {
     // Resetting wipes the values that made the control invalid, so the message and
     // invalid state must go with them — back to the pre-submit state.
     function handleReset() {
+        invalidControls.clear();
         invalidated.value = false;
         validationMessage.value = '';
     }
