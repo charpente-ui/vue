@@ -30,6 +30,7 @@ describe('development warnings', () => {
     afterEach(() => {
         warn.mockRestore();
         vi.unstubAllEnvs();
+        vi.unstubAllGlobals();
     });
 
     function charpenteWarnings() {
@@ -160,6 +161,25 @@ describe('development warnings', () => {
                 <BaseCheckboxGroup><BaseCheckbox v-model="own" value="b"/></BaseCheckboxGroup>
             `
         });
+
+        expect(charpenteWarnings()).toEqual([]);
+    });
+
+    // Loaded without a bundler (import map, CDN ESM), `process` does not exist.
+    it('neither throws nor warns when process is unavailable', () => {
+        vi.stubGlobal('process', undefined);
+
+        expect(() => mount({
+            components,
+            data: () => ({
+                own: false
+            }),
+            template: `
+                <BaseLabel>Alone</BaseLabel>
+                <BaseRadioGroup><BaseRadio v-model="own" value="a"/></BaseRadioGroup>
+                <BaseCheckboxGroup><BaseCheckbox v-model="own" value="b"/></BaseCheckboxGroup>
+            `
+        })).not.toThrow();
 
         expect(charpenteWarnings()).toEqual([]);
     });

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, useTemplateRef } from 'vue';
+import { isDev } from './internal/env';
 import { checkboxGroupKey, fieldKey, radioGroupKey } from './internal/keys';
 
 defineOptions({
@@ -23,7 +24,7 @@ const labelFor = computed(() => {
 // control nor names it renders without `for` and labels nothing — silently.
 // `control` is the browser's own answer to "what does this label label", so
 // wrapping, `for` and an item-level CField are all recognised as they are.
-if (process.env.NODE_ENV !== 'production') {
+if (isDev()) {
     const inGroup = !!inject(radioGroupKey, null) || !!inject(checkboxGroupKey, null);
 
     onMounted(() => {

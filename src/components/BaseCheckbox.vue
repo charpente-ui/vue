@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, useAttrs, useTemplateRef, watchPostEffect } from 'vue';
+import { isDev } from './internal/env';
 import { checkboxGroupKey } from './internal/keys';
 import { useFieldControl } from './internal/field';
 import { hasOwnVModel } from './internal/model';
@@ -22,7 +23,7 @@ const model = group ? group.model : localModel;
 
 // Inside a group the group's model is the one bound, so an item's own v-model
 // would be dropped without a word.
-if (process.env.NODE_ENV !== 'production' && group && hasOwnVModel()) {
+if (isDev() && group && hasOwnVModel()) {
     console.warn('[Charpente] CCheckbox inside a CCheckboxGroup ignores its own v-model: bind v-model on the '
         + 'group and give the checkbox a `value`.');
 }

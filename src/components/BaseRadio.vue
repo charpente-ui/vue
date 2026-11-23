@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, useAttrs, useTemplateRef } from 'vue';
+import { isDev } from './internal/env';
 import { radioGroupKey } from './internal/keys';
 import { useFieldControl } from './internal/field';
 import { hasOwnVModel } from './internal/model';
@@ -21,7 +22,7 @@ const model = group ? group.model : localModel;
 
 // Inside a group the group's model is the one bound, so an item's own v-model
 // would be dropped without a word.
-if (process.env.NODE_ENV !== 'production' && group && hasOwnVModel()) {
+if (isDev() && group && hasOwnVModel()) {
     console.warn('[Charpente] CRadio inside a CRadioGroup ignores its own v-model: bind v-model on the group.');
 }
 
