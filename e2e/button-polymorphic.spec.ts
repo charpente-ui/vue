@@ -19,3 +19,8 @@ test('CButton as="a" renders a real link, without the button type', async ({ pag
     await expect(link).toHaveAttribute('href', '#');
     await expect(link).not.toHaveAttribute('type', /.*/);
 });
+
+// `el` used to be `null` for an SVG root, which is not an HTMLElement.
+test('CButton as="svg" exposes its SVG element', async ({ page }) => {
+    await expect(page.getByTestId('svg-button-tag')).toHaveText('svg');
+});

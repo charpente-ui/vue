@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<{
 });
 
 const attrs = useAttrs();
-const textRef = useTemplateRef<HTMLElement | ComponentPublicInstance>('text');
+const textRef = useTemplateRef<HTMLElement | SVGElement | ComponentPublicInstance>('text');
 const generatedId = useGeneratedId();
 const field = inject(fieldKey, null);
 

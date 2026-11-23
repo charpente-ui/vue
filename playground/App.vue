@@ -15,6 +15,8 @@ import { CButton,
     CTextarea } from '@charpente-ui/vue';
 import type { SelectOptionItem } from '@charpente-ui/vue';
 
+const svgButton = ref<{ el: HTMLElement | SVGElement | null } | null>(null);
+const svgButtonTag = computed(() => svgButton.value?.el?.tagName ?? '');
 const text = ref('');
 const number = ref(0);
 const lazyText = ref('');
@@ -191,6 +193,8 @@ const activeTab = ref<typeof tabs[number]['id']>('primitives');
                             <div class="row">
                                 <CButton>Button</CButton>
                                 <CButton as="a" href="#">As link</CButton>
+                                <CButton ref="svgButton" as="svg"/>
+                                <span data-testid="svg-button-tag">{{ svgButtonTag }}</span>
                             </div>
                             <p class="value">Defaults to <code>type="button"</code> — no accidental form submits.</p>
                             <div class="code-block">

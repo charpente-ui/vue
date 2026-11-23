@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
 });
 
 const attrs = useAttrs();
-const rootRef = useTemplateRef<HTMLElement | ComponentPublicInstance>('root');
+const rootRef = useTemplateRef<HTMLElement | SVGElement | ComponentPublicInstance>('root');
 
 // Native buttons default to type="submit", which triggers accidental form
 // submissions. Default to type="button" unless an explicit type is passed.

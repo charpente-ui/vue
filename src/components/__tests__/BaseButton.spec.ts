@@ -25,6 +25,14 @@ describe('BaseButton', () => {
         expect(wrapper.element.tagName).toBe('A');
     });
 
+    it('exposes an SVG root as its element', () => {
+        const wrapper = mount(BaseButton, { props: { as: 'svg' } });
+        const el = (wrapper.vm as unknown as { el: HTMLElement | SVGElement | null }).el;
+
+        expect(el).toBeInstanceOf(SVGElement);
+        expect(el).toBe(wrapper.element);
+    });
+
     it('renders as a Vue component via the "as" prop', () => {
         const CustomComponent = markRaw(defineComponent({
             template: '<span><slot /></span>'

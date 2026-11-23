@@ -82,9 +82,9 @@ over the `aria-live="polite"` that `validation` would otherwise set.
 
 ### Exposed
 
-| Property | Type                  | Description                                  |
-|----------|-----------------------|----------------------------------------------|
-| `el`     | `HTMLElement \| null` | The rendered element, through a template ref |
+| Property | Type                                | Description                                  |
+|----------|-------------------------------------|----------------------------------------------|
+| `el`     | `HTMLElement \| SVGElement \| null` | The rendered element, through a template ref |
 
 ```vue
 <CSupportingText ref="control"/>

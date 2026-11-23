@@ -59,9 +59,9 @@ Every other attribute (`type`, `disabled`, `form`, `formnovalidate`, `class`…)
 
 ### Exposed
 
-| Property | Type                     | Description                                    |
-|----------|--------------------------|------------------------------------------------|
-| `el`     | `HTMLElement \| null`    | The rendered element, through a template ref   |
+| Property | Type                                | Description                                  |
+|----------|-------------------------------------|----------------------------------------------|
+| `el`     | `HTMLElement \| SVGElement \| null` | The rendered element, through a template ref |
 
 ```vue
 <CButton ref="control"/>
