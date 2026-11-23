@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.1](https://github.com/charpente-ui/vue/compare/v2.13.0...v2.13.1) (2026-11-23)
+
+### Bug Fixes
+
+* **button:** expose SVG root elements ([fc13ab5](https://github.com/charpente-ui/vue/commit/fc13ab56956325d14acf878d559860770ca1e327))
+* **core:** avoid crashing when process is undefined ([8061e76](https://github.com/charpente-ui/vue/commit/8061e76503cfdfb44da85d33fbc5a07be8f3fcff))
+* **field:** reference a shared supporting text id once ([602ff9f](https://github.com/charpente-ui/vue/commit/602ff9f3ca53b8f4735f8388b58dc42a87b4f29d))
+* **field:** stay invalid while any flagged control still is ([0d6c7ca](https://github.com/charpente-ui/vue/commit/0d6c7caf2863c900a9051d95317a4ec587a8578c))
+* **select:** keep option keys unique and bind arrays to multiple ([308c8a2](https://github.com/charpente-ui/vue/commit/308c8a271ec493d2eab4a03e4bdfdf188414ede9))
+* **supporting-text:** announce validation messages politely ([d45c623](https://github.com/charpente-ui/vue/commit/d45c623e0f44e5586db98c5d51fa89e1c61cf896))
+
 ## [2.13.0](https://github.com/charpente-ui/vue/compare/v2.12.1...v2.13.0) (2026-11-20)
 
 ### Features
